@@ -19,15 +19,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Desmond To Cie Hong
 
-<img src="images/desmondto.png" width="200px">
+### Shui Jie
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+<img src="images/sj1999-bit.png" width="200px">
 
-* Role: Team Lead
-* Responsibilities: UI
+[[github](https://github.com/sj1999-BIT)]
+[[portfolio](team/sj1999-bit.md)]
+
+* Role: developer
+* Responsibilities: Add filter contact, add group contact
 
 ### Johnny Doe
 
@@ -48,12 +49,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Desmond To Cie Hong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/desmondto.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/desmondto)]
+[[portfolio](team/desmondto.md)]
 
 * Role: Developer
 * Responsibilities: UI
