@@ -19,15 +19,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Shui Jie
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/sj1999-bit.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/sj1999-BIT)]
+[[portfolio](team/sj1999-bit.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: developer
+* Responsibilities: Add filter contact, add group contact
 
 ### Johnny Doe
 
