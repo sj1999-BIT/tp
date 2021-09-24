@@ -30,11 +30,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: developer
 * Responsibilities: Add filter contact, add group contact
 
-### Johnny Doe
+### Ruohang Yin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ruohang.jpg" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/yin72257)] [[portfolio](team/ruohang.md)]
 
 * Role: Developer
 * Responsibilities: Data
