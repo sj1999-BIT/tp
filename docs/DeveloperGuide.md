@@ -316,7 +316,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  Should be able store and manage at least 100 contacts.
 3.  Should be able to guarantee data security to protect privacy of user.
 4.  Should not store more than 20MB of infomation.
-5.   
+5.  Program should respond within 2 seconds of each command.
+6.  Product is not handling multiple users planning a wedding at once.
+7.  Should be usable by anyone who understands english without any experience in planning weddings. 
 
 *{More to be added}*
 
