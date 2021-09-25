@@ -154,21 +154,33 @@ Exits the program.
 
 Format: `exit`
 
-### Saving the data
+### Adding shortcuts : `shortcut`
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+ Add a shortcut bound to the SHORTCUT button
+ 
+Format: `shortcut SHORTCUT [c/COMMAND]`
 
-### Editing the data file
+* SHORTCUT is a set of values of 10 buttons [q, w, e, r, a, s, d, z, x, c]
 
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
-</div>
+Examples:
+* `shortcut q c/find Food`
+* `shortcut w c/order b/price`
 
-### Archiving data files `[coming in v2.0]`
+### Remind via email : `remind`
 
-_Details coming soon ..._
+Sends a email reminder to the user
+
+Format: ` remind [e/EMAIL](optional)`
+
+* Toggles daily reminder on or off if EMAIL is empty.
+* Set remind to be true if EMAIL isn't empty and set the email reminders are sent to.
+
+Examples:
+* `remind` toggle reminder
+* `remind e/bob@gmail.com`
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -190,3 +202,5 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+**Shortcut** | `shortcut`<br> e.g. `shortcut q c/find Food`
+**Reminder** | `remind` <br> eg. `remind e/bob@gmail.com`
