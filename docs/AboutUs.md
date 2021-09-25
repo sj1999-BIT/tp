@@ -32,7 +32,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Ruohang Yin
 
-<img src="images/ruohang.jpg" width="200px">
+<img src="images/yin72257.png" width="200px">
 
 [[github](http://github.com/yin72257)] [[portfolio](team/ruohang.md)]
 
