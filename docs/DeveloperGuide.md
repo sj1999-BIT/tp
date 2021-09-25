@@ -285,29 +285,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Adding a contact to a group**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User types out name of contact with group name using specified format.
+2. User clicks enter.
+3. System adds contact to said group.
+
+    Use case ends.
+
+**Use case:  Filter contacts**
+
+**MSS**
+
+1. User types out group and/or tag in specified format.
+2. User clicks enter.
+3. System filters contacts that fall under that group and/or tag.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The given group/tag does not exist.
 
-  Use case ends.
+    Use case ends.
+      
+**Use case:  Track Important Information**
 
-* 3a. The given index is invalid.
+**MSS**
 
-    * 3a1. AddressBook shows an error message.
+1. User types in key details when creating contacts.
+2. User types “track”.
+3. User clicks enter.
+4. System summarises information user has typed in under the “Important Information” field across all contacts
 
-      Use case resumes at step 2.
-
+    Use case ends.
+    
 *{More to be added}*
 
 ### Non-Functional Requirements
