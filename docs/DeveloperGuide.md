@@ -316,7 +316,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  Should be able store and manage at least 100 contacts.
 3.  Should be able to guarantee data security to protect privacy of user.
 4.  Should not store more than 20MB of infomation.
-5.   
+5.  Should work on any android or IOS device
+6.  Should be responsive enough to provide result within 1 second
 
 *{More to be added}*
 
