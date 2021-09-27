@@ -297,45 +297,66 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `WedFast` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Add a contact to a group**
+
+**Guarantees**
+* Contact will be added to group only if both the contact and group exists.
 
 **MSS**
 
 1. User types out name of contact with group name using specified format.
-2. User clicks enter.
-3. System adds contact to said group.
-
+2. User clicks `Enter` button.
+3. System adds contact to said group.<br>
     Use case ends.
 
+**Extensions**
+* 2a. Either name/group name is unspecified/blank(white spaces only) or does not exist.
+    * System shows an error message.<br>
+    Use case resumes at step 1.
+
 **Use case:  Filter contacts**
+
+**Guarantees:**
+* System successfully filter and display the contacts list only if the group/tag exists.
 
 **MSS**
 
 1. User types out group and/or tag in specified format.
-2. User clicks enter.
-3. System filters contacts that fall under that group and/or tag.
-
+2. User clicks `Enter` button.
+3. System filters contacts that fall under that group and/or tag.<br>
     Use case ends.
 
 **Extensions**
-
-* 1a. The given group/tag does not exist.
-
-    Use case ends.
+* 2a. Either group/tag name is unspecified/blank(white spaces only) or does not exist.
+    * System shows an error message.<br>
+      Use case resumes at step 1.
       
-**Use case:  Track Important Information**
+**Use case:  Track important information**
 
 **MSS**
 
 1. User types in key details when creating contacts.
-2. User types “track”.
-3. User clicks enter.
-4. System summarises information user has typed in under the “Important Information” field across all contacts
-
+2. User types `track`.
+3. User clicks `Enter` button.
+4. System summarises information user has typed in under the “Important Information” field across all contacts.<br>
     Use case ends.
-    
+
+**Use case: Add/Edit price tag**
+
+**Guarantees:**
+* A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
+
+1. When adding/editing contact, user puts the price detail.
+2. User clicks `Enter` button.
+3. System update the contact list and the target contact will now have price tag.
+
+**Extensions**
+* 2a. Price is unspecified/blank(white spaces only) or written in invalid format.
+    * System shows an error message.<br>
+      Use case resumes at step 1.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
