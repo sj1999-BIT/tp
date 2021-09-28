@@ -166,7 +166,7 @@ Exits the program.
 
 Format: `exit`
 
-### Adding shortcuts : `shortcut`
+### Adding shortcuts : `shortcut` (Coming v1.2)
 
  Add a shortcut bound to the SHORTCUT button
  
@@ -179,7 +179,7 @@ Examples:
 * `shortcut q c/find Food`
 * `shortcut w c/order b/price`
 
-### Remind via email : `remind`
+### Remind via email : `remind` (Coming v1.2)
 
 Sends a email reminder to the user
 
