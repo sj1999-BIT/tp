@@ -307,13 +307,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User types out name of contact with group name using specified format.
-2. User clicks `Enter` button.
+2. User confirms.
 3. System adds contact to said group.<br>
     Use case ends.
 
 **Extensions**
-* 2a. Either name/group name is unspecified/blank(white spaces only) or does not exist.
-    * System shows an error message.<br>
+* 2a. Either name/group name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
     Use case resumes at step 1.
 
 **Use case:  Filter contacts**
@@ -324,13 +325,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User types out group and/or tag in specified format.
-2. User clicks `Enter` button.
+2. User confirms.
 3. System filters contacts that fall under that group and/or tag.<br>
     Use case ends.
 
 **Extensions**
-* 2a. Either group/tag name is unspecified/blank(white spaces only) or does not exist.
-    * System shows an error message.<br>
+* 2a. Either group/tag name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
       Use case resumes at step 1.
       
 **Use case:  Track important information**
@@ -338,9 +340,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User types in key details when creating contacts.
-2. User types `track`.
-3. User clicks `Enter` button.
-4. System summarises information user has typed in under the “Important Information” field across all contacts.<br>
+2. User types out the tracking command keyword.
+3. User confirms.
+4. System summarises all the important information typed by user across all contacts.<br>
     Use case ends.
 
 **Use case: Add/Edit price tag**
@@ -348,13 +350,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees:**
 * A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
 
-1. When adding/editing contact, user puts the price detail.
-2. User clicks `Enter` button.
-3. System update the contact list and the target contact will now have price tag.
+1. When adding/editing contact, user also types in the price detail.
+2. User confirms.
+3. System updates the contact list and the target contact will now have price tag(s).
+    Use case ends.
 
 **Extensions**
-* 2a. Price is unspecified/blank(white spaces only) or written in invalid format.
-    * System shows an error message.<br>
+* 2a. Price is unspecified/blank(white spaces only)/written in invalid format.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
       Use case resumes at step 1.
 
 *{More to be added}*
@@ -362,11 +366,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any pc as long as it has Java `11` or above installed.
-2.  Should be able store and manage at least 100 contacts.
+2.  Should be able to store and manage at least 100 contacts.
 3.  Should be able to guarantee data security to protect privacy of user.
 4.  Should not store more than 20MB of infomation.
 5.  Program should respond within 2 seconds of each command.
-6.  Product is not handling multiple users planning a wedding at once.
+6.  Product is not handling more than 1 user planning a wedding at once.
 7.  Should be usable by anyone who understands english without any experience in planning weddings. 
 
 
@@ -377,7 +381,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **API**: The Application Programming Interface specifies the interface through which software and other programs interact
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Filter**: Add tags to contacts such as price, type of contact
+* **Filter**: Add tags to the contacts such as price, type of contact
 
 --------------------------------------------------------------------------------------------------------------------
 
