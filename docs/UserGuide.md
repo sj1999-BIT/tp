@@ -190,7 +190,7 @@ Add the specific CONTACT to the specific group with the name GROUP_NAME
 
 Examples
 * `group c/Alex Yoeh g/Team4`
-* `The contact Alex Yoeh will now be grouped to Team4`
+* The contact `Alex Yoeh` will now be grouped to Team4
 
 ### Filter contacts: `filter`
 
