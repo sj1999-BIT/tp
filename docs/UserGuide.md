@@ -180,6 +180,30 @@ Examples:
 * `remind` toggle reminder
 * `remind e/bob@gmail.com`
 
+### Group Contacts: `group`
+
+Groups existing contacts together to a existing named group or create a new group
+
+Format: `group [c/CONTACT] [g/GROUP_NAME]`
+
+Add the specific CONTACT to the specific group with the name GROUP_NAME
+
+Examples
+* `group c/Alex Yoeh g/Team4`
+* `The contact Alex Yoeh will now be grouped to Team4`
+
+### Filter contacts: `filter`
+
+Filter the specific group to obtain a list of contacts that shares all the tags 
+
+Format: `filter [g/GROUP_NAME] [t/TAG]...`
+
+Filter through the specific group with name GROUP_NAME to obtain a list of CONTACTs which are tagged with all the TAG.
+
+Examples:
+* `filter g/Team4 t/male returns DESMOND, SHUIJIE and RUOHANG as they all have the tag male`
+* `filter g/Team 4 t/colleagues t/friends returns Bernice YU as only he have all the tags: colleagues and friends`
+
 
 
 --------------------------------------------------------------------------------------------------------------------
