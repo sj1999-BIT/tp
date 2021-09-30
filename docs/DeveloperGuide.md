@@ -284,7 +284,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | expert user                                   | use shortcuts to access different features                        | utilise the app efficiently                                            |
 | `* * *`  | frugal user                                   | add price tags to contacts                                        | avoid exceeding my budget                                              |
 | `* * *`  | forgetful user                                | notified for a specific time to remind myself to complete a task  | avoid forgetting to complete any important tasks                       |
-| `* * *`  | user with poor time management skills         | keep track of payment and deadlines                               |  avoid missing any payments and getting fined                          |
+| `* * *`  | user with poor time management skills         | keep track of payment and deadlines                               | avoid missing any payments and getting fined                          |
 | `* * *`  | very organized user                           | group contacts under the same category                            | manipulate the contacts easily                                         |
 | `* * *`  | user who wants to customise the program       | create shortcuts for longer commands                              | use the commands more efficiently                                      |
 | `* * *`  | infrequent user                               | get reminded via email of when to handle contacts                 | avoid not being aware of my plans                                      |
@@ -381,9 +381,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **PlantUML**: is a tool for specifying various diagrams in a textual form.
 * **API**: The Application Programming Interface specifies the interface through which software and other programs interact
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Filter**: Add tags to the contacts such as price, type of contact
+* **Filter**: Add tags to contacts such as price, type of contact
+* **Actor**: a role played by a use case
 
 --------------------------------------------------------------------------------------------------------------------
 
