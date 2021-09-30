@@ -74,7 +74,6 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-
 ### Adding a person: `add`
 
 Adds a person to the WedFast contact list.
@@ -91,7 +90,8 @@ Examples:
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in WedFast's contacts.
+Lists the existing contacts based on the group. 
+If the group name is unspecified, then list all the existing contacts.
 
 Format: `list`
 
@@ -142,17 +142,25 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the WedFast contact list.
+Deletes the specified person from WedFast, either via index or name.
 
-Format: `delete INDEX`
+Format: `delete INDEX` or `delete NAME`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* `delete INDEX`: Deletes the person at the specified `INDEX`. 
+  The index is a positive number corresponding to the number of the person in the list.
+* `delete NAME`: Deletes the person with the specified `NAME`.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the WedFast contact list.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `delete 2` deletes the 2nd person in the address book.
+* `delete John Doe` deletes all the John Doe’s in the list
+* `find NAME` followed by delete 2 deletes the 2nd person whose name matches the name being searched, if they exist. 
+  Otherwise, a message is shown stating that the index is not valid.
+  
+### Undoing a command : `undo`
+
+Undoes the last edit that was made to the program.
+
+Format: `undo`
 
 ### Clearing all entries : `clear`
 
