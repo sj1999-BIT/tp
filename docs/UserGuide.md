@@ -201,8 +201,8 @@ Format: `filter [g/GROUP_NAME] [t/TAG]...`
 Filter through the specific group with name GROUP_NAME to obtain a list of CONTACTs which are tagged with all the TAG.
 
 Examples:
-* `filter g/Team4 t/male returns DESMOND, SHUIJIE and RUOHANG as they all have the tag male`
-* `filter g/Team 4 t/colleagues t/friends returns Bernice YU as only he have all the tags: colleagues and friends`
+* `filter g/Team4 t/male` returns DESMOND, SHUIJIE and RUOHANG as they all have the tag male
+* `filter g/Team 4 t/colleagues t/friends` returns Bernice YU as only he have all the tags: colleagues and friends
 
 
 
