@@ -270,72 +270,118 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                                    | I want to …​                                                   | So that I can…​                                                     |
+| -------- | --------------------------------------------- | ----------------------------------------------------------------  | ---------------------------------------------------------------------- |
+| `* * *`  | new user                                      | read usage instructions                                           | refer to instructions when I forget how to use the App                 |
+| `* * *`  | user                                          | add a new person                                                  |                                                                        |
+| `* * *`  | user with changing plans                      | delete a person                                                   | remove entries that I no longer need                                   |
+| `* * *`  | user who wants convenience                    | find a person by name                                             | save time by not searching through the entire contact list             |
+| `* * *`  | private user                                  | hide private contact details                                      | minimize chance of someone else seeing them by accident                |
+| `* * *`  | user with several contacts                    | filter contacts                                                   | keep track of them                                                     |
+| `* * *`  | careless user                                 | undo the last incorrect change made to tasks                      | revert my mistake                                                      |
+| `* * *`  | expert user                                   | use shortcuts to access different features                        | utilise the app efficiently                                            |
+| `* * *`  | frugal user                                   | add price tags to contacts                                        | avoid exceeding my budget                                              |
+| `* * *`  | forgetful user                                | notified for a specific time to remind myself to complete a task  | avoid forgetting to complete any important tasks                       |
+| `* * *`  | user with poor time management skills         | keep track of payment and deadlines                               |  avoid missing any payments and getting fined                          |
+| `* * *`  | very organized user                           | group contacts under the same category                            | manipulate the contacts easily                                         |
+| `* * *`  | user who wants to customise the program       | create shortcuts for longer commands                              | use the commands more efficiently                                      |
+| `* * *`  | infrequent user                               | get reminded via email of when to handle contacts                 | avoid not being aware of my plans                                      |
+| `* *  `  | user who relies on faces for for recognition  | view the profile picture of contacts whose faces I have forgotten | recognise these people should I have to meet them in the future        |
+| `* *  `  | user with limited time to find contacts       | access recommended contacts                                       | prioritise adding more important contacts from scratch                 |
+| `* *  `  | user who needs to prioritise certain contacts | rank the contacts                                                 | see who needs to be called more often                                  |
+| `* *  `  | busy user                                     | schedule different timings for different contacts                 | plan the wedding around my schedule                                    |
+| `* *  `  | user who invites a lot of people              | check the attending status of guests                              | my plan is consistent                                                  |
+
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `WedFast` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Add a contact to a group**
+
+**Guarantees**
+* Contact will be added to group only if both the contact and group exists.
 
 **MSS**
 
 1. User types out name of contact with group name using specified format.
-2. User clicks enter.
-3. System adds contact to said group.
-
+2. User confirms.
+3. System adds contact to said group.<br>
     Use case ends.
 
+**Extensions**
+* 2a. Either name/group name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
+    Use case resumes at step 1.
+
 **Use case:  Filter contacts**
+
+**Guarantees:**
+* System successfully filter and display the contacts list only if the group/tag exists.
 
 **MSS**
 
 1. User types out group and/or tag in specified format.
-2. User clicks enter.
-3. System filters contacts that fall under that group and/or tag.
-
+2. User confirms.
+3. System filters contacts that fall under that group and/or tag.<br>
     Use case ends.
 
 **Extensions**
-
-* 1a. The given group/tag does not exist.
-
-    Use case ends.
+* 2a. Either group/tag name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
+      Use case resumes at step 1.
       
-**Use case:  Track Important Information**
+**Use case:  Track important information**
 
 **MSS**
 
 1. User types in key details when creating contacts.
-2. User types “track”.
-3. User clicks enter.
-4. System summarises information user has typed in under the “Important Information” field across all contacts
-
+2. User types out the tracking command keyword.
+3. User confirms.
+4. System summarises all the important information typed by user across all contacts.<br>
     Use case ends.
-    
+
+**Use case: Add/Edit price tag**
+
+**Guarantees:**
+* A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
+
+1. When adding/editing contact, user also types in the price detail.
+2. User confirms.
+3. System updates the contact list and the target contact will now have price tag(s).
+    Use case ends.
+
+**Extensions**
+* 2a. Price is unspecified/blank(white spaces only)/written in invalid format.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
+      Use case resumes at step 1.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1.  Should work on any pc as long as it has Java `11` or above installed.
+2.  Should be able to store and manage at least 100 contacts.
+3.  Should be able to guarantee data security to protect privacy of user.
+4.  Should not store more than 20MB of infomation.
+5.  Program should respond within 2 seconds of each command.
+6.  Product is not handling more than 1 user planning a wedding at once.
+7.  Should be usable by anyone who understands english without any experience in planning weddings. 
+
 
 *{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **API**: The Application Programming Interface specifies the interface through which software and other programs interact
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Filter**: Add tags to the contacts such as price, type of contact
 
 --------------------------------------------------------------------------------------------------------------------
 
