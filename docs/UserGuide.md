@@ -78,15 +78,11 @@ Format: `help`
 
 Adds a person to the WedFast contact list.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/TAG]…​`
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Ben Tan p/93470983 e/ben111@gmail.com a/Fake street, block 111, #02-04 pr/$100 i/only contactable via whatsapp r/meeting on tuesday at 3pm g/photographer`
+![addition of contact](images/addContact.png)
 
 ### Listing all persons : `list`
 
@@ -109,7 +105,7 @@ block 999, #09-99 pr/500.00`
 
 Edits an existing person in the WedFast contact list.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/tag]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -119,8 +115,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/98392740 e/ben123@example.com` Edits the phone number and email address of the 1st person to be `98392740` and `ben123@example.com` respectively.
+*  `edit 2 n/William Tan t/` Edits the name of the 2nd person to be `William Tan` and clears all existing tags.
+![amendment of contact](images/editContact.png)
 
 ### Locating persons by name: `find`
 
@@ -162,6 +159,14 @@ Undoes the last edit that was made to the program.
 
 Format: `undo`
 
+### Keep Track of important information : `track`
+
+Collates and summarises the information user has typed in under the “Important Information” field across all contacts (provided that user did not leave important information field empty).
+
+Format: `track`
+
+![tracking of contact](images/trackInformation.png)
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the WedFast contact list.
@@ -199,6 +204,7 @@ Format: ` remind [e/EMAIL](optional)`
 Examples:
 * `remind` toggle reminder
 * `remind e/bob@gmail.com`
+
 
 
 
