@@ -257,13 +257,15 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* plans a wedding for himself/herself
+* has a need to manage a significant number of contacts of who will be involving/in-charged for the wedding
+* prefers desktop applications over other types
+* can type fast on keyboards
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable and prefers using CLI applications
+* is often forgetful and needs a program that will assist him with keeping track of the wedding details
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage contacts faster than a typical mouse/GUI driven app and more specific to wedding-planning
 
 
 ### User stories
