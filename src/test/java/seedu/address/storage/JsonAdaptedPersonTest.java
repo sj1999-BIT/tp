@@ -130,7 +130,7 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_invalidImportantInfo_throwsIllegalValueException() {
+    public void toModelType_invalidInfo_throwsIllegalValueException() {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         VALID_PRICE, INVALID_INFO, VALID_TAGS);
@@ -139,7 +139,7 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_nullImportantInfo_throwsIllegalValueException() {
+    public void toModelType_nullInfo_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_PRICE, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Info.class.getSimpleName());

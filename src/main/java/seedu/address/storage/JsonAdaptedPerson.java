@@ -116,7 +116,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
         if (!Price.isValidPrice(price)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
         final Price modelPrice = new Price(price);
 
@@ -124,7 +124,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Info.MESSAGE_CONSTRAINTS);
         }
         final Info modelInfo = new Info(info);
 
