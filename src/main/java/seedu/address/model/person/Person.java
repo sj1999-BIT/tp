@@ -58,7 +58,9 @@ public class Person {
         return address;
     }
 
-    public Price getPrice() { return price; }
+    public Price getPrice() {
+        return price;
+    }
 
     public Info getInfo() {
         return info;
