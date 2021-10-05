@@ -9,9 +9,9 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Ravi Ananya
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/banana3021.png" width="200px">
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/johndoe)]
@@ -32,16 +32,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Ruohang Yin
 
-<img src="images/ruohang.jpg" width="200px">
+<img src="images/yin72257.png" width="200px">
 
 [[github](http://github.com/yin72257)] [[portfolio](team/ruohang.md)]
 
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Linda Tom
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/linda124.png" width="200px">
 
 [[github](http://github.com/johndoe)]
 [[portfolio](team/johndoe.md)]
