@@ -2,13 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
 /**
  * Warn the user with a prompt window before the actual clear command executed.
  * Clears the address book.
