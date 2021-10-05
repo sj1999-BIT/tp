@@ -38,7 +38,7 @@ public class ClearCommand extends Command {
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
             // if yes is picked, the address book data in model will be reset
-            if(result ==JOptionPane.YES_OPTION) {
+            if (result == JOptionPane.YES_OPTION) {
                 model.setAddressBook(new AddressBook());
                 return new CommandResult(MESSAGE_SUCCESS);
             } else {
