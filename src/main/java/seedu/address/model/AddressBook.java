@@ -30,6 +30,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
+     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     */
+    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    /**
      * return the current size of the internalList in the UniquePersonList variable
      * persons
      * @return integer for size of the list
@@ -38,13 +46,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.size();
     }
 
-    /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
-     */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this();
-        resetData(toBeCopied);
-    }
 
     //// list overwrite operations
 
