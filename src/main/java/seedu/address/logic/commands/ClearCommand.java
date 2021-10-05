@@ -34,8 +34,6 @@ public class ClearCommand extends Command {
         if (model.size() == 0) {
             return new CommandResult(MESSAGE_UNNECESSARY);
         } else {
-            // confirm that the address book is not empty
-            assert model.size() > 0;
             //create GUI will the choice of clearing the data
             JFrame frame = new JFrame();
             int result = JOptionPane.showConfirmDialog(frame, "Are you sure?\n All data will be cleared!", "WARNING",
