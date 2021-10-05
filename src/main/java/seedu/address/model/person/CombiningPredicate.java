@@ -10,6 +10,12 @@ public class CombiningPredicate implements Predicate<Person> {
     private Predicate<Person> firstPredicate;
     private Predicate<Person> secondPredicate;
 
+    /**
+     * Creates a new predicate that combines the logic of two predicates
+     *
+     * @param firstPredicate
+     * @param secondPredicate
+     */
     public CombiningPredicate(Predicate<Person> firstPredicate, Predicate<Person> secondPredicate) {
         this.firstPredicate = firstPredicate;
         this.secondPredicate = secondPredicate;
