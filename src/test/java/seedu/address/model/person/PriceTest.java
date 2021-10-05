@@ -36,3 +36,4 @@ public class PriceTest {
         assertTrue(Price.isValidPrice("14.03"));
     }
 }
+
