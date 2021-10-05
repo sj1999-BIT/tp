@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -24,6 +26,8 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Price;
+import seedu.address.model.person.Info;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,6 +45,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_PRICE + "PRICE] "
+            + "[" + PREFIX_INFO + "INFO] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -97,9 +103,13 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Price updatedPrice = editPersonDescriptor.getPrice().orElse(personToEdit.getPrice());
+        Info updatedInfo = editPersonDescriptor.getInfo().orElse(personToEdit.getInfo());
+
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
+                updatedPrice, updatedInfo, updatedTags);
     }
 
     @Override
@@ -129,6 +139,8 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private Price price;
+        private Info info;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -184,6 +196,22 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
+        public void setPrice(Price price) {
+            this.price = price;
+        }
+
+        public Optional<Price> getPrice() {
+            return Optional.ofNullable(price);
+        }
+
+        public void setInfo(Info info) {
+            this.info = info;
+        }
+
+        public Optional<Info> getInfo() {
+            return Optional.ofNullable(info);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -220,6 +248,8 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
+                    && getPrice().equals(e.getPrice())
+                    && getInfo().equals(e.getInfo())
                     && getTags().equals(e.getTags());
         }
     }

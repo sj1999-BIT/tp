@@ -19,20 +19,26 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Price price;
+    private final Info info;
 
     // Data fields
     private final Address address;
+
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Price price, Info info, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, price, info, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.price = price;
+        this.info = info;
         this.tags.addAll(tags);
     }
 
@@ -50,6 +56,12 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Price getPrice() { return price; }
+
+    public Info getInfo() {
+        return info;
     }
 
     /**
@@ -92,13 +104,15 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getPrice().equals(getPrice())
+                && otherPerson.getInfo().equals(getInfo())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, price, info, tags);
     }
 
     @Override
@@ -110,7 +124,11 @@ public class Person {
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")
-                .append(getAddress());
+                .append(getAddress())
+                .append("; Price: ")
+                .append(getPrice())
+                .append("; Info: ")
+                .append(getInfo());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
