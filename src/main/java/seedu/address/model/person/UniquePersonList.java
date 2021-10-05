@@ -29,6 +29,12 @@ public class UniquePersonList implements Iterable<Person> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     *
+     */
+    public int size() {
+        return internalList.size();
+    }
+    /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(Person toCheck) {
