@@ -2,11 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.ui.WarningWindow;
+
+
 /**
  * Warn the user with a prompt window before the actual clear command executed.
  * Clears the address book.
@@ -32,13 +33,9 @@ public class ClearCommand extends Command {
         if (model.size() == 0) {
             return new CommandResult(MESSAGE_UNNECESSARY);
         } else {
-            //create GUI will the choice of clearing the data
-            JFrame frame = new JFrame();
-            int result = JOptionPane.showConfirmDialog(frame, "Are you sure?\n All data will be cleared!", "WARNING",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
-            // if yes is picked, the address book data in model will be reset
-            if (result == JOptionPane.YES_OPTION) {
+            
+            WarningWindow warning = new WarningWindow("Are you sure?\n All data will be cleared!");
+            if (warning.isChoiceYes()) {
                 model.setAddressBook(new AddressBook());
                 return new CommandResult(MESSAGE_SUCCESS);
             } else {
