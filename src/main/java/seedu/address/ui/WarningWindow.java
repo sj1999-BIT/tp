@@ -1,11 +1,7 @@
 package seedu.address.ui;
 
-
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.AddressBook;
-
-import javax.swing.*;
-import java.net.URL;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -14,8 +10,8 @@ import java.net.URL;
  * under ui package.
  */
 public class WarningWindow {
-    JFrame frame = new JFrame("");;
-    String message = "";
+    private JFrame frame = new JFrame("");;
+    private String message = "";
 
     public WarningWindow() {
     }
@@ -33,6 +29,10 @@ public class WarningWindow {
         message = presetMessage;
     }
 
+    /**
+     * Creates the pop up warning window with the indicated frame and message.
+     * @return boolean value: return true if yes to chose, else return false
+     */
     public boolean isChoiceYes() {
         int result = JOptionPane.showConfirmDialog(frame, message, "WARNING!", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
