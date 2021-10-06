@@ -16,16 +16,7 @@ public class WarningWindow {
     public WarningWindow() {
     }
 
-    public WarningWindow(JFrame presetFrame) {
-        frame = presetFrame;
-    }
-
     public WarningWindow(String presetMessage) {
-        message = presetMessage;
-    }
-
-    public WarningWindow(JFrame presetFrame, String presetMessage) {
-        frame = presetFrame;
         message = presetMessage;
     }
 
@@ -34,8 +25,7 @@ public class WarningWindow {
      * @return boolean value: return true if yes to chose, else return false
      */
     public boolean isChoiceYes() {
-        int result = JOptionPane.showConfirmDialog(frame, message, "WARNING!", JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(frame, message, "WARNING!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         // if yes is picked, the address book data in model will be reset
         return result == JOptionPane.YES_OPTION;
     }
