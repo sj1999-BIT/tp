@@ -33,7 +33,6 @@ public class ClearCommand extends Command {
         if (model.size() == 0) {
             return new CommandResult(MESSAGE_UNNECESSARY);
         } else {
-            
             WarningWindow warning = new WarningWindow("Are you sure?\n All data will be cleared!");
             if (warning.isChoiceYes()) {
                 model.setAddressBook(new AddressBook());
