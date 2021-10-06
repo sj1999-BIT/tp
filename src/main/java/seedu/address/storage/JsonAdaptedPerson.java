@@ -62,8 +62,8 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        price = source.getPrice().price;
-        info = source.getInfo().info;
+        price = source.getPrice().value;
+        info = source.getInfo().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -113,7 +113,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         if (price == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
         }
         if (!Price.isValidPrice(price)) {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
@@ -121,9 +121,9 @@ class JsonAdaptedPerson {
         final Price modelPrice = new Price(price);
 
         if (info == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Info.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
+        if (!Info.isValidInfo(info)) {
             throw new IllegalValueException(Info.MESSAGE_CONSTRAINTS);
         }
         final Info modelInfo = new Info(info);
