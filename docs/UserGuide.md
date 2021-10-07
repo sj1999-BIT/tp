@@ -74,7 +74,6 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-
 ### Adding a person: `add`
 
 Adds a person to the WedFast contact list.
@@ -87,7 +86,8 @@ Examples:
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in WedFast's contacts.
+Lists the existing contacts based on the group. 
+If the group name is unspecified, then list all the existing contacts.
 
 Format: `list`
 
@@ -139,17 +139,25 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the WedFast contact list.
+Deletes the specified person from WedFast, either via index or name.
 
-Format: `delete INDEX`
+Format: `delete INDEX` or `delete NAME`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* `delete INDEX`: Deletes the person at the specified `INDEX`. 
+  The index is a positive number corresponding to the number of the person in the list.
+* `delete NAME`: Deletes the person with the specified `NAME`.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the WedFast contact list.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `delete 2` deletes the 2nd person in the address book.
+* `delete John Doe` deletes all the John Doe’s in the list
+* `find NAME` followed by delete 2 deletes the 2nd person whose name matches the name being searched, if they exist. 
+  Otherwise, a message is shown stating that the index is not valid.
+  
+### Undoing a command : `undo`
+
+Undoes the last edit that was made to the program.
+
+Format: `undo`
 
 ### Keep Track of important information : `track`
 
@@ -196,6 +204,30 @@ Format: ` remind [e/EMAIL](optional)`
 Examples:
 * `remind` toggle reminder
 * `remind e/bob@gmail.com`
+
+### Group Contacts: `group`
+
+Groups existing contacts together to a existing named group or create a new group
+
+Format: `group [c/CONTACT] [g/GROUP_NAME]`
+
+Add the specific CONTACT to the specific group with the name GROUP_NAME
+
+Examples
+* `group c/Alex Yoeh g/Team4`
+* The contact `Alex Yoeh` will now be grouped to Team4
+
+### Filter contacts: `filter`
+
+Filter the specific group to obtain a list of contacts that shares all the tags 
+
+Format: `filter [g/GROUP_NAME] [t/TAG]...`
+
+Filter through the specific group with name GROUP_NAME to obtain a list of CONTACTs which are tagged with all the TAG.
+
+Examples:
+* `filter g/Team4 t/male` returns DESMOND, SHUIJIE and RUOHANG as they all have the tag male
+* `filter g/Team 4 t/colleagues t/friends` returns Bernice YU as only he have all the tags: colleagues and friends
 
 
 

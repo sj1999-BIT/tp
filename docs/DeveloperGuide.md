@@ -257,13 +257,15 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* plans a wedding for himself/herself
+* has a need to manage a significant number of contacts of who will be involving/in-charged for the wedding
+* prefers desktop applications over other types
+* can type fast on keyboards
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable and prefers using CLI applications
+* is often forgetful and needs a program that will assist him with keeping track of the wedding details
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage contacts faster than a typical mouse/GUI driven app and more specific to wedding-planning
 
 
 ### User stories
@@ -282,7 +284,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | expert user                                   | use shortcuts to access different features                        | utilise the app efficiently                                            |
 | `* * *`  | frugal user                                   | add price tags to contacts                                        | avoid exceeding my budget                                              |
 | `* * *`  | forgetful user                                | notified for a specific time to remind myself to complete a task  | avoid forgetting to complete any important tasks                       |
-| `* * *`  | user with poor time management skills         | keep track of payment and deadlines                               |  avoid missing any payments and getting fined                          |
+| `* * *`  | user with poor time management skills         | keep track of payment and deadlines                               | avoid missing any payments and getting fined                          |
 | `* * *`  | very organized user                           | group contacts under the same category                            | manipulate the contacts easily                                         |
 | `* * *`  | user who wants to customise the program       | create shortcuts for longer commands                              | use the commands more efficiently                                      |
 | `* * *`  | infrequent user                               | get reminded via email of when to handle contacts                 | avoid not being aware of my plans                                      |
@@ -379,9 +381,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **PlantUML**: is a tool for specifying various diagrams in a textual form.
 * **API**: The Application Programming Interface specifies the interface through which software and other programs interact
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Filter**: Add tags to the contacts such as price, type of contact
+* **Filter**: Add tags to contacts such as price, type of contact
+* **Actor**: a role played by a use case
 
 --------------------------------------------------------------------------------------------------------------------
 
