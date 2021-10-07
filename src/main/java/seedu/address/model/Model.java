@@ -53,7 +53,7 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * return the size of the address book
+     * Returns the size of the address book
      */
     int size();
 

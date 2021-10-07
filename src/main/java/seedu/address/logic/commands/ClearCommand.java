@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.ui.WarningWindow;
 
 /**
- * Warn the user with a prompt window before the actual clear command executed.
+ * Warns the user with a prompt window before the actual clear command executed.
  * Clears the address book.
  */
 public class ClearCommand extends Command {
