@@ -1,44 +1,44 @@
 @font-face {
-    font-family: "Montserrat";
-    src: url("/fonts/montserrat/Montserrat-Regular.ttf");
+    font-family: "Open Sans";
+    src: url("/fonts/open-sans/OpenSans-Regular.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat SemiBold";
-    src: url("/fonts/montserrat/Montserrat-SemiBold.ttf");
+    font-family: "Open Sans SemiBold";
+    src: url("/fonts/open-sans/OpenSans-SemiBold.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat Light";
-    src: url("/fonts/montserrat/Montserrat-Light.ttf");
+    font-family: "Open Sans Light";
+    src: url("/fonts/open-sans/OpenSans-Light.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat Bold Italic";
-    src: url("/fonts/montserrat/Montserrat-BoldItalic.ttf");
+    font-family: "Open Sans Bold Italic";
+    src: url("/fonts/open-sans/OpenSans-BoldItalic.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat Extra Bold";
-    src: url("/fonts/montserrat/Montserrat-ExtraBold.ttf");
+    font-family: "Open Sans Extra Bold";
+    src: url("/fonts/open-sans/OpenSans-ExtraBold.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat Extra Bold Italic";
-    src: url("/fonts/montserrat/Montserrat-ExtraBoldItalic.ttf");
+    font-family: "Open Sans Extra Bold Italic";
+    src: url("/fonts/open-sans/OpenSans-ExtraBoldItalic.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat Italic";
-    src: url("/fonts/montserrat/Montserrat-Italic.ttf");
+    font-family: "Open Sans Italic";
+    src: url("/fonts/open-sans/OpenSans-Italic.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat Light Italic";
-    src: url("/fonts/montserrat/Montserrat-LightItalic.ttf");
+    font-family: "Open Sans Light Italic";
+    src: url("/fonts/open-sans/OpenSans-LightItalic.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat SemiBold Italic";
-    src: url("/fonts/montserrat/Montserrat-SemiBoldItalic.ttf");
+    font-family: "Open Sans SemiBold Italic";
+    src: url("/fonts/open-sans/OpenSans-SemiBoldItalic.ttf");
 }
