@@ -50,7 +50,6 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
         this.targetName = null;
-
     }
 
     /**
