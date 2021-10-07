@@ -29,7 +29,7 @@ public class UniquePersonList implements Iterable<Person> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     *
+     * Returns the size of the internalList size
      */
     public int size() {
         return internalList.size();

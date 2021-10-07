@@ -3,7 +3,6 @@ package seedu.address.ui;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 /**
  * This class create a warning window. Future upgrade include adding an extension to
  * UIPart to utilize fxml and standardise to the rest of the class
@@ -22,7 +21,7 @@ public class WarningWindow {
 
     /**
      * Creates the pop up warning window with the indicated frame and message.
-     * @return boolean value: return true if yes to chose, else return false
+     * @return true if yes to chose, else return false
      */
     public boolean isChoiceYes() {
         int result = JOptionPane.showConfirmDialog(frame, message, "WARNING!", JOptionPane.YES_NO_OPTION,

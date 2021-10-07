@@ -38,9 +38,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * return the current size of the internalList in the UniquePersonList variable
+     * Returns the current size of the internalList in the UniquePersonList variable
      * persons
-     * @return integer for size of the list
+     * @return Integer for size of the list
      */
     public int getPersonsSize() {
         return persons.size();

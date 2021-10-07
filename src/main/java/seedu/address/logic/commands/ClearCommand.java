@@ -6,7 +6,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.ui.WarningWindow;
 
-
 /**
  * Warn the user with a prompt window before the actual clear command executed.
  * Clears the address book.
@@ -20,7 +19,7 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_FAILURE = "Address book is not cleared!";
 
     /**
-     * Function execute will create a warning panel to give the user one more chance
+     * Executes will create a warning panel to give the user one more chance
      * to reconsider before clearing all the data.
      *
      * @param model {@code Model} which the command should operate on.
