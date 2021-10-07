@@ -21,7 +21,6 @@ public class WarningWindow {
 
     /**
      * Creates the pop up warning window with the indicated frame and message.
-     * 
      * @return true if yes to chose, else return false
      */
     public boolean isChoiceYes() {
