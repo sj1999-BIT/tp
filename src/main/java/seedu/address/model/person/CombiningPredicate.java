@@ -3,7 +3,7 @@ package seedu.address.model.person;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Creates a new Predicate by combining the logic of two separate Predicates
  */
 public class CombiningPredicate implements Predicate<Person> {
 
@@ -13,8 +13,8 @@ public class CombiningPredicate implements Predicate<Person> {
     /**
      * Creates a new predicate that combines the logic of two predicates
      *
-     * @param firstPredicate
-     * @param secondPredicate
+     * @param firstPredicate Predicate number 1
+     * @param secondPredicate Predicate number 2
      */
     public CombiningPredicate(Predicate<Person> firstPredicate, Predicate<Person> secondPredicate) {
         this.firstPredicate = firstPredicate;
@@ -23,7 +23,7 @@ public class CombiningPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return firstPredicate.test(person) || secondPredicate.test(person);
+        return firstPredicate.test(person) && secondPredicate.test(person);
     }
 
     @Override

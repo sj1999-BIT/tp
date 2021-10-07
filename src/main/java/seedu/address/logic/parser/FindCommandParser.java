@@ -35,9 +35,10 @@ public class FindCommandParser implements Parser<FindCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
+            String names = tags[0];
             String[] tagKeywords = tags[1].trim().split("\\s+");
-            if (!tags[0].trim().isEmpty()) {
-                String[] nameKeywords = tags[0].trim().split("\\s+");
+            if (!names.trim().isEmpty()) {
+                String[] nameKeywords = names.trim().split("\\s+");
                 return new FindCommand(new CombiningPredicate(
                         new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)),
                         new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords))
