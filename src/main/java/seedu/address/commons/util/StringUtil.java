@@ -74,8 +74,8 @@ public class StringUtil {
      * @param str The string to be checked.
      * @return true if {@code str} consists only digits from 0 to 9 inclusive and whitespaces, else false.
      */
-    public static boolean isNumeric(String str) {
-        Pattern pattern = Pattern.compile("-?([0-9]*\\)*\\(*\\s*)+");
+    public static boolean isName(String str) {
+        Pattern pattern = Pattern.compile("^( n/)([a-zA-Z0-9 ]*)");
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }

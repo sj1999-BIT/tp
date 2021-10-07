@@ -10,6 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,14 +28,21 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_NAME_USAGE = COMMAND_WORD
             + ": Deletes the person identified with specified {@code targetName} in the displayed person list.\n"
             + "Parameters: NAME (must be a non-empty and non-blank string)\n"
-            + "Example: " + COMMAND_WORD + " Alex Tan";
+            + "Example: " + COMMAND_WORD + " n/Alex Tan";
+
+    public static final String MESSAGE_EMPTY_USAGE = COMMAND_WORD
+            + ": Deletes the person identified either by index or name.\n"
+            + "Parameters (cannot be blank/empty): n/NAME or INDEX\n"
+            + "Example: \n"
+            + "1. " + COMMAND_WORD + " n/Alex Tan\n"
+            + "2. " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNKNOWN_PERSON_NAME = "The person named %s is not found.";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
     private final Index targetIndex;
-    private final String targetName;
+    private final Name targetName;
 
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetIndex}
@@ -48,7 +56,7 @@ public class DeleteCommand extends Command {
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetName}
      */
-    public DeleteCommand(String targetName) {
+    public DeleteCommand(Name targetName) {
         this.targetName = targetName;
         this.targetIndex = null;
     }
@@ -76,14 +84,13 @@ public class DeleteCommand extends Command {
     /** Deletes the person named {@code targetName}. */
     private CommandResult executeDeleteByName(Model model) throws CommandException {
         assert targetName != null : "targetName should not be null";
-        String removedFirstSpaceName = targetName.substring(1);
-        Predicate<Person> hasExactSameName = (person) -> person.getName().fullName.equals(removedFirstSpaceName);
+        Predicate<Person> hasExactSameName = (person) -> person.getName().equals(targetName);
 
         model.updateFilteredPersonList(hasExactSameName);
         List<Person> filteredList = model.getFilteredPersonList();
         if (filteredList.isEmpty()) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_NAME, removedFirstSpaceName));
+            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_NAME, targetName));
         }
 
         for (int i = 0; i < filteredList.size(); i++) {

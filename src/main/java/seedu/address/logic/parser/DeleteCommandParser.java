@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Name;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -21,10 +23,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_NAME_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_EMPTY_USAGE));
         }
 
-        return StringUtil.isNumeric(args.substring(1)) ? parseByIndex(args) : parseByName(args);
+        return StringUtil.isName(args) ? parseByName(args) : parseByIndex(args);
     }
 
     private DeleteCommand parseByIndex(String args) throws ParseException {
@@ -37,7 +39,14 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
     }
 
-    private DeleteCommand parseByName(String name) {
-        return new DeleteCommand(name);
+    private DeleteCommand parseByName(String args) throws ParseException {
+        try {
+            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            return new DeleteCommand(name);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_NAME_USAGE), pe);
+        }
     }
 }
