@@ -341,7 +341,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User types in key details when creating contacts.
+1. User types in key details when creating new contacts.
 2. User types out the tracking command keyword.
 3. User confirms.
 4. System summarises all the important information typed by user across all contacts.<br>
