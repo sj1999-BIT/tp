@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -40,17 +41,35 @@ public interface Model {
     Path getAddressBookFilePath();
 
     /**
+     * Returns the user prefs' countdown file path.
+     */
+    Path getCountdownFilePath();
+
+    /**
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Sets the user prefs' countdown file path.
+     */
+    void setCountdownFilePath(Path countdownFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
+    /**
+     * Replaces countdown data with the data in {@code countdown}.
+     */
+    void setCountdown(ReadOnlyCountdown countdown);
+
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns the Countdown */
+    ReadOnlyCountdown getCountdown();
 
     /**
      * Returns the size of the address book
@@ -80,6 +99,11 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /**
+     * Replaces the contents of the date with {@code weddingDate}.
+     */
+    void setDate(LocalDate newDate);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
