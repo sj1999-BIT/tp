@@ -11,6 +11,9 @@ import java.util.function.Predicate;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.*;
+import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.TruePredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -29,7 +32,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_PRICE);
         Predicate<Person> predicate = new TruePredicate();
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
@@ -39,6 +42,15 @@ public class FindCommandParser implements Parser<FindCommand> {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
             predicate = predicate.and(new TagContainsKeywordsPredicate(tagList));
+        }
+        if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
+            List<String> priceList = argMultimap.getAllValues(PREFIX_PRICE);
+            trimmedArgs = trimmedArgs.split(PREFIX_PRICE.toString())[0];
+            if (priceList.size() != 1) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+            predicate = predicate.and();
         }
         if (!trimmedArgs.isEmpty()) {
             String[] nameKeywords = trimmedArgs.split("\\s+");

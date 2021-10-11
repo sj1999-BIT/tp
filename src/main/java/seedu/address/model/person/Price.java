@@ -31,6 +31,17 @@ public class Price {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * returns true if current price is greater than parameter price
+     *
+     * @param price
+     * @return
+     */
+    public boolean greaterThan(Price price) {
+        double currentPrice = Double.parseDouble(value);
+        double otherPrice = Double.parseDouble(value);
+        return currentPrice > otherPrice;
+    }
 
     @Override
     public String toString() {
