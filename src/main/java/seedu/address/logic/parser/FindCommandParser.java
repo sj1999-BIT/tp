@@ -1,15 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.CombiningPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.TagContainsKeywordsPredicate;
+import seedu.address.model.person.*;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -29,25 +30,21 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+        Predicate<Person> predicate = new TruePredicate();
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            String[] tags = trimmedArgs.split(PREFIX_TAG.toString());
-            if (tags.length < 2) {
+            List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
+            trimmedArgs = trimmedArgs.split(PREFIX_TAG.toString())[0];
+            if (tagList.isEmpty()) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
-            String names = tags[0];
-            String[] tagKeywords = tags[1].trim().split("\\s+");
-            if (!names.trim().isEmpty()) {
-                String[] nameKeywords = names.trim().split("\\s+");
-                return new FindCommand(new CombiningPredicate(
-                        new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)),
-                        new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords))
-                ));
-            }
-            return new FindCommand(new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)));
+            predicate = predicate.and(new TagContainsKeywordsPredicate(tagList));
         }
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        if (!trimmedArgs.isEmpty()) {
+            String[] nameKeywords = trimmedArgs.split("\\s+");
+            predicate = predicate.and(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        }
+        return new FindCommand(predicate);
     }
 
 }
