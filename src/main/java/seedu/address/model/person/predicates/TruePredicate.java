@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import seedu.address.model.person.Person;
 
 /**
- * Tests that a {@code Person}'s {@code Tag} matches any of the keywords given.
+ * Default predicate that always return true
  */
 public class TruePredicate implements Predicate<Person> {
 

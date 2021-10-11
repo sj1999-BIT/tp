@@ -6,7 +6,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Price;
 
 /**
- * Tests that a {@code Person}'s {@code Tag} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Price} is greater than to a certain price
  */
 public class PriceGreaterThanNumberPredicate implements Predicate<Person> {
 
