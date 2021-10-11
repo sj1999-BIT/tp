@@ -39,7 +39,7 @@ public class Price {
      */
     public boolean greaterThan(Price price) {
         double currentPrice = Double.parseDouble(value);
-        double otherPrice = Double.parseDouble(value);
+        double otherPrice = Double.parseDouble(price.value);
         return currentPrice > otherPrice;
     }
 

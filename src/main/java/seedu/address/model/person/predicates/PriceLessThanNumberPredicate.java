@@ -12,7 +12,7 @@ public class PriceLessThanNumberPredicate implements Predicate<Person> {
 
     private Price price;
 
-    PriceLessThanNumberPredicate(Price price) {
+    public PriceLessThanNumberPredicate(Price price) {
         this.price = price;
     }
 
