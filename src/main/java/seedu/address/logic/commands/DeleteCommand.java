@@ -76,8 +76,8 @@ public class DeleteCommand extends Command {
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetTag}
      */
-    public DeleteCommand(Predicate<Person> targetPerson, String targetTag) {
-        this.targetTagPerson = targetPerson;
+    public DeleteCommand(Predicate<Person> targetTagPerson, String targetTag) {
+        this.targetTagPerson = targetTagPerson;
         this.targetName = null;
         this.targetIndex = null;
         this.targetTag = new Tag(targetTag);
