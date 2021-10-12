@@ -32,10 +32,10 @@ public class Price {
     }
 
     /**
-     * returns true if current price is greater than parameter price
+     * Returns true if current price is greater than parameter price
      *
-     * @param price
-     * @return
+     * @param price Other price to be compared
+     * @return Whether current price is greater than other price
      */
     public boolean greaterThan(Price price) {
         double currentPrice = Double.parseDouble(value);

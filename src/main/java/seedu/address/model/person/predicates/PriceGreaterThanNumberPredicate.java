@@ -12,6 +12,10 @@ public class PriceGreaterThanNumberPredicate implements Predicate<Person> {
 
     private Price price;
 
+    /**
+     * Creates new PriceGreaterThanNumberPredicate with price
+     * @param price Price to be compared
+     */
     public PriceGreaterThanNumberPredicate(Price price) {
         this.price = price;
     }

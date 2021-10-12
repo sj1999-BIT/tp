@@ -11,6 +11,10 @@ import seedu.address.model.person.Price;
 public class PriceEqualsNumberPredicate implements Predicate<Person> {
     private Price price;
 
+    /**
+     * Creates new PriceEqualsNumberPredicate with price
+     * @param price Price to be compared
+     */
     public PriceEqualsNumberPredicate(Price price) {
         this.price = price;
     }
