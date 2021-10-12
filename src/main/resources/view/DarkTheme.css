@@ -108,7 +108,7 @@
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: #d7f1fa;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -149,7 +149,7 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Montserrat Light";
-    -fx-font-size: 12pt;
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 

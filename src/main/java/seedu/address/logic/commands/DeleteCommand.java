@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -30,6 +31,11 @@ public class DeleteCommand extends Command {
             + "Parameters: NAME (must be a non-empty and non-blank string)\n"
             + "Example: " + COMMAND_WORD + " n/Alex Tan";
 
+    public static final String MESSAGE_TAG_USAGE = COMMAND_WORD
+            + ": Deletes persons identified with specified {@code targetTag} in the displayed person list.\n"
+            + "Parameters: TAG (must be a non-empty and non-blank string)\n"
+            + "Example: " + COMMAND_WORD + " t/photographer";
+
     public static final String MESSAGE_EMPTY_USAGE = COMMAND_WORD
             + ": Deletes the person identified either by index or name.\n"
             + "Parameters (cannot be blank/empty): n/NAME or INDEX\n"
@@ -38,18 +44,23 @@ public class DeleteCommand extends Command {
             + "2. " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNKNOWN_PERSON_NAME = "The person named %s is not found.";
-
+    public static final String MESSAGE_UNKNOWN_PERSON_TAG = "Persons with tag %s are not found.";
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Contacts Under Tag: %1$s";
 
     private final Index targetIndex;
     private final Name targetName;
+    private final Predicate<Person> targetPerson;
+    private final Tag targetTag;
 
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetIndex}
      */
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        this.targetPerson = null;
         this.targetName = null;
+        this.targetTag = null;
     }
 
     /**
@@ -57,13 +68,54 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(Name targetName) {
         this.targetName = targetName;
+        this.targetPerson = null;
         this.targetIndex = null;
+        this.targetTag = null;
     }
+
+    /**
+     * Creates an DeleteCommand to delete the person identified with specified {@code targetTag}
+     */
+    public DeleteCommand(Predicate<Person> targetPerson, String targetTag) {
+        this.targetPerson = targetPerson;
+        this.targetName = null;
+        this.targetIndex = null;
+        this.targetTag = new Tag(targetTag);
+    }
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return targetIndex == null ? executeDeleteByName(model) : executeDeleteByIndex(model);
+        if (targetName == null && targetIndex == null) {
+            return executeDeleteByTag(model);
+        } else if (targetTag == null && targetName == null && targetPerson == null) {
+            return executeDeleteByIndex(model);
+        } else {
+            return executeDeleteByName(model);
+        }
+    }
+
+    /** Deletes the persons identified with specified {@code targetTag}. */
+    private CommandResult executeDeleteByTag(Model model) throws CommandException {
+        assert targetTag != null : "targetTag should not be null";
+        requireNonNull(model);
+        model.updateFilteredPersonList(targetPerson);
+        List<Person> filteredList = model.getFilteredPersonList();
+        if (filteredList.isEmpty()) {
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_TAG, targetTag));
+        }
+        int originalSizeOfList = filteredList.size();
+
+        int index = 0;
+        for (int i = 0; i < originalSizeOfList; i++) {
+            Person personToDelete = filteredList.get(index);
+            model.deletePerson(personToDelete);
+        }
+
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag));
     }
 
     /** Deletes the person identified with specified {@code targetIndex}. */
@@ -112,10 +164,14 @@ public class DeleteCommand extends Command {
         }
 
         // state check
-        if (targetIndex == null) {
+        if (targetIndex == null && targetTag == null) {
             assert targetName != null : "targetName should not be null";
             return targetName.equals(((DeleteCommand) other).targetName);
+        } else if (targetIndex == null && targetName == null) {
+            assert targetTag != null : "targetTag should not be null";
+            return targetTag.equals(((DeleteCommand) other).targetTag);
         } else {
+            assert targetIndex != null : "targetIndex should not be null";
             return targetIndex.equals(((DeleteCommand) other).targetIndex);
         }
     }
