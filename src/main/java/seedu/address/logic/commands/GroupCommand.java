@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -23,6 +22,8 @@ public class GroupCommand extends Command {
             + "Parameters: "
             + PREFIX_TAG + "friends "
             + PREFIX_NAME + "NAME1, NAME2, NAME3, NAME4 ... no limit to number";
+    public static final String MESSAGE_ERROR_TAG = "Invalid tag inputted";
+    public static final String MESSAGE_ERROR_NAMES = "Invalid names inputted";
     private static final String MESSAGE_FAILURE = "Group command has failed";
 
     private boolean isFirstAdded = true;
@@ -49,7 +50,7 @@ public class GroupCommand extends Command {
     private String addTagToContact(Model model, String result, String targetName) {
         for (Person temp : model.getAddressBook().getPersonList()) {
             if (temp.isSamePerson(Person.createTempFakePerson(targetName))) {
-                Set<Tag> newTags = new HashSet<>(temp.getTags());
+                HashSet<Tag> newTags = new HashSet<>(temp.getTags());
                 newTags.add(new Tag(tag));
                 model.setPerson(temp, new Person(temp.getName(), temp.getPhone(),
                         temp.getEmail(), temp.getAddress(), temp.getPrice(), temp.getInfo(), newTags));
@@ -76,15 +77,13 @@ public class GroupCommand extends Command {
             if (model.hasPersonName(name)) {
                 isTagAdded = true;
                 returnMessage = addTagToContact(model, returnMessage, name);
+            } else if (isTagAdded) {
+                return new CommandResult(returnMessage
+                        + nameStringLists
+                        + "\n"
+                        + MESSAGE_FAILURE);
             } else {
-                if (isTagAdded) {
-                    return new CommandResult(returnMessage
-                            + nameStringLists
-                            + "\n"
-                            + MESSAGE_FAILURE);
-                } else {
-                    return new CommandResult(MESSAGE_FAILURE);
-                }
+                return new CommandResult(MESSAGE_FAILURE);
             }
         }
         return new CommandResult(returnMessage + nameStringLists);
