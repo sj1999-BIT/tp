@@ -12,11 +12,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-<<<<<<< HEAD
-import seedu.address.model.person.CombiningPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.TagContainsKeywordsPredicate;
-=======
+import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Price;
@@ -26,7 +23,6 @@ import seedu.address.model.person.predicates.PriceGreaterThanNumberPredicate;
 import seedu.address.model.person.predicates.PriceLessThanNumberPredicate;
 import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.TruePredicate;
->>>>>>> 2a8dc5496bda08281124dd0b536c77c1f3bea259
 
 /**
  * Parses input arguments and creates a new FindCommand object
