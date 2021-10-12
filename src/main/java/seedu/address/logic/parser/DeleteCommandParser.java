@@ -13,8 +13,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.TagContainsKeywordsPredicate;
 
-
-
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
@@ -31,15 +29,15 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_EMPTY_USAGE));
         }
-
         if (StringUtil.isName(args)) {
             return parseByName(args);
-        } else if ((StringUtil.isTag(args))) {
+        } else if (StringUtil.isTag(args)) {
             return parseByTag(args);
         } else {
             return parseByIndex(args);
         }
     }
+
     private DeleteCommand parseByTag(String args) throws ParseException {
         try {
             String trimmedArgs = args.trim();
@@ -54,8 +52,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_TAG_USAGE));
             }
-            String[] tagKeywords = tags[1].trim().split("\\s+");
-            return new DeleteCommand(new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)), tags[1]);
+            String currentTag = tags[1];
+            String[] tagKeywords = currentTag.trim().split("\\s+");
+            return new DeleteCommand(new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)), currentTag);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_TAG_USAGE), pe);
