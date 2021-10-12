@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -20,25 +21,28 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final Countdown countdown;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, countdown and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyCountdown countdown, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, countdown, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + ", countdown: " + countdown
+                + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.countdown = new Countdown(countdown);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new Countdown(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -71,9 +75,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getCountdownFilePath() {
+        return userPrefs.getCountdownFilePath();
+    }
+
+    @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public void setCountdownFilePath(Path countdownFilePath) {
+        requireNonNull(countdownFilePath);
+        userPrefs.setCountdownFilePath(countdownFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -89,9 +104,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int size() {
+        return addressBook.getPersonsSize();
+    }
+
+    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasPersonName(String name) {
+        requireNonNull(name);
+        return addressBook.hasPerson(Person.createTempFakePerson(name));
     }
 
     @Override
@@ -148,4 +174,23 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+
+    //=========== Countdown ================================================================================
+
+    @Override
+    public void setCountdown(ReadOnlyCountdown countdown) {
+        this.countdown.resetData(countdown);
+    }
+
+    @Override
+    public ReadOnlyCountdown getCountdown() {
+        return countdown;
+    }
+
+    @Override
+    public void setDate(LocalDate newDate) {
+        requireAllNonNull(newDate);
+
+        countdown.setDate(newDate);
+    }
 }
