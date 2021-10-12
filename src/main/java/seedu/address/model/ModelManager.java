@@ -89,12 +89,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public int size() { return addressBook.getPersonsSize(); }
+    public int size() {
+        return addressBook.getPersonsSize();
+    }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasPersonName(String name) {
+        requireNonNull(name);
+        return addressBook.hasPerson(Person.createTempFakePerson(name));
     }
 
     @Override
