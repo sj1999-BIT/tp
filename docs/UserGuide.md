@@ -3,10 +3,27 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+WedFast is a **desktop app for organising weddings, optimized for use via a Command Line
+Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type
+fast, WedFast can get your contact management tasks done faster than traditional GUI apps. 
 
-* Table of Contents
-{:toc}
+## Table of Contents
+* Quickstart
+* Features
+  * Add a contact
+  * Delete a contact
+  * Edit contact
+  * List contact
+  * Group Contacts
+  * View Instructions
+  * Keep Track of important information
+  * Add Price Tags to contacts
+  * Filter contacts
+  * Undo last change
+  * Set of commands that are customizable by the user
+  * Reminder via email (scheduler)
+* FAQ
+* Command Summary
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -14,27 +31,12 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Copy the file to the folder you want to use as the _home folder_ for your WedFast.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. 
+Note how the app contains some sample data.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
-
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
-
-   * **`list`** : Lists all contacts.
-
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
-
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
-
-   * **`clear`** : Deletes all contacts.
-
-   * **`exit`** : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
+4. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -72,33 +74,38 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-
 ### Adding a person: `add`
 
-Adds a person to the address book.
+Adds a person to the WedFast contact list.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/TAG]…​`
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Ben Tan p/93470983 e/ben111@gmail.com a/Fake street, block 111, #02-04 pr/$100 i/only contactable via whatsapp r/meeting on tuesday at 3pm g/photographer`
+![addition of contact](images/addContact.png)
 
 ### Listing all persons : `list`
 
 Lists the existing contacts based on the group. 
 If the group name is unspecified, then list all the existing contacts.
 
-Format: `list [g/GROUP_NAME]`
+Format: `list`
+
+### Add Price Tags to contacts: `pr/`
+Tags the contacts with a price tag specifying how much will be spent in a particular context. If
+unspecified, then means no money transaction involved with the contact.
+
+Format: `[pr/DOLLARS.CENTS]`
+
+Examples:
+* `add n/Sergio Marquina p/98777777 e/professor@moneyheist.com a/Salva Wall,
+block 999, #09-99 pr/500.00`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in the WedFast contact list.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/tag]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -108,8 +115,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/98392740 e/ben123@example.com` Edits the phone number and email address of the 1st person to be `98392740` and `ben123@example.com` respectively.
+*  `edit 2 n/William Tan t/` Edits the name of the 2nd person to be `William Tan` and clears all existing tags.
+![amendment of contact](images/editContact.png)
 
 ### Locating persons by name: `find`
 
@@ -151,9 +159,17 @@ Undoes the last edit that was made to the program.
 
 Format: `undo`
 
+### Keep Track of important information : `track`
+
+Collates and summarises the information user has typed in under the “Important Information” field across all contacts (provided that user did not leave important information field empty).
+
+Format: `track`
+
+![tracking of contact](images/trackInformation.png)
+
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the WedFast contact list.
 
 Format: `clear`
 
@@ -163,28 +179,65 @@ Exits the program.
 
 Format: `exit`
 
-### Saving the data
+### Adding shortcuts : `shortcut` (Coming soon)
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+ Add a shortcut bound to the SHORTCUT button
+ 
+Format: `shortcut SHORTCUT [c/COMMAND]`
 
-### Editing the data file
+* SHORTCUT is a set of values of 10 buttons [q, w, e, r, a, s, d, z, x, c]
 
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
-</div>
+Examples:
+* `shortcut q c/find Food`
+* `shortcut w c/order b/price`
 
-### Archiving data files `[coming in v2.0]`
+### Remind via email : `remind` (Coming soon)
 
-_Details coming soon ..._
+Sends a email reminder to the user
+
+Format: ` remind [e/EMAIL](optional)`
+
+* Toggles daily reminder on or off if EMAIL is empty.
+* Set remind to be true if EMAIL isn't empty and set the email reminders are sent to.
+
+Examples:
+* `remind` toggle reminder
+* `remind e/bob@gmail.com`
+
+### Group Contacts: `group`
+
+Groups existing contacts together to a existing named group or create a new group
+
+Format: `group [c/CONTACT] [g/GROUP_NAME]`
+
+Add the specific CONTACT to the specific group with the name GROUP_NAME
+
+Examples
+* `group c/Alex Yoeh g/Team4`
+* The contact `Alex Yoeh` will now be grouped to Team4
+
+### Filter contacts: `filter`
+
+Filter the specific group to obtain a list of contacts that shares all the tags 
+
+Format: `filter [g/GROUP_NAME] [t/TAG]...`
+
+Filter through the specific group with name GROUP_NAME to obtain a list of CONTACTs which are tagged with all the TAG.
+
+Examples:
+* `filter g/Team4 t/male` returns DESMOND, SHUIJIE and RUOHANG as they all have the tag male
+* `filter g/Team 4 t/colleagues t/friends` returns Bernice YU as only he have all the tags: colleagues and friends
+
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous WedFast home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -199,3 +252,10 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+**Group** | `group [c/CONTACT] [g/GROUP_NAME]` <br> E.g., `group c/Alex Yoeh g/Team4`
+**Track** | `track`
+**Price Tag** | `[pr/DOLLARS.CENTS]` <br> E.g., `add n/Sergio Marquina p/98777777 e/professor@moneyheist.com a/Salva Wall, block 999, #09-99 pr/500.00`
+**Filter** | `filter [g/GROUP_NAME] [t/TAG]...` <br> E.g., `filter g/Team4 t/male`
+**Undo** | `undo`
+**Shortcut** | `shortcut`<br> e.g. `shortcut q c/find Food`
+**Reminder** | `remind` <br> eg. `remind e/bob@gmail.com`

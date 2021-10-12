@@ -6,6 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Helper functions for handling strings.
@@ -64,5 +66,17 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Returns true if {@code str} consists only digits from 0 to 9 inclusive (including optional '-') and whitespaces.
+     *
+     * @param str The string to be checked.
+     * @return true if {@code str} consists only digits from 0 to 9 inclusive and whitespaces, else false.
+     */
+    public static boolean isName(String str) {
+        Pattern pattern = Pattern.compile("^( n/)([a-zA-Z0-9 ]*)");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
     }
 }

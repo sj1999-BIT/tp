@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Price;
+import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,6 +33,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String price;
     private final String info;
+    private final String status;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -42,6 +44,7 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
                              @JsonProperty("price") String price,
                              @JsonProperty("info") String info,
+                             @JsonProperty("status") String status,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
@@ -49,6 +52,7 @@ class JsonAdaptedPerson {
         this.address = address;
         this.price = price;
         this.info = info;
+        this.status = status;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -64,6 +68,7 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         price = source.getPrice().value;
         info = source.getInfo().value;
+        status = source.getStatus().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -128,9 +133,17 @@ class JsonAdaptedPerson {
         }
         final Info modelInfo = new Info(info);
 
+        if (status == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+        }
+        if (!Status.isValidStatus(status)) {
+            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
+        }
+        final Status modelStatus = new Status(status);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress,
-                modelPrice, modelInfo, modelTags);
+                modelPrice, modelInfo, modelStatus, modelTags);
     }
 
 }

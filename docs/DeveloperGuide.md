@@ -257,13 +257,15 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* plans a wedding for himself/herself
+* has a need to manage a significant number of contacts of who will be involving/in-charged for the wedding
+* prefers desktop applications over other types
+* can type fast on keyboards
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable and prefers using CLI applications
+* is often forgetful and needs a program that will assist him with keeping track of the wedding details
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage contacts faster than a typical mouse/GUI driven app and more specific to wedding-planning
 
 
 ### User stories
@@ -297,38 +299,82 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `WedFast` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Add a contact to a group**
+
+**Guarantees**
+* Contact will be added to group only if both the contact and group exists.
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-
+1. User types out name of contact with group name using specified format.
+2. User confirms.
+3. System adds contact to said group.<br>
     Use case ends.
 
 **Extensions**
+* 2a. Either name/group name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
+    Use case resumes at step 1.
 
-* 2a. The list is empty.
+**Use case:  Filter contacts**
 
-  Use case ends.
+**Guarantees:**
+* System successfully filter and display the contacts list only if the group/tag exists.
 
-* 3a. The given index is invalid.
+**MSS**
 
-    * 3a1. AddressBook shows an error message.
+1. User types out group and/or tag in specified format.
+2. User confirms.
+3. System filters contacts that fall under that group and/or tag.<br>
+    Use case ends.
 
-      Use case resumes at step 2.
+**Extensions**
+* 2a. Either group/tag name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
+      Use case resumes at step 1.
+      
+**Use case:  Track important information**
+
+**MSS**
+
+1. User types in key details when creating new contacts.
+2. User types out the tracking command keyword.
+3. User confirms.
+4. System summarises all the important information typed by user across all contacts.<br>
+    Use case ends.
+
+**Use case: Add/Edit price tag**
+
+**Guarantees:**
+* A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
+
+1. When adding/editing contact, user also types in the price detail.
+2. User confirms.
+3. System updates the contact list and the target contact will now have price tag(s).
+    Use case ends.
+
+**Extensions**
+* 2a. Price is unspecified/blank(white spaces only)/written in invalid format.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
+      Use case resumes at step 1.
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1.  Should work on any pc as long as it has Java `11` or above installed.
+2.  Should be able to store and manage at least 100 contacts.
+3.  Should be able to guarantee data security to protect privacy of user.
+4.  Should not store more than 20MB of infomation.
+5.  Program should respond within 2 seconds of each command.
+6.  Product is not handling more than 1 user planning a wedding at once.
+7.  Should be usable by anyone who understands english without any experience in planning weddings. 
+
 
 *{More to be added}*
 
