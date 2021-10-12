@@ -10,6 +10,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Price;
+import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -24,6 +25,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_PRICE = "0.00";
     public static final String DEFAULT_INFO = "none";
+    public static final String DEFAULT_STATUS = "Pending";
 
     private Name name;
     private Phone phone;
@@ -31,6 +33,7 @@ public class PersonBuilder {
     private Address address;
     private Price price;
     private Info info;
+    private Status status;
 
     private Set<Tag> tags;
 
@@ -44,6 +47,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         price = new Price(DEFAULT_PRICE);
         info = new Info(DEFAULT_INFO);
+        status = new Status(DEFAULT_STATUS);
         tags = new HashSet<>();
     }
 
@@ -57,6 +61,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         price = personToCopy.getPrice();
         info = personToCopy.getInfo();
+        status = personToCopy.getStatus();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -116,8 +121,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Status} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withStatus(String status) {
+        this.status = new Status(status);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, price, info, tags);
+        return new Person(name, phone, email, address, price, info, status, tags);
     }
 
 }
