@@ -68,6 +68,7 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
         case CountdownCommand.COMMAND_WORD:
             return new CountdownCommandParser().parse(userInput);
 
