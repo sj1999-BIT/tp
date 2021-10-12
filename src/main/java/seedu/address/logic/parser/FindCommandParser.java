@@ -64,7 +64,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             Matcher m = OPERATOR_VALIDATION_PATTERN.matcher(priceParam);
             if (m.matches()) {
                 String operator = m.group(1);
-                System.out.println(operator);
                 Price price = new Price(priceParam.split(OPERATOR_VALIDATION_REGEX)[1]);
                 predicate = predicate.and(parsePricePredicate(operator, price));
             } else {
