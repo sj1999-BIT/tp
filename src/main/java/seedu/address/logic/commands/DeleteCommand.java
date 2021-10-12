@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
     private final Name targetName;
-    private final Predicate<Person> targetPerson;
+    private final Predicate<Person> targetTagPerson;
     private final Tag targetTag;
 
     /**
@@ -58,7 +58,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-        this.targetPerson = null;
+        this.targetTagPerson = null;
         this.targetName = null;
         this.targetTag = null;
     }
@@ -68,7 +68,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(Name targetName) {
         this.targetName = targetName;
-        this.targetPerson = null;
+        this.targetTagPerson = null;
         this.targetIndex = null;
         this.targetTag = null;
     }
@@ -77,7 +77,7 @@ public class DeleteCommand extends Command {
      * Creates an DeleteCommand to delete the person identified with specified {@code targetTag}
      */
     public DeleteCommand(Predicate<Person> targetPerson, String targetTag) {
-        this.targetPerson = targetPerson;
+        this.targetTagPerson = targetPerson;
         this.targetName = null;
         this.targetIndex = null;
         this.targetTag = new Tag(targetTag);
@@ -89,7 +89,7 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         if (targetName == null && targetIndex == null) {
             return executeDeleteByTag(model);
-        } else if (targetTag == null && targetName == null && targetPerson == null) {
+        } else if (targetTag == null && targetName == null && targetTagPerson == null) {
             return executeDeleteByIndex(model);
         } else {
             return executeDeleteByName(model);
@@ -100,7 +100,7 @@ public class DeleteCommand extends Command {
     private CommandResult executeDeleteByTag(Model model) throws CommandException {
         assert targetTag != null : "targetTag should not be null";
         requireNonNull(model);
-        model.updateFilteredPersonList(targetPerson);
+        model.updateFilteredPersonList(targetTagPerson);
         List<Person> filteredList = model.getFilteredPersonList();
         if (filteredList.isEmpty()) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
