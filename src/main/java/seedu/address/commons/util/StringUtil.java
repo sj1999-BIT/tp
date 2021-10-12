@@ -69,10 +69,10 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if {@code str} consists only digits from 0 to 9 inclusive (including optional '-') and whitespaces.
-     *
-     * @param str The string to be checked.
-     * @return true if {@code str} consists only digits from 0 to 9 inclusive and whitespaces, else false.
+     * Returns true if {@code str} represents a name
+     * e.g. " n/John Doe", " n/Molly 3", " n/12345" <br>
+     * Will return false for any other non-name string input
+     * e.g. empty string, "-1", "0", "+1", " 2 ", "Betsy Crowe",
      */
     public static boolean isName(String str) {
         Pattern pattern = Pattern.compile("^( n/)([a-zA-Z0-9 ]*)");
