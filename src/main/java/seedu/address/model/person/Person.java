@@ -21,6 +21,7 @@ public class Person {
     private final Email email;
     private final Price price;
     private final Info info;
+    private final Status status;
 
     // Data fields
     private final Address address;
@@ -31,15 +32,40 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address,
-                  Price price, Info info, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, price, info, tags);
+                  Price price, Info info, Status status, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, price, info, status, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.price = price;
         this.info = info;
+        this.status = status;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Creates a Person with only a name string.
+     * Not supposed to be used by external users.
+     */
+    private Person(String inputName) {
+        name = new Name(inputName);
+        phone = null;
+        email = null;
+        address = null;
+        this.price = null;
+        this.info = null;
+        this.status = null;
+    }
+
+    /**
+     * Creates a Person with only a name string.
+     * Not supposed to be used by external users.
+     * @param inputName
+     * @return invalid Person object
+     */
+    public static Person createTempFakePerson(String inputName) {
+        return new Person(inputName);
     }
 
     public Name getName() {
@@ -64,6 +90,10 @@ public class Person {
 
     public Info getInfo() {
         return info;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     /**
@@ -108,13 +138,14 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getPrice().equals(getPrice())
                 && otherPerson.getInfo().equals(getInfo())
+                && otherPerson.getStatus().equals(getStatus())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, price, info, tags);
+        return Objects.hash(name, phone, email, address, price, info, status, tags);
     }
 
     @Override
@@ -130,7 +161,9 @@ public class Person {
                 .append("; Price: ")
                 .append(getPrice())
                 .append("; Info: ")
-                .append(getInfo());
+                .append(getInfo())
+                .append("; Status: ")
+                .append(getStatus());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

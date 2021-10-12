@@ -1,21 +1,40 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+<<<<<<< HEAD
 import seedu.address.model.person.CombiningPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.TagContainsKeywordsPredicate;
+=======
+
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Price;
+import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.PriceEqualsNumberPredicate;
+import seedu.address.model.person.predicates.PriceGreaterThanNumberPredicate;
+import seedu.address.model.person.predicates.PriceLessThanNumberPredicate;
+import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.TruePredicate;
+>>>>>>> 2a8dc5496bda08281124dd0b536c77c1f3bea259
 
 /**
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
+    private static final String OPERATOR_VALIDATION_REGEX = "^(<=|>=|<|>|=)";
+    private static final Pattern OPERATOR_VALIDATION_PATTERN = Pattern.compile(OPERATOR_VALIDATION_REGEX + "(.*)");
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -28,26 +47,64 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_PRICE);
+        Predicate<Person> predicate = new TruePredicate();
+        if (!argMultimap.getPreamble().isBlank()) {
+            String[] nameKeywords = argMultimap.getPreamble().split("\\s+");
+            predicate = new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords));
+        }
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            String[] tags = trimmedArgs.split(PREFIX_TAG.toString());
-            if (tags.length < 2) {
+            List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
+            if (tagList.isEmpty()) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
-            String names = tags[0];
-            String[] tagKeywords = tags[1].trim().split("\\s+");
-            if (!names.trim().isEmpty()) {
-                String[] nameKeywords = names.trim().split("\\s+");
-                return new FindCommand(new CombiningPredicate(
-                        new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)),
-                        new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords))
-                ));
-            }
-            return new FindCommand(new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)));
+            predicate = predicate.and(new TagContainsKeywordsPredicate(tagList));
         }
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
+            List<String> priceList = argMultimap.getAllValues(PREFIX_PRICE);
+            if (priceList.size() != 1 || !isValidPrice(priceList.get(0))) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+            String priceParam = priceList.get(0);
+            Matcher m = OPERATOR_VALIDATION_PATTERN.matcher(priceParam);
+            if (m.matches()) {
+                String operator = m.group(1);
+                Price price = new Price(priceParam.split(OPERATOR_VALIDATION_REGEX)[1]);
+                predicate = predicate.and(parsePricePredicate(operator, price));
+            } else {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+        }
+
+        return new FindCommand(predicate);
+    }
+
+    private Predicate<Person> parsePricePredicate(String operator, Price price) {
+        Predicate<Person> pricePredicate = new TruePredicate().negate();
+        for (char c : operator.toCharArray()) {
+            switch (c) {
+            case ('>'):
+                pricePredicate = pricePredicate.or(new PriceGreaterThanNumberPredicate(price));
+                break;
+            case ('<'):
+                pricePredicate = pricePredicate.or(new PriceLessThanNumberPredicate(price));
+                break;
+            case ('='):
+                pricePredicate = pricePredicate.or(new PriceEqualsNumberPredicate(price));
+                break;
+            default:
+                break;
+            }
+        }
+        return pricePredicate;
+    }
+
+    private boolean isValidPrice(String input) {
+        boolean validOperator = input.matches(OPERATOR_VALIDATION_REGEX + "(.*)");
+        return validOperator && Price.isValidPrice(input.split(OPERATOR_VALIDATION_REGEX)[1]);
     }
 
 }
