@@ -100,6 +100,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPersonName(String name) {
+        requireNonNull(name);
+        return addressBook.hasPerson(Person.createTempFakePerson(name));
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }

@@ -42,6 +42,29 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Creates a Person with only a name string.
+     * Not supposed to be used by external users.
+     */
+    private Person(String inputName) {
+        name = new Name(inputName);
+        phone = null;
+        email = null;
+        address = null;
+        this.price = null;
+        this.info = null;
+    }
+
+    /**
+     * Creates a Person with only a name string.
+     * Not supposed to be used by external users.
+     * @param inputName
+     * @return invalid Person object
+     */
+    public static Person createTempFakePerson(String inputName) {
+        return new Person(inputName);
+    }
+
     public Name getName() {
         return name;
     }
