@@ -97,8 +97,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
     private boolean isValidPrice(String input) {
         boolean validOperator = input.matches(OPERATOR_VALIDATION_REGEX + "(.*)");
-        String pricePortion = input.split(OPERATOR_VALIDATION_REGEX)[1];
-        return validOperator && Price.isValidPrice(pricePortion);
+        return validOperator && Price.isValidPrice(input.split(OPERATOR_VALIDATION_REGEX)[1]);
     }
 
 }
