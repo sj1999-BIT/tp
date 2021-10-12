@@ -89,7 +89,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public int size() { return addressBook.getPersonsSize(); }
+    public int size() {
+        return addressBook.getPersonsSize();
+    }
 
     @Override
     public boolean hasPerson(Person person) {

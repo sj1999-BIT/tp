@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -28,6 +29,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Price;
+import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -47,6 +49,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_INFO + "INFO] "
+            + "[" + PREFIX_STATUS + "INFO] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -60,7 +63,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -105,11 +108,12 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Price updatedPrice = editPersonDescriptor.getPrice().orElse(personToEdit.getPrice());
         Info updatedInfo = editPersonDescriptor.getInfo().orElse(personToEdit.getInfo());
+        Status updatedStatus = editPersonDescriptor.getStatus().orElse(personToEdit.getStatus());
 
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
-                updatedPrice, updatedInfo, updatedTags);
+                updatedPrice, updatedInfo, updatedStatus, updatedTags);
     }
 
     @Override
@@ -141,9 +145,11 @@ public class EditCommand extends Command {
         private Address address;
         private Price price;
         private Info info;
+        private Status status;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -156,6 +162,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setPrice(toCopy.price);
             setInfo(toCopy.info);
+            setStatus(toCopy.status);
             setTags(toCopy.tags);
         }
 
@@ -214,6 +221,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(info);
         }
 
+        public void setStatus(Status status) {
+            this.status = status;
+        }
+
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -252,6 +267,7 @@ public class EditCommand extends Command {
                     && getAddress().equals(e.getAddress())
                     && getPrice().equals(e.getPrice())
                     && getInfo().equals(e.getInfo())
+                    && getStatus().equals(e.getStatus())
                     && getTags().equals(e.getTags());
         }
     }
