@@ -18,10 +18,16 @@ public class CountdownCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Wedding date has been set on %s.\n%d days left from now.";
     private final LocalDate dateSetByUser;
 
+    /**
+     * Creates an CountdownCommand to track the day count until the wedding date set.
+     */
     public CountdownCommand() {
         this.dateSetByUser = null;
     }
 
+    /**
+     * Creates an CountdownCommand to set the wedding date.
+     */
     public CountdownCommand(LocalDate dateSetByUser) {
         this.dateSetByUser = dateSetByUser;
     }
