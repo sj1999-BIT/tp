@@ -70,11 +70,10 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
-     * Sets the text and background
-     * of the status Label.
+     * Sets the text and background of the status Label.
      *
      * @param status the Label
-     * @param text   the status info
+     * @param text the status info
      * @return the label with the text and background
      */
     public Label setStatus(Label status, String text) {
