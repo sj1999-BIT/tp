@@ -53,7 +53,8 @@ public class GroupCommand extends Command {
                 HashSet<Tag> newTags = new HashSet<>(temp.getTags());
                 newTags.add(new Tag(tag));
                 model.setPerson(temp, new Person(temp.getName(), temp.getPhone(),
-                        temp.getEmail(), temp.getAddress(), temp.getPrice(), temp.getInfo(), newTags));
+                        temp.getEmail(), temp.getAddress(), temp.getPrice(), temp.getInfo(),
+                        temp.getStatus(), newTags));
                 if (isFirstAdded) {
                     result += " " + targetName;
                     isFirstAdded = false;
