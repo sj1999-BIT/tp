@@ -55,6 +55,7 @@ public class Person {
         address = null;
         this.price = null;
         this.info = null;
+        this.status = null;
     }
 
     /**
