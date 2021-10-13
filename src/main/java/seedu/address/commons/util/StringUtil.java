@@ -79,4 +79,16 @@ public class StringUtil {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+
+    /**
+     * Returns true if {@code str} consists of tag as expected.
+     *
+     * @param str The string to be checked.
+     * @return true if {@code str} consists of tag, else false.
+     */
+    public static boolean isTag(String str) {
+        Pattern pattern = Pattern.compile("^( t/)([a-zA-Z0-9 ]*)");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
 }
