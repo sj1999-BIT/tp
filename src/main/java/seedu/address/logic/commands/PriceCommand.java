@@ -61,7 +61,7 @@ public class PriceCommand extends Command {
         double totalPrice = 0.00;
         for (int i = 0; i < listToSum.size(); i++) {
             Price priceToAdd = listToSum.get(i).getPrice();
-            double amountToAdd = priceToAdd.toDouble(priceToAdd);
+            double amountToAdd = priceToAdd.toDouble();
             totalPrice += amountToAdd;
         }
 

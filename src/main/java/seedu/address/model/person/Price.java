@@ -43,7 +43,7 @@ public class Price {
         return currentPrice > otherPrice;
     }
 
-    public double toDouble(Price amount) {
+    public double toDouble() {
         return Double.parseDouble(value);
     }
 
