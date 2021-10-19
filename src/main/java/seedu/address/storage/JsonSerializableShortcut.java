@@ -23,17 +23,15 @@ class JsonSerializableShortcut {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final HashMap<String, String> shortcuts = new HashMap<>();
+    private final List<JsonAdaptedShortcut> shortcuts = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializableShortcut(@JsonProperty("shortcuts") List<JsonAdaptedShortcut> shortcuts) {
-        this.shortcuts.clear();
-        for (JsonAdaptedShortcut shortcut: shortcuts) {
-            this.shortcuts.put(shortcut.getKeyword(), shortcut.getCommandString());
-        }
+        this.shortcuts.addAll(shortcuts);
+
     }
 
     /**
@@ -43,7 +41,7 @@ class JsonSerializableShortcut {
      */
     public JsonSerializableShortcut(ReadOnlyShortcut source) {
         shortcuts.clear();
-        shortcuts.putAll(source.getShortcutMap());
+        source.getShortcutMap().forEach((key, value)-> shortcuts.add(new JsonAdaptedShortcut(key, value)));
     }
 
     /**
@@ -52,9 +50,12 @@ class JsonSerializableShortcut {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public Shortcut toModelType() throws IllegalValueException {
-        Shortcut shortcut = new Shortcut();
-        shortcut.setShortcutMap(shortcuts);
-        return shortcut;
+        Shortcut shortcutModel = new Shortcut();
+        HashMap<String, String> shortcutMap = new HashMap<>();
+        for (JsonAdaptedShortcut shortcut: shortcuts) {
+            shortcutMap.put(shortcut.getKeyword(), shortcut.getCommandString());
+        }
+        return shortcutModel;
     }
 
 }

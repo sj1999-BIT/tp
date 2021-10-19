@@ -15,24 +15,11 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Countdown;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyCountdown;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.model.util.SampleCountdownUtil;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.CountdownStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonCountdownStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
+import seedu.address.model.util.SampleShortcutUtil;
+import seedu.address.storage.*;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -63,7 +50,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CountdownStorage countdownStorage = new JsonCountdownStorage(userPrefs.getCountdownFilePath());
-        storage = new StorageManager(addressBookStorage, countdownStorage, userPrefsStorage);
+        ShortcutStorage shortcutStorage = new JsonShortcutStorage(userPrefs.getShortcutFilePath());
+        storage = new StorageManager(addressBookStorage, countdownStorage, userPrefsStorage, shortcutStorage);
 
         initLogging(config);
 
@@ -118,7 +106,25 @@ public class MainApp extends Application {
             initialCountdownData = new Countdown();
         }
 
-        return new ModelManager(initialData, initialCountdownData, userPrefs);
+        Optional<ReadOnlyShortcut> shortcutOptional;
+        ReadOnlyShortcut initialShortcutData;
+
+        // initiate count down
+        try {
+            shortcutOptional = storage.readShortcut();
+            if (!shortcutOptional.isPresent()) {
+                logger.info("Shortcut data file not found. Will be starting with a sample Shortcut");
+            }
+            initialShortcutData = shortcutOptional.orElseGet(SampleShortcutUtil::getSampleShortcut);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Shortcut");
+            initialShortcutData = new Shortcut();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Shortcut");
+            initialShortcutData = new Shortcut();
+        }
+
+        return new ModelManager(initialData, initialCountdownData, userPrefs, initialShortcutData);
     }
 
     private void initLogging(Config config) {

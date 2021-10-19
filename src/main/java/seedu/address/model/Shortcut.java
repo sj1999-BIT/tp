@@ -14,7 +14,9 @@ public class Shortcut implements ReadOnlyShortcut {
 
     private HashMap<String, String> shortcutMap;
 
-    public Shortcut() {}
+    public Shortcut() {
+        shortcutMap = new HashMap<>();
+    }
 
     /**
      * Creates a Countdown using the LocalDate in the {@code toBeCopied}

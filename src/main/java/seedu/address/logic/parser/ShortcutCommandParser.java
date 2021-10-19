@@ -11,6 +11,6 @@ public class ShortcutCommandParser implements Parser<ShortcutCommand> {
 
     @Override
     public ShortcutCommand parse(String userInput) throws ParseException {
-        return new ShortcutCommand("");
+        return new ShortcutCommand(userInput.trim());
     }
 }

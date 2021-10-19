@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
 import static java.util.Objects.requireNonNull;
@@ -18,16 +20,23 @@ public class ShortcutCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
+    private final String shortcut;
+
 
     public ShortcutCommand(String shortcut) {
-
+        this.shortcut = shortcut;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+        String commandString = model.getShortcutFromKey(shortcut);
+        try {
+            Command command = (new AddressBookParser()).parseCommand(commandString);
+            return command.execute(model);
+        } catch (ParseException | CommandException e) {
+            return new CommandResult("Command not found");
+        }
     }
 
     @Override
