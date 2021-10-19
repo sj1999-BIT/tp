@@ -35,9 +35,13 @@ public class ShortcutCommand extends Command {
                 return new CommandResult("Command not found");
             }
             Command command = (new AddressBookParser()).parseCommand(commandString);
-            return command.execute(model);
-        } catch (ParseException | CommandException e) {
-            return new CommandResult("Command not found");
+            try {
+                return command.execute(model);
+            } catch (CommandException ce) {
+                return new CommandResult("Command error");
+            }
+        } catch (ParseException e) {
+            return new CommandResult("Command invalid form");
         }
     }
 
