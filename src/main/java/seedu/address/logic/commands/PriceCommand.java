@@ -52,8 +52,8 @@ public class PriceCommand extends Command {
             return new CommandResult(String.format(MESSAGE_TOTAL_PRICE_SUCCESS, totalPrice));
         }
 
-        Predicate<Person> hasExactSameTagAndConfirmed = (person)
-                -> person.getTags().contains(targetTag) && person.getStatus().value.matches("[Cc]onfirmed");
+        Predicate<Person> hasExactSameTagAndConfirmed = (person) -> person.getTags().contains(targetTag)
+                && person.getStatus().value.matches("[Cc]onfirmed");
         model.updateFilteredPersonList(hasExactSameTagAndConfirmed);
         List<Person> filteredList = model.getFilteredPersonList();
         if (filteredList.isEmpty()) {
