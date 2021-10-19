@@ -60,16 +60,18 @@ public class PriceCommand extends Command {
         }
     }
 
+    /** Finds the price sum under the target tag. */
     private CommandResult executeSumByTag(Model model) throws CommandException {
         List<String> tags = new ArrayList<>();
+        assert targetTag != null : "targetTag should not be null";
         tags.add(targetTag.tagName);
         Predicate<Person> hasTag = new TagContainsKeywordsPredicate(tags);
 
         String unknownPersonMessage = String.format(MESSAGE_UNKNOWN_PERSON_TAG, targetTag);
         updateFilteredList(model, hasTag, unknownPersonMessage);
 
-        String zeroSumMessage = String.format(MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS, targetTag, 0.00);
         Predicate<Person> hasTagAndConfirmed = (person) -> hasTag.test(person) && PREDICATE_IS_CONFIRMED.test(person);
+        String zeroSumMessage = String.format(MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS, targetTag, 0.00);
         List<Person> hasTagAndConfirmedFilteredList = updateFilteredList(model, hasTagAndConfirmed, zeroSumMessage);
 
         double totalPrice = sumPriceInTheList(hasTagAndConfirmedFilteredList);
