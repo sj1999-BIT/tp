@@ -30,8 +30,8 @@ public class ShortcutCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        String commandString = model.getShortcutFromKey(shortcut);
         try {
+            String commandString = model.getShortcutFromKey(shortcut);
             Command command = (new AddressBookParser()).parseCommand(commandString);
             return command.execute(model);
         } catch (ParseException | CommandException e) {

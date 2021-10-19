@@ -224,7 +224,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getShortcutFromKey(String keyword) {
+    public String getShortcutFromKey(String keyword)  {
         return shortcut.getCommandFromKey(keyword);
     }
 

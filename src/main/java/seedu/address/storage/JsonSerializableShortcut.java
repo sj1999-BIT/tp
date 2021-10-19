@@ -31,7 +31,6 @@ class JsonSerializableShortcut {
     @JsonCreator
     public JsonSerializableShortcut(@JsonProperty("shortcuts") List<JsonAdaptedShortcut> shortcuts) {
         this.shortcuts.addAll(shortcuts);
-
     }
 
     /**
@@ -55,6 +54,7 @@ class JsonSerializableShortcut {
         for (JsonAdaptedShortcut shortcut: shortcuts) {
             shortcutMap.put(shortcut.getKeyword(), shortcut.getCommandString());
         }
+        shortcutModel.setShortcutMap(shortcutMap);
         return shortcutModel;
     }
 
