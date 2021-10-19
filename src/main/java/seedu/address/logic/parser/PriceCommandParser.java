@@ -1,8 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.PriceCommand.MESSAGE_ARGUMENT_USAGE;
 import static seedu.address.logic.commands.PriceCommand.MESSAGE_TAG_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.PriceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
@@ -21,6 +23,11 @@ public class PriceCommandParser implements Parser<PriceCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             return new PriceCommand();
+        }
+
+        boolean isNotTag = !StringUtil.isTag(args);
+        if (isNotTag) {
+            throw new ParseException(MESSAGE_ARGUMENT_USAGE);
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
