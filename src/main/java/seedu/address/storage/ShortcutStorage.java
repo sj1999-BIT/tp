@@ -32,14 +32,14 @@ public interface ShortcutStorage {
 
     /**
      * Saves the given {@link ReadOnlyShortcut} to the storage.
-     * @param countdown cannot be null.
+     * @param shortcut cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveShortcut(ReadOnlyShortcut countdown) throws IOException;
+    void saveShortcut(ReadOnlyShortcut shortcut) throws IOException;
 
     /**
      * @see #saveShortcut(ReadOnlyShortcut)
      */
-    void saveShortcut(ReadOnlyShortcut countdown, Path filePath) throws IOException;
+    void saveShortcut(ReadOnlyShortcut shortcut, Path filePath) throws IOException;
 
 }

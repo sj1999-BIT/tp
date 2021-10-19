@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path countdownFilePath = Paths.get("data" , "countdown.json");
+    private Path shortcutFilePath = Paths.get("data", "countdown.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -57,6 +58,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return countdownFilePath;
     }
 
+    public Path getShortcutFilePath() {
+        return shortcutFilePath;
+    }
+
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
@@ -65,6 +70,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setCountdownFilePath(Path countdownFilePath) {
         requireNonNull(countdownFilePath);
         this.countdownFilePath = countdownFilePath;
+    }
+
+    public void setShortcutFilePath(Path shortcutFilePath) {
+        requireNonNull(shortcutFilePath);
+        this.shortcutFilePath = shortcutFilePath;
     }
 
     @Override

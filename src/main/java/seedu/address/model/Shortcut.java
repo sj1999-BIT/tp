@@ -30,14 +30,22 @@ public class Shortcut implements ReadOnlyShortcut {
     public void resetData(ReadOnlyShortcut newData) {
         requireNonNull(newData);
 
-        setDate(newData.getShortcutMap());
+        setShortcutMap(newData.getShortcutMap());
     }
 
     /**
      * Replaces the contents of the date with {@code weddingDate}.
      */
-    public void setDate(HashMap<String, String> shortcutMap) {
+    public void setShortcutMap(HashMap<String, String> shortcutMap) {
         this.shortcutMap = shortcutMap;
+    }
+
+    public void addShortcut(String keyword, String commandString) {
+        shortcutMap.put(keyword, commandString);
+    }
+
+    public String getCommandFromKey(String keyword) {
+        return shortcutMap.get(keyword);
     }
 
     /**
