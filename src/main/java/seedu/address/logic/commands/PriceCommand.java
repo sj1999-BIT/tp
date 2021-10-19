@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -10,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Price;
+import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
 public class PriceCommand extends Command {
@@ -31,6 +33,9 @@ public class PriceCommand extends Command {
     public static final String MESSAGE_TOTAL_PRICE_SUCCESS = "Total price of your wedding is %.2f";
     public static final String MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS = "Total price under tag: %s is %.2f";
 
+    private static final Predicate<Person> PREDICATE_IS_CONFIRMED = (person)
+        -> person.getStatus().value.matches("[Cc]onfirmed");
+
     private final Tag targetTag;
 
     public PriceCommand() {
@@ -44,24 +49,31 @@ public class PriceCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Predicate<Person> isConfirmed = (person) -> person.getStatus().value.matches("[Cc]onfirmed");
-        model.updateFilteredPersonList(isConfirmed);
+        String zeroSumMessage = String.format(MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS, targetTag, 0.00);
+        updateFilteredList(model, PREDICATE_IS_CONFIRMED, zeroSumMessage);
         if (targetTag == null) {
             double totalPrice = sumPriceInTheList(model.getFilteredPersonList());
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(String.format(MESSAGE_TOTAL_PRICE_SUCCESS, totalPrice));
+        } else {
+            return executeSumByTag(model);
         }
+    }
 
-        Predicate<Person> hasExactSameTagAndConfirmed = (person) -> person.getTags().contains(targetTag)
-                && person.getStatus().value.matches("[Cc]onfirmed");
-        model.updateFilteredPersonList(hasExactSameTagAndConfirmed);
-        List<Person> filteredList = model.getFilteredPersonList();
-        if (filteredList.isEmpty()) {
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_TAG, targetTag));
-        }
+    private CommandResult executeSumByTag(Model model) throws CommandException {
+        List<String> tags = new ArrayList<>();
+        tags.add(targetTag.tagName);
+        Predicate<Person> hasTag = new TagContainsKeywordsPredicate(tags);
 
-        double totalPrice = sumPriceInTheList(filteredList);
+        String unknownPersonMessage = String.format(MESSAGE_UNKNOWN_PERSON_TAG, targetTag);
+        updateFilteredList(model, hasTag, unknownPersonMessage);
+
+        String zeroSumMessage = String.format(MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS, targetTag, 0.00);
+        Predicate<Person> hasTagAndConfirmed = (person) -> hasTag.test(person) && PREDICATE_IS_CONFIRMED.test(person);
+        List<Person> hasTagAndConfirmedFilteredList = updateFilteredList(model, hasTagAndConfirmed, zeroSumMessage);
+
+        double totalPrice = sumPriceInTheList(hasTagAndConfirmedFilteredList);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS, targetTag, totalPrice));
     }
@@ -75,5 +87,16 @@ public class PriceCommand extends Command {
         }
 
         return totalPrice;
+    }
+
+    private List<Person> updateFilteredList(Model model, Predicate<Person> predicate, String message)
+            throws CommandException {
+        model.updateFilteredPersonList(predicate);
+        List<Person> newFilteredList = model.getFilteredPersonList();
+        if (newFilteredList.isEmpty()) {
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            throw new CommandException(message);
+        }
+        return newFilteredList;
     }
 }
