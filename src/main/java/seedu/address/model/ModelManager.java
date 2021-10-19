@@ -5,6 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Hashtable;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -150,6 +153,24 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public Hashtable<Tag, Integer> getUniqueTagList() {
+        ObservableList<Person> contactList = this.addressBook.getPersonList();
+        Hashtable<Tag, Integer> uniqueTagSet = new Hashtable<>();
+
+        for (Person contact : contactList) {
+            Set<Tag> curContactTagSet = contact.getTags();
+            for (Tag tag : curContactTagSet) {
+                if (uniqueTagSet.containsKey(tag)) {
+                    uniqueTagSet.merge(tag, 1, Integer::sum);
+                } else {
+                    uniqueTagSet.put(tag, 1);
+                }
+            }
+        }
+        return uniqueTagSet;
     }
 
     //=========== Filtered Person List Accessors =============================================================
