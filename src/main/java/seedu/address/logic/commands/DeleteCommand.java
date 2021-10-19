@@ -122,7 +122,7 @@ public class DeleteCommand extends Command {
     private CommandResult executeDeleteByIndex(Model model) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        assert targetIndex != null : "targetName should not be null";
+        assert targetIndex != null : "targetIndex should not be null";
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
