@@ -18,7 +18,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new AddShortcutCommand object
  */
 public class AddShortcutCommandParser implements Parser<AddShortcutCommand> {
 

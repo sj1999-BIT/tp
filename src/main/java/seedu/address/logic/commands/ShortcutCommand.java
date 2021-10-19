@@ -15,13 +15,12 @@ public class ShortcutCommand extends Command {
 
     public static final String COMMAND_WORD = "shortcut";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Calls the command tied to the keyphrase added by "
+            + "addshortcut\n"
+            + "Parameters: KEYPHRASE\n"
+            + "Example: " + COMMAND_WORD + " a";
 
     private final String shortcut;
-
 
     public ShortcutCommand(String shortcut) {
         this.shortcut = shortcut;
@@ -45,7 +44,7 @@ public class ShortcutCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ShortcutCommand // instanceof handles nulls
-                ); // state check
+                || (other instanceof ShortcutCommand) // instanceof handles nulls
+                || (shortcut.equals(((ShortcutCommand) other).shortcut)); // state check
     }
 }

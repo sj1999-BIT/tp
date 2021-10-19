@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 /**
- * Represents a storage for {@link seedu.address.model.Countdown}.
+ * Represents a storage for {@link seedu.address.model.Shortcut}.
  */
 public interface ShortcutStorage {
 
@@ -18,7 +18,7 @@ public interface ShortcutStorage {
     Path getShortcutFilePath();
 
     /**
-     * Returns Countdown data as a {@link ReadOnlyShortcut}.
+     * Returns Shortcut data as a {@link ReadOnlyShortcut}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.

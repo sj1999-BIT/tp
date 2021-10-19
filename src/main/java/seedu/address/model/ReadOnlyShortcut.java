@@ -1,15 +1,14 @@
 package seedu.address.model;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a shortcut
  */
 public interface ReadOnlyShortcut {
 
     /**
-     * Returns an unmodifiable view of the wedding date.
+     * Returns an unmodifiable view of the shortcut map
      */
     HashMap<String, String> getShortcutMap();
 }

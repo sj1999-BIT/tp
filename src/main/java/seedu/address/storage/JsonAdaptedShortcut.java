@@ -2,12 +2,10 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.Shortcut;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * Jackson-friendly version of {@link Shortcut}.
  */
 class JsonAdaptedShortcut {
 
@@ -15,7 +13,7 @@ class JsonAdaptedShortcut {
     private final String commandString;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedShortcut} with the given {@code keyword} and {@code command}.
      */
     @JsonCreator
     public JsonAdaptedShortcut(@JsonProperty("keyword") String keyword, @JsonProperty("command") String commandString) {

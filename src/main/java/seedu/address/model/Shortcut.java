@@ -7,8 +7,7 @@ import java.util.Hashtable;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Countdown of the wedding day.
- * Guarantees: details are present and not null.
+ * Represents shortcuts stored by the user
  */
 public class Shortcut implements ReadOnlyShortcut {
 
@@ -19,7 +18,7 @@ public class Shortcut implements ReadOnlyShortcut {
     }
 
     /**
-     * Creates a Countdown using the LocalDate in the {@code toBeCopied}
+     * Creates a Shortcut using the data in the {@code toBeCopied}
      */
     public Shortcut(ReadOnlyShortcut toBeCopied) {
         this();
@@ -27,7 +26,7 @@ public class Shortcut implements ReadOnlyShortcut {
     }
 
     /**
-     * Resets the existing data of this {@code Countdown} with {@code newData}.
+     * Resets the existing data of this {@code Shortcut} with {@code newData}.
      */
     public void resetData(ReadOnlyShortcut newData) {
         requireNonNull(newData);
@@ -36,22 +35,34 @@ public class Shortcut implements ReadOnlyShortcut {
     }
 
     /**
-     * Replaces the contents of the date with {@code weddingDate}.
+     * Replaces the contents of the shortcut map with {@code shorcutMap}.
      */
     public void setShortcutMap(HashMap<String, String> shortcutMap) {
         this.shortcutMap = shortcutMap;
     }
 
+    /**
+     * Adds a shortcut to the shortcut map with a {@code keyword} and {@code commandString} key-pair value.
+     *
+     * @param keyword Key to call a command
+     * @param commandString Command to be called
+     */
     public void addShortcut(String keyword, String commandString) {
         shortcutMap.put(keyword, commandString);
     }
 
+    /**
+     * Fetches the command by a key.
+     *
+     * @param keyword Key to call a command
+     * @return Command to be called
+     */
     public String getCommandFromKey(String keyword) {
         return shortcutMap.get(keyword);
     }
 
     /**
-     * Returns an unmodifiable view of the wedding date.
+     * Returns an unmodifiable view of the shortcut map.
      */
     @Override
     public HashMap<String, String> getShortcutMap() {

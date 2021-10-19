@@ -5,7 +5,7 @@ import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new ShortcutCommand object
  */
 public class ShortcutCommandParser implements Parser<ShortcutCommand> {
 

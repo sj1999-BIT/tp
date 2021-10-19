@@ -16,17 +16,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable Shortcut that is serializable to JSON format.
  */
 @JsonRootName(value = "shortcut")
 class JsonSerializableShortcut {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-
     private final List<JsonAdaptedShortcut> shortcuts = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableShortcut} with the given shortcuts.
      */
     @JsonCreator
     public JsonSerializableShortcut(@JsonProperty("shortcuts") List<JsonAdaptedShortcut> shortcuts) {
@@ -34,9 +32,9 @@ class JsonSerializableShortcut {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyShortcut} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableShortcut}.
      */
     public JsonSerializableShortcut(ReadOnlyShortcut source) {
         shortcuts.clear();
@@ -44,11 +42,11 @@ class JsonSerializableShortcut {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this shortcut list into the model's {@code Shortcut} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public Shortcut toModelType() throws IllegalValueException {
+    public Shortcut toModelType() {
         Shortcut shortcutModel = new Shortcut();
         HashMap<String, String> shortcutMap = new HashMap<>();
         for (JsonAdaptedShortcut shortcut: shortcuts) {

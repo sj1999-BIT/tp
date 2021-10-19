@@ -2,10 +2,8 @@ package seedu.address.storage;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyCountdown;
 import seedu.address.model.ReadOnlyShortcut;
 
 import java.io.IOException;
@@ -16,7 +14,7 @@ import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A class to access Countdown data stored as a json file on the hard disk.
+ * A class to access Shortcut data stored as a json file on the hard disk.
  */
 public class JsonShortcutStorage implements ShortcutStorage {
 
@@ -52,12 +50,7 @@ public class JsonShortcutStorage implements ShortcutStorage {
             return Optional.empty();
         }
 
-        try {
-            return Optional.of(jsonShortcut.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        }
+        return Optional.of(jsonShortcut.get().toModelType());
     }
 
     @Override
