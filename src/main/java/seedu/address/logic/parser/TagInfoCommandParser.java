@@ -17,7 +17,7 @@ public class TagInfoCommandParser implements Parser<TagInfoCommand> {
      */
     @Override
     public TagInfoCommand parse(String userInput) throws ParseException {
-        if (userInput.equals(" list")) {
+        if (userInput.trim().equals("list")) {
             return new TagInfoCommand(userInput);
         } else {
             ArgumentMultimap argMultimap =
