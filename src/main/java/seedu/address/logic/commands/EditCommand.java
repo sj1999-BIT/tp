@@ -37,6 +37,10 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
+    private UndoCommand commandToUndo;
+    private Person originalPerson;
+    private Person editedPerson;
+
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
@@ -70,6 +74,8 @@ public class EditCommand extends Command {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
@@ -83,14 +89,14 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        originalPerson = lastShownList.get(index.getZeroBased());
+        editedPerson = createEditedPerson(originalPerson, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!originalPerson.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setPerson(originalPerson, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
@@ -101,6 +107,7 @@ public class EditCommand extends Command {
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
+       // originalPerson = personToEdit;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
@@ -114,6 +121,14 @@ public class EditCommand extends Command {
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
                 updatedPrice, updatedInfo, updatedStatus, updatedTags);
+    }
+
+    public Person getOriginalPerson() {
+        return originalPerson;
+    }
+
+    public Person getEditedPerson() {
+        return editedPerson;
     }
 
     @Override

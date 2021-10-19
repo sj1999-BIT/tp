@@ -17,6 +17,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GroupCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -75,6 +76,9 @@ public class AddressBookParser {
 
         case CountdownCommand.COMMAND_WORD:
             return new CountdownCommandParser().parse(userInput);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(userInput);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

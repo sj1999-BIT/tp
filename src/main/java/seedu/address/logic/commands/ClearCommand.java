@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.ui.WarningWindow;
 
 /**
@@ -12,11 +13,18 @@ import seedu.address.ui.WarningWindow;
  */
 public class ClearCommand extends Command {
 
+    private UndoCommand commandToUndo;
+    private ReadOnlyAddressBook prevBook;
+
     public static final String COMMAND_WORD = "clear";
     // new message added to indicate if the address book is already empty
     public static final String MESSAGE_UNNECESSARY = "Address book is already empty!";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
     public static final String MESSAGE_FAILURE = "Address book is not cleared!";
+
+    public ReadOnlyAddressBook getPrevBook() {
+        return prevBook;
+    }
 
     /**
      * Executes will create a warning panel to give the user one more chance
@@ -28,6 +36,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        prevBook = model.getAddressBook();
         if (model.size() == 0) {
             return new CommandResult(MESSAGE_UNNECESSARY);
         } else {

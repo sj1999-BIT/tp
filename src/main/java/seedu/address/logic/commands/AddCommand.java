@@ -19,6 +19,7 @@ import seedu.address.model.person.Person;
  */
 public class AddCommand extends Command {
 
+    private UndoCommand commandToUndo;
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
@@ -51,6 +52,8 @@ public class AddCommand extends Command {
      */
     public AddCommand(Person person) {
         requireNonNull(person);
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         toAdd = person;
     }
 
