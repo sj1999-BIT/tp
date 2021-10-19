@@ -32,6 +32,9 @@ public class ShortcutCommand extends Command {
         requireNonNull(model);
         try {
             String commandString = model.getShortcutFromKey(shortcut);
+            if (commandString == null) {
+                return new CommandResult("Command not found");
+            }
             Command command = (new AddressBookParser()).parseCommand(commandString);
             return command.execute(model);
         } catch (ParseException | CommandException e) {
