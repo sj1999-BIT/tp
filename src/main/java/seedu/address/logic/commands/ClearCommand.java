@@ -13,14 +13,14 @@ import seedu.address.ui.WarningWindow;
  */
 public class ClearCommand extends Command {
 
-    private UndoCommand commandToUndo;
-    private ReadOnlyAddressBook prevBook;
-
     public static final String COMMAND_WORD = "clear";
     // new message added to indicate if the address book is already empty
     public static final String MESSAGE_UNNECESSARY = "Address book is already empty!";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
     public static final String MESSAGE_FAILURE = "Address book is not cleared!";
+
+    private UndoCommand commandToUndo;
+    private ReadOnlyAddressBook prevBook;
 
     public ReadOnlyAddressBook getPrevBook() {
         return prevBook;

@@ -19,10 +19,6 @@ import seedu.address.model.tag.Tag;
  */
 public class DeleteCommand extends Command {
 
-    private UndoCommand commandToUndo;
-    private Person personToDelete;
-    private Index nameIndex;
-
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_INDEX_USAGE = COMMAND_WORD
@@ -56,6 +52,9 @@ public class DeleteCommand extends Command {
     private final Name targetName;
     private final Predicate<Person> targetTagPerson;
     private final Tag targetTag;
+    private UndoCommand commandToUndo;
+    private Person personToDelete;
+    private Index nameIndex;
 
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetIndex}
@@ -109,7 +108,9 @@ public class DeleteCommand extends Command {
         }
     }
 
-    /** Deletes the persons identified with specified {@code targetTag}. */
+    /**
+     * Deletes the persons identified with specified {@code targetTag}.
+     */
     private CommandResult executeDeleteByTag(Model model) throws CommandException {
         assert targetTag != null : "targetTag should not be null";
         requireNonNull(model);
@@ -131,7 +132,9 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag));
     }
 
-    /** Deletes the person identified with specified {@code targetIndex}. */
+    /**
+     * Deletes the person identified with specified {@code targetIndex}.
+     */
     private CommandResult executeDeleteByIndex(Model model) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -145,7 +148,9 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
-    /** Deletes the person named {@code targetName}. */
+    /**
+     * Deletes the person named {@code targetName}.
+     */
     private CommandResult executeDeleteByName(Model model) throws CommandException {
         assert targetName != null : "targetName should not be null";
         Predicate<Person> hasExactSameName = (person) -> person.getName().equals(targetName);
@@ -182,7 +187,6 @@ public class DeleteCommand extends Command {
     public Index getIndexName() {
         return nameIndex;
     }
-
 
     @Override
     public boolean equals(Object other) {

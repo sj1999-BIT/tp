@@ -18,7 +18,6 @@ import seedu.address.model.tag.Tag;
  */
 public class GroupCommand extends Command {
 
-    private UndoCommand commandToUndo;
     public static final String COMMAND_WORD = "group";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to all the selected contacts. "
             + "Parameters: "
@@ -31,7 +30,7 @@ public class GroupCommand extends Command {
     private boolean isFirstAdded = true;
     private String tag;
     private List<String> nameList;
-
+    private UndoCommand commandToUndo;
 
     /**
      * Constructs a group command based on the inputs.
@@ -47,9 +46,10 @@ public class GroupCommand extends Command {
         return tag;
     }
 
-    public List<String> inputNameList() {
+    public List<String> getNameList() {
         return nameList;
     }
+
 
     /**
      * Creates a string that indicates all the names that have been added with the tag.

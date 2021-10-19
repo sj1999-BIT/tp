@@ -37,10 +37,6 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
-    private UndoCommand commandToUndo;
-    private Person originalPerson;
-    private Person editedPerson;
-
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
@@ -66,8 +62,12 @@ public class EditCommand extends Command {
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
+    private UndoCommand commandToUndo;
+    private Person originalPerson;
+    private Person editedPerson;
+
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -107,7 +107,7 @@ public class EditCommand extends Command {
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
-       // originalPerson = personToEdit;
+        // originalPerson = personToEdit;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
