@@ -1,23 +1,27 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.HashSet;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
-import seedu.address.model.Model;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Undoes the previous task.
  */
 public class UndoCommand extends Command {
 
-    private static Command prevCommand;
-
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_SUCCESS = "The task has been undone";
+
+    private static Command prevCommand;
+
 
     /**
      * Sets the previous command.
@@ -39,7 +43,8 @@ public class UndoCommand extends Command {
         requireNonNull(model);
         if (prevCommand == null || isInstanceOf(prevCommand)) {
             return new CommandResult(
-                    String.format(Messages.MESSAGE_CANNOT_UNDO_COMMAND, model.getFilteredPersonList().size()));
+                    String.format(Messages.MESSAGE_CANNOT_UNDO_COMMAND,
+                            model.getFilteredPersonList().size()));
         }
         List<Person> currentList = model.getFilteredPersonList();
         if (prevCommand instanceof AddCommand) {
@@ -49,11 +54,11 @@ public class UndoCommand extends Command {
             Person deletedPerson = deleted.getPersonToDelete();
             if (deleted.getTargetIndex() != null) {
                 Index index = deleted.getTargetIndex();
-                shuffleByIndex(currentList, index.getZeroBased(), deletedPerson,
+                shuffle(currentList, index.getZeroBased(), deletedPerson,
                         model);
             } else if (deleted.getTargetName() != null) {
                 Index index = deleted.getIndexName();
-                shuffleByIndex(currentList, index.getZeroBased(), deletedPerson,
+                shuffle(currentList, index.getZeroBased(), deletedPerson,
                         model);
             }
         } else if (prevCommand instanceof ClearCommand) {
@@ -63,7 +68,10 @@ public class UndoCommand extends Command {
             EditCommand edited = (EditCommand) prevCommand;
             model.setPerson(edited.getEditedPerson(), edited.getOriginalPerson());
         } else if (prevCommand instanceof GroupCommand) {
-            ClearCommand cleared = (ClearCommand) prevCommand;
+            GroupCommand group = (GroupCommand) prevCommand;
+            String tagName = group.getTagName();
+            List<String> nameList = group.getNameList();
+            removePeople(currentList, nameList, tagName, model);
         }
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, model.getFilteredPersonList().size()));
@@ -76,30 +84,27 @@ public class UndoCommand extends Command {
      * @param command the command to check
      */
     public boolean isInstanceOf(Command command) {
-        if ((prevCommand instanceof ExitCommand)||
-                (prevCommand instanceof FindCommand)
-                || (prevCommand instanceof HelpCommand)
-                || (prevCommand instanceof ListCommand)
-                || (prevCommand instanceof CountdownCommand)) {
-            return true;
-        }
-        return false;
+        return (command instanceof ExitCommand)
+                || (command instanceof FindCommand)
+                || (command instanceof HelpCommand)
+                || (command instanceof ListCommand)
+                || (command instanceof CountdownCommand)
+                || (command instanceof UndoCommand);
     }
 
     /**
-     * If a delete by index has occurred, reinstates
+     * If a person has been deleted, reinstates
      * the deleted person at the correct index
      *
-     *
-     * @param personList
-     * @param index
-     * @param newPerson
-     * @param model
+     * @param personList the list of all people
+     * @param index      the former index of the deleted person
+     * @param newPerson  the deleted person
+     * @param model      the model in use
      */
-    public void shuffleByIndex(List<Person> personList, int index, Person newPerson, Model model) {
+    public void shuffle(List<Person> personList, int index, Person newPerson, Model model) {
         Person temp1 = newPerson;
         for (int count = 0; count < personList.size(); count++) {
-             if (count == index) {
+            if (count == index) {
                 temp1 = personList.get(count);
                 model.setPerson(temp1, newPerson);
             } else if (count > index) {
@@ -111,5 +116,28 @@ public class UndoCommand extends Command {
         model.addPerson(temp1);
     }
 
+    /**
+     * Undoes the adding of people to a new group
+     *
+     * @param personList the list of all people
+     * @param names      the names of those who were added to a group
+     * @param tag        the group name
+     * @param model      the model in use
+     */
+    public void removePeople(List<Person> personList, List<String> names, String tag, Model model) {
+        for (Person p : personList) {
+            for (String name : names) {
+                if (p.getName().fullName.equals(name)) {
+                    HashSet<Tag> tags = new HashSet<>(p.getTags());
+                    tags.removeIf(t -> t.toString().contains(tag));
+                    Person editedPerson = new Person(p.getName(), p.getPhone(),
+                            p.getEmail(), p.getAddress(), p.getPrice(),
+                            p.getInfo(), p.getStatus(), tags);
+                    model.setPerson(p, editedPerson);
+                    break;
+                }
+            }
+        }
+    }
 }
 
