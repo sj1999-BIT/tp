@@ -16,6 +16,12 @@ public class PriceCommand extends Command {
 
     public static final String COMMAND_WORD = "price";
 
+    public static final String MESSAGE_ARGUMENT_USAGE = COMMAND_WORD
+            + ": Checks the total price under specified {@code targetTag} in the displayed person list.\n"
+            + "Parameters: Either empty or t/TAG\n"
+            + "Example 1: " + COMMAND_WORD + "\n"
+            + "Example 2: " + COMMAND_WORD + " t/photographer";
+
     public static final String MESSAGE_TAG_USAGE = COMMAND_WORD
             + ": Checks the total price under specified {@code targetTag} in the displayed person list.\n"
             + "Parameters: TAG (must be a non-empty and non-blank string)\n"
@@ -38,15 +44,17 @@ public class PriceCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Predicate<Person> isConfirmed = (person) -> person.getStatus().value.matches("[Cc]onfirmed");
+        model.updateFilteredPersonList(isConfirmed);
         if (targetTag == null) {
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             double totalPrice = sumPriceInTheList(model.getFilteredPersonList());
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(String.format(MESSAGE_TOTAL_PRICE_SUCCESS, totalPrice));
         }
 
-        Predicate<Person> hasExactSameTag = (person) -> person.getTags().contains(targetTag);
-
-        model.updateFilteredPersonList(hasExactSameTag);
+        Predicate<Person> hasExactSameTagAndConfirmed = (person)
+                -> person.getTags().contains(targetTag) && person.getStatus().value.matches("[Cc]onfirmed");
+        model.updateFilteredPersonList(hasExactSameTagAndConfirmed);
         List<Person> filteredList = model.getFilteredPersonList();
         if (filteredList.isEmpty()) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
