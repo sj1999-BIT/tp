@@ -154,6 +154,53 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Delete by name feature
+#### Implementation
+The delete-by-name mechanism is facilitated by `AddressBook`. It implements `ReadOnlyAddressBook` with a person list, stored internally as an `persons`. Additionally, it implements the following operation:
+
+* `AddressBook#removePerson()` — Removes specified person from its person list.
+
+The operation is exposed in the `Model` interface as `Model#deletePerson()`.
+
+Given below is an example usage scenario and how the delete-by-name mechanism behaves at each step.
+
+Step 1. The user launches the application. There are several contacts stored as `persons` list in `AddressBook`.
+Include `OBJECT DIAGRAM`
+
+Step 2. The user executes `delete n/John Doe` command to delete the person named *John Doe* in the address book.
+The `delete` command calls `Model#getFilteredPersonList()` to get a filtered list where all the persons in the list named
+exactly *John Doe*.
+Include `OBJECT DIAGRAM`
+
+Step 3. Then, it calls `Model#deletePerson()`, causing `AddressBook` to remove the all `person` (the same persons in the 
+filtered list) from its `persons` list, one by one with method `removePerson()`.
+Include `OBJECT DIAGRAM`
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a name is not found, it will not call `Model#deletePerson()`, so the `AddressBook` person list will not be modified.
+
+</div>
+
+Step 4. Finally, The `delete` command calls `Model#getFilteredPersonList()` again so the user will see the updated contact list which *John Doe* is removed.
+Include `OBJECT DIAGRAM`
+
+The following sequence diagram shows how the price sum checking operation works:
+Insert `SEQUENCE DIAGRAM HERE`
+:information_source: **Note:** The lifeline for `DeleteCommand` should end at the destroy marker (X) but due to a 
+limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram summarizes what happens when a user executes a new command:
+Insert `ACTIVITY DIAGRAM HERE`
+
+Design considerations:
+Aspect: How `FEATURE` executes:
+* Alternative 1
+    * Pros:
+    * Cons:
+* Alternative 2
+    * Pros:
+    * Cons:
+{more aspects and alternatives to be added}
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
