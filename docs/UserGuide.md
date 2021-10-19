@@ -230,6 +230,18 @@ Examples:
 * `filter g/Team 4 t/colleagues t/friends` returns Bernice YU as only he have all the tags: colleagues and friends
 
 
+### List tags: `tagInfo`
+
+Returns a unique list of tags with the number of contacts labelled with the tag.
+
+Format: `tagInfo [t/TAG]...` or `tagInfo list`
+
+Filter through the contacts with tags TAG to obtain a list of TAGs with details of how many contacts labelled by them.
+The list can be specified to only limited tags or to include all the tags used to labelled the contacts.
+
+Examples:
+* `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
+* `tagInfo list` returns a list with all the tags labelled by the contacts.
 
 
 --------------------------------------------------------------------------------------------------------------------
