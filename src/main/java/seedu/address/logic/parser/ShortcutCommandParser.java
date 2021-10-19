@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddShortcutCommand;
 import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.address.model.Model;
 
 /**
  * Adds a shortcut to the shortcut list stored.
@@ -19,6 +19,11 @@ public class AddShortcutCommand extends Command {
     private final String keyword;
     private final String commandString;
 
+    /**
+     * Creates new {@code AddShortcutCommand}
+     * @param keyword Key to call the command
+     * @param commandString Command to be called
+     */
     public AddShortcutCommand(String keyword, String commandString) {
         this.keyword = keyword;
         this.commandString = commandString;

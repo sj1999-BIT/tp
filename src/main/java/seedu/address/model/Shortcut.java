@@ -1,10 +1,8 @@
 package seedu.address.model;
 
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Hashtable;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.HashMap;
 
 /**
  * Represents shortcuts stored by the user

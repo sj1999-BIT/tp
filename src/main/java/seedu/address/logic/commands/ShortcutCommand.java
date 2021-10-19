@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.

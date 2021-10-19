@@ -29,7 +29,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, countdown and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyCountdown countdown, ReadOnlyUserPrefs userPrefs, ReadOnlyShortcut shortcut) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyCountdown countdown,
+                        ReadOnlyUserPrefs userPrefs, ReadOnlyShortcut shortcut) {
         super();
         requireAllNonNull(addressBook, countdown, userPrefs);
 
@@ -224,7 +225,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getShortcutFromKey(String keyword)  {
+    public String getShortcutFromKey(String keyword) {
         return shortcut.getCommandFromKey(keyword);
     }
 

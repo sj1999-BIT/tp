@@ -1,21 +1,10 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddShortcutCommand;
-import seedu.address.logic.commands.CountdownCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.TruePredicate;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Predicate;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND;
+
+import seedu.address.logic.commands.AddShortcutCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddShortcutCommand object
