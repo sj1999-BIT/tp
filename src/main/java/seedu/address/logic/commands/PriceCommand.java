@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -11,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Price;
+import seedu.address.model.person.predicates.StatusEqualsConfirmedPredicate;
 import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
@@ -29,55 +29,79 @@ public class PriceCommand extends Command {
             + "Parameters: TAG (must be a non-empty and non-blank string)\n"
             + "Example: " + COMMAND_WORD + " t/photographer";
 
-    public static final String MESSAGE_UNKNOWN_PERSON_TAG = "Persons with tag %s are not found.";
-    public static final String MESSAGE_TOTAL_PRICE_SUCCESS = "Total price of your wedding is %.2f";
-    public static final String MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS = "Total price under tag: %s is %.2f";
+    public static final String MESSAGE_TAG_NOT_FOUND_FAILURE = "The following tag(s) you specified is not found:\n %s";
+    public static final String MESSAGE_PRICE_SUM_SUCCESS = "Total price of your wedding is $%.2f";
+    public static final String MESSAGE_PRICE_SUM_UNDER_TAG_SUCCESS = "Total price is $%.2f for the following tag(s):"
+            + "\n %s";
 
-    private static final Predicate<Person> PREDICATE_IS_CONFIRMED = (person)
-        -> person.getStatus().value.matches("[Cc]onfirmed");
+    private static final Predicate<Person> PREDICATE_STATUS_IS_CONFIRMED = new StatusEqualsConfirmedPredicate();
 
-    private final Tag targetTag;
+    private final List<String> targetTagKeywords;
 
+    /**
+     * Creates a PriceCommand to calculate the price sum of persons with confirmed status
+     */
     public PriceCommand() {
-        this.targetTag = null;
+        this.targetTagKeywords = null;
     }
 
-    public PriceCommand(Tag targetTag) {
-        this.targetTag = targetTag;
+    /**
+     * Creates a PriceCommand to calculate the price sum of persons with confirmed status and {@code targetTagKeywords}
+     */
+    public PriceCommand(List<String> targetTagKeywords) {
+        this.targetTagKeywords = targetTagKeywords;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        String zeroSumMessage = String.format(MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS, targetTag, 0.00);
-        updateFilteredList(model, PREDICATE_IS_CONFIRMED, zeroSumMessage);
-        if (targetTag == null) {
-            double totalPrice = sumPriceInTheList(model.getFilteredPersonList());
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_TOTAL_PRICE_SUCCESS, totalPrice));
+        if (targetTagKeywords == null) {
+            return executeTotalSum(model);
         } else {
             return executeSumByTag(model);
         }
     }
 
-    /** Finds the price sum under the target tag. */
+    private List<Person> getConfirmedPersonList(Model model) {
+        model.updateFilteredPersonList(PREDICATE_STATUS_IS_CONFIRMED);
+        return model.getFilteredPersonList();
+    }
+
+    private CommandResult executeTotalSum(Model model) {
+        List<Person> confirmedPersonList = getConfirmedPersonList(model);
+        double totalSum = sumPriceInTheList(confirmedPersonList);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_PRICE_SUM_SUCCESS, totalSum));
+    }
+
+    private void searchPersonsWithSameTags(Model model) throws CommandException {
+        assert targetTagKeywords != null : "Tag keywords should not be null";
+        for (String targetTagKeyword : targetTagKeywords) {
+            Tag tagToCheck = new Tag(targetTagKeyword);
+            Predicate<Person> containSameTag = (person) -> person.getTags().contains(tagToCheck);
+            model.updateFilteredPersonList(containSameTag);
+            if (model.getFilteredPersonList().isEmpty()) {
+                model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+                throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND_FAILURE, tagToCheck));
+            }
+        }
+    }
+
+    private List<Person> getPersonWithSameTagsList(Model model) throws CommandException {
+        searchPersonsWithSameTags(model);
+        Predicate<Person> containTagsPredicate = new TagContainsKeywordsPredicate(targetTagKeywords);
+        Predicate<Person> containTagsAndConfirmed = PREDICATE_STATUS_IS_CONFIRMED.and(containTagsPredicate);
+        model.updateFilteredPersonList(containTagsAndConfirmed);
+        return model.getFilteredPersonList();
+    }
+
     private CommandResult executeSumByTag(Model model) throws CommandException {
-        List<String> tags = new ArrayList<>();
-        assert targetTag != null : "targetTag should not be null";
-        tags.add(targetTag.tagName);
-        Predicate<Person> hasTag = new TagContainsKeywordsPredicate(tags);
-
-        String unknownPersonMessage = String.format(MESSAGE_UNKNOWN_PERSON_TAG, targetTag);
-        updateFilteredList(model, hasTag, unknownPersonMessage);
-
-        Predicate<Person> hasTagAndConfirmed = (person) -> hasTag.test(person) && PREDICATE_IS_CONFIRMED.test(person);
-        String zeroSumMessage = String.format(MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS, targetTag, 0.00);
-        List<Person> hasTagAndConfirmedFilteredList = updateFilteredList(model, hasTagAndConfirmed, zeroSumMessage);
-
-        double totalPrice = sumPriceInTheList(hasTagAndConfirmedFilteredList);
+        assert targetTagKeywords != null : "Tag keywords should not be null";
+        List<Person> personWithSameTagsList = getPersonWithSameTagsList(model);
+        double totalSumByTag = sumPriceInTheList(personWithSameTagsList);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_TOTAL_PRICE_UNDER_TAG_SUCCESS, targetTag, totalPrice));
+        return new CommandResult(String.format(MESSAGE_PRICE_SUM_UNDER_TAG_SUCCESS, totalSumByTag, targetTagKeywords));
     }
 
     private double sumPriceInTheList(List<Person> listToSum) {
@@ -89,16 +113,5 @@ public class PriceCommand extends Command {
         }
 
         return totalPrice;
-    }
-
-    private List<Person> updateFilteredList(Model model, Predicate<Person> predicate, String message)
-            throws CommandException {
-        model.updateFilteredPersonList(predicate);
-        List<Person> newFilteredList = model.getFilteredPersonList();
-        if (newFilteredList.isEmpty()) {
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            throw new CommandException(message);
-        }
-        return newFilteredList;
     }
 }
