@@ -97,6 +97,13 @@ public class Person {
     }
 
     /**
+     * Returns true if this person's status is same as {@code anotherStatus}
+     */
+    public boolean hasSameStatus(Status anotherStatus) {
+        return status.equals(anotherStatus);
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

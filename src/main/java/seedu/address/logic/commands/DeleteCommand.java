@@ -52,35 +52,47 @@ public class DeleteCommand extends Command {
     private final Name targetName;
     private final Predicate<Person> targetTagPerson;
     private final Tag targetTag;
+    private UndoCommand commandToUndo;
+    private Person personToDelete;
+    private Index nameIndex;
 
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetIndex}
      */
     public DeleteCommand(Index targetIndex) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.targetIndex = targetIndex;
         this.targetTagPerson = null;
         this.targetName = null;
         this.targetTag = null;
+        this.personToDelete = null;
     }
 
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetName}
      */
     public DeleteCommand(Name targetName) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.targetName = targetName;
         this.targetTagPerson = null;
         this.targetIndex = null;
         this.targetTag = null;
+        this.personToDelete = null;
     }
 
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetTag}
      */
     public DeleteCommand(Predicate<Person> targetTagPerson, String targetTag) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.targetTagPerson = targetTagPerson;
         this.targetName = null;
         this.targetIndex = null;
         this.targetTag = new Tag(targetTag);
+        this.personToDelete = null;
     }
 
 
@@ -96,7 +108,9 @@ public class DeleteCommand extends Command {
         }
     }
 
-    /** Deletes the persons identified with specified {@code targetTag}. */
+    /**
+     * Deletes the persons identified with specified {@code targetTag}.
+     */
     private CommandResult executeDeleteByTag(Model model) throws CommandException {
         assert targetTag != null : "targetTag should not be null";
         requireNonNull(model);
@@ -118,7 +132,9 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag));
     }
 
-    /** Deletes the person identified with specified {@code targetIndex}. */
+    /**
+     * Deletes the person identified with specified {@code targetIndex}.
+     */
     private CommandResult executeDeleteByIndex(Model model) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -127,12 +143,14 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
-    /** Deletes the person named {@code targetName}. */
+    /**
+     * Deletes the person named {@code targetName}.
+     */
     private CommandResult executeDeleteByName(Model model) throws CommandException {
         assert targetName != null : "targetName should not be null";
         Predicate<Person> hasExactSameName = (person) -> person.getName().equals(targetName);
@@ -145,12 +163,29 @@ public class DeleteCommand extends Command {
         }
 
         for (int i = 0; i < filteredList.size(); i++) {
-            Person personToDelete = filteredList.get(i);
+            personToDelete = filteredList.get(i);
             model.deletePerson(personToDelete);
+            nameIndex = Index.fromZeroBased(i);
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetName));
+    }
+
+    public Person getPersonToDelete() {
+        return personToDelete;
+    }
+
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    public Name getTargetName() {
+        return targetName;
+    }
+
+    public Index getIndexName() {
+        return nameIndex;
     }
 
     @Override
