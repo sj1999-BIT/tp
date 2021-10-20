@@ -25,13 +25,15 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final Countdown countdown;
+    private final Shortcut shortcut;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook, countdown and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyCountdown countdown, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyCountdown countdown,
+                        ReadOnlyUserPrefs userPrefs, ReadOnlyShortcut shortcut) {
         super();
         requireAllNonNull(addressBook, countdown, userPrefs);
 
@@ -40,12 +42,13 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.countdown = new Countdown(countdown);
+        this.shortcut = new Shortcut(shortcut);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new Countdown(), new UserPrefs());
+        this(new AddressBook(), new Countdown(), new UserPrefs(), new Shortcut());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -83,6 +86,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getShortcutFilePath() {
+        return userPrefs.getShortcutFilePath();
+    }
+
+    @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
@@ -92,6 +100,12 @@ public class ModelManager implements Model {
     public void setCountdownFilePath(Path countdownFilePath) {
         requireNonNull(countdownFilePath);
         userPrefs.setCountdownFilePath(countdownFilePath);
+    }
+
+    @Override
+    public void setShortcutFilePath(Path shortcutFilePath) {
+        requireNonNull(shortcutFilePath);
+        userPrefs.setShortcutFilePath(shortcutFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -214,4 +228,26 @@ public class ModelManager implements Model {
 
         countdown.setDate(newDate);
     }
+
+    //=========== Shortcut ================================================================================
+    @Override
+    public void setShortcut(ReadOnlyShortcut shortcut) {
+        this.shortcut.resetData(shortcut);
+    }
+
+    @Override
+    public ReadOnlyShortcut getShortcut() {
+        return shortcut;
+    }
+
+    @Override
+    public void addShortcut(String keyword, String commandString) {
+        shortcut.addShortcut(keyword, commandString);
+    }
+
+    @Override
+    public String getShortcutFromKey(String keyword) {
+        return shortcut.getCommandFromKey(keyword);
+    }
+
 }
