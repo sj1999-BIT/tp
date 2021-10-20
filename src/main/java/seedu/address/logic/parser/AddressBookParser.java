@@ -86,7 +86,7 @@ public class AddressBookParser {
 
         case ShortcutCommand.COMMAND_WORD:
             return new ShortcutCommandParser().parse(arguments);
-            
+
         case PriceCommand.COMMAND_WORD:
             return new PriceCommandParser().parse(arguments);
 
