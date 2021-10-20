@@ -171,7 +171,7 @@ Step 2. The user executes `delete n/John Doe` command to delete the person named
 The `delete` command first calls `Model#updateFilteredPersonList()` and `Model#getFilteredPersonList()` to get a list where all the persons in the list named *John Doe*.
 ![DeleteByNameFilteredPersonList0](images/DeleteByNameFilteredPersonList0.png)
 
-Step 3. With the access to the filtered list, it calls `Model#deletePerson()`, causing `AddressBook` to remove each person in the 
+Step 3. With the access to the filtered list, it calls `Model#deletePerson()`, causing `AddressBook` to remove each person in the
 list by calling `AddressBook#removePerson()`. Finally, the user will see the updated person list with *John Doe* removed.
 ![DeleteByNamePersonList1](images/DeleteByNamePersonList1.png)
 
@@ -181,7 +181,7 @@ list by calling `AddressBook#removePerson()`. Finally, the user will see the upd
 
 The following sequence diagram shows how the price sum checking operation works:
 ![Interactions Inside the Logic Component for the `delete n/John Doe` Command](images/DeleteByNameSequenceDiagram.png)
-:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a 
+:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a
 limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The following activity diagram summarizes what happens when a user executes a delete-by-name command:
@@ -383,7 +383,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. System shows an error message.
     * 2a2. User indicates the error message has been read.<br>
       Use case resumes at step 1.
-      
+
 **Use case:  Track important information**
 
 **MSS**
@@ -420,7 +420,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  Should not store more than 20MB of infomation.
 5.  Program should respond within 2 seconds of each command.
 6.  Product is not handling more than 1 user planning a wedding at once.
-7.  Should be usable by anyone who understands english without any experience in planning weddings. 
+7.  Should be usable by anyone who understands english without any experience in planning weddings.
 
 
 *{More to be added}*
