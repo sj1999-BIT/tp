@@ -43,6 +43,10 @@ public class Price {
         return currentPrice > otherPrice;
     }
 
+    public double toDouble() {
+        return Double.parseDouble(value);
+    }
+
     @Override
     public String toString() {
         return value;
