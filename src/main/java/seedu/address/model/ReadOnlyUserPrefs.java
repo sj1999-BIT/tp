@@ -15,4 +15,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getCountdownFilePath();
 
+    Path getShortcutFilePath();
+
 }

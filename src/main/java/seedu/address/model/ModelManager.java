@@ -5,6 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Hashtable;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,13 +25,15 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final Countdown countdown;
+    private final Shortcut shortcut;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook, countdown and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyCountdown countdown, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyCountdown countdown,
+                        ReadOnlyUserPrefs userPrefs, ReadOnlyShortcut shortcut) {
         super();
         requireAllNonNull(addressBook, countdown, userPrefs);
 
@@ -37,12 +42,13 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.countdown = new Countdown(countdown);
+        this.shortcut = new Shortcut(shortcut);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new Countdown(), new UserPrefs());
+        this(new AddressBook(), new Countdown(), new UserPrefs(), new Shortcut());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -80,6 +86,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getShortcutFilePath() {
+        return userPrefs.getShortcutFilePath();
+    }
+
+    @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
@@ -89,6 +100,12 @@ public class ModelManager implements Model {
     public void setCountdownFilePath(Path countdownFilePath) {
         requireNonNull(countdownFilePath);
         userPrefs.setCountdownFilePath(countdownFilePath);
+    }
+
+    @Override
+    public void setShortcutFilePath(Path shortcutFilePath) {
+        requireNonNull(shortcutFilePath);
+        userPrefs.setShortcutFilePath(shortcutFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -136,6 +153,24 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public Hashtable<Tag, Integer> getUniqueTagList() {
+        ObservableList<Person> contactList = this.addressBook.getPersonList();
+        Hashtable<Tag, Integer> uniqueTagSet = new Hashtable<>();
+
+        for (Person contact : contactList) {
+            Set<Tag> curContactTagSet = contact.getTags();
+            for (Tag tag : curContactTagSet) {
+                if (uniqueTagSet.containsKey(tag)) {
+                    uniqueTagSet.merge(tag, 1, Integer::sum);
+                } else {
+                    uniqueTagSet.put(tag, 1);
+                }
+            }
+        }
+        return uniqueTagSet;
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -193,4 +228,26 @@ public class ModelManager implements Model {
 
         countdown.setDate(newDate);
     }
+
+    //=========== Shortcut ================================================================================
+    @Override
+    public void setShortcut(ReadOnlyShortcut shortcut) {
+        this.shortcut.resetData(shortcut);
+    }
+
+    @Override
+    public ReadOnlyShortcut getShortcut() {
+        return shortcut;
+    }
+
+    @Override
+    public void addShortcut(String keyword, String commandString) {
+        shortcut.addShortcut(keyword, commandString);
+    }
+
+    @Override
+    public String getShortcutFromKey(String keyword) {
+        return shortcut.getCommandFromKey(keyword);
+    }
+
 }

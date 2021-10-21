@@ -45,8 +45,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_TAG_USAGE));
             }
-            ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_TAG);
             String[] tags = trimmedArgs.split(PREFIX_TAG.toString());
             if (tags.length < 2) {
                 throw new ParseException(

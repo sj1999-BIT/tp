@@ -154,6 +154,53 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Delete by name feature
+#### Implementation
+The delete-by-name mechanism is facilitated by `AddressBook`. It implements `ReadOnlyAddressBook` with a person list, stored internally as an `persons`. Additionally, it implements the following operation:
+
+* `AddressBook#removePerson()` — Removes specified person from its person list.
+
+The operation is exposed in the `Model` interface as `Model#deletePerson()`.
+
+Given below is an example usage scenario and how the delete-by-name mechanism behaves at each step.
+
+Step 1. The user launches the application and has the following person list saved. `AddressBook` stores these contacts as `persons`.
+![DeleteByNamePersonList0](images/DeleteByNamePersonList0.png)
+
+Step 2. The user executes `delete n/John Doe` command to delete the person named *John Doe* in the list.
+The `delete` command first calls `Model#updateFilteredPersonList()` and `Model#getFilteredPersonList()` to get a list where all the persons in the list named *John Doe*.
+![DeleteByNameFilteredPersonList0](images/DeleteByNameFilteredPersonList0.png)
+
+Step 3. With the access to the filtered list, it calls `Model#deletePerson()`, causing `AddressBook` to remove each person in the
+list by calling `AddressBook#removePerson()`. Finally, the user will see the updated person list with *John Doe* removed.
+![DeleteByNamePersonList1](images/DeleteByNamePersonList1.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a name is not found, it will not call `Model#deletePerson()`, so the `AddressBook` person list will not be modified.
+
+</div>
+
+The following sequence diagram shows how the price sum checking operation works:
+![Interactions Inside the Logic Component for the `delete n/John Doe` Command](images/DeleteByNameSequenceDiagram.png)
+:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a
+limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram summarizes what happens when a user executes a delete-by-name command:
+
+<img src="images/DeleteByName.png" width="250" />
+
+#### Design considerations:
+
+**Aspect: How delete-by-name executes:**
+
+* **Alternative 1 (current choice):** Deletes the person with the exact same name.
+    * Pros: Avoid the situation where user deletes the wrong person
+    * Cons: User needs to remember the name precisely.
+* **Alternative 2:** Deletes the person who names partially contains the specified name.
+    * Pros: User does not have to remember the full name (e.g. `delete n/Alex` will delete both person named *Alex Tan* and *Alex Yeoh*).
+    * Cons: Might delete the wrong person.
+
+_{more aspects and alternatives to be added}_
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -336,7 +383,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. System shows an error message.
     * 2a2. User indicates the error message has been read.<br>
       Use case resumes at step 1.
-      
+
 **Use case:  Track important information**
 
 **MSS**
@@ -373,7 +420,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  Should not store more than 20MB of infomation.
 5.  Program should respond within 2 seconds of each command.
 6.  Product is not handling more than 1 user planning a wedding at once.
-7.  Should be usable by anyone who understands english without any experience in planning weddings. 
+7.  Should be usable by anyone who understands english without any experience in planning weddings.
 
 
 *{More to be added}*

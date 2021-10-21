@@ -5,7 +5,7 @@ title: User Guide
 
 WedFast is a **desktop app for organising weddings, optimized for use via a Command Line
 Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type
-fast, WedFast can get your contact management tasks done faster than traditional GUI apps. 
+fast, WedFast can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
 * Quickstart
@@ -33,7 +33,7 @@ fast, WedFast can get your contact management tasks done faster than traditional
 
 2. Copy the file to the folder you want to use as the _home folder_ for your WedFast.
 
-3. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. 
+3. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
 Note how the app contains some sample data.
 
 4. Refer to the [Features](#features) below for details of each command.
@@ -86,7 +86,7 @@ Examples:
 
 ### Listing all persons : `list`
 
-Lists the existing contacts based on the group. 
+Lists the existing contacts based on the group.
 If the group name is unspecified, then list all the existing contacts.
 
 Format: `list`
@@ -143,16 +143,16 @@ Deletes the specified person from WedFast, either via index or name.
 
 Format: `delete INDEX` or `delete NAME`
 
-* `delete INDEX`: Deletes the person at the specified `INDEX`. 
+* `delete INDEX`: Deletes the person at the specified `INDEX`.
   The index is a positive number corresponding to the number of the person in the list.
-* `delete NAME`: Deletes the person with the specified `NAME`.
+* `delete n/NAME`: Deletes the person with the specified `NAME`.
 
 Examples:
 * `delete 2` deletes the 2nd person in the address book.
-* `delete John Doe` deletes all the John Doe’s in the list
-* `find NAME` followed by delete 2 deletes the 2nd person whose name matches the name being searched, if they exist. 
+* `delete n/John Doe` deletes all the John Doe’s in the list
+* `find NAME` followed by delete 2 deletes the 2nd person whose name matches the name being searched, if they exist.
   Otherwise, a message is shown stating that the index is not valid.
-  
+
 ### Undoing a command : `undo`
 
 Undoes the last edit that was made to the program.
@@ -182,7 +182,7 @@ Format: `exit`
 ### Adding shortcuts : `shortcut` (Coming soon)
 
  Add a shortcut bound to the SHORTCUT button
- 
+
 Format: `shortcut SHORTCUT [c/COMMAND]`
 
 * SHORTCUT is a set of values of 10 buttons [q, w, e, r, a, s, d, z, x, c]
@@ -219,7 +219,7 @@ Examples
 
 ### Filter contacts: `filter`
 
-Filter the specific group to obtain a list of contacts that shares all the tags 
+Filter the specific group to obtain a list of contacts that shares all the tags
 
 Format: `filter [g/GROUP_NAME] [t/TAG]...`
 
@@ -230,6 +230,18 @@ Examples:
 * `filter g/Team 4 t/colleagues t/friends` returns Bernice YU as only he have all the tags: colleagues and friends
 
 
+### List tags: `tagInfo`
+
+Returns a unique list of tags with the number of contacts labelled with the tag.
+
+Format: `tagInfo [t/TAG]...` or `tagInfo list`
+
+Filter through the contacts with tags TAG to obtain a list of TAGs with details of how many contacts labelled by them.
+The list can be specified to only limited tags or to include all the tags used to labelled the contacts.
+
+Examples:
+* `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
+* `tagInfo list` returns a list with all the tags labelled by the contacts.
 
 
 --------------------------------------------------------------------------------------------------------------------
