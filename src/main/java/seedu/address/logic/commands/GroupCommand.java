@@ -17,6 +17,7 @@ import seedu.address.model.tag.Tag;
  * Add tags to a group of contacts at the same time. Command stops if one of the names is invalid.
  */
 public class GroupCommand extends Command {
+
     public static final String COMMAND_WORD = "group";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to all the selected contacts. "
             + "Parameters: "
@@ -29,15 +30,26 @@ public class GroupCommand extends Command {
     private boolean isFirstAdded = true;
     private String tag;
     private List<String> nameList;
-
+    private UndoCommand commandToUndo;
 
     /**
      * Constructs a group command based on the inputs.
      */
     public GroupCommand(String inputTag, String inputNameList) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         tag = inputTag;
         nameList = Arrays.asList(inputNameList.split(", "));
     }
+
+    public String getTagName() {
+        return tag;
+    }
+
+    public List<String> getNameList() {
+        return nameList;
+    }
+
 
     /**
      * Creates a string that indicates all the names that have been added with the tag.

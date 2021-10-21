@@ -2,11 +2,13 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Hashtable;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -46,6 +48,11 @@ public interface Model {
     Path getCountdownFilePath();
 
     /**
+     * Returns the user prefs' shortcut file path.
+     */
+    Path getShortcutFilePath();
+
+    /**
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
@@ -54,6 +61,11 @@ public interface Model {
      * Sets the user prefs' countdown file path.
      */
     void setCountdownFilePath(Path countdownFilePath);
+
+    /**
+     * Sets the user prefs' shortcut file path
+     */
+    void setShortcutFilePath(Path shortcuteFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
@@ -65,11 +77,23 @@ public interface Model {
      */
     void setCountdown(ReadOnlyCountdown countdown);
 
+    /**
+     * Replaces shortcut data with the data in {@code shortcut}.
+     */
+    void setShortcut(ReadOnlyShortcut shortcut);
+
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns the Countdown */
     ReadOnlyCountdown getCountdown();
+
+    /** Returns the Shortcut */
+    ReadOnlyShortcut getShortcut();
+
+    void addShortcut(String keyword, String commandString);
+
+    String getShortcutFromKey(String keyword);
 
     /**
      * Returns the size of the address book
@@ -119,4 +143,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns a HashSet of the unique Tags in the model, with the number of contacts labelled with
+     * each respective tags as the value.
+     */
+    Hashtable<Tag, Integer> getUniqueTagList();
 }
