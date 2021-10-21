@@ -32,6 +32,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCountdownStorage;
+import seedu.address.storage.JsonShortcutStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -51,7 +52,9 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonCountdownStorage countdownStorage = new JsonCountdownStorage(temporaryFolder.resolve("countdown.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, countdownStorage, userPrefsStorage);
+        JsonShortcutStorage shortcutStorage = new JsonShortcutStorage(temporaryFolder.resolve("shortcut.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, countdownStorage,
+                userPrefsStorage, shortcutStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -80,9 +83,12 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonCountdownStorage countdownStorage =
                 new JsonCountdownStorage(temporaryFolder.resolve("ioExceptionCountdown.json"));
+        JsonShortcutStorage shortcutStorage =
+                new JsonShortcutStorage(temporaryFolder.resolve("ioExceptionShortcut.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, countdownStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, countdownStorage, userPrefsStorage,
+                shortcutStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -136,7 +142,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getCountdown(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getCountdown(),
+                new UserPrefs(), model.getShortcut());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

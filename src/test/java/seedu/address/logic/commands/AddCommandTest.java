@@ -22,6 +22,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCountdown;
+import seedu.address.model.ReadOnlyShortcut;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -118,6 +119,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getShortcutFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBookFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
@@ -128,7 +134,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setShortcutFilePath(Path shortcutFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addShortcut(String keyword, String command) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -143,12 +159,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setShortcut(ReadOnlyShortcut shortcut) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ReadOnlyCountdown getCountdown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyShortcut getShortcut() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getShortcutFromKey(String keyword) {
             throw new AssertionError("This method should not be called.");
         }
 
