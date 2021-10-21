@@ -17,7 +17,7 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** Report information should be shown to the user. */
+    /** Show report information to the user. */
     private final boolean showReport;
 
     /**

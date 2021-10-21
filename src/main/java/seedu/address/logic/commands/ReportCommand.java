@@ -24,19 +24,10 @@ public class ReportCommand extends Command {
      * @param status is the status associated with element
      * @return true if tag exists and so status can be updated
      */
-    public static boolean canUpdateExistingTagStatus(ArrayList<ReportElement> reportList, String tag, String status) {
+    public static boolean canUpdateExistingElement(ArrayList<ReportElement> reportList, String tag, String status) {
         for (ReportElement e : reportList) {
             if (e.hasSameTag(tag)) {
-                if (status.equalsIgnoreCase("confirmed")
-                        || status.equalsIgnoreCase("c")) {
-                    e.incrementConfirmed();
-                } else if (status.equalsIgnoreCase("pending")
-                        || status.equalsIgnoreCase("p")) {
-                    e.incrementPending();
-                } else if (status.equalsIgnoreCase("declined")
-                        || status.equalsIgnoreCase("d")) {
-                    e.incrementDeclined();
-                }
+                e.incrementStatusCount(status);
                 return true;
             }
         }
@@ -46,34 +37,40 @@ public class ReportCommand extends Command {
     /**
      * Creates a report arraylist that keeps track of all the tags and the corresponding
      * status count for each tag.
-     * @param model is the list with report elements
+     * @param model is the source from which list of contacts can be obtained
      * @return report created
      */
     public static String createReport(Model model) {
         ArrayList<ReportElement> reportArray = new ArrayList<ReportElement>();
         ObservableList<Person> listOfPeople = model.getFilteredPersonList();
-
         for (Person currPerson : listOfPeople) {
             Set<Tag> currPersonTags = currPerson.getTags();
             currPersonTags.toArray();
             String statusString = currPerson.getStatus().toString();
             for (Tag tagUsed : currPersonTags) {
                 String tagString = tagUsed.toString();
-                if (!canUpdateExistingTagStatus(reportArray, tagString, statusString)) {
-                    if (statusString.equalsIgnoreCase("confirmed")
-                            || statusString.equalsIgnoreCase("c")) {
-                        reportArray.add(new ReportElement(tagString, 1, 0, 0));
-                    } else if (statusString.equalsIgnoreCase("pending")
-                            || statusString.equalsIgnoreCase("p")) {
-                        reportArray.add(new ReportElement(tagString, 0, 1, 0));
-                    } else if (statusString.equalsIgnoreCase("declined")
-                            || statusString.equalsIgnoreCase("d")) {
-                        reportArray.add(new ReportElement(tagString, 0, 0, 1));
-                    } else { }
+                if (!canUpdateExistingElement(reportArray, tagString, statusString)) {
+                    createNewElement(reportArray, tagString, statusString);
                 }
             }
         }
         return provideTextReport(reportArray);
+    }
+
+    /**
+     * Creates and includes a new report element to report array
+     * @param reportElements is the arraylist storing report elements
+     * @param currTag is the tag being added
+     * @param currStatus is the status being used to keep count
+     */
+    public static void createNewElement(ArrayList<ReportElement> reportElements, String currTag, String currStatus) {
+        if (currStatus.matches("[Cc]onfirmed|c")) {
+            reportElements.add(new ReportElement(currTag, 1, 0, 0));
+        } else if (currStatus.matches("[Pp]ending|p")) {
+            reportElements.add(new ReportElement(currTag, 0, 1, 0));
+        } else if (currStatus.matches("[Dd]eclined|d")) {
+            reportElements.add(new ReportElement(currTag, 0, 0, 1));
+        } else { }
     }
 
     /**
@@ -93,7 +90,4 @@ public class ReportCommand extends Command {
     public CommandResult execute(Model model) {
         return new CommandResult(createReport(model), false, true, false);
     }
-
 }
-
-
