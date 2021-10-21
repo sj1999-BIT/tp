@@ -68,6 +68,7 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
+                && showReport == otherCommandResult.showReport
                 && exit == otherCommandResult.exit;
     }
 
