@@ -17,7 +17,7 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** Show report information to the user. */
+    /** Shows report information to the user. */
     private final boolean showReport;
 
     /**
@@ -74,7 +74,7 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showReport, showHelp, exit);
     }
 
 }
