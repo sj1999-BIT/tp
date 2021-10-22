@@ -74,7 +74,7 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showReport, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, showReport, exit);
     }
 
 }
