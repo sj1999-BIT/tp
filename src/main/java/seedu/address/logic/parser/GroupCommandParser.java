@@ -45,7 +45,6 @@ public class GroupCommandParser implements Parser<GroupCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GroupCommand.MESSAGE_ERROR_NAMES));
         }
 
-
         return new GroupCommand(tag, nameKeywords);
     }
 }
