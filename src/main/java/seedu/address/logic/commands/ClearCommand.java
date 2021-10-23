@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import javax.swing.SwingUtilities;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -41,8 +43,17 @@ public class ClearCommand extends Command {
             return new CommandResult(MESSAGE_UNNECESSARY);
         } else {
             WarningWindow warning = new WarningWindow("Are you sure?\n All data will be cleared!");
-            if (warning.isChoiceYes()) {
-                model.setAddressBook(new AddressBook());
+            boolean isClear = warning.isChoiceYes();
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    if (isClear) {
+                        model.setAddressBook(new AddressBook());
+                    }
+                }
+            };
+            SwingUtilities.invokeLater(r);
+            if (isClear) {
                 return new CommandResult(MESSAGE_SUCCESS);
             } else {
                 return new CommandResult(MESSAGE_FAILURE);
