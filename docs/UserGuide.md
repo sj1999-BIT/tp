@@ -8,24 +8,30 @@ Interface** (CLI) while still having the benefits of a Graphical User Interface 
 fast, WedFast can get your contact management tasks done faster than traditional GUI apps. 
 
 ## Table of Contents
-* Quickstart
-* Features
-  * Add a contact
-  * Delete a contact
-  * Edit contact
-  * List contact
-  * Group Contacts
-  * View Instructions
-  * Keep Track of important information
-  * Add Price Tags to contacts
-  * Filter contacts
-  * Undo last change
-  * Set of commands that are customizable by the user
-  * Reminder via email (scheduler)
-* FAQ
-* Command Summary
+* [Quickstart](#quick-start)
+* [Feature basics](#feature-basics)
+* [Feature: Manipulating persons in your contact list](#Feature:-Manipulating-persons-in-your-contact-list)
+  * [Adding a person: `add`](#)
+  * [Clearing all entries: `clear`](#)
+  * [Deleting a person: `delete`](#)
+  * [Editing a person: `edit`](#)
+  * [Grouping persons under same tag: `group`](#)
+  * [Listing all persons: `list`](#)
+  * [Locating persons: `find`](#)
+* [Feature: Checking useful info](#Feature:-Checking-useful-info)
+  * [Adding countdown: `countdown`](#)
+  * [Listing all tag info: `tagInfo`](#)
+* [Feature: Boosting your productivity](#Feature:-Boosting-your-productivity)
+  * [Adding customizable shortcuts: `shortcut`](#)
+  * [Exiting the program: `exit`](#)
+  * [Reminding via email (scheduler): `remind`](#) [Coming soon]
+  * [Undoing last change: `undo`](#)
+  * [Redoing last change: `redo`](#) [Coming soon]
+  * [Viewing help: `help`](#)
+* [FAQ](#)
+* [Command Summary](#)
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ## Quick start
 
@@ -38,9 +44,9 @@ Note how the app contains some sample data.
 
 4. Refer to the [Features](#features) below for details of each command.
 
---------------------------------------------------------------------------------------------------------------------
+---
 
-## Features
+## Feature basics
 
 <div markdown="block" class="alert alert-info">
 
@@ -66,13 +72,9 @@ Note how the app contains some sample data.
 
 </div>
 
-### Viewing help : `help`
+---
 
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
+## Feature: Manipulating persons in your contact list
 
 ### Adding a person: `add`
 
@@ -82,24 +84,29 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INF
 
 Examples:
 * `add n/Ben Tan p/93470983 e/ben111@gmail.com a/Fake street, block 111, #02-04 pr/$100 i/only contactable via whatsapp r/meeting on tuesday at 3pm g/photographer`
-![addition of contact](images/addContact.png)
+  ![addition of contact](images/addContact.png)
 
-### Listing all persons : `list`
+### Clearing all entries : `clear`
 
-Lists the existing contacts based on the group. 
-If the group name is unspecified, then list all the existing contacts.
+Clears all entries from the WedFast contact list.
 
-Format: `list`
+Format: `clear`
 
-### Add Price Tags to contacts: `pr/`
-Tags the contacts with a price tag specifying how much will be spent in a particular context. If
-unspecified, then means no money transaction involved with the contact.
+### Deleting a person : `delete`
 
-Format: `[pr/DOLLARS.CENTS]`
+Deletes the specified person from WedFast, either via index or name.
+
+Format: `delete INDEX` or `delete NAME`
+
+* `delete INDEX`: Deletes the person at the specified `INDEX`.
+  The index is a positive number corresponding to the number of the person in the list.
+* `delete NAME`: Deletes the person with the specified `NAME`.
 
 Examples:
-* `add n/Sergio Marquina p/98777777 e/professor@moneyheist.com a/Salva Wall,
-block 999, #09-99 pr/500.00`
+* `delete 2` deletes the 2nd person in the address book.
+* `delete John Doe` deletes all the John Doe’s in the list
+* `find NAME` followed by delete 2 deletes the 2nd person whose name matches the name being searched, if they exist.
+  Otherwise, a message is shown stating that the index is not valid.
 
 ### Editing a person : `edit`
 
@@ -112,12 +119,31 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pr/PRICE] [i/IMPOR
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+  specifying any tags after it.
 
 Examples:
-*  `edit 1 p/98392740 e/ben123@example.com` Edits the phone number and email address of the 1st person to be `98392740` and `ben123@example.com` respectively.
-*  `edit 2 n/William Tan t/` Edits the name of the 2nd person to be `William Tan` and clears all existing tags.
-![amendment of contact](images/editContact.png)
+* `edit 1 p/98392740 e/ben123@example.com` Edits the phone number and email address of the 1st person to be `98392740` and `ben123@example.com` respectively.
+* `edit 2 n/William Tan t/` Edits the name of the 2nd person to be `William Tan` and clears all existing tags.
+   ![amendment of contact](images/editContact.png)
+
+### Group Contacts: `group`
+
+Groups existing contacts together to a existing named group or create a new group
+
+Format: `group [c/CONTACT] [g/GROUP_NAME]`
+
+Add the specific CONTACT to the specific group with the name GROUP_NAME
+
+Examples
+* `group c/Alex Yoeh g/Team4`
+* The contact `Alex Yoeh` will now be grouped to Team4
+
+### Listing all persons : `list`
+
+Lists the existing contacts based on the group.
+If the group name is unspecified, then list all the existing contacts.
+
+Format: `list`
 
 ### Locating persons by name: `find`
 
@@ -137,21 +163,27 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+## Feature: Checking useful info
 
-Deletes the specified person from WedFast, either via index or name.
+## Feature: Boosting your productivity
 
-Format: `delete INDEX` or `delete NAME`
+### Viewing help : `help`
 
-* `delete INDEX`: Deletes the person at the specified `INDEX`. 
-  The index is a positive number corresponding to the number of the person in the list.
-* `delete NAME`: Deletes the person with the specified `NAME`.
+Shows a message explaning how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+### Add Price Tags to contacts: `pr/`
+Tags the contacts with a price tag specifying how much will be spent in a particular context. If
+unspecified, then means no money transaction involved with the contact.
+
+Format: `[pr/DOLLARS.CENTS]`
 
 Examples:
-* `delete 2` deletes the 2nd person in the address book.
-* `delete John Doe` deletes all the John Doe’s in the list
-* `find NAME` followed by delete 2 deletes the 2nd person whose name matches the name being searched, if they exist. 
-  Otherwise, a message is shown stating that the index is not valid.
+* `add n/Sergio Marquina p/98777777 e/professor@moneyheist.com a/Salva Wall,
+block 999, #09-99 pr/500.00`
   
 ### Undoing a command : `undo`
 
@@ -166,12 +198,6 @@ Collates and summarises the information user has typed in under the “Important
 Format: `track`
 
 ![tracking of contact](images/trackInformation.png)
-
-### Clearing all entries : `clear`
-
-Clears all entries from the WedFast contact list.
-
-Format: `clear`
 
 ### Exiting the program : `exit`
 
@@ -204,18 +230,6 @@ Format: ` remind [e/EMAIL](optional)`
 Examples:
 * `remind` toggle reminder
 * `remind e/bob@gmail.com`
-
-### Group Contacts: `group`
-
-Groups existing contacts together to a existing named group or create a new group
-
-Format: `group [c/CONTACT] [g/GROUP_NAME]`
-
-Add the specific CONTACT to the specific group with the name GROUP_NAME
-
-Examples
-* `group c/Alex Yoeh g/Team4`
-* The contact `Alex Yoeh` will now be grouped to Team4
 
 ### Filter contacts: `filter`
 
