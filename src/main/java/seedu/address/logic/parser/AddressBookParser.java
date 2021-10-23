@@ -19,6 +19,7 @@ import seedu.address.logic.commands.GroupCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PriceCommand;
+import seedu.address.logic.commands.ReportCommand;
 import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.logic.commands.TagInfoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -77,6 +78,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ReportCommand.COMMAND_WORD:
+            return new ReportCommand();
 
         case CountdownCommand.COMMAND_WORD:
             return new CountdownCommandParser().parse(userInput);

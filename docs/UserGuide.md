@@ -5,7 +5,7 @@ title: User Guide
 
 WedFast is a **desktop app for organising weddings, optimized for use via a Command Line
 Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type
-fast, WedFast can get your contact management tasks done faster than traditional GUI apps. 
+fast, WedFast can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
 * [Quickstart](#quick-start)
@@ -39,7 +39,7 @@ fast, WedFast can get your contact management tasks done faster than traditional
 
 2. Copy the file to the folder you want to use as the _home folder_ for your WedFast.
 
-3. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. 
+3. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
 Note how the app contains some sample data.
 
 4. Refer to the [Features](#features) below for details of each command.
@@ -184,7 +184,7 @@ Format: `[pr/DOLLARS.CENTS]`
 Examples:
 * `add n/Sergio Marquina p/98777777 e/professor@moneyheist.com a/Salva Wall,
 block 999, #09-99 pr/500.00`
-  
+
 ### Undoing a command : `undo`
 
 Undoes the last edit that was made to the program.
@@ -208,7 +208,7 @@ Format: `exit`
 ### Adding shortcuts : `shortcut` (Coming soon)
 
  Add a shortcut bound to the SHORTCUT button
- 
+
 Format: `shortcut SHORTCUT [c/COMMAND]`
 
 * SHORTCUT is a set of values of 10 buttons [q, w, e, r, a, s, d, z, x, c]
@@ -233,7 +233,7 @@ Examples:
 
 ### Filter contacts: `filter`
 
-Filter the specific group to obtain a list of contacts that shares all the tags 
+Filter the specific group to obtain a list of contacts that shares all the tags
 
 Format: `filter [g/GROUP_NAME] [t/TAG]...`
 
