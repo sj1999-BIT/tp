@@ -45,6 +45,9 @@ public class PriceCommand extends Command {
         this.targetTagKeywords = null;
     }
 
+    /**
+     * Creates a PriceCommand to calculate the price sum of persons with confirmed status and {@code targetTagKeyword}
+     */
     public PriceCommand(String targetTagKeyWord) {
         this.targetTagKeywords = new ArrayList<>();
         this.targetTagKeywords.add(targetTagKeyWord);
