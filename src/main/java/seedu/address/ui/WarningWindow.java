@@ -1,8 +1,7 @@
 package seedu.address.ui;
 
-import javax.swing.JFrame;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
-import java.awt.*;
 
 /**
  * This class create a warning window. Future upgrade include adding an extension to
@@ -13,6 +12,10 @@ public class WarningWindow {
     private String message = "";
     private Frame frame = new Frame("");
 
+    /**
+     * Creates a warning window with the presetMessage.
+     * @param presetMessage
+     */
     public WarningWindow(String presetMessage) {
         message = presetMessage;
         frame.setAlwaysOnTop(true);
