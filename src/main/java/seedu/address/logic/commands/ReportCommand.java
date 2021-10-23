@@ -19,24 +19,15 @@ public class ReportCommand extends Command {
     /**
      * Checks for tag in the existing report arraylist. If it is present, the corresponding report element is
      * updated with incremented status count and true is returned. Else, false is returned.
-     * @param reportList is the list with report elements
+     * @param reportArray is the arraylist with report elements
      * @param tag is the tag associated with element
      * @param status is the status associated with element
      * @return true if tag exists and so status can be updated
      */
-    public static boolean canUpdateExistingTagStatus(ArrayList<ReportElement> reportList, String tag, String status) {
-        for (ReportElement e : reportList) {
+    public static boolean canUpdateExistingElement(ArrayList<ReportElement> reportArray, String tag, String status) {
+        for (ReportElement e : reportArray) {
             if (e.hasSameTag(tag)) {
-                if (status.equalsIgnoreCase("confirmed")
-                        || status.equalsIgnoreCase("c")) {
-                    e.incrementConfirmed();
-                } else if (status.equalsIgnoreCase("pending")
-                        || status.equalsIgnoreCase("p")) {
-                    e.incrementPending();
-                } else if (status.equalsIgnoreCase("declined")
-                        || status.equalsIgnoreCase("d")) {
-                    e.incrementDeclined();
-                }
+                e.incrementStatusCount(status);
                 return true;
             }
         }
@@ -46,30 +37,20 @@ public class ReportCommand extends Command {
     /**
      * Creates a report arraylist that keeps track of all the tags and the corresponding
      * status count for each tag.
-     * @param model is the list with report elements
+     * @param model is the source from which the list of contacts can be obtained
      * @return report created
      */
     public static String createReport(Model model) {
         ArrayList<ReportElement> reportArray = new ArrayList<ReportElement>();
         ObservableList<Person> listOfPeople = model.getFilteredPersonList();
-
         for (Person currPerson : listOfPeople) {
             Set<Tag> currPersonTags = currPerson.getTags();
             currPersonTags.toArray();
             String statusString = currPerson.getStatus().toString();
             for (Tag tagUsed : currPersonTags) {
                 String tagString = tagUsed.toString();
-                if (!canUpdateExistingTagStatus(reportArray, tagString, statusString)) {
-                    if (statusString.equalsIgnoreCase("confirmed")
-                            || statusString.equalsIgnoreCase("c")) {
-                        reportArray.add(new ReportElement(tagString, 1, 0, 0));
-                    } else if (statusString.equalsIgnoreCase("pending")
-                            || statusString.equalsIgnoreCase("p")) {
-                        reportArray.add(new ReportElement(tagString, 0, 1, 0));
-                    } else if (statusString.equalsIgnoreCase("declined")
-                            || statusString.equalsIgnoreCase("d")) {
-                        reportArray.add(new ReportElement(tagString, 0, 0, 1));
-                    } else { }
+                if (!canUpdateExistingElement(reportArray, tagString, statusString)) {
+                    createNewElement(reportArray, tagString, statusString);
                 }
             }
         }
@@ -77,13 +58,29 @@ public class ReportCommand extends Command {
     }
 
     /**
+     * Creates and includes a new report element to report array
+     * @param reportArray is the arraylist storing report elements
+     * @param currTag is the tag being added
+     * @param currStatus is the status being used to keep count
+     */
+    public static void createNewElement(ArrayList<ReportElement> reportArray, String currTag, String currStatus) {
+        if (currStatus.matches("[Cc]onfirmed|c")) {
+            reportArray.add(new ReportElement(currTag, 1, 0, 0));
+        } else if (currStatus.matches("[Pp]ending|p")) {
+            reportArray.add(new ReportElement(currTag, 0, 1, 0));
+        } else if (currStatus.matches("[Dd]eclined|d")) {
+            reportArray.add(new ReportElement(currTag, 0, 0, 1));
+        } else { }
+    }
+
+    /**
      * Creates a report in an organised format.
-     * @param currReportArray is the list with report elements
+     * @param fullReportArray is the arraylist with all report elements
      * @return final report as a string
      */
-    public static String provideTextReport(ArrayList<ReportElement> currReportArray) {
+    public static String provideTextReport(ArrayList<ReportElement> fullReportArray) {
         String reportAsString = "Current status for tags:" + "\n";
-        for (ReportElement currElement : currReportArray) {
+        for (ReportElement currElement : fullReportArray) {
             reportAsString = reportAsString + currElement + "\n";
         }
         return reportAsString;
@@ -93,7 +90,4 @@ public class ReportCommand extends Command {
     public CommandResult execute(Model model) {
         return new CommandResult(createReport(model), false, true, false);
     }
-
 }
-
-

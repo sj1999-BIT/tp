@@ -17,7 +17,7 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** Report information should be shown to the user. */
+    /** Shows report information to the user. */
     private final boolean showReport;
 
     /**
@@ -68,12 +68,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
+                && showReport == otherCommandResult.showReport
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, showReport, exit);
     }
 
 }
