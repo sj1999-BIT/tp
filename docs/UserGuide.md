@@ -366,27 +366,33 @@ Format: `help`
 ---
 ## Command summary
 ### Command Summary : Manipulating persons in your contact list
-### Command Summary : Checking useful info of your wedding
-### Command Summary : Boosting your productivity
-
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** |
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Delete** | `delete INDEX` <br>e.g. `delete 3`<br><br>`delete t/TAG`<br>e.g. `delete t/food_vendor`<br><br>`delete n/NAME`<br>e.g. `delete n/Alex Yeoh`
+**Edit** | 
 **List** | `list`
 **Help** | `help`
-**Group** | `group [c/CONTACT] [g/GROUP_NAME]` <br> E.g., `group c/Alex Yoeh g/Team4`
-**Track** | `track`
-**Price Tag** | `[pr/DOLLARS.CENTS]` <br> E.g., `add n/Sergio Marquina p/98777777 e/professor@moneyheist.com a/Salva Wall, block 999, #09-99 pr/500.00`
-**Filter** | `filter [g/GROUP_NAME] [t/TAG]...` <br> E.g., `filter g/Team4 t/male`
-**Undo** | `undo`
-**Shortcut** | `shortcut`<br> e.g. `shortcut q c/find Food`
-**Reminder** | `remind` <br> eg. `remind e/bob@gmail.com`
+**Group** |
 
----
+
+### Command Summary : Checking useful info of your wedding
+Action | Format, Examples
+--------|------------------
+**Counting down** |`countdown`<br><br>`countdown YYYY-MM-DD`<br>e.g. `countdown 2021-10-24`
+**Get tag info** |
+**Get report** | `report`
+
+### Command Summary : Boosting your productivity
+Action | Format, Examples
+--------|------------------
+**Exit** | `exit`
+**Help** | `help`
+**Shortcut** |
+**Redo** | (Coming soon)
+**Remind** | (Coming soon)
+**Undo** |
 
 ## Useful information
 ### Product spec
