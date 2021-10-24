@@ -8,7 +8,7 @@ your dream wedding, optimized for use via a Command Line Interface**(CLI) while 
 User Interface (GUI). If you are as busy as a beaver and prefer typing to mouse interaction, then _WedFast_ will be your
 NO.1 choice to get your contact management tasks done **faster** than traditional GUI apps!
 
-We welcome you to have a look at this user guide be a master before using _WedFast_!
+We welcome you to have a look at this user guide be a master on using _WedFast_!
 
 ---
 
