@@ -57,6 +57,7 @@ We welcome you to have a look at this user guide be a master on using _WedFast_!
   
   * [Counting down : `countdown`](#counting-down--countdown)
   * [Listing tag info : `tagInfo`](#listing-tag-info--taginfo)
+  * [Retrieving report : `report`](#retrieving-report--report)
 </details>
 
 <details>
@@ -306,6 +307,8 @@ The list can be specified to only limited tags or to include all the tags used t
 Examples:
 * `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
 * `tagInfo list` returns a list with all the tags labelled by the contacts.
+
+### Retrieving report : `report`
 
 ---
 
