@@ -126,6 +126,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         userInfo = new UserInfo(logic);
         userInfoPlaceHolder.getChildren().add(userInfo.getRoot());
 
