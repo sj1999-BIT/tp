@@ -110,6 +110,8 @@ We welcome you to have a look at this user guide be a master before using _WedFa
 * Provides you with the [command cheatsheet](#command-summary) which you can refer to in case you forgot some 
 [commands](/docs/UserGuide.md#Glossary) syntax format
 
+---
+
 ## How to use this user guide?
 ### Assumption on the reader
 * Have at least primary level of English level proficiency, i.e. can read and understand texts written in English.
