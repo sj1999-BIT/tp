@@ -2,13 +2,19 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +22,9 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
+
+import javax.swing.*;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -45,10 +54,20 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane tagListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane userInfoPlaceHolder;
+
+    private UserInfo userInfo;
+
+    private TagListPanel tagListPanel;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -110,8 +129,21 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        userInfo = new UserInfo(logic);
+        userInfoPlaceHolder.getChildren().add(userInfo.getRoot());
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.setBackground(new Background(
+                new BackgroundFill(Color.WHITE,  new CornerRadii(10), Insets.EMPTY)));
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        tagListPanel = new TagListPanel(logic.getUniqueTagTable(), logic.getUniqueTagList());
+        tagListPanelPlaceholder.setBackground(new Background(
+                new BackgroundFill(Color.WHITE,  new CornerRadii(10), Insets.EMPTY)));
+        tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
+
+        //trialVBox.getChildren().add(tagTitle);
+        //trialVBox.getChildren().add(tagListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -168,15 +200,34 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Updates the GUI elements based on the changes in the model
+     */
+    private void updateGUI() {
+        userInfo = new UserInfo(logic);
+        userInfoPlaceHolder.getChildren().add(userInfo.getRoot());
+
+        tagListPanel = new TagListPanel(logic.getUniqueTagTable(), logic.getUniqueTagList());
+        tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
+    @FXML
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    updateGUI();
+                }
+            });
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
