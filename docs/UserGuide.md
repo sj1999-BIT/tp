@@ -17,8 +17,8 @@ We welcome you to have a look at this user guide be a master before using _WedFa
 <details>
   <summary>About this user guide</summary>
 
-  * [Who is this user guide for?](#who-is-this-user-guide-for?)
-  * [What is this user guide for?](#what-is-this-user-guide-for?)
+  * [Who is this user guide for?](#who-is-this-user-guide-for)
+  * [What is this user guide for?](#what-is-this-user-guide-for)
 </details>
 
 <details>
