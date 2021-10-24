@@ -35,7 +35,7 @@ We welcome you to have a look at this user guide to be a master on using _WedFas
 
   * [Operating system](#operating-system) 
   * [Setup requirement](#setup-requirement)
-  * [Installing and launching _WedFast_](#installing-and-launching-_wedfast_)
+  * [Installing and launching](#installing-and-launching)
   * [Command format basics](#command-format-basics)
   * [Using Command Line Interface(CLI)](#using-command-line-interface-cli)
 </details>
@@ -159,7 +159,7 @@ operating systems.
 ### Setup requirement
 Ensure you have Java `11` or above installed in your device.
 
-### Installing and launching _WedFast_
+### Installing and launching
 1. Download the latest `wedfast.jar` from [here](https://github.com/AY2122S1-CS2103T-W10-4/tp/releases/download/v1.2.1/WedFast.jar).
 
 2. Copy the file to the folder you want to use as the _home folder_ for your _WedFast_.
