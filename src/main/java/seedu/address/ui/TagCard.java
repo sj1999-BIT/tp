@@ -21,13 +21,15 @@ public class TagCard extends UiPart<Region> {
     @FXML
     private Label description;
 
-
+    /**
+     * Creates a new TagCard Object
+     */
     public TagCard(Tag tag, int numOfContacts) {
         super(FXML);
         this.tag = tag;
         tagName.setText(tag.tagName);
         description.setText("Number of people under this tag : \n"
-        + numOfContacts);
+                + numOfContacts);
     }
 
 

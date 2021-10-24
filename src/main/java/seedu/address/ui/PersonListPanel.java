@@ -8,14 +8,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Panel containing the list of persons.
@@ -25,7 +29,7 @@ public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
-    private final StackPane ListLimit;
+    private final StackPane listLimit;
     private final StackPane personTitle;
 
     private ListView<Person> personListView;
@@ -38,7 +42,8 @@ public class PersonListPanel extends UiPart<Region> {
      */
     public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
-        personListContainer.setBackground(new Background( new BackgroundFill( Color.WHITE, new CornerRadii(30), new Insets(10))));
+        personListContainer.setBackground(new Background(
+                new BackgroundFill(Color.WHITE, new CornerRadii(30), new Insets(10))));
 
         Text personTitleText = new Text();
         personTitleText.setText("Contacts");
@@ -48,20 +53,21 @@ public class PersonListPanel extends UiPart<Region> {
 
         personTitle = new StackPane();
         personTitle.getChildren().add(personTitleText);
-        personTitle.setBackground(new Background( new BackgroundFill( Color.WHITE, new CornerRadii(5), new Insets(5))));
+        personTitle.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5), new Insets(5))));
 
         personListView = new ListView<>();
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        personListView.setBackground(new Background( new BackgroundFill( Color.WHITE, new CornerRadii(2), new Insets(5))));
+        personListView.setBackground(new Background(
+                new BackgroundFill(Color.WHITE, new CornerRadii(2), new Insets(5))));
         personListView.setMinWidth(550);
-        ListLimit = new StackPane();
-        ListLimit.getChildren().add(personListView);
-        ListLimit.setMaxSize(500, 330);
+        listLimit = new StackPane();
+        listLimit.getChildren().add(personListView);
+        listLimit.setMaxSize(500, 330);
 
         personListContainer.setOrientation(Orientation.VERTICAL);
         personListContainer.setVgap(5);
-        personListContainer.getChildren().addAll(personTitle, ListLimit);
+        personListContainer.getChildren().addAll(personTitle, listLimit);
     }
 
     /**

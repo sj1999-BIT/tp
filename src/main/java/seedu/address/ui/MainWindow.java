@@ -6,15 +6,15 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -22,9 +22,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
-
-import javax.swing.*;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -134,12 +131,12 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.setBackground(new Background(
-                new BackgroundFill(Color.WHITE,  new CornerRadii(10), Insets.EMPTY)));
+                new BackgroundFill(Color.WHITE, new CornerRadii(10), Insets.EMPTY)));
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         tagListPanel = new TagListPanel(logic.getUniqueTagTable(), logic.getUniqueTagList());
         tagListPanelPlaceholder.setBackground(new Background(
-                new BackgroundFill(Color.WHITE,  new CornerRadii(10), Insets.EMPTY)));
+                new BackgroundFill(Color.WHITE, new CornerRadii(10), Insets.EMPTY)));
         tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
 
         //trialVBox.getChildren().add(tagTitle);
@@ -202,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the GUI elements based on the changes in the model
      */
-    private void updateGUI() {
+    private void updateGui() {
         userInfo = new UserInfo(logic);
         userInfoPlaceHolder.getChildren().add(userInfo.getRoot());
 
@@ -225,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    updateGUI();
+                    updateGui();
                 }
             });
 

@@ -158,7 +158,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Tag> getUniqueTagList(){
+    public ObservableList<Tag> getUniqueTagList() {
         ObservableList<Person> contactList = this.addressBook.getPersonList();
         ArrayList<Tag> tagList = new ArrayList<>();
         for (Person contact : contactList) {
