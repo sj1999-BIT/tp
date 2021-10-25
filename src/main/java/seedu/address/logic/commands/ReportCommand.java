@@ -8,11 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReportElement;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-import seedu.address.ui.HelpWindow;
-import seedu.address.ui.MainWindow;
 import seedu.address.ui.ReportWindow;
-
-import javax.swing.*;
 
 public class ReportCommand extends Command {
 

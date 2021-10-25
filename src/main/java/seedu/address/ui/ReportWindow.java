@@ -12,17 +12,13 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class ReportWindow extends UiPart<Stage> {
 
-    private static String REPORT_MESSAGE;
+    private static String message;
 
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
 
     @FXML
     private Label reportMessage;
-
-    public static void setReportMessage(String message) {
-        REPORT_MESSAGE = message;
-    }
 
     /**
      * Creates a new ReportWindow.
@@ -31,38 +27,26 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow(Stage root) {
         super(FXML, root);
-        reportMessage.setText(REPORT_MESSAGE);
+        reportMessage.setText(message);
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new ReportWindow.
      */
     public ReportWindow() {
         this(new Stage());
     }
 
+    public static void setReportMessage(String messageInput) {
+        message = messageInput;
+    }
+
     /**
      * Shows the report window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
      */
     public void show() {
-        logger.fine("Showing report page about the application.");
+        logger.fine("Displaying the current report for the application.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
-
 }
