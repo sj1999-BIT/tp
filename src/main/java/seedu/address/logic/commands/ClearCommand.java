@@ -21,8 +21,9 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
     public static final String MESSAGE_FAILURE = "Address book is not cleared!";
 
+    private static ReadOnlyAddressBook prevBook;
+
     private UndoCommand commandToUndo;
-    private ReadOnlyAddressBook prevBook;
 
     public ReadOnlyAddressBook getPrevBook() {
         return prevBook;
@@ -38,7 +39,9 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        prevBook = model.getAddressBook();
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
+        prevBook = new AddressBook(model.getAddressBook());
         if (model.size() == 0) {
             return new CommandResult(MESSAGE_UNNECESSARY);
         } else {
