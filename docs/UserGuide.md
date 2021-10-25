@@ -1,47 +1,174 @@
 ---
 layout: page
-title: User Guide
+title: _WedFast_ User Guide
 ---
 
-WedFast is a **desktop app for organising weddings, optimized for use via a Command Line
-Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type
-fast, WedFast can get your contact management tasks done faster than traditional GUI apps.
+<span style="font-size:2em;">_WedFast_</span> is a **desktop app for managing human resources and important contacts of 
+your dream wedding, optimized for use via a Command Line Interface**(CLI) while still having the benefits of a Graphical 
+User Interface (GUI). If you are as busy as a beaver and prefer typing to mouse interaction, then _WedFast_ will be your
+NO.1 choice to get your contact management tasks done **faster** than traditional GUI apps!
+
+We welcome you to have a look at this user guide to be a master on using _WedFast_!
+
+---
 
 ## Table of Contents
-* Quickstart
-* Features
-  * Add a contact
-  * Delete a contact
-  * Edit contact
-  * List contact
-  * Group Contacts
-  * View Instructions
-  * Keep Track of important information
-  * Add Price Tags to contacts
-  * Filter contacts
-  * Undo last change
-  * Set of commands that are customizable by the user
-  * Reminder via email (scheduler)
-* FAQ
-* Command Summary
+<details>
+  <summary>About this user guide</summary>
 
---------------------------------------------------------------------------------------------------------------------
+  * [Who is this user guide for?](#who-is-this-user-guide-for)
+  * [What is this user guide for?](#what-is-this-user-guide-for)
+</details>
+
+<details>
+  <summary>How to use this user guide?</summary>
+  
+  * [Assumption on the reader](#assumption-on-the-reader)
+  * [Navigation of this user guide](#navigation-of-this-user-guide)
+  * [Formatting convention](#formatting-convention)
+  * [Icons used](#icons-used)
+  * [Terminology](#terminology)
+</details>
+
+<details>
+  <summary>Quickstart</summary>
+
+  * [Operating system](#operating-system) 
+  * [Setup requirement](#setup-requirement)
+  * [Installing and launching](#installing-and-launching)
+  * [Command format basics](#command-format-basics)
+  * [Using Command Line Interface(CLI)](#using-command-line-interface-cli)
+</details>
+
+<details>
+  <summary>Feature: Manipulating persons in your contact list</summary>
+
+  * [Adding a person : `add`](#adding-a-person--add)
+  * [Clearing all entries : `clear`](#clearing-all-entries--clear)
+  * [Deleting a person : `delete`](#deleting-a-person--delete)
+  * [Editing a person : `edit`](#editing-a-person--edit)
+  * [Grouping persons : `group`](#grouping-persons--group)
+  * [Listing all persons : `list`](#listing-all-persons--list)
+  * [Locating persons : `find`](#locating-persons--find)
+</details>
+
+<details>
+  <summary>Feature: Checking useful info of your wedding</summary>
+  
+  * [Counting down : `countdown`](#counting-down--countdown)
+  * [Listing tag info : `tagInfo`](#listing-tag-info--taginfo)
+  * [Retrieving report : `report`](#retrieving-report--report)
+</details>
+
+<details>
+  <summary>Feature: Boosting your productivity</summary>
+
+  * [Adding customizable shortcuts : `shortcut`](#adding-customizable-shortcuts--shortcut)
+  * [Exiting the program : `exit`](#exiting-the-program--exit)
+  * [Undoing last change : `undo`](#undoing-last-change--undo)
+  * [Viewing help : `help`](#viewing-help--help)
+  * [Redoing last change : `redo`](#redoing-last-change--redo-coming-soon) (Coming soon)
+  * [Reminding via email : `remind`](#reminding-via-email--remind-coming-soon) (Coming soon)
+</details>
+
+<details>
+  <summary>FAQ</summary>
+
+  * [FAQ : About the program](#faq--about-the-program)
+  * [FAQ : About the command](#faq--about-the-command)
+
+</details>
+
+<details>
+  <summary>Command Summary</summary>
+
+  * [Command Summary : Manipulating persons in your contact list](#command-summary--manipulating-persons-in-your-contact-list)
+  * [Command Summary : Checking useful info of your wedding](#command-summary--checking-useful-info-of-your-wedding)
+  * [Command Summary : Boosting your productivity](#command-summary--boosting-your-productivity)
+</details>
+
+<details>
+  <summary>Helpful information</summary>
+
+  * [Glossary](#glossary)
+  * [Technical support contact](#technical-support-contact)
+</details>
+
+---
+
+## About this User Guide
+### Who is this user guide for?
+* Any user who is interested in using _WedFast_ for human resources and contact management tasks of his/her wedding.
+* Any novice _WedFast_ user without any prior knowledge about this app
+
+### What is this user guide for?
+* Walks you through [all the latest features](#feature-manipulating-persons-in-your-contact-list) of 
+  _WedFast_. You will be able to use any feature after reading its corresponding feature section.
+
+* Provides you a detailed and complete set of answers for [frequently asked questions](#faq). 
+
+* Provides you with the [command cheatsheet](#command-summary) which you can refer to in case you forgot some 
+[commands](/docs/UserGuide.md#Glossary) syntax format
+
+---
+
+## How to use this user guide?
+### Assumption on the reader
+* Have at least primary level of English proficiency, i.e. can read and understand texts written in English.
+* Have zero knowledge on how to use _WedFast_ but know the basics on how to use a computer.
+
+### Navigation of this user guide
+* You can use your mouse to scroll up or down to read different parts of this user guide.
+* Alternatively, you can press Up or Down button to achieve the same purpose. 
+* You can scroll to the top to [Table of Contents](#table-of-contents) and click on any desired section (prefix by 
+  right-arrow icon) to expand the list of content. Then, click on the any item from the list to jump to that content.
+* Otherwise, you can press CTRL + F and type in some keywords. Then, press Enter to navigate to each keyword found in
+  this user guide.
+
+### Formatting convention
+* The name of this app: _WedFast_, is written in Italic throughout the user guide.
+* Text in code block can either mean the `command syntax` or `item of interest`.
+* Both <span style="color:#e46c0a">main heading</span> and <span style="color:#e46c0a">subheading</span> are colored 
+  in Orange.
+* <span style="font-size: 2em; color:#e46c0a;">Main heading</span> is bigger than 
+  <span style="font-size: 1.5em; color:#e46c0a;">subheading</span>.
+
+### Icons used
+* :arrow_forward: Click on text with this icon to expand out a list.
+* :arrow_down_small: Click on text with this icon to hide the list.
+* :information_source: A section with this icon contains important information that you need to take note of/tips that
+                       you can apply
+
+### Terminology
+* App: Refer to this _WedFast_ application.
+* Command summary: A list of command syntax you can use to run certain feature.
+* Feature: _WedFast's_ function which you can use.
+* FAQ: Frequently-asked questions
+* Program: Refer to this _WedFast_ application.
+* Quick start: A simple and quick tutorial on how to set up, install, launch, and using _WedFast_.
+* Table of Contents: A by-section summary of the content in this user guide.
+* _WedFast_: The name of this app.
+
+---
 
 ## Quick start
+### Operating system
+Ensure your device runs on either **Windows** or **macOS** because _WedFast_ only supports these two
+operating systems.
 
-1. Ensure you have Java `11` or above installed in your Computer.
+### Setup requirement
+Ensure you have Java `11` or above installed in your device.
 
-2. Copy the file to the folder you want to use as the _home folder_ for your WedFast.
+### Installing and launching
+1. Download the latest `wedfast.jar` from [here](https://github.com/AY2122S1-CS2103T-W10-4/tp/releases/download/v1.2.1/WedFast.jar).
+
+2. Copy the file to the folder you want to use as the _home folder_ for your _WedFast_.
 
 3. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
-Note how the app contains some sample data.
+   Note how the app contains some sample data.
+   * `INSERT PRODUCT INITIAL STATE SCREENSHORT HERE`
 
-4. Refer to the [Features](#features) below for details of each command.
-
---------------------------------------------------------------------------------------------------------------------
-
-## Features
-
+### Command format basics
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the command format:**<br>
@@ -50,7 +177,7 @@ Note how the app contains some sample data.
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -58,7 +185,7 @@ Note how the app contains some sample data.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+* If a parameter is expected only once in the command, but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
@@ -66,208 +193,327 @@ Note how the app contains some sample data.
 
 </div>
 
-### Viewing help : `help`
+### Using Command Line Interface (CLI)
+1. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open 
+   the help window.
+   Some example commands you can try:
+   * `list` : Lists all contacts.
 
-Shows a message explaning how to access the help page.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to the Address Book.
 
-![help message](images/helpMessage.png)
+   * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-Format: `help`
+   * `clear` : Deletes all contacts.
 
-### Adding a person: `add`
+   * `exit` : Exits the app.
 
-Adds a person to the WedFast contact list.
+2. You can refer to the followings to learn more about _WedFast's_ features.
+   * [Manipulating persons in your contact list](#feature-manipulating-persons-in-your-contact-list)
+   * [Checking useful info of your wedding](#feature-checking-useful-info-of-your-wedding)
+   * [Boosting your productivity](#feature-boosting-your-productivity)
+---
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/TAG]…​`
+## Feature: Manipulating persons in your contact list
+### Adding a person : `add`
+To add a person to the contact list:
 
-Examples:
-* `add n/Ben Tan p/93470983 e/ben111@gmail.com a/Fake street, block 111, #02-04 pr/$100 i/only contactable via whatsapp r/meeting on tuesday at 3pm g/photographer`
-![addition of contact](images/addContact.png)
+1. Type the command in the command box with the following format:<br>
+`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/TAG]…​`
+2. Press Enter.
 
-### Listing all persons : `list`
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
-Lists the existing contacts based on the group.
-If the group name is unspecified, then list all the existing contacts.
+<div markdown="block" class="alert alert-info">
 
-Format: `list`
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 
-### Add Price Tags to contacts: `pr/`
-Tags the contacts with a price tag specifying how much will be spent in a particular context. If
-unspecified, then means no money transaction involved with the contact.
-
-Format: `[pr/DOLLARS.CENTS]`
-
-Examples:
-* `add n/Sergio Marquina p/98777777 e/professor@moneyheist.com a/Salva Wall,
-block 999, #09-99 pr/500.00`
-
-### Editing a person : `edit`
-
-Edits an existing person in the WedFast contact list.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/tag]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
-
-Examples:
-*  `edit 1 p/98392740 e/ben123@example.com` Edits the phone number and email address of the 1st person to be `98392740` and `ben123@example.com` respectively.
-*  `edit 2 n/William Tan t/` Edits the name of the 2nd person to be `William Tan` and clears all existing tags.
-![amendment of contact](images/editContact.png)
-
-### Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-
-### Deleting a person : `delete`
-
-Deletes the specified person from WedFast, either via index or name.
-
-Format: `delete INDEX` or `delete NAME`
-
-* `delete INDEX`: Deletes the person at the specified `INDEX`.
-  The index is a positive number corresponding to the number of the person in the list.
-* `delete n/NAME`: Deletes the person with the specified `NAME`.
-
-Examples:
-* `delete 2` deletes the 2nd person in the address book.
-* `delete n/John Doe` deletes all the John Doe’s in the list
-* `find NAME` followed by delete 2 deletes the 2nd person whose name matches the name being searched, if they exist.
-  Otherwise, a message is shown stating that the index is not valid.
-
-### Undoing a command : `undo`
-
-Undoes the last edit that was made to the program.
-
-Format: `undo`
-
-### Keep Track of important information : `track`
-
-Collates and summarises the information user has typed in under the “Important Information” field across all contacts (provided that user did not leave important information field empty).
-
-Format: `track`
-
-![tracking of contact](images/trackInformation.png)
+</div>
 
 ### Clearing all entries : `clear`
+To clear all entries in the contact list:
+1. Type the command: `clear` in the command box.
+2. Press Enter
 
-Clears all entries from the WedFast contact list.
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
-Format: `clear`
+<div markdown="block" class="alert alert-info">
 
-### Exiting the program : `exit`
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 
-Exits the program.
+</div>
 
-Format: `exit`
+### Deleting a person : `delete`
+To delete a person from the contact list via index/name/tag:
+1. Type the command in the command box with either of the following formats:<br>
+   * `delete INDEX` or <br>
+   * `delete n/NAME` or <br>
+   * `delete t/TAG`
+2. Press Enter.
 
-### Adding shortcuts : `shortcut` (Coming soon)
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
- Add a shortcut bound to the SHORTCUT button
+<div markdown="block" class="alert alert-info">
 
-Format: `shortcut SHORTCUT [c/COMMAND]`
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 
-* SHORTCUT is a set of values of 10 buttons [q, w, e, r, a, s, d, z, x, c]
+</div>
 
+### Editing a person : `edit`
+To edit an existing person in the contact list:
+1. Type the command in the command box with the following format:<br>
+   `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/tag]…​`
+2. Press Enter.
 
-Examples:
-* `shortcut q c/find Food`
-* `shortcut w c/order b/price`
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
-### Remind via email : `remind` (Coming soon)
+<div markdown="block" class="alert alert-info">
 
-Sends a email reminder to the user
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 
-Format: ` remind [e/EMAIL](optional)`
+</div>
 
-* Toggles daily reminder on or off if EMAIL is empty.
-* Set remind to be true if EMAIL isn't empty and set the email reminders are sent to.
+### Grouping persons : `group`
+To group existing persons in the contact list together to an existing named tag or create a new tag
+1. Type the command in the command box with the following format:<br>
+   `group t/GROUP_NAME n/NAME1, NAME2, ...`
+2. Press Enter.
 
-Examples:
-* `remind` toggle reminder
-* `remind e/bob@gmail.com`
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
-### Group Contacts: `group`
+<div markdown="block" class="alert alert-info">
 
-Groups existing contacts together to a existing named group or create a new group
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 
-Format: `group [c/CONTACT] [g/GROUP_NAME]`
+</div>
 
-Add the specific CONTACT to the specific group with the name GROUP_NAME
+### Listing all persons : `list`
+To lists all the existing contacts.
+1. Type the command: `list` in the command box.
+2. Press Enter.
 
-Examples
-* `group c/Alex Yoeh g/Team4`
-* The contact `Alex Yoeh` will now be grouped to Team4
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
-### Filter contacts: `filter`
+<div markdown="block" class="alert alert-info">
 
-Filter the specific group to obtain a list of contacts that shares all the tags
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 
-Format: `filter [g/GROUP_NAME] [t/TAG]...`
+</div>
 
-Filter through the specific group with name GROUP_NAME to obtain a list of CONTACTs which are tagged with all the TAG.
+### Locating persons : `find`
+To find persons whose names contain any of the given keywords, or labelled with same tag, or labelled within the price range. 
+1. Type the command in the command box with either of the following formats:<br>
+   * `find KEYWORD [MORE_KEYWORDS]` or 
+   * `find t/TAG [t/MORE_TAG]` or
+   * `find pr/PRICE_RANGE`
+2. Press Enter.
 
-Examples:
-* `filter g/Team4 t/male` returns DESMOND, SHUIJIE and RUOHANG as they all have the tag male
-* `filter g/Team 4 t/colleagues t/friends` returns Bernice YU as only he have all the tags: colleagues and friends
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
+<div markdown="block" class="alert alert-info">
 
-### List tags: `tagInfo`
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 
-Returns a unique list of tags with the number of contacts labelled with the tag.
+</div>
 
-Format: `tagInfo [t/TAG]...` or `tagInfo list`
+---
 
-Filter through the contacts with tags TAG to obtain a list of TAGs with details of how many contacts labelled by them.
-The list can be specified to only limited tags or to include all the tags used to labelled the contacts.
+## Feature: Checking useful info of your wedding
+### Counting down : `countdown`
+To check the countdown till your wedding day:
+1. Type the command in the command box with the following format:<br>
+   `countdown YYYY-MM-DD`
+2. Press Enter.
+3. Your wedding date has now been updated.
+4. Type `countdown` in the command box and press Enter to check the countdown based on the wedding date 
+   set.
+5. Repeat step (1) and step (2) again if you wish to reset the wedding date.
 
-Examples:
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note:**<br>
+If you have not set any wedding date before, then the default wedding date will be today and typing `countdown` in the
+command box will show `0 days left until your wedding on YYYY-MM-DD` where `YYYY-MM-DD` is today's date.
+
+**:information_source: Tips:**<br>
+If you had set the wedding date before, then you can follow step (4) ONLY to check the countdown.
+</div>
+
+### Listing tag info : `tagInfo`
+To return a unique list of tags with the number of contacts labelled with the tag.
+1. Type the command in the command box with either of the following formats:<br>
+   * `tagInfo [t/TAG]...` or
+   * `tagInfo list`
+2. Press Enter
+
+Example and expected outcome:<br>
 * `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
 * `tagInfo list` returns a list with all the tags labelled by the contacts.
 
+<div markdown="block" class="alert alert-info">
 
---------------------------------------------------------------------------------------------------------------------
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+
+**:information_source: Tips:**<br>
+Filter through the contacts with tags TAG to obtain a list of TAGs with details of how many contacts labelled by them.
+The list can be specified to only limited tags or to include all the tags used to label the contacts.
+
+</div>
+
+### Retrieving report : `report`
+To 
+1. Type the command: `report` in the command box.
+2. Press Enter
+
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+
+</div>
+
+---
+
+## Feature: Boosting your productivity
+### Adding customizable shortcuts : `shortcut`
+To add a shortcut bound to the SHORTCUT button
+1. Type the command in the command box with either of the following formats:<br>
+    * 
+2. Press Enter
+
+* SHORTCUT is a set of values of 10 buttons [q, w, e, r, a, s, d, z, x, c]
+
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+
+</div>
+
+### Exiting the program : `exit`
+To exit the app.
+1. Type the command: `exit` in the command box.
+2. Press Enter
+
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+
+</div>
+
+### Undoing last change : `undo`
+To undo the last change that was made to the contact list.
+1. Type the command: `undo` in the command box.
+2. Press Enter.
+
+Example and expected outcome:<br>
+`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+
+</div>
+
+### Viewing help : `help`
+To shows a message on how to access the help page.
+1. Type the command: `help` in the command box.
+2. Press Enter
+
+Example and expected outcome:<br>
+![help message](images/helpMessage.png)
+`PLEASE INSERT TEXT HERE`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+
+</div>
+
+### Redoing last change : `redo` (Coming soon)
+_Details coming soon …_
+
+### Reminding via email : `remind` (Coming soon)
+_Details coming soon …_
+
+---
 
 ## FAQ
-
+### FAQ : About the program
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous WedFast home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains 
+       the data of your previous _WedFast_ home folder.
 
---------------------------------------------------------------------------------------------------------------------
+### FAQ : About the command
 
+---
 ## Command summary
-
+### Command Summary : Manipulating persons in your contact list
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** |
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Delete** | `delete INDEX` <br>e.g. `delete 3`<br><br>`delete t/TAG`<br>e.g. `delete t/food_vendor`<br><br>`delete n/NAME`<br>e.g. `delete n/Alex Yeoh`
+**Edit** | 
 **List** | `list`
 **Help** | `help`
-**Group** | `group [c/CONTACT] [g/GROUP_NAME]` <br> E.g., `group c/Alex Yoeh g/Team4`
-**Track** | `track`
-**Price Tag** | `[pr/DOLLARS.CENTS]` <br> E.g., `add n/Sergio Marquina p/98777777 e/professor@moneyheist.com a/Salva Wall, block 999, #09-99 pr/500.00`
-**Filter** | `filter [g/GROUP_NAME] [t/TAG]...` <br> E.g., `filter g/Team4 t/male`
-**Undo** | `undo`
-**Shortcut** | `shortcut`<br> e.g. `shortcut q c/find Food`
-**Reminder** | `remind` <br> eg. `remind e/bob@gmail.com`
+**Group** |
+
+
+### Command Summary : Checking useful info of your wedding
+Action | Format, Examples
+--------|------------------
+**Counting down** |`countdown`<br><br>`countdown YYYY-MM-DD`<br>e.g. `countdown 2021-10-24`
+**Get tag info** |
+**Get report** | `report`
+
+### Command Summary : Boosting your productivity
+Action | Format, Examples
+--------|------------------
+**Exit** | `exit`
+**Help** | `help`
+**Shortcut** |
+**Redo** | (Coming soon)
+**Remind** | (Coming soon)
+**Undo** |
+
+## Useful information
+### Glossary
+* Command - Text input to execute/run _WedFast's_ feature
+* Command Line Interface - A feature that allows the user to write command to be executed
+
+### Technical support contact
+We sincerely apologized if this user guide is incapable of solving your issues/problems.
+Please kindly contact with our 24/7 technical support team via the following methods:
+* Email: `wedding@fastfast.com`
+* Hotline: `+65 12345678`
+* Website: `team4.wedfast.com`
