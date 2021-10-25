@@ -18,7 +18,6 @@
         <URL value="@Fonts.css" />
         <URL value="@ReportWindow.css" />
       </stylesheets>
-
       <HBox alignment="CENTER">
         <children>
           <Label fx:id="reportMessage" text="Label">
