@@ -85,7 +85,6 @@ public class ReportCommand extends Command {
         for (ReportElement currElement : fullReportArray) {
             reportAsString = reportAsString + currElement + "\n";
         }
-
         return reportAsString;
     }
 
