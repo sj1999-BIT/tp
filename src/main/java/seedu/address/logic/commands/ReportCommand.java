@@ -8,10 +8,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ReportElement;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.HelpWindow;
+import seedu.address.ui.MainWindow;
+import seedu.address.ui.ReportWindow;
+
+import javax.swing.*;
 
 public class ReportCommand extends Command {
 
     public static final String COMMAND_WORD = "report";
+    public static final String SHOWING_REPORT_MESSAGE = "Opened report window.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows status report for contacts.\n"
             + "Example: " + COMMAND_WORD;
@@ -58,7 +64,7 @@ public class ReportCommand extends Command {
     }
 
     /**
-     * Creates and includes a new report element to report array
+     * Creates and adds a new report element to report array.
      * @param reportArray is the arraylist storing report elements
      * @param currTag is the tag being added
      * @param currStatus is the status being used to keep count
@@ -83,11 +89,15 @@ public class ReportCommand extends Command {
         for (ReportElement currElement : fullReportArray) {
             reportAsString = reportAsString + currElement + "\n";
         }
+
         return reportAsString;
     }
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(createReport(model), false, true, false);
+        ReportWindow.setReportMessage(createReport(model));
+        ReportWindow window = new ReportWindow();
+        window.show();
+        return new CommandResult(SHOWING_REPORT_MESSAGE);
     }
 }
