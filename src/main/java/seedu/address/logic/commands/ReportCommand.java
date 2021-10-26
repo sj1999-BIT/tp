@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReportElement;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.ReportWindow;
 
@@ -14,9 +15,11 @@ public class ReportCommand extends Command {
 
     public static final String COMMAND_WORD = "report";
     public static final String SHOWING_REPORT_MESSAGE = "Opened report window.";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows status report for contacts.\n"
             + "Example: " + COMMAND_WORD;
+    private static int totalConfirmedCount;
+    private static int totalPendingCount;
+    private static int totalDeclinedCount;
 
     /**
      * Checks for tag in the existing report arraylist. If it is present, the corresponding report element is
@@ -29,11 +32,29 @@ public class ReportCommand extends Command {
     public static boolean canUpdateExistingElement(ArrayList<ReportElement> reportArray, String tag, String status) {
         for (ReportElement e : reportArray) {
             if (e.hasSameTag(tag)) {
-                e.incrementStatusCount(status);
+                incrementStatusCount(e, status);
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Updates status count according to type of status detected.
+     * @param element is the report element in which the count is updated
+     * @param currStatus is the status being used to keep count
+     */
+    public static void incrementStatusCount(ReportElement element, String currStatus) {
+        if (currStatus.matches("[Cc]onfirmed|c")) {
+            element.incrementConfirmed();
+            totalConfirmedCount++;
+        } else if (currStatus.matches("[Pp]ending|p")) {
+            element.incrementPending();
+            totalPendingCount++;
+        } else if (currStatus.matches("[Dd]eclined|d")) {
+            element.incrementDeclined();
+            totalDeclinedCount++;
+        }
     }
 
     /**
@@ -43,6 +64,9 @@ public class ReportCommand extends Command {
      * @return report created
      */
     public static String createReport(Model model) {
+        totalConfirmedCount = 0;
+        totalPendingCount = 0;
+        totalDeclinedCount = 0;
         ArrayList<ReportElement> reportArray = new ArrayList<ReportElement>();
         ObservableList<Person> listOfPeople = model.getFilteredPersonList();
         for (Person currPerson : listOfPeople) {
@@ -68,10 +92,13 @@ public class ReportCommand extends Command {
     public static void createNewElement(ArrayList<ReportElement> reportArray, String currTag, String currStatus) {
         if (currStatus.matches("[Cc]onfirmed|c")) {
             reportArray.add(new ReportElement(currTag, 1, 0, 0));
+            totalConfirmedCount++;
         } else if (currStatus.matches("[Pp]ending|p")) {
             reportArray.add(new ReportElement(currTag, 0, 1, 0));
+            totalPendingCount++;
         } else if (currStatus.matches("[Dd]eclined|d")) {
             reportArray.add(new ReportElement(currTag, 0, 0, 1));
+            totalDeclinedCount++;
         } else { }
     }
 
@@ -81,7 +108,10 @@ public class ReportCommand extends Command {
      * @return final report as a string
      */
     public static String provideTextReport(ArrayList<ReportElement> fullReportArray) {
-        String reportAsString = "Current status for tags:" + "\n";
+        String summaryOfStatus = totalConfirmedCount + " confirmed, "
+                + totalPendingCount + " pending, "
+                + totalDeclinedCount + " declined";
+        String reportAsString = "Current status for tags: " + "\n" + summaryOfStatus + "\n" ;
         for (ReportElement currElement : fullReportArray) {
             reportAsString = reportAsString + currElement + "\n";
         }
