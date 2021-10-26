@@ -50,16 +50,16 @@ title: User Guide
 
 ## **Product Overview**
 
-**_WedFast_ is a desktop app for managing contacts of your dream wedding, optimized for use via a 
-[Command Line Interface](#command-line-interface-cli) (CLI) while still having the benefits of a 
+**_WedFast_ is a desktop app for managing contacts of your dream wedding, optimized for use via a
+[Command Line Interface](#command-line-interface-cli) (CLI) while still having the benefits of a
 [Graphical User Interface](#graphical-user-interface-gui) (GUI).**
 
-You can use _WedFast_ to **add, edit and delete the contacts**. These contacts are not just limited to those attending 
-your wedding, it can also be those you are hiring such as your photographer and costume designer. On this basis, 
-_WedFast_ allows you to **add tag to these contacts, calculating the cost, and even generating a detailed report for 
-your wedding plan!** 
+You can use _WedFast_ to **add, edit and delete the contacts**. These contacts are not just limited to those attending
+your wedding, it can also be those you are hiring such as your photographer and costume designer. On this basis,
+_WedFast_ allows you to **add tag to these contacts, calculating the cost, and even generating a detailed report for
+your wedding plan!**
 
-Excited to try _WedFast_ out? This user guide will **walk you through all the latest features, troubleshoots your 
+Excited to try _WedFast_ out? This user guide will **walk you through all the latest features, troubleshoots your
 problems and provides you a command summary to boost your efficiency!**
 <div style="page-break-after: always;"></div>
 
@@ -132,7 +132,7 @@ _Italic text_        | The name of this product or a file path.
 ### Using command-line interface (CLI)
 1. Type the command in the command box and press Enter to execute it.<br>
    e.g. typing `help` and pressing Enter will open the help window.<br>
-   
+
 2. Some example commands you can try:
    * `list` : Lists all contacts.
 
@@ -144,9 +144,9 @@ _Italic text_        | The name of this product or a file path.
 
    * `exit` : Exits the app.
 
-3. Congratulation for finishing up the basics! You can refer to the [Features](#features) below for more details of 
+3. Congratulation for finishing up the basics! You can refer to the [Features](#features) below for more details of
    each command.
-   
+
 [Back to top 🔝](#table-of-contents)
 <div style="page-break-after: always;"></div>
 
@@ -352,7 +352,7 @@ To check the countdown till your wedding day:
    `countdown YYYY-MM-DD`
 2. Press Enter.
 3. Your wedding date has now been updated.
-4. Type `countdown` in the command box and press Enter to check the countdown based on the wedding date 
+4. Type `countdown` in the command box and press Enter to check the countdown based on the wedding date
    set.
 5. Repeat step (1) and step (2) again if you wish to reset the wedding date.
 
@@ -412,7 +412,7 @@ Example and expected outcome:<br>
 </div>
 
 ### Getting your wedding plan report : `report`
-To 
+To
 1. Type the command: `report` in the command box.
 2. Press Enter
 
@@ -434,7 +434,7 @@ Example and expected outcome:<br>
 ### Using customizable shortcuts : `shortcut`
 To add a shortcut bound to the SHORTCUT button
 1. Type the command in the command box with either of the following formats:<br>
-    * 
+
 2. Press Enter
 
 Example and expected outcome:<br>
@@ -461,15 +461,15 @@ Example and expected outcome:<br>
 `PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
 ### Saving the data file
-_WedFast_ data are saved in the hard disk automatically after any command that changes the data. There is no need to 
+_WedFast_ data are saved in the hard disk automatically after any command that changes the data. There is no need to
 save manually.
 
 ### Editing the data file
-_WedFast_ data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to 
+_WedFast_ data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to
 update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:warning: **Caution:**
-If your changes to the data file makes its format invalid, _WedFast_ will discard all data and start with an empty data 
+If your changes to the data file makes its format invalid, _WedFast_ will discard all data and start with an empty data
 file at the next run.
 </div>
 
@@ -487,7 +487,7 @@ _Details coming soon …_
 ## **FAQ**
 ### About the program
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains 
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
        the data of your previous _WedFast_ home folder.
 
 ### About the command
@@ -501,8 +501,8 @@ _Details coming soon …_
 ## **Command Summary**
 
 **Actions**                           | **Format**                        | **Example**
---------------------------------------|-----------------------------------|------------ 
-**Viewing help**                      | `help`                            | 
+--------------------------------------|-----------------------------------|------------
+**Viewing help**                      | `help`                            |
 **Adding a person**                   | `add`                             |
 **Listing all persons**               | `list`                            |
 **Editing a person**                  | `edit`                            |
@@ -526,7 +526,7 @@ _Details coming soon …_
 ## **Glossary**
 
 ##### App
-An abbreviated form of the word "application". An application is a software program that's designed to perform a 
+An abbreviated form of the word "application". An application is a software program that's designed to perform a
 specific function directly for the user. In this user guide, it refers to _WedFast_ itself.
 
 ##### Command-line interface (CLI)
@@ -536,7 +536,7 @@ A command-line interface processes commands to a computer program in the form of
 An abbreviation for the words "frequently asked questions".
 
 ##### Graphical user interface (GUI)
-A form of user interface that allows users to interact with electronic devices through graphical icons and audio 
+A form of user interface that allows users to interact with electronic devices through graphical icons and audio
 indicator
 
 ##### JSON
