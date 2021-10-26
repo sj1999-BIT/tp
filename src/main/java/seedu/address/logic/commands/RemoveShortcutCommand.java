@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class RemoveShortcutCommand extends Command {
 
-    public static final String COMMAND_WORD = "removeshortcut";
+    public static final String COMMAND_WORD = "removesc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a shortcut with a specified call and function"
             + "which can be called by shortcut to recreate the command\n"
@@ -19,7 +19,7 @@ public class RemoveShortcutCommand extends Command {
     private final String keyword;
 
     /**
-     * Creates new {@code AddShortcutCommand}
+     * Creates new {@code RemoveShortcutCommand}
      * @param keyword Key to call the command
      */
     public RemoveShortcutCommand(String keyword) {

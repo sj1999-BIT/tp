@@ -255,4 +255,9 @@ public class ModelManager implements Model {
         return shortcut.getCommandFromKey(keyword);
     }
 
+    @Override
+    public String listShortcut() {
+        return shortcut.toString();
+    }
+
 }
