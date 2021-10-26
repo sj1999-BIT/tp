@@ -20,6 +20,13 @@ public class ShortcutCommand extends Command {
             + "Parameters: KEYPHRASE\n"
             + "Example: " + COMMAND_WORD + " a";
 
+    public static final String COMMAND_INVALID = "Command invalid form: ";
+
+    public static final String COMMAND_NOT_FOUND = "Command not found";
+
+    public static final String COMMAND_EXECUTE_ERROR = "Command execute error: ";
+
+
     private final String shortcut;
 
     public ShortcutCommand(String shortcut) {
@@ -29,19 +36,19 @@ public class ShortcutCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        String commandString = model.getShortcutFromKey(shortcut);
         try {
-            String commandString = model.getShortcutFromKey(shortcut);
             if (commandString == null) {
-                return new CommandResult("Command not found");
+                return new CommandResult(COMMAND_NOT_FOUND);
             }
             Command command = (new AddressBookParser()).parseCommand(commandString);
             try {
                 return command.execute(model);
             } catch (CommandException ce) {
-                return new CommandResult("Command error");
+                return new CommandResult(COMMAND_EXECUTE_ERROR + commandString);
             }
         } catch (ParseException e) {
-            return new CommandResult("Command invalid form");
+            return new CommandResult(COMMAND_INVALID + commandString);
         }
     }
 
