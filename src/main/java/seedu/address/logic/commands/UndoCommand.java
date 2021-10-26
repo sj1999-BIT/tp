@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -22,12 +23,6 @@ public class UndoCommand extends Command {
 
     private static Command prevCommand;
 
-
-    /**
-     * Sets the previous command.
-     *
-     * @param prevCommand
-     */
     public void setPrevCommand(Command prevCommand) {
         this.prevCommand = prevCommand;
     }
@@ -63,7 +58,7 @@ public class UndoCommand extends Command {
             }
         } else if (prevCommand instanceof ClearCommand) {
             ClearCommand cleared = (ClearCommand) prevCommand;
-            model.setAddressBook(cleared.getPrevBook());
+            model.setAddressBook(new AddressBook(cleared.getPrevBook()));
         } else if (prevCommand instanceof EditCommand) {
             EditCommand edited = (EditCommand) prevCommand;
             model.setPerson(edited.getEditedPerson(), edited.getOriginalPerson());
