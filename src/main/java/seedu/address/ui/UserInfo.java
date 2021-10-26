@@ -21,6 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import seedu.address.logic.Logic;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Price;
 
 public class UserInfo extends UiPart<Region> {
     private static final String FXML = "UserInfo.fxml";
@@ -63,6 +65,7 @@ public class UserInfo extends UiPart<Region> {
         // Assume dummy variables
         int contacts = logic.size();
         int noOfdates = (int) LocalDate.now().until(logic.getCountdown().getDate(), ChronoUnit.DAYS);
+        
         ModelInfo totalContacts = new ModelInfo(contacts,
                 "People in-charge");
         totalContactsContainer.getChildren().add(totalContacts.getRoot());

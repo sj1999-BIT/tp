@@ -140,9 +140,6 @@ public class MainWindow extends UiPart<Stage> {
                 new BackgroundFill(Color.WHITE, new CornerRadii(10), Insets.EMPTY)));
         tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
 
-        //trialVBox.getChildren().add(tagTitle);
-        //trialVBox.getChildren().add(tagListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

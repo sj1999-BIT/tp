@@ -32,7 +32,6 @@ public class TagCard extends UiPart<Region> {
                 + numOfContacts);
     }
 
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

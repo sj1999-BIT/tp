@@ -23,7 +23,9 @@ public class ModelInfo extends UiPart<Region> {
     private VBox mainContainer;
 
     /**
-     * Creates a ModelInfo object.
+     * Creates a ModelInfo Object.
+     * @param val is an integer value to be displayed in bold
+     * @param info is the description of the integer val
      */
     public ModelInfo(int val, String info) {
         super(FXML);
