@@ -1,7 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.CountdownCommand.MESSAGE_DATE_USAGE;
+
 import java.time.LocalDate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.CountdownCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -11,13 +14,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CountdownCommandParser implements Parser<CountdownCommand> {
 
     @Override
-    public CountdownCommand parse(String userInput) throws ParseException {
-
-        if (userInput.trim().equals("countdown")) {
+    public CountdownCommand parse(String arg) throws ParseException {
+        String trimmedArg = arg.trim();
+        if (trimmedArg.isEmpty()) {
             return new CountdownCommand();
         } else {
-            String dateString = userInput.substring(10);
-            LocalDate dateSetByUser = LocalDate.parse(dateString);
+            boolean isNotValidDate = !StringUtil.isValidDate(trimmedArg);
+            if (isNotValidDate) {
+                throw new ParseException(MESSAGE_DATE_USAGE);
+            }
+            LocalDate dateSetByUser = LocalDate.parse(trimmedArg);
             return new CountdownCommand(dateSetByUser);
         }
     }

@@ -83,7 +83,7 @@ public class AddressBookParser {
             return new ReportCommand();
 
         case CountdownCommand.COMMAND_WORD:
-            return new CountdownCommandParser().parse(userInput);
+            return new CountdownCommandParser().parse(arguments);
 
         case AddShortcutCommand.COMMAND_WORD:
             return new AddShortcutCommandParser().parse(arguments);
