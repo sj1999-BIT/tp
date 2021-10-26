@@ -60,13 +60,16 @@ public class CountdownCommand extends Command {
     private CommandResult executeShowCountDown(Model model) {
         LocalDate weddingDate = model.getCountdown().getDate();
         int numDays = (int) LocalDate.now().until(weddingDate, ChronoUnit.DAYS);
+
         if (numDays > 0) {
             return new CommandResult(String.format(MESSAGE_FUTURE_DAY_COUNT, numDays, weddingDate));
-        } else if (numDays < 0) {
-            return new CommandResult(String.format(MESSAGE_PAST_DAY_COUNT, Math.abs(numDays), weddingDate));
-        } else {
-            return new CommandResult(MESSAGE_TODAY_COUNT);
         }
+
+        if (numDays < 0) {
+            return new CommandResult(String.format(MESSAGE_PAST_DAY_COUNT, Math.abs(numDays), weddingDate));
+        }
+
+        return new CommandResult(MESSAGE_TODAY_COUNT);
     }
 
     /** Set the wedding day then shows the day count before the day. */
@@ -74,22 +77,26 @@ public class CountdownCommand extends Command {
         model.setDate(dateSetByUser);
         assert dateSetByUser != null : "The wedding set by user should not be null.";
         int numDays = (int) LocalDate.now().until(dateSetByUser, ChronoUnit.DAYS);
+
         if (numDays > 0) {
             return new CommandResult(String.format(MESSAGE_FUTURE_SUCCESS, dateSetByUser, numDays));
-        } else if (numDays < 0) {
-            return new CommandResult(String.format(MESSAGE_PAST_SUCCESS, dateSetByUser, Math.abs(numDays)));
-        } else {
-            return new CommandResult(MESSAGE_TODAY_SUCCESS);
         }
+
+        if (numDays < 0) {
+            return new CommandResult(String.format(MESSAGE_PAST_SUCCESS, dateSetByUser, Math.abs(numDays)));
+        }
+
+        return new CommandResult(MESSAGE_TODAY_SUCCESS);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        
         if (dateSetByUser == null) {
             return executeShowCountDown(model);
-        } else {
-            return executeSetWeddingDate(model);
         }
+
+        return executeSetWeddingDate(model);
     }
 }
