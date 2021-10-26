@@ -480,6 +480,7 @@ _Details coming soon …_
 _Details coming soon …_
 
 [Back to top 🔝](#table-of-contents)
+<div style="page-break-after: always;"></div>
 
 ---
 
@@ -493,6 +494,7 @@ _Details coming soon …_
 {More will be added in the future...}
 
 [Back to top 🔝](#table-of-contents)
+<div style="page-break-after: always;"></div>
 
 ---
 
@@ -517,6 +519,7 @@ _Details coming soon …_
 **Exiting the program**               | `exit`                            |
 
 [Back to top 🔝](#table-of-contents)
+<div style="page-break-after: always;"></div>
 
 ---
 
