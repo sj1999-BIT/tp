@@ -59,6 +59,10 @@ public class Shortcut implements ReadOnlyShortcut {
         return shortcutMap.get(keyword);
     }
 
+    public String removeShortcut(String keyword) {
+        return shortcutMap.remove(keyword);
+    }
+
     /**
      * Returns an unmodifiable view of the shortcut map.
      */

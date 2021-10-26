@@ -93,6 +93,8 @@ public interface Model {
 
     void addShortcut(String keyword, String commandString);
 
+    String removeShortcut(String keyword);
+
     String getShortcutFromKey(String keyword);
 
     /**
