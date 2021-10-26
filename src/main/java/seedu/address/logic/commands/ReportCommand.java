@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReportElement;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.ReportWindow;
 
@@ -111,7 +110,7 @@ public class ReportCommand extends Command {
         String summaryOfStatus = totalConfirmedCount + " confirmed, "
                 + totalPendingCount + " pending, "
                 + totalDeclinedCount + " declined";
-        String reportAsString = "Current status for tags: " + "\n" + summaryOfStatus + "\n" ;
+        String reportAsString = "Current status for tags: " + "\n" + summaryOfStatus + "\n";
         for (ReportElement currElement : fullReportArray) {
             reportAsString = reportAsString + currElement + "\n";
         }
