@@ -179,6 +179,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public String listShortcut() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String removeShortcut(String keyword) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String getShortcutFromKey(String keyword) {
             throw new AssertionError("This method should not be called.");
         }

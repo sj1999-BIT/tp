@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.address.model.Model;
 
 /**
  * Adds a shortcut to the shortcut list stored.
@@ -39,7 +39,6 @@ public class RemoveShortcutCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RemoveShortcutCommand // instanceof handles nulls
-                ); // state check
+                || (other instanceof RemoveShortcutCommand); // instanceof handles nulls
     }
 }
