@@ -92,7 +92,6 @@ public class CountdownCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        
         if (dateSetByUser == null) {
             return executeShowCountDown(model);
         }
