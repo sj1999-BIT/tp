@@ -42,7 +42,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_ADDRESS, PREFIX_PRICE, PREFIX_INFO, PREFIX_STATUS, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_PRICE, PREFIX_INFO, PREFIX_STATUS)
+                PREFIX_ADDRESS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -51,9 +51,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Info info = ParserUtil.parseImportantInfo(argMultimap.getValue(PREFIX_INFO).get());
-        Status status = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
+        Price price = ParserUtil.parsePrice(argMultimap.getPriceValue(PREFIX_PRICE).get());
+        Info info = ParserUtil.parseImportantInfo(argMultimap.getInfoValue(PREFIX_INFO).get());
+        Status status = ParserUtil.parseStatus(argMultimap.getStatusValue(PREFIX_STATUS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Person person = new Person(name, phone, email, address, price, info, status, tagList);
