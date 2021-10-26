@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -60,6 +61,11 @@ public class UndoCommand extends Command {
                 Index index = deleted.getIndexName();
                 shuffle(currentList, index.getZeroBased(), deletedPerson,
                         model);
+            } else if (deleted.getTargetTag() != null) {
+                ArrayList<Person> deletedList = deleted.getDeletedList();
+                for (Person p : deletedList) {
+                    model.addPerson(p);
+                }
             }
         } else if (prevCommand instanceof ClearCommand) {
             ClearCommand cleared = (ClearCommand) prevCommand;
@@ -140,4 +146,3 @@ public class UndoCommand extends Command {
         }
     }
 }
-

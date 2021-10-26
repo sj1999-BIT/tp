@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -55,6 +56,7 @@ public class DeleteCommand extends Command {
     private UndoCommand commandToUndo;
     private Person personToDelete;
     private Index nameIndex;
+    private ArrayList<Person> deletedList;
 
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetIndex}
@@ -114,6 +116,7 @@ public class DeleteCommand extends Command {
     private CommandResult executeDeleteByTag(Model model) throws CommandException {
         assert targetTag != null : "targetTag should not be null";
         requireNonNull(model);
+        deletedList = new ArrayList<>();
         model.updateFilteredPersonList(targetTagPerson);
         List<Person> filteredList = model.getFilteredPersonList();
         if (filteredList.isEmpty()) {
@@ -125,6 +128,7 @@ public class DeleteCommand extends Command {
         int index = 0;
         for (int i = 0; i < originalSizeOfList; i++) {
             Person personToDelete = filteredList.get(index);
+            deletedList.add(personToDelete);
             model.deletePerson(personToDelete);
         }
 
@@ -186,6 +190,14 @@ public class DeleteCommand extends Command {
 
     public Index getIndexName() {
         return nameIndex;
+    }
+
+    public Tag getTargetTag() {
+        return targetTag;
+    }
+
+    public ArrayList<Person> getDeletedList() {
+        return deletedList;
     }
 
     @Override
