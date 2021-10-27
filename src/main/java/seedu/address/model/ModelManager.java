@@ -241,6 +241,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String removeShortcut(String keyword) {
+        return shortcut.removeShortcut(keyword);
+    }
+
+    @Override
     public void addShortcut(String keyword, String commandString) {
         shortcut.addShortcut(keyword, commandString);
     }
@@ -248,6 +253,11 @@ public class ModelManager implements Model {
     @Override
     public String getShortcutFromKey(String keyword) {
         return shortcut.getCommandFromKey(keyword);
+    }
+
+    @Override
+    public String listShortcut() {
+        return shortcut.toString();
     }
 
 }
