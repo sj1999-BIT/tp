@@ -91,9 +91,17 @@ public interface Model {
     /** Returns the Shortcut */
     ReadOnlyShortcut getShortcut();
 
+    /** Adds a shortcut */
     void addShortcut(String keyword, String commandString);
 
+    /** Removes a shortcut */
+    String removeShortcut(String keyword);
+
+    /** Get shortcut from Key */
     String getShortcutFromKey(String keyword);
+
+    /** Lists all shortcuts */
+    String listShortcut();
 
     /**
      * Returns the size of the address book
