@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReportElement;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.ReportWindow;
 
@@ -67,12 +66,13 @@ public class ReportCommand extends Command {
      * @return report created
      */
 
-    public static String createReport(Model model) throws CommandException  {
+    public static String createReport(Model model) throws CommandException {
         totalConfirmedCount = 0;
         totalPendingCount = 0;
         totalDeclinedCount = 0;
         ArrayList<ReportElement> reportArray = new ArrayList<ReportElement>();
         ObservableList<Person> listOfPeople = model.getFilteredPersonList();
+
         for (Person currPerson : listOfPeople) {
             Set<Tag> currPersonTags = currPerson.getTags();
             String statusString = currPerson.getStatus().toString();
@@ -123,7 +123,7 @@ public class ReportCommand extends Command {
         String summaryOfStatus = totalConfirmedCount + " confirmed, "
                 + totalPendingCount + " pending, "
                 + totalDeclinedCount + " declined";
-        String reportAsString = "Current status for tags: " + "\n" + summaryOfStatus + "\n" ;
+        String reportAsString = "Current status for tags: " + "\n" + summaryOfStatus + "\n";
         for (ReportElement currElement : fullReportArray) {
             reportAsString = reportAsString + currElement + "\n";
         }
