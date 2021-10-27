@@ -45,21 +45,20 @@ public class ClearCommand extends Command {
             return new CommandResult(MESSAGE_UNNECESSARY);
         } else {
             WarningWindow warning = new WarningWindow("Are you sure?\n All data will be cleared!");
-            return new CommandResult(MESSAGE_SUCCESS);
-//            boolean isClear = warning.isChoiceYes();
-//            Platform.runLater(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (isClear) {
-//                        model.setAddressBook(new AddressBook());
-//                    }
-//                }
-//            });
-//            if (isClear) {
-//                return new CommandResult(MESSAGE_SUCCESS);
-//            } else {
-//                return new CommandResult(MESSAGE_FAILURE);
-//            }
+            boolean isClear = warning.isChoiceYes();
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    if (isClear) {
+                        model.setAddressBook(new AddressBook());
+                    }
+                }
+            });
+            if (isClear) {
+                return new CommandResult(MESSAGE_SUCCESS);
+            } else {
+                return new CommandResult(MESSAGE_FAILURE);
+            }
         }
     }
 
