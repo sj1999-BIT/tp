@@ -45,7 +45,6 @@
           <StackPane fx:id="personListPanelPlaceholder" minWidth="600" VBox.vgrow="ALWAYS" maxHeight="270"/>
         </HBox>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
         <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                    minHeight="80" prefHeight="100" maxHeight="80">
           <padding>
@@ -57,6 +56,7 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>

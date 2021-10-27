@@ -20,7 +20,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import seedu.address.logic.Logic;
 
 public class UserInfo extends UiPart<Region> {
@@ -44,15 +43,15 @@ public class UserInfo extends UiPart<Region> {
     public UserInfo(Logic logic) {
         super(FXML);
 
-        Text userName = new Text("Welcome to WedFast!");
+        Text userName = new Text(" Welcome to WedFast! ");
         userName.setStyle("-fx-font-weight: bold");
-        userName.setFont(Font.font(40));
+        userName.setFont(Font.font(30));
         userName.setFill(Color.color(1, 1, 1));
 
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        String date = "  ".concat(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         Text dateText = new Text(date);
         dateText.setFont(Font.font(15));
-        dateText.setFill(Color.web("#F9E79F"));
+        dateText.setFill(Color.color(0.3, 1, 0.6));
 
         leftHeader.setBackground(new Background(
                 new BackgroundFill(Color.web("#383838"), CornerRadii.EMPTY, Insets.EMPTY)));
