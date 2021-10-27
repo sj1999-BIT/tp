@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.swing.SwingUtilities;
-
+import javafx.application.Platform;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -21,8 +20,9 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
     public static final String MESSAGE_FAILURE = "Address book is not cleared!";
 
+    private static ReadOnlyAddressBook prevBook;
+
     private UndoCommand commandToUndo;
-    private ReadOnlyAddressBook prevBook;
 
     public ReadOnlyAddressBook getPrevBook() {
         return prevBook;
@@ -38,21 +38,22 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        prevBook = model.getAddressBook();
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
+        prevBook = new AddressBook(model.getAddressBook());
         if (model.size() == 0) {
             return new CommandResult(MESSAGE_UNNECESSARY);
         } else {
             WarningWindow warning = new WarningWindow("Are you sure?\n All data will be cleared!");
             boolean isClear = warning.isChoiceYes();
-            Runnable r = new Runnable() {
+            Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     if (isClear) {
                         model.setAddressBook(new AddressBook());
                     }
                 }
-            };
-            SwingUtilities.invokeLater(r);
+            });
             if (isClear) {
                 return new CommandResult(MESSAGE_SUCCESS);
             } else {

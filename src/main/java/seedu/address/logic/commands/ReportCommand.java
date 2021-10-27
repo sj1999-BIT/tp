@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReportElement;
 import seedu.address.model.person.Person;
@@ -63,7 +66,8 @@ public class ReportCommand extends Command {
      * @param model is the source from which the list of contacts can be obtained
      * @return report created
      */
-    public static String createReport(Model model) {
+
+    public static String createReport(Model model) throws CommandException  {
         totalConfirmedCount = 0;
         totalPendingCount = 0;
         totalDeclinedCount = 0;
@@ -71,7 +75,6 @@ public class ReportCommand extends Command {
         ObservableList<Person> listOfPeople = model.getFilteredPersonList();
         for (Person currPerson : listOfPeople) {
             Set<Tag> currPersonTags = currPerson.getTags();
-            currPersonTags.toArray();
             String statusString = currPerson.getStatus().toString();
             for (Tag tagUsed : currPersonTags) {
                 String tagString = tagUsed.toString();
@@ -80,7 +83,16 @@ public class ReportCommand extends Command {
                 }
             }
         }
-        return provideTextReport(reportArray);
+
+        String priceOverallSum = new PriceCommand().execute(model).getFeedbackToUser();
+        StringBuilder priceSumByTag = new StringBuilder();
+        for (String tagString : getListOfTag(listOfPeople)) {
+            priceSumByTag.append(new PriceCommand(tagString).execute(model).getFeedbackToUser())
+                    .append("\n");
+        }
+
+        String priceSumReport = String.format("\n%s\n%s", priceOverallSum, priceSumByTag);
+        return provideTextReport(reportArray) + priceSumReport;
     }
 
     /**
@@ -118,8 +130,25 @@ public class ReportCommand extends Command {
         return reportAsString;
     }
 
+    /** Get a list of unique existing tags */
+    private static List<String> getListOfTag(ObservableList<Person> listOfPeople) {
+        Set<String> setOfTagString = new HashSet<>();
+        for (Person person : listOfPeople) {
+            Set<Tag> tagsOfCurrPerson = person.getTags();
+            addTagsToSet(tagsOfCurrPerson, setOfTagString);
+        }
+        return new ArrayList<>(setOfTagString);
+    }
+
+    /** Add each tag from {@code tags} to {@code setOfTagString} */
+    private static void addTagsToSet(Set<Tag> tags, Set<String> setOfTagString) {
+        for (Tag tag : tags) {
+            setOfTagString.add(tag.tagName);
+        }
+    }
+
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         ReportWindow.setReportMessage(createReport(model));
         ReportWindow window = new ReportWindow();
         window.show();
