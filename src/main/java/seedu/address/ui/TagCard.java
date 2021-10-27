@@ -28,7 +28,7 @@ public class TagCard extends UiPart<Region> {
         super(FXML);
         this.tag = tag;
         tagName.setText(tag.tagName);
-        description.setText("Number of people under this tag : \n"
+        description.setText("Contacts under this tag : \n"
                 + numOfContacts);
     }
 
