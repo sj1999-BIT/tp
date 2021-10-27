@@ -42,7 +42,7 @@ public class ModelInfo extends UiPart<Region> {
 
         Text infoText = new Text(info);
         infoText.setFont(Font.font(15));
-        infoText.setFill(Color.color(0, 0.5, 1));
+        infoText.setFill(Color.WHITE);
         infoText.setTextAlignment(TextAlignment.CENTER);
 
         if (val < 0) {

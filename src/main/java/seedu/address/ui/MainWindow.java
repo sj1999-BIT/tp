@@ -140,7 +140,7 @@ public class MainWindow extends UiPart<Stage> {
                 new BackgroundFill(Color.WHITE, new CornerRadii(10), Insets.EMPTY)));
         tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
+        resultDisplay = new ResultDisplay( "All the command feedback/result will be displayed here");
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());

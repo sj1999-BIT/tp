@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import seedu.address.logic.Logic;
 
 public class UserInfo extends UiPart<Region> {
@@ -43,7 +44,7 @@ public class UserInfo extends UiPart<Region> {
     public UserInfo(Logic logic) {
         super(FXML);
 
-        Text userName = new Text("Good day to you too!");
+        Text userName = new Text("Welcome to WedFast!");
         userName.setStyle("-fx-font-weight: bold");
         userName.setFont(Font.font(40));
         userName.setFill(Color.color(1, 1, 1));
@@ -51,7 +52,7 @@ public class UserInfo extends UiPart<Region> {
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         Text dateText = new Text(date);
         dateText.setFont(Font.font(15));
-        dateText.setFill(Color.color(0, 0.5, 1));
+        dateText.setFill(Color.web("#F9E79F"));
 
         leftHeader.setBackground(new Background(
                 new BackgroundFill(Color.web("#383838"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -64,7 +65,7 @@ public class UserInfo extends UiPart<Region> {
         int contacts = logic.size();
         int noOfdates = (int) LocalDate.now().until(logic.getCountdown().getDate(), ChronoUnit.DAYS);
 
-        ModelInfo totalContacts = new ModelInfo(contacts, "People in-charge");
+        ModelInfo totalContacts = new ModelInfo(contacts, "People in your contact");
         totalContactsContainer.getChildren().add(totalContacts.getRoot());
 
         ModelInfo datesToWedding = new ModelInfo(noOfdates,

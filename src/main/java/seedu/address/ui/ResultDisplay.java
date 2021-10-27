@@ -16,8 +16,9 @@ public class ResultDisplay extends UiPart<Region> {
     @FXML
     private TextArea resultDisplay;
 
-    public ResultDisplay() {
+    public ResultDisplay(String defaultText) {
         super(FXML);
+        resultDisplay.setText(defaultText);
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
