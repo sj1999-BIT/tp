@@ -5,14 +5,13 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.Model;
 
 /**
- * Adds a shortcut to the shortcut list stored.
+ * Removes a shortcut to the shortcut list stored.
  */
 public class RemoveShortcutCommand extends Command {
 
     public static final String COMMAND_WORD = "removesc";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a shortcut with a specified call and function"
-            + "which can be called by shortcut to recreate the command\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a shortcut with a specified call"
             + "Parameters: KEYWORDS c/[Command to be executed]\n"
             + "Example: " + COMMAND_WORD + " a";
 
