@@ -229,7 +229,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Hashtable<Tag, Integer> getUniqueTagList() {
+        public Hashtable<Tag, Integer> getUniqueTagTable() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getUniqueTagList() {
             throw new AssertionError("This method should not be called.");
         }
     }

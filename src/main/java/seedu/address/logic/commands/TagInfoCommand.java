@@ -54,7 +54,7 @@ public class TagInfoCommand extends Command {
         requireNonNull(model);
         String resultMessage = "tags Info:\n";
         String errorTags = "";
-        Hashtable<Tag, Integer> tagInfoTable = model.getUniqueTagList();
+        Hashtable<Tag, Integer> tagInfoTable = model.getUniqueTagTable();
 
         // empty, assumed that we are looking for every tag in the model
         if (listOfTags.isEmpty()) {
