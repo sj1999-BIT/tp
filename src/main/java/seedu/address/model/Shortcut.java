@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents shortcuts stored by the user
@@ -59,11 +60,26 @@ public class Shortcut implements ReadOnlyShortcut {
         return shortcutMap.get(keyword);
     }
 
+    public String removeShortcut(String keyword) {
+        return shortcutMap.remove(keyword);
+    }
+
     /**
      * Returns an unmodifiable view of the shortcut map.
      */
     @Override
     public HashMap<String, String> getShortcutMap() {
         return shortcutMap;
+    }
+
+    @Override
+    public String toString() {
+        String output = "Here are the shortcuts you have: \n";
+        for (Map.Entry<String, String> entry : shortcutMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            output += "KEY " + key + " - COMMAND " + value + "\n";
+        }
+        return output;
     }
 }

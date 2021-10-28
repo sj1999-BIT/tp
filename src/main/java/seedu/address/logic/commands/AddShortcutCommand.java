@@ -9,7 +9,7 @@ import seedu.address.model.Model;
  */
 public class AddShortcutCommand extends Command {
 
-    public static final String COMMAND_WORD = "addshortcut";
+    public static final String COMMAND_WORD = "addsc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a shortcut with a specified call and function"
             + "which can be called by shortcut to recreate the command\n"

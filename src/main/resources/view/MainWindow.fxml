@@ -11,8 +11,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="WedFast" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="WedFast"  minWidth="1100" minHeight="695" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/wedfast_icon.png" />
   </icons>
@@ -34,27 +36,33 @@
           </Menu>
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="userInfoPlaceHolder" minHeight="70">
+
+        </StackPane>
+
+        <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                   minHeight="80" prefHeight="100" maxHeight="80">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <HBox fx:id="personList" maxHeight="230" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="10" left="10" right="50" top="10" />
           </padding>
-        </StackPane>
-
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+          <StackPane fx:id="tagListPanelPlaceholder" minWidth="400" VBox.vgrow="NEVER" maxHeight="270"/>
+          <StackPane id="middleSeparator" minWidth="30" VBox.vgrow="ALWAYS" />
+          <StackPane fx:id="personListPanelPlaceholder" minWidth="600" VBox.vgrow="ALWAYS" maxHeight="270"/>
+        </HBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" minHeight="50">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane>
       </VBox>
     </Scene>
   </scene>
