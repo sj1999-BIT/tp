@@ -174,7 +174,7 @@ No.  | **Note**                                                                 
 <div style="page-break-after: always;"></div>
 
 ### Viewing help : `help`
-To shows a message on how to access the help page.
+To show a message on how to access the help page.
 1. Type the command: `help` in the command box.
 2. Press Enter
 
