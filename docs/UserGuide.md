@@ -63,7 +63,10 @@ We welcome you to have a look at this user guide to be a master on using _WedFas
 <details>
   <summary>Feature: Boosting your productivity</summary>
 
-  * [Adding customizable shortcuts : `shortcut`](#adding-customizable-shortcuts--shortcut)
+  * [Adding customizable shortcuts : `shortcut`](#adding-customizable-shortcuts--addsc)
+  * [Using shortcuts : `sc`](#using-shortcuts--sc)
+  * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
+  * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
   * [Exiting the program : `exit`](#exiting-the-program--exit)
   * [Undoing last change : `undo`](#undoing-last-change--undo)
   * [Viewing help : `help`](#viewing-help--help)
@@ -325,7 +328,7 @@ Example and expected outcome:<br>
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Important note/Tips(If any):**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+These parameters can all be use in conjunction to find a contact that fits any keyword and any tag and under a price range. 
 
 </div>
 
@@ -395,21 +398,67 @@ Example and expected outcome:<br>
 ---
 
 ## Feature: Boosting your productivity
-### Adding customizable shortcuts : `shortcut`
-To add a shortcut bound to the SHORTCUT button
+### Adding customizable shortcuts : `addsc`
+To add a command bound to a shortcut phrase
 1. Type the command in the command box with either of the following formats:<br>
-    * 
+    `addsc SHORTCUT c/COMMAND`
 2. Press Enter
 
-* SHORTCUT is a set of values of 10 buttons [q, w, e, r, a, s, d, z, x, c]
+* SHORTCUT can be any String
 
 Example and expected outcome:<br>
+* `addsc f c/find t/Food` attaches `find t/Food` to `f`
+* `addsc a c/price t/Vendor` attaches `price t/Vendor` to `a`
+
 `PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Important note/Tips(If any):**<br>
 `INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+
+</div>
+
+### Using shortcuts : `sc`
+To call the command bound to the shortcut
+1. Type the command in the command box with either of the following formats:<br>
+    `sc SHORTCUT`
+2. Press Enter
+
+Example and expected outcome:<br>
+* `sc f` calls the COMMAND attached to the shortcut `f`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+Calling the `sc` shortcut will act as if the COMMAND is being called directly.
+
+</div>
+
+### Viewing shortcuts : `listsc`
+View all shortcuts available for the user.
+1. Type the command: `listsc` in the command box.
+2. Press Enter
+
+Example and expected outcome:<br>
+
+<div markdown="block" class="alert alert-info">
+
+</div>
+
+### Deleting shortcuts : `removesc`
+To call the command bound to the shortcut
+1. Type the command in the command box with either of the following formats:<br>
+    `removesc SHORTCUT`
+2. Press Enter
+
+Example and expected outcome:<br>
+* `removesc f` removes the attachment of the COMMAND to the shortcut `f`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+There would be no effect if the shortcut does not exist. 
 
 </div>
 
