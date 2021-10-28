@@ -14,7 +14,7 @@
 * For the detailed documentation of this project, see the **[WedFast Product Website](https://ay2122s1-cs2103t-w10-4.github.io/tp/)**.
 
 ### <span style="color:orangered">Acknowledgement</span>
-* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org), 
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org),
 inherited and continue optimized by AY2122S1-CS2103T-W10-4 developers.
 
 

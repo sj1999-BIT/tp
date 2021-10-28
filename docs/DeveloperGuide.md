@@ -154,6 +154,53 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Delete by name feature
+#### Implementation
+The delete-by-name mechanism is facilitated by `AddressBook`. It implements `ReadOnlyAddressBook` with a person list, stored internally as an `persons`. Additionally, it implements the following operation:
+
+* `AddressBook#removePerson()` — Removes specified person from its person list.
+
+The operation is exposed in the `Model` interface as `Model#deletePerson()`.
+
+Given below is an example usage scenario and how the delete-by-name mechanism behaves at each step.
+
+Step 1. The user launches the application and has the following person list saved. `AddressBook` stores these contacts as `persons`.
+![DeleteByNamePersonList0](images/DeleteByNamePersonList0.png)
+
+Step 2. The user executes `delete n/John Doe` command to delete the person named *John Doe* in the list.
+The `delete` command first calls `Model#updateFilteredPersonList()` and `Model#getFilteredPersonList()` to get a list where all the persons in the list named *John Doe*.
+![DeleteByNameFilteredPersonList0](images/DeleteByNameFilteredPersonList0.png)
+
+Step 3. With the access to the filtered list, it calls `Model#deletePerson()`, causing `AddressBook` to remove each person in the
+list by calling `AddressBook#removePerson()`. Finally, the user will see the updated person list with *John Doe* removed.
+![DeleteByNamePersonList1](images/DeleteByNamePersonList1.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a name is not found, it will not call `Model#deletePerson()`, so the `AddressBook` person list will not be modified.
+
+</div>
+
+The following sequence diagram shows how the price sum checking operation works:
+![Interactions Inside the Logic Component for the `delete n/John Doe` Command](images/DeleteByNameSequenceDiagram.png)
+:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a
+limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram summarizes what happens when a user executes a delete-by-name command:
+
+<img src="images/DeleteByName.png" width="250" />
+
+#### Design considerations:
+
+**Aspect: How delete-by-name executes:**
+
+* **Alternative 1 (current choice):** Deletes the person with the exact same name.
+    * Pros: Avoid the situation where user deletes the wrong person
+    * Cons: User needs to remember the name precisely.
+* **Alternative 2:** Deletes the person who names partially contains the specified name.
+    * Pros: User does not have to remember the full name (e.g. `delete n/Alex` will delete both person named *Alex Tan* and *Alex Yeoh*).
+    * Cons: Might delete the wrong person.
+
+_{more aspects and alternatives to be added}_
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -257,13 +304,15 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* plans a wedding for himself/herself
+* has a need to manage a significant number of contacts of who will be involving/in-charged for the wedding
+* prefers desktop applications over other types
+* can type fast on keyboards
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable and prefers using CLI applications
+* is often forgetful and needs a program that will assist him with keeping track of the wedding details
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage contacts faster than a typical mouse/GUI driven app and more specific to wedding-planning
 
 
 ### User stories
@@ -282,7 +331,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | expert user                                   | use shortcuts to access different features                        | utilise the app efficiently                                            |
 | `* * *`  | frugal user                                   | add price tags to contacts                                        | avoid exceeding my budget                                              |
 | `* * *`  | forgetful user                                | notified for a specific time to remind myself to complete a task  | avoid forgetting to complete any important tasks                       |
-| `* * *`  | user with poor time management skills         | keep track of payment and deadlines                               |  avoid missing any payments and getting fined                          |
+| `* * *`  | user with poor time management skills         | keep track of payment and deadlines                               | avoid missing any payments and getting fined                          |
 | `* * *`  | very organized user                           | group contacts under the same category                            | manipulate the contacts easily                                         |
 | `* * *`  | user who wants to customise the program       | create shortcuts for longer commands                              | use the commands more efficiently                                      |
 | `* * *`  | infrequent user                               | get reminded via email of when to handle contacts                 | avoid not being aware of my plans                                      |
@@ -307,13 +356,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User types out name of contact with group name using specified format.
-2. User clicks `Enter` button.
+2. User confirms.
 3. System adds contact to said group.<br>
     Use case ends.
 
 **Extensions**
-* 2a. Either name/group name is unspecified/blank(white spaces only) or does not exist.
-    * System shows an error message.<br>
+* 2a. Either name/group name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
     Use case resumes at step 1.
 
 **Use case:  Filter contacts**
@@ -324,23 +374,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User types out group and/or tag in specified format.
-2. User clicks `Enter` button.
+2. User confirms.
 3. System filters contacts that fall under that group and/or tag.<br>
     Use case ends.
 
 **Extensions**
-* 2a. Either group/tag name is unspecified/blank(white spaces only) or does not exist.
-    * System shows an error message.<br>
+* 2a. Either group/tag name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
       Use case resumes at step 1.
-      
+
 **Use case:  Track important information**
 
 **MSS**
 
-1. User types in key details when creating contacts.
-2. User types `track`.
-3. User clicks `Enter` button.
-4. System summarises information user has typed in under the “Important Information” field across all contacts.<br>
+1. User types in key details when creating new contacts.
+2. User types out the tracking command keyword.
+3. User confirms.
+4. System summarises all the important information typed by user across all contacts.<br>
     Use case ends.
 
 **Use case: Add/Edit price tag**
@@ -348,13 +399,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees:**
 * A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
 
-1. When adding/editing contact, user puts the price detail.
-2. User clicks `Enter` button.
-3. System update the contact list and the target contact will now have price tag.
+1. When adding/editing contact, user also types in the price detail.
+2. User confirms.
+3. System updates the contact list and the target contact will now have price tag(s).
+    Use case ends.
 
 **Extensions**
-* 2a. Price is unspecified/blank(white spaces only) or written in invalid format.
-    * System shows an error message.<br>
+* 2a. Price is unspecified/blank(white spaces only)/written in invalid format.
+    * 2a1. System shows an error message.
+    * 2a2. User indicates the error message has been read.<br>
       Use case resumes at step 1.
 
 *{More to be added}*
@@ -362,12 +415,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any pc as long as it has Java `11` or above installed.
-2.  Should be able store and manage at least 100 contacts.
+2.  Should be able to store and manage at least 100 contacts.
 3.  Should be able to guarantee data security to protect privacy of user.
 4.  Should not store more than 20MB of infomation.
 5.  Program should respond within 2 seconds of each command.
-6.  Product is not handling multiple users planning a wedding at once.
-7.  Should be usable by anyone who understands english without any experience in planning weddings. 
+6.  Product is not handling more than 1 user planning a wedding at once.
+7.  Should be usable by anyone who understands english without any experience in planning weddings.
 
 
 *{More to be added}*
@@ -375,9 +428,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **PlantUML**: is a tool for specifying various diagrams in a textual form.
 * **API**: The Application Programming Interface specifies the interface through which software and other programs interact
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Filter**: Add tags to contacts such as price, type of contact
+* **Actor**: a role played by a use case
 
 --------------------------------------------------------------------------------------------------------------------
 
