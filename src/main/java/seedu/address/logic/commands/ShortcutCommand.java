@@ -13,10 +13,10 @@ import seedu.address.model.Model;
  */
 public class ShortcutCommand extends Command {
 
-    public static final String COMMAND_WORD = "shortcut";
+    public static final String COMMAND_WORD = "sc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Calls the command tied to the keyphrase added by "
-            + "addshortcut\n"
+            + "addsc\n"
             + "Parameters: KEYPHRASE\n"
             + "Example: " + COMMAND_WORD + " a";
 
