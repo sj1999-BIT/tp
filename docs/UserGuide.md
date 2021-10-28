@@ -308,7 +308,8 @@ Example and expected outcome:<br>
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+It deletes a person entry permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
+if you wish to.
 </div>
 
 <div markdown="block" class="alert alert-success">
@@ -329,8 +330,10 @@ Example and expected outcome:<br>
 
 **:information_source: Important note/Tips(If any):**<br>
 These parameters can all be use in conjunction to find a contact that fits any keyword and any tag and under a price range. 
+
 **:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+It deletes all the existing person entries permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
+if you wish to.
 </div>
 
 <div markdown="block" class="alert alert-success">
@@ -451,27 +454,17 @@ To add a command bound to a shortcut phrase
 </div>
 
 ### Getting your wedding plan report : `report`
+This feature allows you to view the summarised status of the application. It shows you the total number of confirmed, pending and declined contacts under each tag. It also allows you to view the total price accumulated across confirmed contacts under each tag.
+
 To
 1. Type the command: `report` in the command box.
 2. Press Enter
 
 Example and expected outcome:<br>
-* `addsc f c/find t/Food` attaches `find t/Food` to `f`
-* `addsc a c/price t/Vendor` attaches `price t/Vendor` to `a`
-
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
+* `report`:
+  ![report](images/Report.png)
+  
 <div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
-<div markdown="block" class="alert alert-success">
-
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
 
 ### Using shortcuts : `sc`
 To call the command bound to the shortcut
@@ -586,21 +579,21 @@ _Details coming soon …_
 
 **Actions**                           | **Format**                        | **Example**
 --------------------------------------|-----------------------------------|------------
-**Viewing help**                      | `help`                            |
+**Viewing help**                      | `help`                            |`help`
 **Adding a person**                   | `add`                             |
-**Listing all persons**               | `list`                            |
-**Editing a person**                  | `edit`                            |
+**Listing all persons**               | `list`                            |`list`
+**Editing a person**                  | `edit`                            |`edit 1 p/91234567 e/johndoe@example.com` or<br> `edit 2 n/Betsy Crower t/`
 **Grouping persons**                  | `group`                           |
 **Locating persons**                  | `find`                            |
 **Deleting a person/persons**         | `delete INDEX` or<br>`delete n/NAME` or<br> `delete t/TAG`|`delete 3` or<br>`delete n/Alex Yeoh` or<br>`delete t/food_vendor`
-**Clearing all entries**              | `clear`                           |
+**Clearing all entries**              | `clear`                           |`clear`
 **Undoing last change**               | `undo`                            |
 **Counting down to the wedding day**  | `countdown YYYY-MM-DD`<br>(To set your wedding date)<br>`countdown`<br>(To see the day count)|`countdown`<br><br>`countdown 2021-10-26`
 **Counting head by tag**              | `tagInfo`                         |
 **Calculating wedding cost**          | `price`  or<br>`price t/TAG1 [t/TAG2]…​`| `price` or<br>`price t/Chef` or<br>`price t/Chef t/Photographer`
-**Getting your wedding plan report**  | `report`                          |
+**Getting your wedding plan report**  | `report`                          |`report`
 **Adding customizable shortcuts**     | `shortcut`                        |
-**Exiting the program**               | `exit`                            |
+**Exiting the program**               | `exit`                            |`exit`
 
 [Back to top 🔝](#table-of-contents)
 <div style="page-break-after: always;"></div>
