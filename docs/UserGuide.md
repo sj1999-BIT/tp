@@ -499,6 +499,8 @@ _Details coming soon …_
        the data of your previous _WedFast_ home folder.
 
 ### About the command
+**Q**: Where can I get the cheatsheet for the command syntax?<br>
+**A**: You will be able to get [here](#command-summary).
 {More will be added in the future...}
 
 [Back to top 🔝](#table-of-contents)
