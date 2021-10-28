@@ -1,18 +1,18 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-import java.util.logging.Logger;
-
 /**
  * Controller for a confirmation message
  */
 public class ConfirmationWindow extends UiPart<Stage> {
-    public static String message = "";
+    private static String message = "";
 
     private static final Logger logger = LogsCenter.getLogger(ConfirmationWindow.class);
     private static final String FXML = "ConfirmationWindow.fxml";
