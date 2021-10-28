@@ -2,13 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.ui.ConfirmationWindow;
-import seedu.address.ui.WarningWindow;
 
 
 /**
