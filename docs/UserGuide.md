@@ -196,18 +196,11 @@ To add a person to the contact list:
 2. Press Enter.
 
 Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+  * `add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, 
+pr/500.00 i/none s/pending t/caterer`:
+     ![add contact](images/AddContact.png)
 
 <div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
-<div markdown="block" class="alert alert-success">
-
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 </div>
 
 ### Listing all persons : `list`
@@ -331,19 +324,36 @@ To undo the last change that was made to the contact list.
 1. Type the command: `undo` in the command box.
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+Examples and expected outcomes:
+1. `undo` after `delete 2`:
+
+   
+   * `delete 2`:
+     ![delete by index](images/DeleteIndex.png)
+
+   * `undo`:
+     ![undo delete by index](images/UndoDeleteIndex.png)
+     
+2. `undo` after `group`:
+   
+
+   * `group t/Bus n/David Li, Irfan Ibrahim`:
+     ![group](images/GroupContacts.png)
+     
+   * `undo`:
+     ![group](images/UndoGroupContacts.png)
+     
+3. `undo` after `clear`:
+
+
+   * `clear`:
+     ![clear](images/Clear.png)
+     
+   * `undo`:
+     ![clear](images/UndoClear.png)
+     
 
 <div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
-<div markdown="block" class="alert alert-success">
-
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 </div>
 
 ### Counting down to the wedding day : `countdown`
