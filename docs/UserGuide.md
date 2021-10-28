@@ -383,21 +383,15 @@ To return a unique list of tags with the number of contacts labelled with the ta
    * `tagInfo list`
 2. Press Enter
 
-Example and expected outcome:<br>
-* `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
-* `tagInfo list` returns a list with all the tags labelled by the contacts.
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
 The list can be specified to only limited tags or to include all the tags used to label the contacts.`
 </div>
+
+Example and expected outcome:<br>
+* `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
+* `tagInfo list` returns a list with all the tags labelled by the contacts.
 
 ### Calculating wedding cost : `price`
 This feature helps you calculate your wedding expenses, so that you can stick to the budget and prevent overspending.
