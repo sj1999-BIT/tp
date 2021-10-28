@@ -174,70 +174,67 @@ No.  | **Note**                                                                 
 <div style="page-break-after: always;"></div>
 
 ### Viewing help : `help`
+This feature provides you with the help page link, so that you can access it to troubleshoot your problem with the info
+provided.
+
 To show a message on how to access the help page.
 1. Type the command: `help` in the command box.
 2. Press Enter
 
-Example and expected outcome:<br>
+Outcome:<br>
+You will be able to see a pop-up window showing the help page link.
 ![help message](images/helpMessage.png)
-`PLEASE INSERT TEXT HERE`
-
-<div markdown="block" class="alert alert-success">
-
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
 
 ### Adding a person : `add`
-To add a person to the contact list:
+This feature allows you to add a person to your contact by specifying the details, so that you can refer back in the
+future.
 
+To add a person to the contact list:
 1. Type the command in the command box with the following format:<br>
 `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/TAG]…​`
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
 <div markdown="block" class="alert alert-success">
 
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+**:bulb: Tip:**<br>
+* A person can have any number of tags (including 0)
 </div>
 
+Example:<br>
+`add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pr/88.00 i/Vegetarian s/Confirmed t/Friend`
+
+Outcome:<br>
+You will see a contact named `John Doe` with all the specified details appears in the contact list.
+![add contact](images/addContact.png)
+
 ### Listing all persons : `list`
+This feature displays a list of all your contacts in a single column.
+
 To lists all the existing contacts.
 1. Type the command: `list` in the command box.
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
 ### Editing a person : `edit`
+This feature allows you to update a person's detail at the specified index, so that you can replace the incorrect and 
+outdated data with the correct and updated one.
+
 To edit an existing person in the contact list:
 1. Type the command in the command box with the following format:<br>
    `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/tag]…​`
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+* `INDEX` refers to the index number shown in the displayed person list. It must be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person’s tags by typing t/ without specifying any tags after it.
 </div>
+
+Examples:
+* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
+* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
 
 ### Grouping persons : `group`
 To group existing persons in the contact list together to an existing named tag or create a new tag
@@ -284,6 +281,8 @@ Example and expected outcome:<br>
 </div>
 
 ### Deleting a person : `delete`
+This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
+
 To delete a person from the contact list via index/name/tag:
 1. Type the command in the command box with either of the following formats:<br>
     * `delete INDEX` or <br>
@@ -291,62 +290,71 @@ To delete a person from the contact list via index/name/tag:
     * `delete t/TAG`
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+It deletes a person entry permanently from your contact, but you can [undone](#undoing-last-change--undo) the deletion
+if you wish to.
 </div>
 
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+* `INDEX` refers to the index number shown in the displayed person list. It must be a positive integer 1, 2, 3, …​
+* Other than `INDEX`, you can specify a contact you want to delete by `NAME` or `TAG`, but they cannot be used together
+  such as `delete 1 n/Lily`
+* `TAG` must not contain whitespace
 </div>
 
+Example:<br>
+`delete 7`
+
+Outcome:<br>
+The 7th contact, `John Doe` disappears from the contact list.
+
+Before:<br>
+![before delete contact](images/deleteContact1.png)
+After:<br>
+![after delete contact](images/deleteContact2.png)
+
 ### Clearing all entries : `clear`
+This feature allows you to delete all the contacts at once from the contact list.
+
 To clear all entries in the contact list:
 1. Type the command: `clear` in the command box.
 2. Press Enter
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+It deletes all the existing person entries permanently from your contact, but you can [undone](#undoing-last-change--undo) the deletion
+if you wish to.
 </div>
 
-<div markdown="block" class="alert alert-success">
-
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
+Outcome:<br>
+All the contacts disappear from the contact list.
 
 ### Undoing last change : `undo`
+This feature allows you to undo a change to the contact list if you think the change is a mistake.
+
 To undo the last change that was made to the contact list.
 1. Type the command: `undo` in the command box.
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
 <div markdown="block" class="alert alert-success">
 
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+**:bulb: Tip:**<br>
+* This feature currently only supports features such as [adding](#adding-a-person--add), 
+  [editing](#editing-a-person--edit), [delete](#deleting-a-person--delete), and [clear](#clearing-all-entries--clear)
 </div>
 
+Outcome:<br>
+The contact list will go back to the status as if no changes were made.
+
 ### Counting down to the wedding day : `countdown`
+This feature helps you calculate how many day left before your wedding, so that you have an idea how much time can you
+prepare for your wedding.
+
 To check the countdown till your wedding day:
 1. Type the command in the command box with the following format:<br>
    `countdown YYYY-MM-DD`
@@ -356,15 +364,15 @@ To check the countdown till your wedding day:
    set.
 5. Repeat step (1) and step (2) again if you wish to reset the wedding date.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
 1. If you have not set the wedding date before, then the default wedding date will be today.
 2. If you had set the wedding date before, then you can follow step (4) ONLY to check the countdown.
 </div>
+
+Outcome:<br>
+A message that tells you how many days left before wedding will be displayed in the command feedback box.
 
 ### Counting head by tag : `tagInfo`
 Filters through the contacts with tags TAG to obtain a list of TAGs with details of how many contacts labelled by them.
@@ -392,24 +400,22 @@ The list can be specified to only limited tags or to include all the tags used t
 </div>
 
 ### Calculating wedding cost : `price`
-To calculate the wedding cost:
-1. Type the command: `price` in the command box.
+This feature helps you calculate your wedding expenses, so that you can stick to the budget and prevent overspending.
+
+To calculate the expenses:
+1. Type the command in the command box with the following format:
+   * `price` (For over wedding cost)
+   * `price t/TAG [t/TAG]…​` (For the cost under 1 or more category, specified by `TAG`)
 2. Press Enter
-
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
 
 <div markdown="block" class="alert alert-success">
 
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+**:bulb: Tip:**<br>
+* Only the cost of those contacts with `confirmed` status will be added. 
 </div>
+
+Outcome:<br>
+The calculation result will be displayed in the command feedback box.
 
 ### Getting your wedding plan report : `report`
 To
@@ -453,12 +459,14 @@ Example and expected outcome:<br>
 </div>
 
 ### Exiting the program : `exit`
+This feature close the app without the need of clicking mouse.
+
 To exit the app.
 1. Type the command: `exit` in the command box.
 2. Press Enter
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+Outcome:<br>
+App closes within few seconds.
 
 ### Saving the data file
 _WedFast_ data are saved in the hard disk automatically after any command that changes the data. There is no need to
