@@ -72,7 +72,7 @@ public class ConfirmationWindow extends UiPart<Stage> {
     }
 
     /**
-     * Close the confirmation Window.
+     * Closes the confirmation Window.
      */
     @FXML
     private void exitTheWindow() {

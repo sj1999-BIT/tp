@@ -59,8 +59,7 @@ public class UndoCommand extends Command {
             } else if (deleted.getTargetTag() != null) {
                 ArrayList<Person> deletedList = deleted.getDeletedList();
                 for (Person p : deletedList) {
-                    shuffle(currentList, 0, p,
-                            model);
+                    shuffle(currentList, 0, p, model);
                 }
             }
         } else if (prevCommand instanceof ClearCommand) {

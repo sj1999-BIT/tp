@@ -50,10 +50,12 @@ public class ReportCommand extends Command {
         if (currStatus.matches("[Cc]onfirmed|c")) {
             element.incrementConfirmed();
             totalConfirmedCount++;
-        } else if (currStatus.matches("[Pp]ending|p")) {
+        }
+        if (currStatus.matches("[Pp]ending|p")) {
             element.incrementPending();
             totalPendingCount++;
-        } else if (currStatus.matches("[Dd]eclined|d")) {
+        }
+        if (currStatus.matches("[Dd]eclined|d")) {
             element.incrementDeclined();
             totalDeclinedCount++;
         }
@@ -65,7 +67,6 @@ public class ReportCommand extends Command {
      * @param model is the source from which the list of contacts can be obtained
      * @return report created
      */
-
     public static String createReport(Model model) throws CommandException {
         totalConfirmedCount = 0;
         totalPendingCount = 0;
