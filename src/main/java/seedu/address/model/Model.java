@@ -156,5 +156,10 @@ public interface Model {
      * Returns a HashSet of the unique Tags in the model, with the number of contacts labelled with
      * each respective tags as the value.
      */
-    Hashtable<Tag, Integer> getUniqueTagList();
+    Hashtable<Tag, Integer> getUniqueTagTable();
+
+    /**
+     * Returns an observable list of the unique Tags in the model
+     */
+    ObservableList<Tag> getUniqueTagList();
 }

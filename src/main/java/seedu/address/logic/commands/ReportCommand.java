@@ -50,10 +50,12 @@ public class ReportCommand extends Command {
         if (currStatus.matches("[Cc]onfirmed|c")) {
             element.incrementConfirmed();
             totalConfirmedCount++;
-        } else if (currStatus.matches("[Pp]ending|p")) {
+        }
+        if (currStatus.matches("[Pp]ending|p")) {
             element.incrementPending();
             totalPendingCount++;
-        } else if (currStatus.matches("[Dd]eclined|d")) {
+        }
+        if (currStatus.matches("[Dd]eclined|d")) {
             element.incrementDeclined();
             totalDeclinedCount++;
         }
@@ -71,6 +73,7 @@ public class ReportCommand extends Command {
         totalDeclinedCount = 0;
         ArrayList<ReportElement> reportArray = new ArrayList<ReportElement>();
         ObservableList<Person> listOfPeople = model.getFilteredPersonList();
+
         for (Person currPerson : listOfPeople) {
             Set<Tag> currPersonTags = currPerson.getTags();
             String statusString = currPerson.getStatus().toString();
@@ -109,7 +112,7 @@ public class ReportCommand extends Command {
         } else if (currStatus.matches("[Dd]eclined|d")) {
             reportArray.add(new ReportElement(currTag, 0, 0, 1));
             totalDeclinedCount++;
-        } else { }
+        }
     }
 
     /**
