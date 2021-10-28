@@ -58,8 +58,6 @@ public class PersonListPanel extends UiPart<Region> {
         personListView = new ListView<>();
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        personListView.setBackground(new Background(
-                new BackgroundFill(Color.WHITE, new CornerRadii(2), new Insets(5))));
         personListView.setMinWidth(550);
         listLimit = new StackPane();
         listLimit.getChildren().add(personListView);
