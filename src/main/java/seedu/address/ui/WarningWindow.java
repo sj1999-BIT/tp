@@ -72,6 +72,5 @@ public class WarningWindow extends UiPart<Stage> {
     public Button getNoButton() {
         return this.noButton;
     }
-
 }
 

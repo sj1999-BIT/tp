@@ -78,6 +78,5 @@ public class ConfirmationWindow extends UiPart<Stage> {
     private void exitTheWindow() {
         this.hide();
     }
-
 }
 
