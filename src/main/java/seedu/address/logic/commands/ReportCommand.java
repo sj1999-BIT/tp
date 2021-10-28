@@ -112,7 +112,7 @@ public class ReportCommand extends Command {
         } else if (currStatus.matches("[Dd]eclined|d")) {
             reportArray.add(new ReportElement(currTag, 0, 0, 1));
             totalDeclinedCount++;
-        } else { }
+        }
     }
 
     /**
