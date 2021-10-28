@@ -153,19 +153,16 @@ public class DeleteCommand extends Command {
      */
     private CommandResult executeDeleteByName(Model model) throws CommandException {
         assert targetName != null : "targetName should not be null";
-        Predicate<Person> hasExactSameName = (person) -> person.getName().equals(targetName);
 
-        model.updateFilteredPersonList(hasExactSameName);
-        List<Person> filteredList = model.getFilteredPersonList();
-        if (filteredList.isEmpty()) {
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_NAME, targetName));
-        }
+        List<Person> originalList = model.getFilteredPersonList();
 
-        for (int i = 0; i < filteredList.size(); i++) {
-            personToDelete = filteredList.get(i);
-            model.deletePerson(personToDelete);
-            nameIndex = Index.fromZeroBased(i);
+        for (int i = 0; i < originalList.size(); i++) {
+            personToDelete = originalList.get(i);
+            if (personToDelete.getName().equals(targetName)) {
+                model.deletePerson(personToDelete);
+                nameIndex = Index.fromZeroBased(i);
+                break;
+            }
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
