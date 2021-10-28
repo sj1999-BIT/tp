@@ -26,6 +26,24 @@ title: User Guide
   * [Editing a person : `edit`](#editing-a-person--edit)
   * [Grouping persons : `group`](#grouping-persons--group)
   * [Locating persons : `find`](#locating-persons--find)
+</details>
+
+<details>
+  <summary>Feature: Checking useful info of your wedding</summary>
+  
+  * [Counting down : `countdown`](#counting-down--countdown)
+  * [Listing tag info : `tagInfo`](#listing-tag-info--taginfo)
+  * [Retrieving report : `report`](#retrieving-report--report)
+</details>
+
+<details>
+  <summary>Feature: Boosting your productivity</summary>
+
+  * [Adding customizable shortcuts : `shortcut`](#adding-customizable-shortcuts--addsc)
+  * [Using shortcuts : `sc`](#using-shortcuts--sc)
+  * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
+  * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
+  * [Exiting the program : `exit`](#exiting-the-program--exit)
   * [Deleting a person : `delete`](#deleting-a-person--delete)
   * [Clearing all entries : `clear`](#clearing-all-entries--clear)
   * [Undoing last change : `undo`](#undoing-last-change--undo)
@@ -316,6 +334,8 @@ Example and expected outcome:<br>
 
 <div markdown="block" class="alert alert-warning">
 
+**:information_source: Important note/Tips(If any):**<br>
+These parameters can all be use in conjunction to find a contact that fits any keyword and any tag and under a price range. 
 **:exclamation:Caution:**<br>
 `INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 </div>
@@ -407,6 +427,15 @@ Example and expected outcome:<br>
 
 <div markdown="block" class="alert alert-success">
 
+## Feature: Boosting your productivity
+### Adding customizable shortcuts : `addsc`
+To add a command bound to a shortcut phrase
+1. Type the command in the command box with either of the following formats:<br>
+    `addsc SHORTCUT c/COMMAND`
+2. Press Enter
+
+* SHORTCUT can be any String
+
 **:bulb: Tips:**<br>
 `INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 </div>
@@ -417,6 +446,9 @@ To
 2. Press Enter
 
 Example and expected outcome:<br>
+* `addsc f c/find t/Food` attaches `find t/Food` to `f`
+* `addsc a c/price t/Vendor` attaches `price t/Vendor` to `a`
+
 `PLEASE INSERT TEXT AND SCREENSHOTS HERE`
 
 <div markdown="block" class="alert alert-warning">
@@ -431,10 +463,52 @@ Example and expected outcome:<br>
 `INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
 </div>
 
-### Using customizable shortcuts : `shortcut`
-To add a shortcut bound to the SHORTCUT button
+### Using shortcuts : `sc`
+To call the command bound to the shortcut
 1. Type the command in the command box with either of the following formats:<br>
+    `sc SHORTCUT`
+2. Press Enter
 
+Example and expected outcome:<br>
+* `sc f` calls the COMMAND attached to the shortcut `f`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+Calling the `sc` shortcut will act as if the COMMAND is being called directly.
+
+</div>
+
+### Viewing shortcuts : `listsc`
+View all shortcuts available for the user.
+1. Type the command: `listsc` in the command box.
+2. Press Enter
+
+Example and expected outcome:<br>
+
+<div markdown="block" class="alert alert-info">
+
+</div>
+
+### Deleting shortcuts : `removesc`
+To call the command bound to the shortcut
+1. Type the command in the command box with either of the following formats:<br>
+    `removesc SHORTCUT`
+2. Press Enter
+
+Example and expected outcome:<br>
+* `removesc f` removes the attachment of the COMMAND to the shortcut `f`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Important note/Tips(If any):**<br>
+There would be no effect if the shortcut does not exist. 
+
+</div>
+
+### Exiting the program : `exit`
+To exit the app.
+1. Type the command: `exit` in the command box.
 2. Press Enter
 
 Example and expected outcome:<br>
