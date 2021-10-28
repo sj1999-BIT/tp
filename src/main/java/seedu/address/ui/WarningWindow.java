@@ -1,33 +1,77 @@
 package seedu.address.ui;
 
-import java.awt.Frame;
-import javax.swing.JOptionPane;
+import java.util.logging.Logger;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import seedu.address.commons.core.LogsCenter;
 
 /**
- * This class create a warning window. Future upgrade include adding an extension to
- * UIPart to utilize fxml and standardise to the rest of the class
- * under ui package.
+ * Controller for a warning window
  */
-public class WarningWindow {
-    private String message = "";
-    private Frame frame = new Frame("");
+public class WarningWindow extends UiPart<Stage> {
+    public static final String WARNING_MESSAGE = "Are you sure you want to clear all data?";
+
+    private static final Logger logger = LogsCenter.getLogger(WarningWindow.class);
+    private static final String FXML = "WarningWindow.fxml";
+
+    @FXML
+    private Button yesButton;
+
+    @FXML
+    private Button noButton;
+
+    @FXML
+    private Label warningMessage;
 
     /**
-     * Creates a warning window with the presetMessage.
-     * @param presetMessage
+     * Creates a new WarningWindow.
+     *
+     * @param root Stage to use as the root of the WarningWindow.
      */
-    public WarningWindow(String presetMessage) {
-        message = presetMessage;
-        frame.setAlwaysOnTop(true);
+    public WarningWindow(Stage root) {
+        super(FXML, root);
+        warningMessage.setText(WARNING_MESSAGE);
     }
 
     /**
-     * Creates the pop up warning window with the indicated frame and message.
-     * @return true if yes to chose, else return false
+     * Creates a new WarningWindow.
      */
-    public boolean isChoiceYes() {
-        // if yes is picked, the address book data in model will be reset
-        return JOptionPane.showConfirmDialog(frame, message, "WARNING!", JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+    public WarningWindow() {
+        this(new Stage());
     }
+
+    /**
+     * Shows the warning window.
+     */
+    public void show() {
+        logger.fine("Showing warning window about the clearing.");
+        getRoot().show();
+        getRoot().centerOnScreen();
+    }
+
+    /**
+     * Hides the help window.
+     */
+    public void hide() {
+        getRoot().hide();
+    }
+
+    /**
+     * Obtains the button for yes.
+     */
+    public Button getYesButton() {
+        return this.yesButton;
+    }
+
+    /**
+     * Obtains the button for no.
+     */
+    public Button getNoButton() {
+        return this.noButton;
+    }
+
 }
+
