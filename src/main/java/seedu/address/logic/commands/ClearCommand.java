@@ -20,7 +20,8 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     // new message added to indicate if the address book is already empty
     public static final String MESSAGE_UNNECESSARY = "Address book is already empty!";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Address book has been cleared!"
+            + "\n" + "Type 'undo' if you would like to retract the change.";
     public static final String MESSAGE_FAILURE = "Address book is not cleared!";
     private static ReadOnlyAddressBook prevBook;
     private UndoCommand commandToUndo;
@@ -46,28 +47,10 @@ public class ClearCommand extends Command {
         if (model.size() == 0) {
             return new CommandResult(MESSAGE_UNNECESSARY);
         }
-        WarningWindow warning = new WarningWindow();
-        warning.show();
-        warning.getYesButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                model.setAddressBook(new AddressBook());
-                warning.hide();
-                ConfirmationWindow.setConfirmationMessage(MESSAGE_SUCCESS);
-                ConfirmationWindow response = new ConfirmationWindow();
-                response.show();
-            }
-
-        });
-        warning.getNoButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                warning.hide();
-                ConfirmationWindow.setConfirmationMessage(MESSAGE_FAILURE);
-                ConfirmationWindow response = new ConfirmationWindow();
-                response.show();
-            }
-        });
-        return new CommandResult("Opened Clear Window");
+        model.setAddressBook(new AddressBook());
+        ConfirmationWindow.setConfirmationMessage(MESSAGE_SUCCESS);
+        ConfirmationWindow response = new ConfirmationWindow();
+        response.show();
+        return new CommandResult("Opened Confirmation Window");
     }
 }
