@@ -45,9 +45,8 @@ public class ModelInfo extends UiPart<Region> {
         infoText.setFill(Color.WHITE);
         infoText.setTextAlignment(TextAlignment.CENTER);
 
-        if (val < 0) {
-            value.setText("Invalid");
-            infoText.setText("Data");
+        if (val == 0) {
+            value.setText("-");
         }
 
         mainContainer.getChildren().addAll(value, infoText);

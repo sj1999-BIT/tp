@@ -232,7 +232,7 @@ To edit an existing person in the contact list:
 **:bulb: Tips:**<br>
 * `INDEX` refers to the index number shown in the displayed person list. It must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing t/ without specifying any tags after it.
 </div>
 
@@ -298,8 +298,8 @@ To delete a person from the contact list via index/name/tag:
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-* It deletes a person entry permanently from your contact, but you can [undone](#undoing-last-change--undo) the deletion
-  if you wish to.
+It deletes a person entry permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
+if you wish to.
 </div>
 
 <div markdown="block" class="alert alert-success">
@@ -332,7 +332,7 @@ To clear all entries in the contact list:
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-It deletes all the existing person entries permanently from your contact, but you can [undone](#undoing-last-change--undo) the deletion
+It deletes all the existing person entries permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
 if you wish to.
 </div>
 
@@ -436,14 +436,15 @@ Outcome:<br>
 The calculation result will be displayed in the command feedback box.
 
 ### Getting your wedding plan report : `report`
-This feature allows you to see your wedding plan report, so that you have a clearer idea of your wedding.
+This feature allows you to track the status of your wedding plan. It shows you the total number of confirmed, pending and declined contacts under each tag. It also enables you to view the total spending accumulated across confirmed contacts under each tag.
 
-To get your wedding plan report:
+To view the report
 1. Type the command: `report` in the command box.
 2. Press Enter
 
-Outcome:<br>
-You will be able to see a pop-up window summarizing the status for each tag and cost of your wedding.
+Example and expected outcome:<br>
+* `report`:
+  ![report](images/Report.png)
 
 ### Adding customizable shortcuts : `addsc`
 This feature allows you to add a shortcut command to your liking.
@@ -458,10 +459,6 @@ To add a command bound to a shortcut phrase
 **:bulb: Tip:**<br>
 * `SHORTCUT` can be any alphabetical characters.
 </div>
-
-Example and expected outcome:
-* `addsc f c/find t/Food` attaches `find t/Food` to `f`
-* `addsc a c/price t/Vendor` attaches `price t/Vendor` to `a`
 
 ### Using  shortcuts : `sc`
 This feature allows you to use any shortcut added.
@@ -583,24 +580,24 @@ _Details coming soon …_
 
 **Actions**                           | **Format**                        | **Example**
 --------------------------------------|-----------------------------------|------------
-**Viewing help**                      | `help`                            |
+**Viewing help**                      | `help`                            | `help`
 **Adding a person**                   | `add`                             | `add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, pr/500.00 i/none s/pending t/caterer`
-**Listing all persons**               | `list`                            |
-**Editing a person**                  | `edit`                            | `edit 1 p/91234567 e/johndoe@example.com`
+**Listing all persons**               | `list`                            | `list`
+**Editing a person**                  | `edit`                            | `edit 1 p/91234567 e/johndoe@example.com` or<br> `edit 2 n/Betsy Crower t/`
 **Grouping persons**                  | `group`                           | `group t/VIP n/Alex Yeoh, Bernice Yu`
 **Locating persons**                  | `find`                            | `find t/friends t/colleagues pr/>=0.00`
 **Deleting a person/persons**         | `delete INDEX` or<br>`delete n/NAME` or<br> `delete t/TAG` |`delete 3` or<br>`delete n/Alex Yeoh` or<br>`delete t/food_vendor`
-**Clearing all entries**              | `clear`                           |
-**Undoing last change**               | `undo`                            |
+**Clearing all entries**              | `clear`                           | `clear`
+**Undoing last change**               | `undo`                            | `undo` 
 **Counting down to the wedding day**  | `countdown YYYY-MM-DD`<br>(To set your wedding date)<br>`countdown`<br>(To see the day count) |`countdown`<br><br>`countdown 2021-10-26`
 **Counting head by tag**              | `tagInfo list` or `tagInfo [t/TAG]...` | `tagInfo list` or<br> `tagInfo t/male, colleagues`
 **Calculating wedding cost**          | `price`  or<br>`price t/TAG1 [t/TAG2]…​` | `price` or<br>`price t/Chef` or<br>`price t/Chef t/Photographer`
-**Getting your wedding plan report**  | `report`                          |
+**Getting your wedding plan report**  | `report`                          | `report`
 **Adding customizable shortcuts**     | `addsc`                           | `addsc f c/find t/Food`
 **Using shortcut**                    | `sc`                              | `sc f`
-**Viewing shortcut**                  | `listsc`                          |
+**Viewing shortcut**                  | `listsc`                          | `listsc` 
 **Deleting shortcuts**                | `removesc`                        | `removesc f`
-**Exiting the program**               | `exit`                            |
+**Exiting the program**               | `exit`                            | `exit`  
 
 [Back to top 🔝](#table-of-contents)
 <div style="page-break-after: always;"></div>

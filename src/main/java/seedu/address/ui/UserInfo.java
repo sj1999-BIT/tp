@@ -67,8 +67,12 @@ public class UserInfo extends UiPart<Region> {
         ModelInfo totalContacts = new ModelInfo(contacts, "People in your contact");
         totalContactsContainer.getChildren().add(totalContacts.getRoot());
 
-        ModelInfo datesToWedding = new ModelInfo(noOfdates,
-               "Days before Wedding day");
+        ModelInfo datesToWedding;
+        if (noOfdates < 0) {
+            datesToWedding = new ModelInfo(0, "Oh no! Your Wedding day has passed!");
+        } else {
+            datesToWedding = new ModelInfo(noOfdates, "Days before Wedding day");
+        }
         daysTillWeddingContainer.getChildren().add(datesToWedding.getRoot());
     }
 
