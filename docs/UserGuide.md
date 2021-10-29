@@ -525,16 +525,6 @@ To exit the app.
   [this](#saving-the-data-file)
 </div>
 
-### Exiting the program : `exit`
-This feature close the app without the need of clicking mouse.
-
-To exit the app.
-1. Type the command: `exit` in the command box.
-2. Press Enter
-
-Outcome:<br>
-App closes within few seconds.
-
 ### Saving the data file
 _WedFast_ data are saved in the hard disk automatically after any command that changes the data. There is no need to
 save manually.
