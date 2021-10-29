@@ -232,7 +232,7 @@ To edit an existing person in the contact list:
 **:bulb: Tips:**<br>
 * `INDEX` refers to the index number shown in the displayed person list. It must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing t/ without specifying any tags after it.
 </div>
 
@@ -436,14 +436,15 @@ Outcome:<br>
 The calculation result will be displayed in the command feedback box.
 
 ### Getting your wedding plan report : `report`
-This feature allows you to see your wedding plan report, so that you have a clearer idea of your wedding.
+This feature allows you to track the status of your wedding plan. It shows you the total number of confirmed, pending and declined contacts under each tag. It also enables you to view the total spending accumulated across confirmed contacts under each tag.
 
-To get your wedding plan report:
+To view the report
 1. Type the command: `report` in the command box.
 2. Press Enter
 
-Outcome:<br>
-You will be able to see a pop-up window summarizing the status for each tag and cost of your wedding.
+Example and expected outcome:<br>
+* `report`:
+  ![report](images/Report.png)
 
 ### Adding customizable shortcuts : `addsc`
 This feature allows you to add a shortcut command to your liking.
@@ -458,19 +459,6 @@ To add a command bound to a shortcut phrase
 **:bulb: Tip:**<br>
 * `SHORTCUT` can be any alphabetical characters.
 </div>
-
-### Getting your wedding plan report : `report`
-This feature allows you to view the summarised status of your wedding plan. It shows you the total number of confirmed, pending and declined contacts under each tag. It also allows you to view the total price accumulated across confirmed contacts under each tag.
-
-To view the report
-1. Type the command: `report` in the command box.
-2. Press Enter
-
-Example and expected outcome:<br>
-* `report`:
-  ![report](images/Report.png)
-  
-<div markdown="block" class="alert alert-warning">
 
 ### Using  shortcuts : `sc`
 This feature allows you to use any shortcut added.
