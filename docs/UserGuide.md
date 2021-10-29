@@ -232,7 +232,7 @@ To edit an existing person in the contact list:
 **:bulb: Tips:**<br>
 * `INDEX` refers to the index number shown in the displayed person list. It must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing t/ without specifying any tags after it.
 </div>
 
@@ -445,8 +445,6 @@ To view the report
 Example and expected outcome:<br>
 * `report`:
   ![report](images/Report.png)
-
-<div markdown="block" class="alert alert-warning">
 
 ### Adding customizable shortcuts : `addsc`
 This feature allows you to add a shortcut command to your liking.
