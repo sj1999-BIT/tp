@@ -27,16 +27,24 @@ public class ReportElement {
     }
 
     /**
-     * Increases count based on status.
+     * Increases confirmed count based on status.
      */
-    public void incrementStatusCount(String currStatus) {
-        if (currStatus.matches("[Cc]onfirmed|c")) {
-            confirmedCount++;
-        } else if (currStatus.matches("[Pp]ending|p")) {
-            pendingCount++;
-        } else if (currStatus.matches("[Dd]eclined|d")) {
-            declinedCount++;
-        }
+    public void incrementConfirmed() {
+        confirmedCount++;
+    }
+
+    /**
+     * Increases pending count based on status.
+     */
+    public void incrementPending() {
+        pendingCount++;
+    }
+
+    /**
+     * Increases declined count based on status.
+     */
+    public void incrementDeclined() {
+        declinedCount++;
     }
 
     @Override

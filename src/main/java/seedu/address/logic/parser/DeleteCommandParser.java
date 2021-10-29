@@ -45,7 +45,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_TAG_USAGE));
             }
-            String[] tags = trimmedArgs.split(PREFIX_TAG.toString());
+            String[] tags = trimmedArgs.replaceAll(" ", "").split(PREFIX_TAG.toString());
             if (tags.length < 2) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_TAG_USAGE));

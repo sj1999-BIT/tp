@@ -12,7 +12,7 @@ public class AddShortcutCommand extends Command {
     public static final String COMMAND_WORD = "addsc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a shortcut with a specified call and function"
-            + "which can be called by shortcut to recreate the command\n"
+            + "which can be called by sc to recreate the command\n"
             + "Parameters: KEYWORDS c/[Command to be executed]\n"
             + "Example: " + COMMAND_WORD + " a c/find alice";
 
@@ -33,7 +33,7 @@ public class AddShortcutCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.addShortcut(keyword, commandString);
-        return new CommandResult("Added");
+        return new CommandResult("Added " + keyword + ": " + commandString);
     }
 
     @Override
