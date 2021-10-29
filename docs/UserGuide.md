@@ -26,24 +26,6 @@ title: User Guide
   * [Editing a person : `edit`](#editing-a-person--edit)
   * [Grouping persons : `group`](#grouping-persons--group)
   * [Locating persons : `find`](#locating-persons--find)
-</details>
-
-<details>
-  <summary>Feature: Checking useful info of your wedding</summary>
-  
-  * [Counting down : `countdown`](#counting-down--countdown)
-  * [Listing tag info : `tagInfo`](#listing-tag-info--taginfo)
-  * [Retrieving report : `report`](#retrieving-report--report)
-</details>
-
-<details>
-  <summary>Feature: Boosting your productivity</summary>
-
-  * [Adding customizable shortcuts : `shortcut`](#adding-customizable-shortcuts--addsc)
-  * [Using shortcuts : `sc`](#using-shortcuts--sc)
-  * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
-  * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
-  * [Exiting the program : `exit`](#exiting-the-program--exit)
   * [Deleting a person : `delete`](#deleting-a-person--delete)
   * [Clearing all entries : `clear`](#clearing-all-entries--clear)
   * [Undoing last change : `undo`](#undoing-last-change--undo)
@@ -51,7 +33,10 @@ title: User Guide
   * [Counting head by tag : `tagInfo`](#counting-head-by-tag--taginfo)
   * [Calculating wedding cost : `price`](#calculating-wedding-cost--price)
   * [Getting your wedding plan report : `report`](#getting-your-wedding-plan-report--report)
-  * [Using customizable shortcuts : `shortcut`](#using-customizable-shortcuts--shortcut)
+  * [Adding customizable shortcuts : `addsc`](#adding-customizable-shortcuts--addsc)
+  * [Using shortcuts : `sc`](#using--shortcuts--sc)
+  * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
+  * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
   * [Exiting the program : `exit`](#exiting-the-program--exit)
   * [Saving the data file](#saving-the-data-file)
   * [Editing the data file](#editing-the-data-file)
@@ -192,86 +177,94 @@ No.  | **Note**                                                                 
 <div style="page-break-after: always;"></div>
 
 ### Viewing help : `help`
-To shows a message on how to access the help page.
+This feature provides you with the help page link, so that you can access it to troubleshoot your problem with the info
+provided.
+
+To show a message on how to access the help page.
 1. Type the command: `help` in the command box.
 2. Press Enter
 
-Example and expected outcome:<br>
+Outcome:<br>
+You will be able to see a pop-up window showing the help page link.
 ![help message](images/helpMessage.png)
-`PLEASE INSERT TEXT HERE`
+
+### Adding a person : `add`
+This feature allows you to add a person to your contact by specifying the details, so that you can refer back in the
+future.
+
+To add a person to the contact list:
+1. Type the command in the command box with the following format:<br>
+`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [s/STATUS] [t/TAG]…​`
+2. Press Enter.
 
 <div markdown="block" class="alert alert-success">
 
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+**:bulb: Tip:**<br>
+* A person can have any number of tags (including 0)
 </div>
 
-### Adding a person : `add`
-To add a person to the contact list:
+Example:<br>
+`add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, pr/500.00 i/none s/pending 
+t/caterer`
 
-1. Type the command in the command box with the following format:<br>
-`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/TAG]…​`
-2. Press Enter.
-
-Example and expected outcome:<br>
-  * `add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, 
-pr/500.00 i/none s/pending t/caterer`:
-     ![add contact](images/AddContact.png)
-
-<div markdown="block" class="alert alert-warning">
-</div>
+Outcome:<br>
+You will see a contact named `Jane Doherty` with all the specified details appears in the contact list.
+![add contact](images/AddContact.png)
 
 ### Listing all persons : `list`
+This feature displays a list of all your contacts in a single column.
+
 To lists all the existing contacts.
 1. Type the command: `list` in the command box.
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
 ### Editing a person : `edit`
+This feature allows you to update a person's detail at the specified index, so that you can replace the incorrect and 
+outdated data with the correct and updated one.
+
 To edit an existing person in the contact list:
 1. Type the command in the command box with the following format:<br>
    `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [r/REMINDER] [g/group] [t/tag]…​`
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+* `INDEX` refers to the index number shown in the displayed person list. It must be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person’s tags by typing t/ without specifying any tags after it.
 </div>
 
+Examples and expected outcomes:
+* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
+* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
+
 ### Grouping persons : `group`
+This feature allows you to add a single tag to multiple contacts at once.
+
 To group existing persons in the contact list together to an existing named tag or create a new tag
 1. Type the command in the command box with the following format:<br>
    `group t/GROUP_NAME n/NAME1, NAME2, ...`
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+* You cannot add two or more same `TAG` on a contact (no duplicate `TAG`).
 </div>
 
+Example:<br>
+`group t/VIP n/Alex Yeoh, Bernice Yu`
+
+Outcome:<br>
+Both `Alex Yeoh` and `Bernice Yu` now has the tag `VIP`
+![group contact](images/GroupContacts.png)
+
 ### Locating persons : `find`
+This feature allows you to filter the contact list based on the parameters specified, so that you can easily find the
+contacts you interested.
+
 To find persons whose names contain any of the given keywords, or labelled with same tag, or labelled within the price range.
 1. Type the command in the command box with either of the following formats:<br>
     * `find KEYWORD [MORE_KEYWORDS]` or
@@ -279,22 +272,22 @@ To find persons whose names contain any of the given keywords, or labelled with 
     * `find pr/PRICE_RANGE`
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+* These parameters can all be use in conjunction to find a contact that fits any keyword and any tag and under a price range.
 </div>
 
+Example:<br>
+`find t/friends t/colleagues pr/>=0.00`
+
+Outcome:<br>
+You will see only the contacts with `friends` and `colleagues` tag as well as having the price of more than `$0.00`
+![find contact](images/findContact.png)
+
 ### Deleting a person : `delete`
+This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
+
 To delete a person from the contact list via index/name/tag:
 1. Type the command in the command box with either of the following formats:<br>
     * `delete INDEX` or <br>
@@ -302,81 +295,90 @@ To delete a person from the contact list via index/name/tag:
     * `delete t/TAG`
 2. Press Enter.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+* It deletes a person entry permanently from your contact, but you can [undone](#undoing-last-change--undo) the deletion
+  if you wish to.
 </div>
 
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+* `INDEX` refers to the index number shown in the displayed person list. It must be a positive integer 1, 2, 3, …​
+* Other than `INDEX`, you can specify a contact you want to delete by `NAME` or `TAG`, but they cannot be used together
+  such as `delete 1 n/Lily`
+* `TAG` must not contain whitespace
 </div>
 
+Example:<br>
+`delete 7`
+
+Outcome:<br>
+The 7th contact, `John Doe` disappears from the contact list.
+
+Before:<br>
+![before delete contact](images/deleteContact1.png)
+After:<br>
+![after delete contact](images/deleteContact2.png)
+
 ### Clearing all entries : `clear`
+This feature allows you to delete all the contacts at once from the contact list.
+
 To clear all entries in the contact list:
 1. Type the command: `clear` in the command box.
 2. Press Enter
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
 <div markdown="block" class="alert alert-warning">
 
-**:information_source: Important note/Tips(If any):**<br>
-These parameters can all be use in conjunction to find a contact that fits any keyword and any tag and under a price range. 
 **:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+It deletes all the existing person entries permanently from your contact, but you can [undone](#undoing-last-change--undo) the deletion
+if you wish to.
 </div>
 
-<div markdown="block" class="alert alert-success">
-
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
+Outcome:<br>
+All the contacts disappear from the contact list.
 
 ### Undoing last change : `undo`
+This feature allows you to undo a change to the contact list if you think the change is a mistake.
+
 To undo the last change that was made to the contact list.
 1. Type the command: `undo` in the command box.
 2. Press Enter.
 
-Examples and expected outcomes:
-1. `undo` after `delete 2`:
+<div markdown="block" class="alert alert-success">
 
-   
-   * `delete 2`:
-     ![delete by index](images/DeleteIndex.png)
-
-   * `undo`:
-     ![undo delete by index](images/UndoDeleteIndex.png)
-     
-2. `undo` after `group`:
-   
-
-   * `group t/Bus n/David Li, Irfan Ibrahim`:
-     ![group](images/GroupContacts.png)
-     
-   * `undo`:
-     ![group](images/UndoGroupContacts.png)
-     
-3. `undo` after `clear`:
-
-
-   * `clear`:
-     ![clear](images/Clear.png)
-     
-   * `undo`:
-     ![clear](images/UndoClear.png)
-     
-
-<div markdown="block" class="alert alert-warning">
+**:bulb: Tip:**<br>
+* This feature currently only supports features such as [adding](#adding-a-person--add), 
+  [editing](#editing-a-person--edit), [delete](#deleting-a-person--delete), [grouping](#grouping-persons--group) and 
+  [clear](#clearing-all-entries--clear)
 </div>
 
+Examples and expected outcome:<br>
+* `undo` after `delete 2`<br>
+  2nd contact is deleted with command `delete 2`:
+  ![delete by index](images/DeleteIndex.png)
+  Undo the deletion with command `undo`:
+  ![undo delete by index](images/UndoDeleteIndex.png)
+
+
+* `undo` after `group`<br>
+  Group `David Li` and `Irfan Ibrahim` under the tag `Bus` with command `group t/Bus n/David Li, Irfan Ibrahim`:<br>
+  ![group](images/GroupContacts.png)
+  Undo the grouping with command `undo`
+  ![group](images/UndoGroupContacts.png)
+
+
+* `undo` after `clear`:<br>
+  Clear all person entries in the contact with command `clear`:
+  ![clear](images/Clear.png)
+  Undo the clear with command `undo`:
+  ![clear](images/UndoClear.png)
+
 ### Counting down to the wedding day : `countdown`
+This feature helps you calculate how many day left before your wedding, so that you have an idea how much time can you
+prepare for your wedding.
+
 To check the countdown till your wedding day:
 1. Type the command in the command box with the following format:<br>
    `countdown YYYY-MM-DD`
@@ -386,9 +388,6 @@ To check the countdown till your wedding day:
    set.
 5. Repeat step (1) and step (2) again if you wish to reset the wedding date.
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
@@ -396,8 +395,11 @@ Example and expected outcome:<br>
 2. If you had set the wedding date before, then you can follow step (4) ONLY to check the countdown.
 </div>
 
+Outcome:<br>
+A message that tells you how many days left before wedding will be displayed in the command feedback box.
+
 ### Counting head by tag : `tagInfo`
-Filters through the contacts with tags TAG to obtain a list of TAGs with details of how many contacts labelled by them.
+This feature allows you to obtain a list of number of contacts under each tag.
 
 To return a unique list of tags with the number of contacts labelled with the tag.
 1. Type the command in the command box with either of the following formats:<br>
@@ -405,144 +407,136 @@ To return a unique list of tags with the number of contacts labelled with the ta
    * `tagInfo list`
 2. Press Enter
 
-Example and expected outcome:<br>
-* `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
-* `tagInfo list` returns a list with all the tags labelled by the contacts.
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
-
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
 The list can be specified to only limited tags or to include all the tags used to label the contacts.`
 </div>
 
-### Calculating wedding cost : `price`
-To calculate the wedding cost:
-1. Type the command: `price` in the command box.
-2. Press Enter
-
 Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+* `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
+* `tagInfo list` returns a list with all the tags labelled by the contacts.
 
-<div markdown="block" class="alert alert-warning">
+### Calculating wedding cost : `price`
+This feature helps you calculate your wedding expenses, so that you can stick to the budget and prevent overspending.
 
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
+To calculate the expenses:
+1. Type the command in the command box with the following format:
+   * `price` (For over wedding cost)
+   * `price t/TAG [t/TAG]…​` (For the cost under 1 or more category, specified by `TAG`)
+2. Press Enter
 
 <div markdown="block" class="alert alert-success">
 
-## Feature: Boosting your productivity
-### Adding customizable shortcuts : `addsc`
-To add a command bound to a shortcut phrase
-1. Type the command in the command box with either of the following formats:<br>
-    `addsc SHORTCUT c/COMMAND`
-2. Press Enter
-
-* SHORTCUT can be any String
-
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+**:bulb: Tip:**<br>
+* Only the cost of those contacts with `confirmed` status will be added.
 </div>
 
+Outcome:<br>
+The calculation result will be displayed in the command feedback box.
+
 ### Getting your wedding plan report : `report`
-To
+This feature allows you to see your wedding plan report, so that you have a clearer idea of your wedding.
+
+To get your wedding plan report:
 1. Type the command: `report` in the command box.
 2. Press Enter
 
-Example and expected outcome:<br>
-* `addsc f c/find t/Food` attaches `find t/Food` to `f`
-* `addsc a c/price t/Vendor` attaches `price t/Vendor` to `a`
+Outcome:<br>
+You will be able to see a pop-up window summarizing the status for each tag and cost of your wedding.
 
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+### Adding customizable shortcuts : `addsc`
+This feature allows you to add a shortcut command to your liking.
 
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
+To add a command bound to a shortcut phrase
+1. Type the command in the command box with either of the following formats:<br>
+   `addsc SHORTCUT c/COMMAND`
+2. Press Enter
 
 <div markdown="block" class="alert alert-success">
 
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+**:bulb: Tip:**<br>
+* `SHORTCUT` can be any alphabetical characters.
 </div>
 
-### Using shortcuts : `sc`
-To call the command bound to the shortcut
+Example and expected outcome:
+* `addsc f c/find t/Food` attaches `find t/Food` to `f`
+* `addsc a c/price t/Vendor` attaches `price t/Vendor` to `a`
+
+### Using  shortcuts : `sc`
+This feature allows you to use any shortcut added.
+
+To call the command bound to the shortcut:
 1. Type the command in the command box with either of the following formats:<br>
     `sc SHORTCUT`
 2. Press Enter
 
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tip:**<br>
+* Calling the `sc` shortcut will act as if the COMMAND is being called directly.
+</div>
+
 Example and expected outcome:<br>
 * `sc f` calls the COMMAND attached to the shortcut `f`
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Important note/Tips(If any):**<br>
-Calling the `sc` shortcut will act as if the COMMAND is being called directly.
-
-</div>
-
 ### Viewing shortcuts : `listsc`
-View all shortcuts available for the user.
+This feature allows you to list down the shortcut added.
+
+To view all shortcuts available for the user:
 1. Type the command: `listsc` in the command box.
 2. Press Enter
 
-Example and expected outcome:<br>
+<div markdown="block" class="alert alert-success">
 
-<div markdown="block" class="alert alert-info">
-
+**:bulb: Tip:**<br>
+* Empty list of shortcuts mean you have not added any shortcut yet. You can learn how to add a shortcut 
+[here](#adding-customizable-shortcuts--addsc)
 </div>
 
 ### Deleting shortcuts : `removesc`
-To call the command bound to the shortcut
+This feature allows you to remove the shortcut added.
+
+To remove a shortcut:
 1. Type the command in the command box with either of the following formats:<br>
     `removesc SHORTCUT`
 2. Press Enter
 
-Example and expected outcome:<br>
-* `removesc f` removes the attachment of the COMMAND to the shortcut `f`
+<div markdown="block" class="alert alert-success">
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Important note/Tips(If any):**<br>
-There would be no effect if the shortcut does not exist. 
-
+**:bulb: Tip:**<br>
+There would be no effect if the shortcut does not exist.
 </div>
 
+Example:<br>
+`removesc f` 
+
+Outcome:<br>
+Removes the attachment of the COMMAND to the shortcut `f`
+
 ### Exiting the program : `exit`
+This feature allows you to close the app.
+
 To exit the app.
 1. Type the command: `exit` in the command box.
 2. Press Enter
-
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
-
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation:Caution:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
-</div>
 
 <div markdown="block" class="alert alert-success">
 
-**:bulb: Tips:**<br>
-`INSERT HERE IF GOT, ELSE, KINDLY DELETE THIS PART`
+**:bulb: Tip:**<br>
+* All the data will be saved automatically after each command. For more info, you may refer to 
+  [this](#saving-the-data-file)
 </div>
 
 ### Exiting the program : `exit`
+This feature close the app without the need of clicking mouse.
+
 To exit the app.
 1. Type the command: `exit` in the command box.
 2. Press Enter
 
-Example and expected outcome:<br>
-`PLEASE INSERT TEXT AND SCREENSHOTS HERE`
+Outcome:<br>
+App closes within few seconds.
 
 ### Saving the data file
 _WedFast_ data are saved in the hard disk automatically after any command that changes the data. There is no need to
@@ -575,6 +569,9 @@ _Details coming soon …_
        the data of your previous _WedFast_ home folder.
 
 ### About the command
+**Q**: Where can I get the cheatsheet for the command syntax?<br>
+**A**: You will be able to get [here](#command-summary).
+
 {More will be added in the future...}
 
 [Back to top 🔝](#table-of-contents)
@@ -587,19 +584,22 @@ _Details coming soon …_
 **Actions**                           | **Format**                        | **Example**
 --------------------------------------|-----------------------------------|------------
 **Viewing help**                      | `help`                            |
-**Adding a person**                   | `add`                             |
+**Adding a person**                   | `add`                             | `add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, pr/500.00 i/none s/pending t/caterer`
 **Listing all persons**               | `list`                            |
-**Editing a person**                  | `edit`                            |
-**Grouping persons**                  | `group`                           |
-**Locating persons**                  | `find`                            |
-**Deleting a person/persons**         | `delete INDEX` or<br>`delete n/NAME` or<br> `delete t/TAG`|`delete 3` or<br>`delete n/Alex Yeoh` or<br>`delete t/food_vendor`
+**Editing a person**                  | `edit`                            | `edit 1 p/91234567 e/johndoe@example.com`
+**Grouping persons**                  | `group`                           | `group t/VIP n/Alex Yeoh, Bernice Yu`
+**Locating persons**                  | `find`                            | `find t/friends t/colleagues pr/>=0.00`
+**Deleting a person/persons**         | `delete INDEX` or<br>`delete n/NAME` or<br> `delete t/TAG` |`delete 3` or<br>`delete n/Alex Yeoh` or<br>`delete t/food_vendor`
 **Clearing all entries**              | `clear`                           |
 **Undoing last change**               | `undo`                            |
-**Counting down to the wedding day**  | `countdown YYYY-MM-DD`<br>(To set your wedding date)<br>`countdown`<br>(To see the day count)|`countdown`<br><br>`countdown 2021-10-26`
-**Counting head by tag**              | `tagInfo`                         |
-**Calculating wedding cost**          | `price`  or<br>`price t/TAG1 [t/TAG2]…​`| `price` or<br>`price t/Chef` or<br>`price t/Chef t/Photographer`
+**Counting down to the wedding day**  | `countdown YYYY-MM-DD`<br>(To set your wedding date)<br>`countdown`<br>(To see the day count) |`countdown`<br><br>`countdown 2021-10-26`
+**Counting head by tag**              | `tagInfo list` or `tagInfo [t/TAG]...` | `tagInfo list` or<br> `tagInfo t/male, colleagues`
+**Calculating wedding cost**          | `price`  or<br>`price t/TAG1 [t/TAG2]…​` | `price` or<br>`price t/Chef` or<br>`price t/Chef t/Photographer`
 **Getting your wedding plan report**  | `report`                          |
-**Adding customizable shortcuts**     | `shortcut`                        |
+**Adding customizable shortcuts**     | `addsc`                           | `addsc f c/find t/Food`
+**Using shortcut**                    | `sc`                              | `sc f`
+**Viewing shortcut**                  | `listsc`                          |
+**Deleting shortcuts**                | `removesc`                        | `removesc f`
 **Exiting the program**               | `exit`                            |
 
 [Back to top 🔝](#table-of-contents)
