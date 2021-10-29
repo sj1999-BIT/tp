@@ -209,7 +209,7 @@ t/caterer`
 
 Outcome:<br>
 You will see a contact named `Jane Doherty` with all the specified details appears in the contact list.
-![add contact](images/AddContact.png)
+![add contact](images/addContact.png)
 
 ### Listing all persons : `list`
 This feature displays a list of all your contacts in a single column.
