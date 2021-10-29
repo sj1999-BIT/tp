@@ -34,7 +34,7 @@ title: User Guide
   * [Calculating wedding cost : `price`](#calculating-wedding-cost--price)
   * [Getting your wedding plan report : `report`](#getting-your-wedding-plan-report--report)
   * [Adding customizable shortcuts : `addsc`](#adding-customizable-shortcuts--addsc)
-  * [Using shortcuts : `sc`](#using-shortcuts--sc)
+  * [Using shortcuts : `sc`](#using--shortcuts--sc)
   * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
   * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
   * [Exiting the program : `exit`](#exiting-the-program--exit)
