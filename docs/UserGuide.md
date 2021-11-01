@@ -285,6 +285,10 @@ Outcome:<br>
 You will see only the contacts with `friends` and `colleagues` tag as well as having the price of more than `$0.00`
 ![find contact](images/findContact.png)
 
+**:exclamation:Caution:**<br>
+Find currently only supports name, tags and price range. Price range operators include =, >, <, >=, <=.
+Furthermore, price must be entered with 2 decimal points. 
+
 ### Deleting a person : `delete`
 This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
 
