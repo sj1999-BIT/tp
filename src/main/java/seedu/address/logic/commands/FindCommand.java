@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.function.Predicate;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -27,6 +26,11 @@ public class FindCommand extends Command {
     private final Predicate<Person> predicate;
     private final String message;
 
+    /**
+     * Creates FindCommand with a predicate an a message describing the query
+     * @param predicate List filter
+     * @param message Message of query
+     */
     public FindCommand(Predicate<Person> predicate, String message) {
         this.predicate = predicate;
         this.message = message;
