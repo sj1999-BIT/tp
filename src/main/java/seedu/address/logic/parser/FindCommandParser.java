@@ -42,9 +42,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_PRICE);
         Predicate<Person> predicate = new TruePredicate();
+        String parameterMessage = "";
         if (!argMultimap.getPreamble().isBlank()) {
             String[] nameKeywords = argMultimap.getPreamble().split("\\s+");
             predicate = new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords));
+            parameterMessage += "name is in " + Arrays.toString(nameKeywords) + " ";
         }
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
@@ -53,12 +55,13 @@ public class FindCommandParser implements Parser<FindCommand> {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
             predicate = predicate.and(new TagContainsKeywordsPredicate(tagList));
+            parameterMessage += "tag is in " + tagList + " ";
         }
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
             List<String> priceList = argMultimap.getAllValues(PREFIX_PRICE);
             if (priceList.size() != 1 || !isValidPrice(priceList.get(0))) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.PRICE_USAGE));
             }
             String priceParam = priceList.get(0);
             Matcher m = OPERATOR_VALIDATION_PATTERN.matcher(priceParam);
@@ -66,13 +69,14 @@ public class FindCommandParser implements Parser<FindCommand> {
                 String operator = m.group(1);
                 Price price = new Price(priceParam.split(OPERATOR_VALIDATION_REGEX)[1]);
                 predicate = predicate.and(parsePricePredicate(operator, price));
+                parameterMessage += "price is " + priceParam;
             } else {
                 throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.PRICE_USAGE));
             }
         }
 
-        return new FindCommand(predicate);
+        return new FindCommand(predicate, parameterMessage);
     }
 
     private Predicate<Person> parsePricePredicate(String operator, Price price) {
