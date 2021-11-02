@@ -573,13 +573,16 @@ file at the next run.
 </div>
 
 ### Ungrouping persons : `ungroup` (Coming soon)
-_Details coming soon …_
+This feature allows you to remove a particular tag from multiple persons at once.
+_WedFast's_ developers are now working on it. Please wait patiently for the next update …
 
 ### Redoing last change : `redo` (Coming soon)
-_Details coming soon …_
+This feature allows you to redo the change that you had undone previously.
+_WedFast's_ developers are now working on it. Please wait patiently for the next update …
 
 ### Reminding via email : `remind` (Coming soon)
-_Details coming soon …_
+This feature emails you on the important date and corresponding task you need to do.
+_WedFast's_ developers are now working on it. Please wait patiently for the next update …
 
 [Back to top 🔝](#table-of-contents)
 <div style="page-break-after: always;"></div>
