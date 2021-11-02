@@ -414,7 +414,7 @@ The list can be specified to only limited tags or to include all the tags used t
 </div>
 
 Example and expected outcome:<br>
-* `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
+* `tagInfo t/male colleagues` tag Info: males used by 3 people, colleagues used by 5 people
 * `tagInfo list` returns a list with all the tags labelled by the contacts.
 
 ### Calculating wedding cost : `price`
