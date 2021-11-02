@@ -58,8 +58,11 @@ public class UndoCommand extends Command {
                         model);
             } else if (deleted.getTargetTag() != null) {
                 ArrayList<Person> deletedList = deleted.getDeletedList();
-                for (Person p : deletedList) {
-                    shuffle(currentList, 0, p, model);
+                List<Index> deletedIndexes = deleted.getTagIndexes();
+                for (int i = 0; i < deletedList.size(); i++) {
+                    shuffle(currentList,
+                            deletedIndexes.get(i).getZeroBased(),
+                            deletedList.get(i), model);
                 }
             }
         } else if (prevCommand instanceof ClearCommand) {
@@ -74,6 +77,7 @@ public class UndoCommand extends Command {
             List<String> nameList = group.getNameList();
             removePeople(currentList, nameList, tagName, model);
         }
+        prevCommand = this;
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, model.getFilteredPersonList().size()));
     }
@@ -90,6 +94,7 @@ public class UndoCommand extends Command {
                 || (command instanceof HelpCommand)
                 || (command instanceof ListCommand)
                 || (command instanceof CountdownCommand)
+                || (command instanceof ShortcutCommand)
                 || (command instanceof UndoCommand);
     }
 
