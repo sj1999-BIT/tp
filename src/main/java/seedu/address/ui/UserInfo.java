@@ -48,7 +48,7 @@ public class UserInfo extends UiPart<Region> {
         userName.setFont(Font.font(30));
         userName.setFill(Color.color(1, 1, 1));
 
-        String date = "  ".concat(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        String date = "  ".concat(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         Text dateText = new Text(date);
         dateText.setFont(Font.font(15));
         dateText.setFill(Color.color(0.3, 1, 0.6));
