@@ -24,11 +24,7 @@ public class InfoTest {
         // null price
         assertThrows(NullPointerException.class, () -> Info.isValidInfo(null));
 
-        // invalid price
-        assertFalse(Info.isValidInfo("")); // empty string
-        assertFalse(Info.isValidInfo(" ")); // spaces only
-
-        // valid price
+        // valid info
         assertTrue(Info.isValidInfo("only contactable via whatsapp"));
         assertTrue(Info.isValidInfo("none")); // no important info
     }
