@@ -5,11 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -156,10 +158,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Hashtable<Tag, Integer> getUniqueTagList() {
+    public ObservableList<Tag> getUniqueTagList() {
+        ObservableList<Person> contactList = this.addressBook.getPersonList();
+        ArrayList<Tag> tagList = new ArrayList<>();
+        for (Person contact : contactList) {
+            Set<Tag> curContactTagSet = contact.getTags();
+            for (Tag tag : curContactTagSet) {
+                if (!tagList.contains(tag)) {
+                    tagList.add(tag);
+                }
+            }
+        }
+        return FXCollections.observableList(tagList);
+    }
+
+    @Override
+    public Hashtable<Tag, Integer> getUniqueTagTable() {
         ObservableList<Person> contactList = this.addressBook.getPersonList();
         Hashtable<Tag, Integer> uniqueTagSet = new Hashtable<>();
-
         for (Person contact : contactList) {
             Set<Tag> curContactTagSet = contact.getTags();
             for (Tag tag : curContactTagSet) {
@@ -241,6 +257,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String removeShortcut(String keyword) {
+        return shortcut.removeShortcut(keyword);
+    }
+
+    @Override
     public void addShortcut(String keyword, String commandString) {
         shortcut.addShortcut(keyword, commandString);
     }
@@ -248,6 +269,11 @@ public class ModelManager implements Model {
     @Override
     public String getShortcutFromKey(String keyword) {
         return shortcut.getCommandFromKey(keyword);
+    }
+
+    @Override
+    public String listShortcut() {
+        return shortcut.toString();
     }
 
 }

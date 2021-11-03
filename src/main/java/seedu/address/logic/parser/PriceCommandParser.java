@@ -34,7 +34,6 @@ public class PriceCommandParser implements Parser<PriceCommand> {
 
         List<String> tagNameList = getTagNames(args);
 
-
         return new PriceCommand(tagNameList);
     }
 
@@ -46,8 +45,6 @@ public class PriceCommandParser implements Parser<PriceCommand> {
             throw new ParseException(MESSAGE_TAG_USAGE);
         }
 
-        List<String> tagNameList = Arrays.asList(tagNames.split(" "));
-
-        return tagNameList;
+        return Arrays.asList(tagNames.split(" "));
     }
 }

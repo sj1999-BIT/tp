@@ -91,9 +91,17 @@ public interface Model {
     /** Returns the Shortcut */
     ReadOnlyShortcut getShortcut();
 
+    /** Adds a shortcut */
     void addShortcut(String keyword, String commandString);
 
+    /** Removes a shortcut */
+    String removeShortcut(String keyword);
+
+    /** Get shortcut from Key */
     String getShortcutFromKey(String keyword);
+
+    /** Lists all shortcuts */
+    String listShortcut();
 
     /**
      * Returns the size of the address book
@@ -148,5 +156,10 @@ public interface Model {
      * Returns a HashSet of the unique Tags in the model, with the number of contacts labelled with
      * each respective tags as the value.
      */
-    Hashtable<Tag, Integer> getUniqueTagList();
+    Hashtable<Tag, Integer> getUniqueTagTable();
+
+    /**
+     * Returns an observable list of the unique Tags in the model
+     */
+    ObservableList<Tag> getUniqueTagList();
 }

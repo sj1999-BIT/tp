@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -30,9 +31,8 @@ public class PriceCommand extends Command {
             + "Example: " + COMMAND_WORD + " t/photographer";
 
     public static final String MESSAGE_TAG_NOT_FOUND_FAILURE = "The following tag(s) you specified is not found:\n %s";
-    public static final String MESSAGE_PRICE_SUM_SUCCESS = "Total price of your wedding is $%.2f";
-    public static final String MESSAGE_PRICE_SUM_UNDER_TAG_SUCCESS = "Total price is $%.2f for the following tag(s):"
-            + "\n %s";
+    public static final String MESSAGE_PRICE_SUM_SUCCESS = "Your wedding overall cost is $%.2f";
+    public static final String MESSAGE_PRICE_SUM_UNDER_TAG_SUCCESS = "Total price for %s is $%.2f";
 
     private static final Predicate<Person> PREDICATE_STATUS_IS_CONFIRMED = new StatusEqualsConfirmedPredicate();
 
@@ -43,6 +43,14 @@ public class PriceCommand extends Command {
      */
     public PriceCommand() {
         this.targetTagKeywords = null;
+    }
+
+    /**
+     * Creates a PriceCommand to calculate the price sum of persons with confirmed status and {@code targetTagKeyword}
+     */
+    public PriceCommand(String targetTagKeyWord) {
+        this.targetTagKeywords = new ArrayList<>();
+        this.targetTagKeywords.add(targetTagKeyWord);
     }
 
     /**
@@ -101,7 +109,7 @@ public class PriceCommand extends Command {
         double totalSumByTag = sumPriceInTheList(personWithSameTagsList);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_PRICE_SUM_UNDER_TAG_SUCCESS, totalSumByTag, targetTagKeywords));
+        return new CommandResult(String.format(MESSAGE_PRICE_SUM_UNDER_TAG_SUCCESS, targetTagKeywords, totalSumByTag));
     }
 
     private double sumPriceInTheList(List<Person> listToSum) {

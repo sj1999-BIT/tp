@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Hashtable;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCountdown;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.storage.Storage;
 
 /**
@@ -78,6 +80,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Tag> getUniqueTagList() {
+        return model.getUniqueTagList();
+    }
+
+    @Override
+    public Hashtable<Tag, Integer> getUniqueTagTable() {
+        return model.getUniqueTagTable();
+    }
+
+    @Override
     public Path getCountdownFilePath() {
         return model.getCountdownFilePath();
     }
@@ -90,5 +102,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public int size() {
+        return model.size();
     }
 }

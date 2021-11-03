@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.swing.SwingUtilities;
-
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.ui.WarningWindow;
+import seedu.address.ui.ConfirmationWindow;
+
 
 /**
  * Warns the user with a prompt window before the actual clear command executed.
@@ -18,11 +17,10 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     // new message added to indicate if the address book is already empty
     public static final String MESSAGE_UNNECESSARY = "Address book is already empty!";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Address book has been cleared!"
+            + "\n" + "Type 'undo' if you would like to retract the change.";
     public static final String MESSAGE_FAILURE = "Address book is not cleared!";
-
     private static ReadOnlyAddressBook prevBook;
-
     private UndoCommand commandToUndo;
 
     public ReadOnlyAddressBook getPrevBook() {
@@ -38,30 +36,18 @@ public class ClearCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) {
+        boolean isClear = false;
         requireNonNull(model);
         commandToUndo = new UndoCommand();
         commandToUndo.setPrevCommand(this);
         prevBook = new AddressBook(model.getAddressBook());
         if (model.size() == 0) {
             return new CommandResult(MESSAGE_UNNECESSARY);
-        } else {
-            WarningWindow warning = new WarningWindow("Are you sure?\n All data will be cleared!");
-            boolean isClear = warning.isChoiceYes();
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    if (isClear) {
-                        model.setAddressBook(new AddressBook());
-                    }
-                }
-            };
-            SwingUtilities.invokeLater(r);
-            if (isClear) {
-                return new CommandResult(MESSAGE_SUCCESS);
-            } else {
-                return new CommandResult(MESSAGE_FAILURE);
-            }
         }
+        model.setAddressBook(new AddressBook());
+        ConfirmationWindow.setConfirmationMessage(MESSAGE_SUCCESS);
+        ConfirmationWindow response = new ConfirmationWindow();
+        response.show();
+        return new CommandResult("Opened Confirmation Window");
     }
-
 }

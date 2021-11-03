@@ -86,6 +86,7 @@ public class EditCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
+            commandToUndo.setPrevCommand(null);
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -93,6 +94,7 @@ public class EditCommand extends Command {
         editedPerson = createEditedPerson(originalPerson, editPersonDescriptor);
 
         if (!originalPerson.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+            commandToUndo.setPrevCommand(null);
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -185,7 +187,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, price, info);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, price, info, status);
         }
 
         public void setName(Name name) {

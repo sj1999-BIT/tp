@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -55,6 +56,8 @@ public class DeleteCommand extends Command {
     private UndoCommand commandToUndo;
     private Person personToDelete;
     private Index nameIndex;
+    private ArrayList<Person> deletedList;
+    private List<Index> tagIndexes;
 
     /**
      * Creates an DeleteCommand to delete the person identified with specified {@code targetIndex}
@@ -67,6 +70,8 @@ public class DeleteCommand extends Command {
         this.targetName = null;
         this.targetTag = null;
         this.personToDelete = null;
+        this.deletedList = null;
+        this.tagIndexes = null;
     }
 
     /**
@@ -80,6 +85,8 @@ public class DeleteCommand extends Command {
         this.targetIndex = null;
         this.targetTag = null;
         this.personToDelete = null;
+        this.deletedList = new ArrayList<>();
+        this.tagIndexes = new ArrayList<>();
     }
 
     /**
@@ -93,6 +100,8 @@ public class DeleteCommand extends Command {
         this.targetIndex = null;
         this.targetTag = new Tag(targetTag);
         this.personToDelete = null;
+        this.deletedList = new ArrayList<>();
+        this.tagIndexes = new ArrayList<>();
     }
 
 
@@ -114,21 +123,29 @@ public class DeleteCommand extends Command {
     private CommandResult executeDeleteByTag(Model model) throws CommandException {
         assert targetTag != null : "targetTag should not be null";
         requireNonNull(model);
-        model.updateFilteredPersonList(targetTagPerson);
-        List<Person> filteredList = model.getFilteredPersonList();
-        if (filteredList.isEmpty()) {
+
+        boolean hasTag = false;
+        List<Person> originalList = model.getFilteredPersonList();
+
+        for (int i = 0; i < originalList.size(); i++) {
+            personToDelete = originalList.get(i);
+            if (personToDelete.getTags().contains(targetTag)) {
+                deletedList.add(personToDelete);
+                tagIndexes.add(Index.fromZeroBased(i));
+                hasTag = true;
+            }
+        }
+
+        for (Person person : deletedList) {
+            model.deletePerson(person);
+        }
+
+        if (!hasTag) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_TAG, targetTag));
-        }
-        int originalSizeOfList = filteredList.size();
-
-        int index = 0;
-        for (int i = 0; i < originalSizeOfList; i++) {
-            Person personToDelete = filteredList.get(index);
-            model.deletePerson(personToDelete);
+            commandToUndo.setPrevCommand(null);
+            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_NAME, targetTag));
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag));
     }
 
@@ -140,6 +157,7 @@ public class DeleteCommand extends Command {
 
         assert targetIndex != null : "targetIndex should not be null";
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            commandToUndo.setPrevCommand(null);
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -154,6 +172,7 @@ public class DeleteCommand extends Command {
     private CommandResult executeDeleteByName(Model model) throws CommandException {
         assert targetName != null : "targetName should not be null";
 
+        boolean hasPerson = false;
         List<Person> originalList = model.getFilteredPersonList();
 
         for (int i = 0; i < originalList.size(); i++) {
@@ -161,8 +180,15 @@ public class DeleteCommand extends Command {
             if (personToDelete.getName().equals(targetName)) {
                 model.deletePerson(personToDelete);
                 nameIndex = Index.fromZeroBased(i);
+                hasPerson = true;
                 break;
             }
+        }
+
+        if (!hasPerson) {
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            commandToUndo.setPrevCommand(null);
+            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_NAME, targetName));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -183,6 +209,18 @@ public class DeleteCommand extends Command {
 
     public Index getIndexName() {
         return nameIndex;
+    }
+
+    public List<Index> getTagIndexes() {
+        return tagIndexes;
+    }
+
+    public Tag getTargetTag() {
+        return targetTag;
+    }
+
+    public ArrayList<Person> getDeletedList() {
+        return deletedList;
     }
 
     @Override

@@ -9,6 +9,7 @@ public class Price {
             "Prices should be given to 2 decimal places"
                     + "and be numerical inputs only.";
 
+
     public static final String VALIDATION_REGEX = "\\d{1,}" + "." + "\\d{2}";
 
     public final String value;
