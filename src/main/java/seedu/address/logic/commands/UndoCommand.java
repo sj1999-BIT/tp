@@ -81,9 +81,9 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(Messages.MESSAGE_CANNOT_UNDO_COMMAND,
                     model.getFilteredPersonList().size()));
         } else if (prev instanceof ShortcutCommand
-                || prev instanceof AddShortcutCommand ||
-                prev instanceof RemoveShortcutCommand ||
-                prev instanceof CountdownCommand) {
+                || prev instanceof AddShortcutCommand
+                || prev instanceof RemoveShortcutCommand
+                || prev instanceof CountdownCommand) {
             return new CommandResult(String.format(Messages.MESSAGE_UNDO_NOT_IMPLEMENTED_COMMAND,
                     model.getFilteredPersonList().size()));
         }

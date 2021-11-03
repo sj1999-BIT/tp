@@ -25,6 +25,11 @@ public class FindCommand extends Command {
 
     private UndoCommand commandToUndo;
 
+    /**
+     * Creates a new @code FindCommand}
+     *
+     * @param predicate the check used in the search
+     */
     public FindCommand(Predicate<Person> predicate) {
         commandToUndo = new UndoCommand();
         commandToUndo.setPrevCommand(this);

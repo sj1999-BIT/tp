@@ -30,6 +30,11 @@ public class ShortcutCommand extends Command {
 
     private UndoCommand commandToUndo;
 
+    /**
+     * Creates a new @code ShortcutCommand}
+     *
+     * @param shortcut the user's shortcut term
+     */
     public ShortcutCommand(String shortcut) {
         commandToUndo = new UndoCommand();
         commandToUndo.setPrevCommand(this);
