@@ -50,7 +50,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
-            if (tagList.isEmpty()) {
+            if (tagList.size() < 1 || tagList.get(0).trim().equals("")) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
