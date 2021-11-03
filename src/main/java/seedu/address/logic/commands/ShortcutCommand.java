@@ -28,7 +28,11 @@ public class ShortcutCommand extends Command {
 
     private final String shortcut;
 
+    private UndoCommand commandToUndo;
+
     public ShortcutCommand(String shortcut) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.shortcut = shortcut;
     }
 
@@ -38,15 +42,18 @@ public class ShortcutCommand extends Command {
         String commandString = model.getShortcutFromKey(shortcut);
         try {
             if (commandString == null) {
+                commandToUndo.setPrevCommand(null);
                 return new CommandResult(COMMAND_NOT_FOUND);
             }
             Command command = (new AddressBookParser()).parseCommand(commandString);
             try {
                 return command.execute(model);
             } catch (CommandException ce) {
+                commandToUndo.setPrevCommand(null);
                 return new CommandResult(COMMAND_EXECUTE_ERROR + commandString);
             }
         } catch (ParseException e) {
+            commandToUndo.setPrevCommand(null);
             return new CommandResult(COMMAND_INVALID + commandString);
         }
     }

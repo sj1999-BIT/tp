@@ -23,7 +23,11 @@ public class FindCommand extends Command {
 
     private final Predicate<Person> predicate;
 
+    private UndoCommand commandToUndo;
+
     public FindCommand(Predicate<Person> predicate) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.predicate = predicate;
     }
 
