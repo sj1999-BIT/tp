@@ -7,7 +7,7 @@ public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Prices should be given to 2 decimal places"
-                    + "and be numerical inputs only.";
+                    + " and be numerical inputs only.";
 
 
     public static final String VALIDATION_REGEX = "\\d{1,}" + "." + "\\d{2}";
