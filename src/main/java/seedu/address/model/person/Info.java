@@ -10,10 +10,10 @@ public class Info {
                     + "characters with spaces";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Checks if information keyed in only contains alphanumeric
+     * characters with spaces
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum} ][\\p{Alnum} ]*";
 
     public final String value;
 

@@ -78,8 +78,12 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        if (!trimmedAddress.equals("")) {
+            if (!Address.isValidAddress(trimmedAddress)) {
+                throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            trimmedAddress = "none";
         }
         return new Address(trimmedAddress);
     }
@@ -108,8 +112,12 @@ public class ParserUtil {
     public static Price parsePrice(String price) throws ParseException {
         requireNonNull(price);
         String trimmedPrice = price.trim();
-        if (!Price.isValidPrice(trimmedPrice)) {
-            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        if (!trimmedPrice.equals("")) {
+            if (!Price.isValidPrice(trimmedPrice)) {
+                throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            trimmedPrice = "0.00";
         }
         return new Price(trimmedPrice);
     }
@@ -123,8 +131,12 @@ public class ParserUtil {
     public static Info parseImportantInfo(String info) throws ParseException {
         requireNonNull(info);
         String trimmedInfo = info.trim();
-        if (!Info.isValidInfo(trimmedInfo)) {
-            throw new ParseException(Info.MESSAGE_CONSTRAINTS);
+        if (!trimmedInfo.equals("")) {
+            if (!Info.isValidInfo(trimmedInfo)) {
+                throw new ParseException(Info.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            trimmedInfo = "none";
         }
         return new Info(trimmedInfo);
     }
@@ -138,8 +150,12 @@ public class ParserUtil {
     public static Status parseStatus(String status) throws ParseException {
         requireNonNull(status);
         String trimmedStatus = status.trim();
-        if (!Status.isValidStatus(trimmedStatus)) {
-            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        if (!trimmedStatus.equals("")) {
+            if (!Status.isValidStatus(trimmedStatus)) {
+                throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            trimmedStatus = "Pending";
         }
         return new Status(trimmedStatus);
     }

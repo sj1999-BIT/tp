@@ -47,17 +47,16 @@ public class ReportCommand extends Command {
      * @param currStatus is the status being used to keep count
      */
     public static void incrementStatusCount(ReportElement element, String currStatus) {
-        if (currStatus.matches("[Cc]onfirmed|c")) {
-            element.incrementConfirmed();
-            totalConfirmedCount++;
-        }
-        if (currStatus.matches("[Pp]ending|p")) {
-            element.incrementPending();
-            totalPendingCount++;
-        }
-        if (currStatus.matches("[Dd]eclined|d")) {
-            element.incrementDeclined();
-            totalDeclinedCount++;
+        switch (currStatus) {
+            case "Confirmed":
+                element.incrementConfirmed();
+                break;
+            case "Pending":
+                element.incrementPending();
+                break;
+            case "Declined":
+                element.incrementDeclined();
+                break;
         }
     }
 
@@ -77,6 +76,17 @@ public class ReportCommand extends Command {
         for (Person currPerson : listOfPeople) {
             Set<Tag> currPersonTags = currPerson.getTags();
             String statusString = currPerson.getStatus().toString();
+            switch (statusString) {
+                case "Confirmed":
+                    totalConfirmedCount++;
+                    break;
+                case "Pending":
+                    totalPendingCount++;
+                    break;
+                case "Declined":
+                    totalDeclinedCount++;
+                    break;
+            }
             for (Tag tagUsed : currPersonTags) {
                 String tagString = tagUsed.toString();
                 if (!canUpdateExistingElement(reportArray, tagString, statusString)) {
@@ -103,15 +113,16 @@ public class ReportCommand extends Command {
      * @param currStatus is the status being used to keep count
      */
     public static void createNewElement(ArrayList<ReportElement> reportArray, String currTag, String currStatus) {
-        if (currStatus.matches("[Cc]onfirmed|c")) {
-            reportArray.add(new ReportElement(currTag, 1, 0, 0));
-            totalConfirmedCount++;
-        } else if (currStatus.matches("[Pp]ending|p")) {
-            reportArray.add(new ReportElement(currTag, 0, 1, 0));
-            totalPendingCount++;
-        } else if (currStatus.matches("[Dd]eclined|d")) {
-            reportArray.add(new ReportElement(currTag, 0, 0, 1));
-            totalDeclinedCount++;
+        switch (currStatus) {
+            case "Confirmed":
+                reportArray.add(new ReportElement(currTag, 1, 0, 0));
+                break;
+            case "Pending":
+                reportArray.add(new ReportElement(currTag, 0, 1, 0));
+                break;
+            case "Declined":
+                reportArray.add(new ReportElement(currTag, 0, 0, 1));
+                break;
         }
     }
 
@@ -121,10 +132,11 @@ public class ReportCommand extends Command {
      * @return final report as a string
      */
     public static String provideTextReport(ArrayList<ReportElement> fullReportArray) {
-        String summaryOfStatus = totalConfirmedCount + " confirmed, "
+        String summary = "Current status for contacts: "
+                + "\n" + totalConfirmedCount + " confirmed, "
                 + totalPendingCount + " pending, "
-                + totalDeclinedCount + " declined";
-        String reportAsString = "Current status for tags: " + "\n" + summaryOfStatus + "\n";
+                + totalDeclinedCount + " declined" + "\n"+ "\n";
+        String reportAsString = summary + "Current status for tags: " + "\n";
         for (ReportElement currElement : fullReportArray) {
             reportAsString = reportAsString + currElement + "\n";
         }
