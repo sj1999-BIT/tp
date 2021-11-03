@@ -15,7 +15,7 @@ public class Status {
 
     public static final String VALIDATION_REGEX = "[Cc]onfirmed|[Pp]ending|[Dd]eclined|[Cc]|[Pp]|[Dd]";
 
-    public String value;
+    public final String value;
 
     /**
      * Constructs a {@code Status}.
@@ -25,15 +25,7 @@ public class Status {
     public Status(String status) {
         requireNonNull(status);
         checkArgument(isValidStatus(status), MESSAGE_CONSTRAINTS);
-        if (status.matches("[Cc]onfirmed|[Cc]")){
-            value = "Confirmed";
-        }
-        if (status.matches("[Pp]ending|[Pp]")){
-            value = "Pending";
-        }
-        if (status.matches("[Dd]eclined|[Dd]")){
-            value = "Declined";
-        }
+        value = status;
     }
 
     /**

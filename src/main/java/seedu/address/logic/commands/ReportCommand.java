@@ -48,15 +48,17 @@ public class ReportCommand extends Command {
      */
     public static void incrementStatusCount(ReportElement element, String currStatus) {
         switch (currStatus) {
-            case "Confirmed":
-                element.incrementConfirmed();
-                break;
-            case "Pending":
-                element.incrementPending();
-                break;
-            case "Declined":
-                element.incrementDeclined();
-                break;
+        case "Confirmed":
+            element.incrementConfirmed();
+            break;
+        case "Pending":
+            element.incrementPending();
+            break;
+        case "Declined":
+            element.incrementDeclined();
+            break;
+        default:
+            break;
         }
     }
 
@@ -77,15 +79,17 @@ public class ReportCommand extends Command {
             Set<Tag> currPersonTags = currPerson.getTags();
             String statusString = currPerson.getStatus().toString();
             switch (statusString) {
-                case "Confirmed":
-                    totalConfirmedCount++;
-                    break;
-                case "Pending":
-                    totalPendingCount++;
-                    break;
-                case "Declined":
-                    totalDeclinedCount++;
-                    break;
+            case "Confirmed":
+                totalConfirmedCount++;
+                break;
+            case "Pending":
+                totalPendingCount++;
+                break;
+            case "Declined":
+                totalDeclinedCount++;
+                break;
+            default:
+                break;
             }
             for (Tag tagUsed : currPersonTags) {
                 String tagString = tagUsed.toString();
@@ -114,15 +118,17 @@ public class ReportCommand extends Command {
      */
     public static void createNewElement(ArrayList<ReportElement> reportArray, String currTag, String currStatus) {
         switch (currStatus) {
-            case "Confirmed":
-                reportArray.add(new ReportElement(currTag, 1, 0, 0));
-                break;
-            case "Pending":
-                reportArray.add(new ReportElement(currTag, 0, 1, 0));
-                break;
-            case "Declined":
-                reportArray.add(new ReportElement(currTag, 0, 0, 1));
-                break;
+        case "Confirmed":
+            reportArray.add(new ReportElement(currTag, 1, 0, 0));
+            break;
+        case "Pending":
+            reportArray.add(new ReportElement(currTag, 0, 1, 0));
+            break;
+        case "Declined":
+            reportArray.add(new ReportElement(currTag, 0, 0, 1));
+            break;
+        default:
+            break;
         }
     }
 
@@ -135,7 +141,7 @@ public class ReportCommand extends Command {
         String summary = "Current status for contacts: "
                 + "\n" + totalConfirmedCount + " confirmed, "
                 + totalPendingCount + " pending, "
-                + totalDeclinedCount + " declined" + "\n"+ "\n";
+                + totalDeclinedCount + " declined" + "\n" + "\n";
         String reportAsString = summary + "Current status for tags: " + "\n";
         for (ReportElement currElement : fullReportArray) {
             reportAsString = reportAsString + currElement + "\n";

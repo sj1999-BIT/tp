@@ -157,7 +157,14 @@ public class ParserUtil {
         } else {
             trimmedStatus = "Pending";
         }
-        return new Status(trimmedStatus);
+        if (trimmedStatus.matches("[Cc]onfirmed|[Cc]")) {
+            return new Status("Confirmed");
+        } else if (trimmedStatus.matches("[Pp]ending|[Pp]")) {
+            return new Status("Pending");
+        } else {
+            return new Status("Declined");
+        }
+
     }
 
     /**

@@ -28,7 +28,7 @@ public class Price {
      * Returns true if a given string has a valid price.
      */
     public static boolean isValidPrice(String test) {
-        return test.matches(VALIDATION_REGEX) && (Double.parseDouble(test))<= 1000000000000000.00;
+        return test.matches(VALIDATION_REGEX) && (Double.parseDouble(test)) <= 1000000000000000.00;
     }
 
     /**
