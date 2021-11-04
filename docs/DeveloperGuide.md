@@ -183,7 +183,7 @@ list by calling `AddressBook#removePerson()`. Finally, the user will see the upd
 
 </div>
 
-The following sequence diagram shows how the price sum checking operation works:
+The following sequence diagram shows how the delete-by-name operation works:
 ![Interactions Inside the Logic Component for the `delete n/John Doe` Command](images/DeleteByNameSequenceDiagram.png)
 :information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a
 limitation of PlantUML, the lifeline reaches the end of diagram.
