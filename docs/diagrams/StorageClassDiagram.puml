@@ -22,6 +22,11 @@ Class JsonAdaptedPerson
 Class JsonAdaptedTag
 }
 
+package "Countdown Storage" #F4F6F6 {
+Interface CountdownStorage <<Interface>>
+Class JsonCountdownStorage
+Class JsonSerializableCountdown
+Class JsonAdaptedDate
 }
 
 Class HiddenOutside #FFFFFF
@@ -30,14 +35,19 @@ HiddenOutside ..> Storage
 StorageManager .up.|> Storage
 StorageManager -up-> "1" UserPrefsStorage
 StorageManager -up-> "1" AddressBookStorage
+StorageManager -up-> "1" CountdownStorage
 
 Storage -left-|> UserPrefsStorage
 Storage -right-|> AddressBookStorage
+Storage -left-|> CountdownStorage
 
 JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonAddressBookStorage .up.|> AddressBookStorage
+JsonCountdownStorage .up.|> CountdownStorage
 JsonAddressBookStorage ..> JsonSerializableAddressBook
+JsonCountdownStorage ..> JsonSerializableCountdown
 JsonSerializableAddressBook --> "*" JsonAdaptedPerson
+JsonSerializableCountdown --> "1" JsonAdaptedDate
 JsonAdaptedPerson --> "*" JsonAdaptedTag
 
 @enduml
