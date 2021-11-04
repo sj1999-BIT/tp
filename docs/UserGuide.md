@@ -214,9 +214,8 @@ To add a person to the contact list:
 
 **:bulb: Tip:**<br>
 * A person can have any number of tags (including 0)
-* Since a wedding can be big and two or more persons might share contact methods with his/her family member(s), a person 
-  can have a phone number and/or email that is existing in the contact list (duplicate phone number and email is 
-  allowed).
+* Since a wedding can be big and two or more persons might come from the same family, all contact information(other than
+  the contact's name) can be duplicated.
 </div>
 
 Example:<br>
@@ -261,9 +260,8 @@ To edit an existing person in the contact list:
 * At least one of the optional fields must be provided.
 * When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
-* Since a wedding can be big and two or more persons might share contact methods with his/her family member(s), a person
-  can have a phone number and/or email that is existing in the contact list (duplicate phone number and email is
-  allowed).
+* Since a wedding can be big and two or more persons might come from the same family, all contact information(other than
+  the contact's name) can be duplicated.
 </div>
 
 Examples and expected outcomes:
