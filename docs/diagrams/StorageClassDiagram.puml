@@ -4,13 +4,10 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Storage
+
 package Storage{
-
-package "UserPrefs Storage" #F4F6F6{
-Interface UserPrefsStorage <<Interface>>
-Class JsonUserPrefsStorage
-}
-
 Interface Storage <<Interface>>
 Class StorageManager
 
@@ -29,17 +26,19 @@ Class JsonSerializableCountdown
 Class JsonAdaptedDate
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Storage
+package "UserPrefs Storage" #F4F6F6{
+Interface UserPrefsStorage <<Interface>>
+Class JsonUserPrefsStorage
+}
 
 StorageManager .up.|> Storage
-StorageManager -up-> "1" UserPrefsStorage
-StorageManager -up-> "1" AddressBookStorage
-StorageManager -up-> "1" CountdownStorage
+StorageManager -left-> "1" AddressBookStorage
+StorageManager -down-> "1" CountdownStorage
+StorageManager -right-> "1" UserPrefsStorage
 
-Storage -left-|> UserPrefsStorage
-Storage -right-|> AddressBookStorage
-Storage -left-|> CountdownStorage
+Storage -down-|> UserPrefsStorage
+Storage -down-|> AddressBookStorage
+Storage -down-|> CountdownStorage
 
 JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonAddressBookStorage .up.|> AddressBookStorage
