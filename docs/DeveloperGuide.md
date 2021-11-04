@@ -187,7 +187,7 @@ limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The following activity diagram summarizes what happens when a user executes a delete-by-name command:
 
-<img src="images/DeleteByName.png" width="250" />
+<img src="images/DeleteByNameActivityDiagram.png" width="380" />
 
 #### Design considerations:
 
