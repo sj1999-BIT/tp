@@ -166,14 +166,17 @@ The operation is exposed in the `Model` interface as `Model#deletePerson()`.
 Given below is an example usage scenario and how the delete-by-name mechanism behaves at each step.
 
 Step 1. The user launches the application and has the following person list saved. `AddressBook` stores these contacts as `persons`.
+
 ![DeleteByNamePersonList0](images/DeleteByNamePersonList0.png)
 
 Step 2. The user executes `delete n/John Doe` command to delete the person named *John Doe* in the list.
 The `delete` command first calls `Model#updateFilteredPersonList()` and `Model#getFilteredPersonList()` to get a list where all the persons in the list named *John Doe*.
+
 ![DeleteByNameFilteredPersonList0](images/DeleteByNameFilteredPersonList0.png)
 
 Step 3. With the access to the filtered list, it calls `Model#deletePerson()`, causing `AddressBook` to remove each person in the
 list by calling `AddressBook#removePerson()`. Finally, the user will see the updated person list with *John Doe* removed.
+
 ![DeleteByNamePersonList1](images/DeleteByNamePersonList1.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If a name is not found, it will not call `Model#deletePerson()`, so the `AddressBook` person list will not be modified.
