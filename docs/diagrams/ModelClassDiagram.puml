@@ -36,14 +36,16 @@ HiddenOutside ..> Model
 
 AddressBook .up.|> ReadOnlyAddressBook
 Countdown .up.|> ReadOnlyCountdown
+UserPrefs .up.|> ReadOnlyUserPrefs
 
 ModelManager .up.|> Model
-Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-ModelManager -left-> "1" AddressBook
-ModelManager -left-> "1" Countdown
-ModelManager -right-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+Model .down.> ReadOnlyUserPrefs
+Model .down.> ReadOnlyAddressBook
+Model .down.> ReadOnlyCountdown
+
+ModelManager -down-> "1" AddressBook
+ModelManager -down-> "1" Countdown
+ModelManager -down-> "1" UserPrefs
 
 AddressBook *--> "1" UniquePersonList
 Countdown *--> "1" LocalDate
