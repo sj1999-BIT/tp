@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.model.Model;
 
@@ -25,8 +26,7 @@ public class AddShortcutCommand extends Command {
      * @param commandString Command to be called
      */
     public AddShortcutCommand(String keyword, String commandString) {
-        requireNonNull(keyword);
-        requireNonNull(commandString);
+        requireAllNonNull(keyword, commandString);
         this.keyword = keyword;
         this.commandString = commandString;
     }
