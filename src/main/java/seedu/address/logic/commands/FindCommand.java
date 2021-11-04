@@ -51,4 +51,8 @@ public class FindCommand extends Command {
                 && predicate.equals(((FindCommand) other).predicate)
                 && message.equals(((FindCommand) other).message)); // state check
     }
+
+    public String getMessage() {
+        return message;
+    }
 }
