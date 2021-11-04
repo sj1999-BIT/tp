@@ -1,5 +1,6 @@
 @startuml
 !include style.puml
+skinparam defaultFontSize 20
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -13,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("countdown 2022-05-20")
+[-> LogicManager : execute\n("countdown 2022-05-20")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("countdown 2022-05-20")
+LogicManager -> AddressBookParser : parseCommand\n("countdown 2022-05-20")
 activate AddressBookParser
 
 create CountdownCommandParser
@@ -42,7 +43,7 @@ deactivate CountdownCommandParser
 CountdownCommandParser -[hidden]-> AddressBookParser
 destroy CountdownCommandParser
 
-AddressBookParser --> LogicManager : d
+AddressBookParser --> LogicManager : c
 deactivate AddressBookParser
 
 LogicManager -> CountdownCommand : execute()
