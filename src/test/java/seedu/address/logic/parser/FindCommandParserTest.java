@@ -39,8 +39,8 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_invalidPriceNumber_throwsParseException() {
-        assertParseFailure(parser, " pr/=1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.PRICE_USAGE));
+    public void parse_multiplePricePrefix_throwsParseException() {
+        assertParseFailure(parser, " pr/=1.00 pr/=0.00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.PRICE_USAGE));
     }
 
     @Test

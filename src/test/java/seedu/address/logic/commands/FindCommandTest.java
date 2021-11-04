@@ -192,7 +192,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = "0 person(s) listed where ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 0, "");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
                 preparePredicate(" "));
         FindCommand command = new FindCommand(predicate, "");
@@ -203,7 +203,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = "3 person(s) listed where name is in [Kurz, Elle, Kunz] ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 3, "name is in [Kurz, Elle, Kunz] ");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
                 preparePredicate("Kurz Elle Kunz"));
         FindCommand command = new FindCommand(predicate, "name is in [Kurz, Elle, Kunz] ");
@@ -214,7 +214,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroTags_noPersonFound() {
-        String expectedMessage = "0 person(s) listed where ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 0, "");
         TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(
                 preparePredicate(" ")
         );
@@ -226,7 +226,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleTags_multiplePersonsFound() {
-        String expectedMessage = "3 person(s) listed where tag is in [friends] ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 3, "tag is in [friends] ");
         TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(
                 preparePredicate("friends")
         );
@@ -238,7 +238,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_priceEqual_noPersonFound() {
-        String expectedMessage = "0 person(s) listed where ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 0, "");
         PriceEqualsNumberPredicate predicate = new PriceEqualsNumberPredicate(new Price("10.00"));
         FindCommand command = new FindCommand(predicate, "");
         expectedModel.updateFilteredPersonList(predicate);
@@ -248,7 +248,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_priceEqual_multiplePersonsFound() {
-        String expectedMessage = "7 person(s) listed where ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 7, "");
         PriceEqualsNumberPredicate predicate = new PriceEqualsNumberPredicate(new Price("0.00"));
         FindCommand command = new FindCommand(predicate, "");
         expectedModel.updateFilteredPersonList(predicate);
@@ -258,7 +258,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_priceGreaterThan_noPersonFound() {
-        String expectedMessage = "0 person(s) listed where ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 0, "");
         PriceGreaterThanNumberPredicate predicate = new PriceGreaterThanNumberPredicate(new Price("10.00"));
         FindCommand command = new FindCommand(predicate, "");
         expectedModel.updateFilteredPersonList(predicate);
@@ -268,7 +268,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_priceLessThan_noPersonFound() {
-        String expectedMessage = "0 person(s) listed where ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 0, "");
         PriceLessThanNumberPredicate predicate = new PriceLessThanNumberPredicate(new Price("0.00"));
         FindCommand command = new FindCommand(predicate, "");
         expectedModel.updateFilteredPersonList(predicate);
@@ -278,7 +278,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_priceLessThan_multiplePersonsFound() {
-        String expectedMessage = "7 person(s) listed where ";
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 7, "");
         PriceLessThanNumberPredicate predicate = new PriceLessThanNumberPredicate(new Price("10.00"));
         FindCommand command = new FindCommand(predicate, "");
         expectedModel.updateFilteredPersonList(predicate);

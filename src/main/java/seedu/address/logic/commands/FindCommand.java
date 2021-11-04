@@ -23,6 +23,8 @@ public class FindCommand extends Command {
     public static final String PRICE_USAGE = "Valid prices operators are =, <, >, <=, >=. \n"
             + "Prices must be in 2 decimal. Eg. pr/<100.00";
 
+    public static final String SUCCESS_RESPONSE = "%d person(s) listed where %s";
+
     private final Predicate<Person> predicate;
     private final String message;
 
@@ -40,8 +42,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(""
-                + model.getFilteredPersonList().size() + " person(s) listed where " + message);
+        return new CommandResult(String.format(SUCCESS_RESPONSE, model.getFilteredPersonList().size(), message));
     }
 
     @Override
