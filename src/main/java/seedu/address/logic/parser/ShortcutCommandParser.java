@@ -10,6 +10,10 @@ public class ShortcutCommandParser implements Parser<ShortcutCommand> {
 
     @Override
     public ShortcutCommand parse(String userInput) throws ParseException {
-        return new ShortcutCommand(userInput.trim());
+        String trimmedInput = userInput.trim();
+        if (trimmedInput.isBlank()) {
+            throw new ParseException(ShortcutCommand.MESSAGE_USAGE);
+        }
+        return new ShortcutCommand(trimmedInput);
     }
 }
