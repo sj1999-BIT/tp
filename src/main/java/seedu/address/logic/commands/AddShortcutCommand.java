@@ -25,6 +25,8 @@ public class AddShortcutCommand extends Command {
      * @param commandString Command to be called
      */
     public AddShortcutCommand(String keyword, String commandString) {
+        requireNonNull(keyword);
+        requireNonNull(commandString);
         this.keyword = keyword;
         this.commandString = commandString;
     }
@@ -40,6 +42,7 @@ public class AddShortcutCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddShortcutCommand // instanceof handles nulls
-                ); // state check
+                && keyword.equals(((AddShortcutCommand) other).keyword)
+                && commandString.equals(((AddShortcutCommand) other).commandString)); // state check
     }
 }
