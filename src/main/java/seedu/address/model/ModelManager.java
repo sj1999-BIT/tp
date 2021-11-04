@@ -245,6 +245,11 @@ public class ModelManager implements Model {
         countdown.setDate(newDate);
     }
 
+    @Override
+    public LocalDate getWeddingDate() {
+        return countdown.getDate();
+    }
+
     //=========== Shortcut ================================================================================
     @Override
     public void setShortcut(ReadOnlyShortcut shortcut) {
