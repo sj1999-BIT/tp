@@ -20,11 +20,11 @@ public class ShortcutCommand extends Command {
             + "Parameters: KEYPHRASE\n"
             + "Example: " + COMMAND_WORD + " a";
 
-    public static final String COMMAND_UNKNOWN = "Command invalid form: ";
+    public static final String COMMAND_UNKNOWN = "Command invalid form: %s\n%s";
 
     public static final String COMMAND_NOT_FOUND = "Command not found";
 
-    public static final String COMMAND_EXECUTE_ERROR = "Command execute error: ";
+    public static final String COMMAND_EXECUTE_ERROR = "Command execute error: %s\n%s";
 
     private final String shortcut;
 
@@ -45,10 +45,10 @@ public class ShortcutCommand extends Command {
             try {
                 return command.execute(model);
             } catch (CommandException ce) {
-                throw new CommandException(COMMAND_EXECUTE_ERROR + commandString + "\n" + ce.getMessage());
+                throw new CommandException(String.format(COMMAND_EXECUTE_ERROR, commandString, ce.getMessage()));
             }
         } catch (ParseException e) {
-            throw new CommandException(COMMAND_UNKNOWN + commandString + "\n" + e.getMessage());
+            throw new CommandException(String.format(COMMAND_UNKNOWN, commandString, e.getMessage()));
         }
     }
 

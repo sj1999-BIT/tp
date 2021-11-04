@@ -41,7 +41,7 @@ public class ShortcutCommandTest {
 
     @Test
     public void execute_shortcutValid_success() {
-        assertCommandSuccess(new ShortcutCommand(VALID), model, VALID_RESPONSE, expectedModel);
+        assertCommandSuccess(new ShortcutCommand(VALID_KEY), model, VALID_RESPONSE, expectedModel);
     }
 
     @Test
@@ -51,14 +51,14 @@ public class ShortcutCommandTest {
 
     @Test
     public void execute_shortcutInvalid_failure() {
-        assertCommandFailure(new ShortcutCommand(INVALID_KEY), model, ShortcutCommand.COMMAND_EXECUTE_ERROR
-                + INVALID_COMMAND + "\n" + INVALID_RESPONSE);
+        assertCommandFailure(new ShortcutCommand(INVALID_KEY), model, String.format(ShortcutCommand.COMMAND_EXECUTE_ERROR,
+                INVALID_COMMAND, INVALID_RESPONSE));
     }
 
     @Test
     public void execute_shortcutUnknown_failure() {
-        assertCommandFailure(new ShortcutCommand(UNKNOWN_KEY), model, ShortcutCommand.COMMAND_UNKNOWN
-                + UNKNOWN_COMMAND + "\n" + MESSAGE_UNKNOWN_COMMAND);
+        assertCommandFailure(new ShortcutCommand(UNKNOWN_KEY), model, String.format(ShortcutCommand.COMMAND_UNKNOWN,
+                UNKNOWN_COMMAND, MESSAGE_UNKNOWN_COMMAND));
     }
 
     @Test

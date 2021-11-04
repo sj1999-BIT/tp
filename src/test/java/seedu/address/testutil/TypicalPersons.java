@@ -74,7 +74,8 @@ public class TypicalPersons {
             .build();
 
     //Shortcut INPUTS and OUTPUTS
-    public static final String VALID = "valid";
+    public static final String VALID_KEY = "valid";
+    public static final String VALID_COMMAND = "list";
     public static final String VALID_RESPONSE = ListCommand.MESSAGE_SUCCESS;
     public static final String UNKNOWN_KEY = "unknown command";
     public static final String UNKNOWN_COMMAND = "a";
@@ -107,7 +108,17 @@ public class TypicalPersons {
      */
     public static Shortcut getTypicalShortcut() {
         Shortcut sc = new Shortcut();
-        sc.addShortcut(VALID, "list");
+        sc.addShortcut(VALID_KEY, VALID_COMMAND);
+        sc.addShortcut(UNKNOWN_KEY, UNKNOWN_COMMAND);
+        sc.addShortcut(INVALID_KEY, INVALID_COMMAND);
+        return sc;
+    }
+
+    /**
+     * Returns a {@code Shortcut} with shortcut VALID removed.
+     */
+    public static Shortcut getRemovedShortcut() {
+        Shortcut sc = new Shortcut();
         sc.addShortcut(UNKNOWN_KEY, UNKNOWN_COMMAND);
         sc.addShortcut(INVALID_KEY, INVALID_COMMAND);
         return sc;
