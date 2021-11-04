@@ -209,28 +209,34 @@ _{more aspects and alternatives to be added}_
 #### Implementation
 The countdown mechanism is facilitated by `Countdown`. It implements `ReadOnlyCountdown` with a wedding date, stored internally as `weddingDate`. Additionally, it implements the following operation:
 
-* `Countdown#resetData()` — Replaces the existing wedding date with a new date.
+* `Countdown#setData()` — Replaces the existing wedding date with a new date.
 * `Countdown#getDate()` — Returns an unmodifiable view of the wedding date.
 
-The operation is exposed in the `Model` interface as `Model#setDate()` and facilitated by `Model#getCountdown()`.
+The operation is exposed in the `Model` interface as `Model#setDate()` and `Model#getWeddingDate()`.
 
-Given below is an example usage scenario and how the delete-by-name mechanism behaves at each step.
+Given below is an example usage scenario and how the countdown mechanism behaves at each step.
 
-Step 1. The user launches the application and has the following person list saved. `AddressBook` stores these contacts as `persons`.
+Step 1. The user launches the application and never set wedding date before. `Countdown` automatically stores today's date as `weddingDate`. Say today is `4 November 2021`.
 
-![DeleteByNamePersonList0](images/DeleteByNamePersonList0.png)
+![SetWeddingCountdown0](images/SetWeddingCountdown0.png)
 
-Step 2. The user executes `delete n/John Doe` command to delete the person named *John Doe* in the list.
-The `delete` command first calls `Model#updateFilteredPersonList()` and `Model#getFilteredPersonList()` to get a list where all the persons in the list named *John Doe*.
+Step 2. The user executes `countdown 2022-05-20` command to set his/her wedding date to `20 May 2022`.
+The `countdown` command then calls `Model#setDate()` to set the wedding date to `20 May 2022`.
 
-![DeleteByNameFilteredPersonList0](images/DeleteByNameFilteredPersonList0.png)
+![SetWeddingCountdown1](images/SetWeddingCountdown1.png)
 
-Step 3. With the access to the filtered list, it calls `Model#deletePerson()`, causing `AddressBook` to remove each person in the
-list by calling `AddressBook#removePerson()`. Finally, the user will see the updated person list with *John Doe* removed.
+Step 3. With this updated wedding date, the user executes `countdown` (without argument) command to see the number of 
+days left until his/her wedding above the command box.
 
-![DeleteByNamePersonList1](images/DeleteByNamePersonList1.png)
+![CountdownResult](images/CountdownResult.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a name is not found, it will not call `Model#deletePerson()`, so the `AddressBook` person list will not be modified.
+Step 4. The user can also view the countdown at the right top corner of the app immediately after updating the wedding
+date.
+
+![CountdownGUI](images/CountdownGUI.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the date specified has passed, it will 
+not call `Model#setDate()`, so the `Countdown` wedding date will not be modified.
 
 </div>
 
