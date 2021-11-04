@@ -205,7 +205,7 @@ To add a person to the contact list:
 * `PRICE` is used to indicate the price you have to pay for a person who you are hiring to help with your wedding, e.g. a
   chef. You may choose to not specifying it if the contact is your family/relative/friend.
 * `IMPORTANT-INFORMATION` is used to indicate the important information that you need to take note of, e.g., if a
-  contact is practicing vegetarian diet or is only contactable through Whatsapp.
+  contact is practicing vegetarian diet or is only contactable through WhatsApp.
 * `STATUS` is used to indicate if a person is confirmed to attend your wedding. It can also be used to indicate if you
   have confirmed to hire a person to help with your wedding.
 </div>
