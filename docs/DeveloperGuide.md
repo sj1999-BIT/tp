@@ -268,6 +268,75 @@ The following activity diagram summarizes what happens when a user executes a de
 
 _{more aspects and alternatives to be added}_
 
+### Cost sum checking feature
+#### Implementation
+The cost sum checking mechanism is facilitated by `Model`. It implements the following operation:
+
+* `Model#updateFilteredPersonList()` — Filters the person list with specified condition(s).
+
+Given below is an example usage scenario and how the cost sum checking mechanism behaves at each step.
+
+Step 1. The user launches the application and wants to check the total expenses for certain categories. Let say he/she
+has the following contacts stored.
+
+![PriceSum0](images/PriceSum0.png)
+
+<div markdown="span" class="alert alert-info">
+:information_source: **Note:**<br>
+A contact's `status` indicates whether the user has confirmed to hire this person/ the user is sure that this person will
+attend his/her wedding. Therefore, based on the diagram above, the user has **confirmed** to hire `Bernice Yu` as his/her
+**florist** with the cost of **300.00 dollars**.
+
+</div>
+
+Step 2. The user executes `price t/Florist Photographer` command to check the expenses under `Florist` and `Photographer`
+category. The `price` command first calls `Model#updateFilteredPersonList()` to get all the contacts with `confirmed`
+status.
+
+![PriceSum1](images/PriceSum1.png)
+
+Step 3. With this filtered list, `price` command then further filters out person(s) with either `Florist` or `Photographer` 
+tags. Then, it calculates the total sum of `price` for each contact(s) in this filtered list.
+
+![PriceSum2](images/PriceSum2.png)
+
+Step 4. Finally, the user can view the calculation result right above the command box.
+
+![PriceSumByTag](images/PriceSumByTag.png)
+
+Step 4. The user then checks the total cost of his/her wedding by executing `price` command (without any argument). Hence,
+`price` command will just sum up all the `price` for all the contacts with `confirmed` status. The only contacts with 
+`confirmed` status are `Alex Yeoh` and `Bernice Yu`, respectively hired by the user with the cost **650.00 dollars** and
+**300.00 dollars**. Hence, the total is **950.00** dollars.
+
+![PriceTotalSum](images/PriceTotalSum.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the category(tag) specified is not found,
+then the cost under that category is considered as **0.00 dollar** and will not be added to the sum.
+
+</div>
+
+The following sequence diagram shows how the cost-sum-checking operation works:
+
+![Interactions Inside the Logic Component for the `price t/Florist Photographer` Command](images/PriceSumSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `PriceCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design considerations:
+
+**Aspect: How cost-sum-checking operation executes:**
+
+* **Alternative 1 (current choice):** Does not calculate the cost for those who has not confirmed yet.
+    * Pros: Gives an exact number on those categories the user confirms to spend money on.
+    * Cons: The total sum does not include the potential expenses, i.e. cost for persons with `pending` status.
+* **Alternative 2:** Calculate the cost for those who has not confirmed yet.
+    * Pros: The total sum includes the potential expenses, i.e. cost for persons with `pending` status.
+    * Cons: Does not give an exact number on those categories the user confirms to spend money on.
+
+_{more aspects and alternatives to be added}_
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
