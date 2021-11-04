@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Address {
 
     public static final String MESSAGE_CONSTRAINTS = "Addresses only accept these selected special characters: "
-            +"\n"+", . # - ;";
+            + "\n" + ", . # - ;";
 
     /*
      * Checks if information keyed in only contains alphanumeric
