@@ -184,11 +184,14 @@ list by calling `AddressBook#removePerson()`. Finally, the user will see the upd
 </div>
 
 The following sequence diagram shows how the delete-by-name operation works:
-![Interactions Inside the Logic Component for the `delete n/John Doe` Command](images/DeleteByNameSequenceDiagram.png)
-:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a
-limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The following activity diagram summarizes what happens when a user executes a delete-by-name command:
+![Interactions Inside the Logic Component for the `delete n/John Doe` Command](images/DeleteByNameSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes what happens when a user executes a set-wedding-countdown command:
 
 <img src="images/DeleteByNameActivityDiagram.png" width="380" />
 
@@ -240,25 +243,28 @@ not call `Model#setDate()`, so the `Countdown` wedding date will not be modified
 
 </div>
 
-The following sequence diagram shows how the delete-by-name operation works:
-![Interactions Inside the Logic Component for the `delete n/John Doe` Command](images/DeleteByNameSequenceDiagram.png)
-:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a
-limitation of PlantUML, the lifeline reaches the end of diagram.
+The following sequence diagram shows how the set-wedding-date-for-countdown operation works:
+
+![Interactions Inside the Logic Component for the `countdown 2022-05-20` Command](images/SetWeddingCountdownSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `CountdownCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram summarizes what happens when a user executes a delete-by-name command:
 
-<img src="images/DeleteByNameActivityDiagram.png" width="380" />
+<img src="images/SetWeddingCountdownActivityDiagram.png" width="400" />
 
 #### Design considerations:
 
-**Aspect: How delete-by-name executes:**
+**Aspect: How setting wedding date for countdown executes:**
 
-* **Alternative 1 (current choice):** Deletes the person with the exact same name.
-    * Pros: Avoid the situation where user deletes the wrong person
-    * Cons: User needs to remember the name precisely.
-* **Alternative 2:** Deletes the person who names partially contains the specified name.
-    * Pros: User does not have to remember the full name (e.g. `delete n/Alex` will delete both person named *Alex Tan* and *Alex Yeoh*).
-    * Cons: Might delete the wrong person.
+* **Alternative 1 (current choice):** Does not allow setting past date as wedding date.
+    * Pros: Fit for the purpose of the app: planning for future wedding.
+    * Cons: Cannot track how many days has passed since the wedding.
+* **Alternative 2:** Allow setting past date as wedding date.
+    * Pros: Can track how many days has passed since the wedding.
+    * Cons: Does not fit for the purpose of the app: planning for future wedding.
 
 _{more aspects and alternatives to be added}_
 
