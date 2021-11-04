@@ -20,7 +20,7 @@ public class ShortcutCommand extends Command {
             + "Parameters: KEYPHRASE\n"
             + "Example: " + COMMAND_WORD + " a";
 
-    public static final String COMMAND_INVALID = "Command invalid form: ";
+    public static final String COMMAND_UNKNOWN = "Command invalid form: ";
 
     public static final String COMMAND_NOT_FOUND = "Command not found";
 
@@ -29,32 +29,33 @@ public class ShortcutCommand extends Command {
     private final String shortcut;
 
     public ShortcutCommand(String shortcut) {
+        requireNonNull(shortcut);
         this.shortcut = shortcut;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String commandString = model.getShortcutFromKey(shortcut);
         try {
             if (commandString == null) {
-                return new CommandResult(COMMAND_NOT_FOUND);
+                throw new CommandException(COMMAND_NOT_FOUND);
             }
             Command command = (new AddressBookParser()).parseCommand(commandString);
             try {
                 return command.execute(model);
             } catch (CommandException ce) {
-                return new CommandResult(COMMAND_EXECUTE_ERROR + commandString);
+                throw new CommandException(COMMAND_EXECUTE_ERROR + commandString + "\n" + ce.getMessage());
             }
         } catch (ParseException e) {
-            return new CommandResult(COMMAND_INVALID + commandString);
+            throw new CommandException(COMMAND_UNKNOWN + commandString + "\n" + e.getMessage());
         }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ShortcutCommand) // instanceof handles nulls
-                || (shortcut.equals(((ShortcutCommand) other).shortcut)); // state check
+                || ((other instanceof ShortcutCommand) // instanceof handles nulls
+                && (shortcut.equals(((ShortcutCommand) other).shortcut))); // state check
     }
 }

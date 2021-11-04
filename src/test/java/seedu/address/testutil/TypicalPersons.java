@@ -19,7 +19,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Shortcut;
 import seedu.address.model.person.Person;
 
 /**
@@ -69,6 +73,15 @@ public class TypicalPersons {
             .withPrice(VALID_PRICE_AMY).withStatus(VALID_STATUS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
+    //Shortcut INPUTS and OUTPUTS
+    public static final String VALID = "valid";
+    public static final String VALID_RESPONSE = ListCommand.MESSAGE_SUCCESS;
+    public static final String UNKNOWN_KEY = "unknown command";
+    public static final String UNKNOWN_COMMAND = "a";
+    public static final String INVALID_KEY = "invalid command";
+    public static final String INVALID_COMMAND = "delete 100";
+    public static final String INVALID_RESPONSE = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {
@@ -87,5 +100,16 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    /**
+     * Returns a {@code Shortcut} with all the typical shortcuts.
+     */
+    public static Shortcut getTypicalShortcut() {
+        Shortcut sc = new Shortcut();
+        sc.addShortcut(VALID, "list");
+        sc.addShortcut(UNKNOWN_KEY, UNKNOWN_COMMAND);
+        sc.addShortcut(INVALID_KEY, INVALID_COMMAND);
+        return sc;
     }
 }
