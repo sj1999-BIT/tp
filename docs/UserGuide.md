@@ -428,7 +428,7 @@ To check the countdown till your wedding day:
 **:bulb: Tips:**<br>
 * If you have not set the wedding date before, then the default wedding date will be today. 
 * If you had set the wedding date before, then you can follow step (4) ONLY to check the countdown. 
-* You cannot set a passed date as your wedding date.
+* You cannot set a past date as your wedding date.
 </div>
 
 Outcome:<br>
