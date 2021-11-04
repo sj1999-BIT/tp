@@ -16,6 +16,7 @@ public class RemoveShortcutCommand extends Command {
             + "Example: " + COMMAND_WORD + " a";
 
     private final String keyword;
+    private UndoCommand commandToUndo;
 
     /**
      * Creates new {@code RemoveShortcutCommand}
@@ -28,8 +29,11 @@ public class RemoveShortcutCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         String commandString = model.removeShortcut(keyword);
         if (commandString == null) {
+            commandToUndo.setPrevCommand(null);
             return new CommandResult("Command with keyword " + keyword + " not found");
         }
         return new CommandResult("Removed " + keyword + ": " + commandString);
