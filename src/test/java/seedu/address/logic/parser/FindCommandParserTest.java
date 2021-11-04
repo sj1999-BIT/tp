@@ -1,7 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.*;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertFindCommandParseSuccess;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import java.util.Arrays;
 
@@ -40,7 +41,8 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_multiplePricePrefix_throwsParseException() {
-        assertParseFailure(parser, " pr/=1.00 pr/=0.00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.PRICE_USAGE));
+        assertParseFailure(parser, " pr/=1.00 pr/=0.00",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.PRICE_USAGE));
     }
 
     @Test

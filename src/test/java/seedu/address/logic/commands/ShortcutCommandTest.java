@@ -1,33 +1,27 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Messages;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyCountdown;
-import seedu.address.model.ReadOnlyShortcut;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.Shortcut;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
-
-import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.Hashtable;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalDate.getTypicalCountdown;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.INVALID_COMMAND;
+import static seedu.address.testutil.TypicalPersons.INVALID_KEY;
+import static seedu.address.testutil.TypicalPersons.INVALID_RESPONSE;
+import static seedu.address.testutil.TypicalPersons.UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalPersons.UNKNOWN_KEY;
+import static seedu.address.testutil.TypicalPersons.VALID_KEY;
+import static seedu.address.testutil.TypicalPersons.VALID_RESPONSE;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalShortcut;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 
 public class ShortcutCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalCountdown(),
@@ -51,8 +45,8 @@ public class ShortcutCommandTest {
 
     @Test
     public void execute_shortcutInvalid_failure() {
-        assertCommandFailure(new ShortcutCommand(INVALID_KEY), model, String.format(ShortcutCommand.COMMAND_EXECUTE_ERROR,
-                INVALID_COMMAND, INVALID_RESPONSE));
+        assertCommandFailure(new ShortcutCommand(INVALID_KEY), model,
+                String.format(ShortcutCommand.COMMAND_EXECUTE_ERROR, INVALID_COMMAND, INVALID_RESPONSE));
     }
 
     @Test

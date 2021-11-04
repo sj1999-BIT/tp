@@ -1,18 +1,11 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.FindCommand;
+
 import seedu.address.logic.commands.ShortcutCommand;
-import seedu.address.model.person.Price;
-import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.PriceEqualsNumberPredicate;
-import seedu.address.model.person.predicates.PriceGreaterThanNumberPredicate;
-import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
-
-import java.util.Arrays;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.*;
 
 public class ShortcutCommandParserTest {
 

@@ -28,6 +28,10 @@ public class ShortcutCommand extends Command {
 
     private final String shortcut;
 
+    /**
+     * Creates a shortcut command with the key of shortcut to be called
+     * @param shortcut key of the shortcut
+     */
     public ShortcutCommand(String shortcut) {
         requireNonNull(shortcut);
         this.shortcut = shortcut;

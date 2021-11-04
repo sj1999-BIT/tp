@@ -41,7 +41,9 @@ public class CommandParserTestUtil {
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
      * equals to {@code expectedCommand}.
      */
-    public static void assertFindCommandParseSuccess(FindCommandParser parser, String userInput, FindCommand expectedCommand) {
+    public static void assertFindCommandParseSuccess(FindCommandParser parser,
+                                                     String userInput,
+                                                     FindCommand expectedCommand) {
         try {
             FindCommand command = parser.parse(userInput);
             assertEquals(command.getMessage(), expectedCommand.getMessage());

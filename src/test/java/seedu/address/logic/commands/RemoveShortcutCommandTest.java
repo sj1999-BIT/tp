@@ -1,18 +1,22 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalDate.getTypicalCountdown;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.VALID_COMMAND;
+import static seedu.address.testutil.TypicalPersons.VALID_KEY;
+import static seedu.address.testutil.TypicalPersons.getRemovedShortcut;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalShortcut;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 
 public class RemoveShortcutCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalCountdown(),

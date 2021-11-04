@@ -21,7 +21,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Shortcut;
 import seedu.address.model.person.Person;
