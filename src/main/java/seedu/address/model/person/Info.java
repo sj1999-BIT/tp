@@ -13,7 +13,7 @@ public class Info {
      * Checks if information keyed in only contains alphanumeric
      * characters with spaces
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum} ][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "^[-.@_a-zA-Z0-9 ]*$";
 
     public final String value;
 

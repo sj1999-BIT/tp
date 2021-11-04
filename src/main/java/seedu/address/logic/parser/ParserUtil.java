@@ -78,12 +78,8 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!trimmedAddress.equals("")) {
-            if (!Address.isValidAddress(trimmedAddress)) {
-                throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-            }
-        } else {
-            trimmedAddress = "none";
+        if (!Address.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
     }
@@ -131,12 +127,8 @@ public class ParserUtil {
     public static Info parseImportantInfo(String info) throws ParseException {
         requireNonNull(info);
         String trimmedInfo = info.trim();
-        if (!trimmedInfo.equals("")) {
-            if (!Info.isValidInfo(trimmedInfo)) {
-                throw new ParseException(Info.MESSAGE_CONSTRAINTS);
-            }
-        } else {
-            trimmedInfo = "none";
+        if (!Info.isValidInfo(trimmedInfo)) {
+            throw new ParseException(Info.MESSAGE_CONSTRAINTS);
         }
         return new Info(trimmedInfo);
     }

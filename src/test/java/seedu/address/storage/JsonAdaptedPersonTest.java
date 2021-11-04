@@ -23,10 +23,10 @@ import seedu.address.model.person.Status;
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_ADDRESS = "568 Street%";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_PRICE = "5r2";
-    private static final String INVALID_INFO = " ";
+    private static final String INVALID_INFO = "&";
     private static final String INVALID_STATUS = "78camp";
     private static final String INVALID_TAG = "#friend";
 
@@ -129,6 +129,15 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 null, VALID_INFO, VALID_STATUS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidInfo_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                        VALID_PRICE, INVALID_INFO, VALID_STATUS, VALID_TAGS);
+        String expectedMessage = Info.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
