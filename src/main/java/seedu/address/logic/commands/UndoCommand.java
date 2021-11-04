@@ -37,10 +37,9 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        if (prevCommand == null || isInstanceOf(prevCommand)) {
-            return new CommandResult(
-                    String.format(Messages.MESSAGE_CANNOT_UNDO_COMMAND,
-                            model.getFilteredPersonList().size()));
+        CommandResult cannotUndoCommand = checkIfCanUndo(prevCommand, model);
+        if (cannotUndoCommand != null) {
+            return cannotUndoCommand;
         }
         List<Person> currentList = model.getFilteredPersonList();
         if (prevCommand instanceof AddCommand) {
@@ -48,20 +47,7 @@ public class UndoCommand extends Command {
         } else if (prevCommand instanceof DeleteCommand) {
             DeleteCommand deleted = (DeleteCommand) prevCommand;
             Person deletedPerson = deleted.getPersonToDelete();
-            if (deleted.getTargetIndex() != null) {
-                Index index = deleted.getTargetIndex();
-                shuffle(currentList, index.getZeroBased(), deletedPerson,
-                        model);
-            } else if (deleted.getTargetName() != null) {
-                Index index = deleted.getIndexName();
-                shuffle(currentList, index.getZeroBased(), deletedPerson,
-                        model);
-            } else if (deleted.getTargetTag() != null) {
-                ArrayList<Person> deletedList = deleted.getDeletedList();
-                for (Person p : deletedList) {
-                    shuffle(currentList, 0, p, model);
-                }
-            }
+            undoDelete(deleted, deletedPerson, currentList, model);
         } else if (prevCommand instanceof ClearCommand) {
             ClearCommand cleared = (ClearCommand) prevCommand;
             model.setAddressBook(new AddressBook(cleared.getPrevBook()));
@@ -74,8 +60,34 @@ public class UndoCommand extends Command {
             List<String> nameList = group.getNameList();
             removePeople(currentList, nameList, tagName, model);
         }
+        prevCommand = this;
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, model.getFilteredPersonList().size()));
+    }
+
+    /**
+     * Checks whether the previous command
+     * is invalid/cannot be undone.
+     *
+     * @param prev  the previous command
+     * @param model the model in use
+     * @return the command result or null
+     */
+    public CommandResult checkIfCanUndo(Command prev, Model model) {
+        if (prev == null) {
+            return new CommandResult(String.format(Messages.MESSAGE_INVALID_PREV_COMMAND,
+                    model.getFilteredPersonList().size()));
+        } else if (isInstanceOf(prev)) {
+            return new CommandResult(String.format(Messages.MESSAGE_CANNOT_UNDO_COMMAND,
+                    model.getFilteredPersonList().size()));
+        } else if (prev instanceof ShortcutCommand
+                || prev instanceof AddShortcutCommand
+                || prev instanceof RemoveShortcutCommand
+                || prev instanceof CountdownCommand) {
+            return new CommandResult(String.format(Messages.MESSAGE_UNDO_NOT_IMPLEMENTED_COMMAND,
+                    model.getFilteredPersonList().size()));
+        }
+        return null;
     }
 
     /**
@@ -83,14 +95,44 @@ public class UndoCommand extends Command {
      * of any of the following classes.
      *
      * @param command the command to check
+     * @return true if any one condition is satisfied
      */
     public boolean isInstanceOf(Command command) {
         return (command instanceof ExitCommand)
                 || (command instanceof FindCommand)
                 || (command instanceof HelpCommand)
                 || (command instanceof ListCommand)
-                || (command instanceof CountdownCommand)
                 || (command instanceof UndoCommand);
+    }
+
+    /**
+     * Undoes the delete, whether it was based
+     * on index, name or tag.
+     *
+     * @param deleted       the command used to delete
+     * @param deletedPerson the person deleted
+     * @param currentList   the current contact list
+     * @param model         the model in use
+     */
+    public void undoDelete(DeleteCommand deleted, Person deletedPerson,
+                           List<Person> currentList, Model model) {
+        if (deleted.getTargetIndex() != null) {
+            Index index = deleted.getTargetIndex();
+            shuffle(currentList, index.getZeroBased(), deletedPerson,
+                    model);
+        } else if (deleted.getTargetName() != null) {
+            Index index = deleted.getIndexName();
+            shuffle(currentList, index.getZeroBased(), deletedPerson,
+                    model);
+        } else if (deleted.getTargetTag() != null) {
+            ArrayList<Person> deletedList = deleted.getDeletedList();
+            List<Index> deletedIndexes = deleted.getTagIndexes();
+            for (int i = 0; i < deletedList.size(); i++) {
+                shuffle(currentList,
+                        deletedIndexes.get(i).getZeroBased(),
+                        deletedList.get(i), model);
+            }
+        }
     }
 
     /**

@@ -24,17 +24,20 @@ public class CountdownCommand extends Command {
 
     public static final String MESSAGE_FUTURE_SUCCESS = "Wedding date has been set on %s.\n"
             + "%d day(s) left from now.";
-    public static final String MESSAGE_PAST_SUCCESS = "Wedding date has been set on %s.\n"
-            + "%d day(s) has passed since your wedding day.";
+    public static final String MESSAGE_PAST_SUCCESS = "Sorry, WedFast does not allow setting a passing day as wedding "
+            + "date, please choose a future date instead.";
     public static final String MESSAGE_TODAY_SUCCESS = "You have set your wedding to be on today.\n"
             + "Hope it is not too late to organize your wedding now and WedFast wish you all the best! \uD83D\uDE00";
 
     private final LocalDate dateSetByUser;
+    private UndoCommand commandToUndo;
 
     /**
      * Creates an CountdownCommand to track the day count until the wedding date set.
      */
     public CountdownCommand() {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.dateSetByUser = null;
     }
 
@@ -42,6 +45,8 @@ public class CountdownCommand extends Command {
      * Creates an CountdownCommand to set the wedding date.
      */
     public CountdownCommand(LocalDate dateSetByUser) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.dateSetByUser = dateSetByUser;
     }
 
@@ -61,12 +66,12 @@ public class CountdownCommand extends Command {
         LocalDate weddingDate = model.getCountdown().getDate();
         int numDays = (int) LocalDate.now().until(weddingDate, ChronoUnit.DAYS);
 
-        if (numDays > 0) {
-            return new CommandResult(String.format(MESSAGE_FUTURE_DAY_COUNT, numDays, weddingDate));
-        }
-
         if (numDays < 0) {
             return new CommandResult(String.format(MESSAGE_PAST_DAY_COUNT, Math.abs(numDays), weddingDate));
+        }
+
+        if (numDays > 0) {
+            return new CommandResult(String.format(MESSAGE_FUTURE_DAY_COUNT, numDays, weddingDate));
         }
 
         return new CommandResult(MESSAGE_TODAY_COUNT);
@@ -74,16 +79,16 @@ public class CountdownCommand extends Command {
 
     /** Set the wedding day then shows the day count before the day. */
     private CommandResult executeSetWeddingDate(Model model) {
-        model.setDate(dateSetByUser);
         assert dateSetByUser != null : "The wedding set by user should not be null.";
         int numDays = (int) LocalDate.now().until(dateSetByUser, ChronoUnit.DAYS);
 
-        if (numDays > 0) {
-            return new CommandResult(String.format(MESSAGE_FUTURE_SUCCESS, dateSetByUser, numDays));
+        if (numDays < 0) {
+            return new CommandResult(MESSAGE_PAST_SUCCESS);
         }
 
-        if (numDays < 0) {
-            return new CommandResult(String.format(MESSAGE_PAST_SUCCESS, dateSetByUser, Math.abs(numDays)));
+        model.setDate(dateSetByUser);
+        if (numDays > 0) {
+            return new CommandResult(String.format(MESSAGE_FUTURE_SUCCESS, dateSetByUser, numDays));
         }
 
         return new CommandResult(MESSAGE_TODAY_SUCCESS);

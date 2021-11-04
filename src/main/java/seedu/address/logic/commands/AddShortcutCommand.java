@@ -18,6 +18,7 @@ public class AddShortcutCommand extends Command {
 
     private final String keyword;
     private final String commandString;
+    private UndoCommand commandToUndo;
 
     /**
      * Creates new {@code AddShortcutCommand}
@@ -25,6 +26,8 @@ public class AddShortcutCommand extends Command {
      * @param commandString Command to be called
      */
     public AddShortcutCommand(String keyword, String commandString) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.keyword = keyword;
         this.commandString = commandString;
     }
