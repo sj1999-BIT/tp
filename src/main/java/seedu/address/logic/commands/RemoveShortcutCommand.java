@@ -20,6 +20,7 @@ public class RemoveShortcutCommand extends Command {
     public static final String SHORTCUT_REMOVE_SUCCESS = "Removed %s: %s";
 
     private final String keyword;
+    private UndoCommand commandToUndo;
 
     /**
      * Creates new {@code RemoveShortcutCommand}
@@ -33,8 +34,11 @@ public class RemoveShortcutCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         String commandString = model.removeShortcut(keyword);
         if (commandString == null) {
+            commandToUndo.setPrevCommand(null);
             throw new CommandException(String.format(SHORTCUT_NOT_FOUND, keyword));
         }
         return new CommandResult(String.format(SHORTCUT_REMOVE_SUCCESS, keyword, commandString));

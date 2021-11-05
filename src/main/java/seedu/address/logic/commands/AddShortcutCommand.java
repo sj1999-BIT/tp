@@ -19,6 +19,7 @@ public class AddShortcutCommand extends Command {
 
     private final String keyword;
     private final String commandString;
+    private UndoCommand commandToUndo;
 
     /**
      * Creates new {@code AddShortcutCommand}
@@ -27,6 +28,8 @@ public class AddShortcutCommand extends Command {
      */
     public AddShortcutCommand(String keyword, String commandString) {
         requireAllNonNull(keyword, commandString);
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.keyword = keyword;
         this.commandString = commandString;
     }

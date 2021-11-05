@@ -27,6 +27,8 @@ public class ShortcutCommand extends Command {
     public static final String COMMAND_EXECUTE_ERROR = "Command execute error: %s\n%s";
 
     private final String shortcut;
+  
+    private UndoCommand commandToUndo;
 
     /**
      * Creates a shortcut command with the key of shortcut to be called
@@ -34,6 +36,8 @@ public class ShortcutCommand extends Command {
      */
     public ShortcutCommand(String shortcut) {
         requireNonNull(shortcut);
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.shortcut = shortcut;
     }
 
@@ -43,15 +47,18 @@ public class ShortcutCommand extends Command {
         String commandString = model.getShortcutFromKey(shortcut);
         try {
             if (commandString == null) {
+                commandToUndo.setPrevCommand(null);
                 throw new CommandException(COMMAND_NOT_FOUND);
             }
             Command command = (new AddressBookParser()).parseCommand(commandString);
             try {
                 return command.execute(model);
             } catch (CommandException ce) {
+                commandToUndo.setPrevCommand(null);
                 throw new CommandException(String.format(COMMAND_EXECUTE_ERROR, commandString, ce.getMessage()));
             }
         } catch (ParseException e) {
+            commandToUndo.setPrevCommand(null);
             throw new CommandException(String.format(COMMAND_UNKNOWN, commandString, e.getMessage()));
         }
     }
