@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalDate.getTypicalCountdown;
@@ -33,6 +35,15 @@ public class PriceCommandTest {
     }
 
     @Test
+    public void execute_singleKeywords_costByCategoryCalculated() {
+        String expectedMessage = "Total price for [Florist] is $300.00";
+        List<String> keywordList = new ArrayList<>();
+        keywordList.add("Florist");
+        PriceCommand command = new PriceCommand(keywordList);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_multipleKeywords_costByCategoryCalculated() {
         String expectedMessage = "Total price for [Florist, Photographer] is $550.00";
         List<String> keywordList = new ArrayList<>();
@@ -47,6 +58,35 @@ public class PriceCommandTest {
         List<String> keywordList = new ArrayList<>();
         keywordList.add("Singer");
         assertThrows(CommandException.class, () -> new PriceCommand(keywordList).execute(model));
+    }
+
+    @Test
+    public void equals() {
+
+        List<String> floristCategoryKeyword = new ArrayList<>();
+        floristCategoryKeyword.add("Florist");
+
+        List<String> photographerCategoryKeyword = new ArrayList<>();
+        floristCategoryKeyword.add("Photographer");
+
+        PriceCommand checkFloristPriceCommand = new PriceCommand(floristCategoryKeyword);
+        PriceCommand checkPhotographerPriceCommand = new PriceCommand(photographerCategoryKeyword);
+
+        // same object -> returns true
+        assertTrue(checkFloristPriceCommand.equals(checkFloristPriceCommand));
+
+        // same values -> returns true
+        PriceCommand checkFloristPriceCommandCopy = new PriceCommand(floristCategoryKeyword);
+        assertTrue(checkFloristPriceCommand.equals(checkFloristPriceCommandCopy));
+
+        // different types -> returns false
+        assertFalse(checkFloristPriceCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(checkFloristPriceCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(checkFloristPriceCommand.equals(checkPhotographerPriceCommand));
     }
 
 }
