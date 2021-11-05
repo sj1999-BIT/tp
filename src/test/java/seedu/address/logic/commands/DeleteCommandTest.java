@@ -132,7 +132,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void equalsTag() {
+    public void equalsDeleteTag() {
         TagContainsKeywordsPredicate firstPredicate =
                 new TagContainsKeywordsPredicate(Collections.singletonList("first"));
         TagContainsKeywordsPredicate secondPredicate =
