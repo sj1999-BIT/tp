@@ -25,7 +25,7 @@ public class TagInfoCommandParser implements Parser<TagInfoCommand> {
 
             if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
                 try {
-                    return new TagInfoCommand(argMultimap.getValue(PREFIX_TAG).get().split(", "));
+                    return new TagInfoCommand(argMultimap.getValue(PREFIX_TAG).get().split(" "));
                 } catch (CommandException e) {
                     throw new ParseException(e.getMessage());
                 }

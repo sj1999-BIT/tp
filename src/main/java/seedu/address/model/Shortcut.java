@@ -82,4 +82,11 @@ public class Shortcut implements ReadOnlyShortcut {
         }
         return output;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Shortcut // instanceof handles nulls
+                && shortcutMap.equals(((Shortcut) other).shortcutMap));
+    }
 }

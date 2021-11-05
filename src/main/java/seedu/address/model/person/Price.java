@@ -7,8 +7,7 @@ public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Prices should be given to 2 decimal places"
-                    + " and be numerical inputs only.";
-
+                    + " and be numerical inputs (lesser than 1000000000000000.00) only";
 
     public static final String VALIDATION_REGEX = "\\d{1,}" + "." + "\\d{2}";
 
@@ -29,7 +28,7 @@ public class Price {
      * Returns true if a given string has a valid price.
      */
     public static boolean isValidPrice(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && (Double.parseDouble(test)) <= 1000000000000000.00;
     }
 
     /**

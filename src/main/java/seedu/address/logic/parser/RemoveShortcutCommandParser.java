@@ -10,6 +10,10 @@ public class RemoveShortcutCommandParser implements Parser<RemoveShortcutCommand
 
     @Override
     public RemoveShortcutCommand parse(String userInput) throws ParseException {
-        return new RemoveShortcutCommand(userInput.trim());
+        String trimmedInput = userInput.trim();
+        if (trimmedInput.isBlank()) {
+            throw new ParseException(RemoveShortcutCommand.MESSAGE_USAGE);
+        }
+        return new RemoveShortcutCommand(trimmedInput);
     }
 }
