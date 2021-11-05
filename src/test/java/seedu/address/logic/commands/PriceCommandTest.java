@@ -37,9 +37,7 @@ public class PriceCommandTest {
     @Test
     public void execute_singleKeywords_costByCategoryCalculated() {
         String expectedMessage = "Total price for [Florist] is $300.00";
-        List<String> keywordList = new ArrayList<>();
-        keywordList.add("Florist");
-        PriceCommand command = new PriceCommand(keywordList);
+        PriceCommand command = new PriceCommand("Florist");
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
