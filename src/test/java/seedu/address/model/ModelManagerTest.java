@@ -27,6 +27,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new Shortcut(), modelManager.getShortcut());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
 
@@ -59,6 +60,41 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setShortcutFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setShortcutFilePath(null));
+    }
+
+    @Test
+    public void setShortcutFilePath_validPath_setsShortcutFilePath() {
+        Path path = Paths.get("shortcut/file/path");
+        modelManager.setShortcutFilePath(path);
+        assertEquals(path, modelManager.getShortcutFilePath());
+    }
+
+    @Test
+    public void setShortcut_nullShortcut_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setShortcut(null));
+    }
+
+    @Test
+    public void setShortcutFile_validShortcut_setsShortcutFilePath() {
+        Shortcut shortcut = new Shortcut();
+        modelManager.setShortcut(shortcut);
+        assertEquals(shortcut, modelManager.getShortcut());
+    }
+
+    @Test
+    public void addShortcut_nullShortcutKey_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addShortcut(null, null));
+    }
+
+    @Test
+    public void addShortcut_validShortcut_setsShortcut() {
+        modelManager.addShortcut("a", "list");
+        assertEquals("list", modelManager.getShortcutFromKey("a"));
     }
 
     @Test

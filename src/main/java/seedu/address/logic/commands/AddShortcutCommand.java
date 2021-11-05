@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.model.Model;
 
@@ -26,6 +27,7 @@ public class AddShortcutCommand extends Command {
      * @param commandString Command to be called
      */
     public AddShortcutCommand(String keyword, String commandString) {
+        requireAllNonNull(keyword, commandString);
         commandToUndo = new UndoCommand();
         commandToUndo.setPrevCommand(this);
         this.keyword = keyword;
@@ -43,6 +45,7 @@ public class AddShortcutCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddShortcutCommand // instanceof handles nulls
-                ); // state check
+                && keyword.equals(((AddShortcutCommand) other).keyword)
+                && commandString.equals(((AddShortcutCommand) other).commandString)); // state check
     }
 }

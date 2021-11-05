@@ -248,6 +248,7 @@ public class ModelManager implements Model {
     //=========== Shortcut ================================================================================
     @Override
     public void setShortcut(ReadOnlyShortcut shortcut) {
+        requireNonNull(shortcut);
         this.shortcut.resetData(shortcut);
     }
 
@@ -263,11 +264,13 @@ public class ModelManager implements Model {
 
     @Override
     public void addShortcut(String keyword, String commandString) {
+        requireAllNonNull(keyword, commandString);
         shortcut.addShortcut(keyword, commandString);
     }
 
     @Override
     public String getShortcutFromKey(String keyword) {
+        requireNonNull(keyword);
         return shortcut.getCommandFromKey(keyword);
     }
 
