@@ -122,4 +122,13 @@ public class PriceCommand extends Command {
 
         return totalPrice;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PriceCommand // instanceof handles nulls
+                && PREDICATE_STATUS_IS_CONFIRMED.equals(((PriceCommand) other).PREDICATE_STATUS_IS_CONFIRMED)
+                && targetTagKeywords.equals(((PriceCommand) other).targetTagKeywords)); // state check
+    }
+
 }
