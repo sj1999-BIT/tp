@@ -2,9 +2,6 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -14,7 +11,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddShortcutCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -24,10 +20,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReportCommand;
-import seedu.address.logic.commands.ListShortcutCommand;
-import seedu.address.logic.commands.RemoveShortcutCommand;
-import seedu.address.logic.commands.ShortcutCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -96,46 +88,6 @@ public class AddressBookParserTest {
     public void parseCommand_report() throws Exception {
         assertTrue(parser.parseCommand(ReportCommand.COMMAND_WORD) instanceof ReportCommand);
         assertTrue(parser.parseCommand(ReportCommand.COMMAND_WORD + " 3") instanceof ReportCommand);
-      
-    @Test
-    public void parseCommand_addsc() throws Exception {
-        String key = "k";
-        String commandString = "list";
-        AddShortcutCommand command = (AddShortcutCommand) parser.parseCommand(AddShortcutCommand.COMMAND_WORD
-            + " " + key + " c/" + commandString);
-        assertEquals(new AddShortcutCommand(key, commandString), command);
     }
 
-    @Test
-    public void parseCommand_sc() throws Exception {
-        String key = "k";
-        ShortcutCommand command = (ShortcutCommand) parser.parseCommand(ShortcutCommand.COMMAND_WORD + " "
-            + key);
-        assertEquals(new ShortcutCommand(key), command);
-    }
-
-    @Test
-    public void parseCommand_removesc() throws Exception {
-        String key = "k";
-        RemoveShortcutCommand command = (RemoveShortcutCommand) parser.parseCommand(
-                RemoveShortcutCommand.COMMAND_WORD + " " + key);
-        assertEquals(new RemoveShortcutCommand(key), command);
-    }
-
-    @Test
-    public void parseCommand_listsc() throws Exception {
-        assertTrue(parser.parseCommand(ListShortcutCommand.COMMAND_WORD) instanceof ListShortcutCommand);
-        assertTrue(parser.parseCommand(ListShortcutCommand.COMMAND_WORD + " 3") instanceof ListShortcutCommand);
-    }
-
-    @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
-    }
-
-    @Test
-    public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
-    }
 }
