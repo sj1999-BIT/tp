@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalDate.getTypicalCountdown;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -111,5 +113,29 @@ public class CountdownCommandTest {
         expectedModel.setDate(dateToSet);
 
         assertCommandSuccess(countdownCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        LocalDate futureDate = getTypicalCountdown().getDate();
+        LocalDate pastDate = LocalDate.of(2000, Month.APRIL, 29);
+        CountdownCommand setFutureCommand = new CountdownCommand(futureDate);
+        CountdownCommand setPastCommand = new CountdownCommand(pastDate);
+
+        // same object -> returns true
+        assertTrue(setFutureCommand.equals(setFutureCommand));
+
+        // same values -> returns true
+        CountdownCommand setFutureCommandCopy = new CountdownCommand(futureDate);
+        assertTrue(setFutureCommand.equals(setFutureCommandCopy));
+
+        // different types -> returns false
+        assertFalse(setFutureCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(setFutureCommand.equals(null));
+
+        // different command object -> returns false
+        assertFalse(setFutureCommand.equals(setPastCommand));
     }
 }
