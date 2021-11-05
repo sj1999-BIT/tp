@@ -2,15 +2,18 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalDate.getTypicalCountdown;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Shortcut;
 import seedu.address.model.UserPrefs;
+
 
 public class UndoCommandTest {
 
@@ -49,9 +52,13 @@ public class UndoCommandTest {
 
     @Test
     public void execute_undoSuccess() {
-        ClearCommand clear = new ClearCommand();
-        clear.execute(model);
-        commandToUndo.setPrevCommand(clear);
-        assertCommandSuccess(commandToUndo, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        try {
+            DeleteCommand delete = new DeleteCommand(INDEX_FIRST_PERSON);
+            delete.execute(model);
+            commandToUndo.setPrevCommand(delete);
+            assertCommandSuccess(commandToUndo, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        } catch (CommandException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
