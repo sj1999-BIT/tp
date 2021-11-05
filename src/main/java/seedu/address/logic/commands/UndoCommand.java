@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -20,6 +19,11 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
+    public static final String MESSAGE_USAGE = "The command keyed in must be undo.";
+
+    public static final String MESSAGE_CANNOT_UNDO = "This type of command cannot be undone.";
+    public static final String MESSAGE_INVALID_PREV_COMMAND = "The previous command was invalid - cannot undo.";
+    public static final String MESSAGE_UNDO_NOT_IMPLEMENTED = "Undo has not been implemented for this command.";
     public static final String MESSAGE_SUCCESS = "The task has been undone";
 
     private static Command prevCommand;
@@ -75,16 +79,16 @@ public class UndoCommand extends Command {
      */
     public CommandResult checkIfCanUndo(Command prev, Model model) {
         if (prev == null) {
-            return new CommandResult(String.format(Messages.MESSAGE_INVALID_PREV_COMMAND,
+            return new CommandResult(String.format(MESSAGE_INVALID_PREV_COMMAND,
                     model.getFilteredPersonList().size()));
         } else if (isInstanceOf(prev)) {
-            return new CommandResult(String.format(Messages.MESSAGE_CANNOT_UNDO_COMMAND,
+            return new CommandResult(String.format(MESSAGE_CANNOT_UNDO,
                     model.getFilteredPersonList().size()));
         } else if (prev instanceof ShortcutCommand
                 || prev instanceof AddShortcutCommand
                 || prev instanceof RemoveShortcutCommand
                 || prev instanceof CountdownCommand) {
-            return new CommandResult(String.format(Messages.MESSAGE_UNDO_NOT_IMPLEMENTED_COMMAND,
+            return new CommandResult(String.format(MESSAGE_UNDO_NOT_IMPLEMENTED,
                     model.getFilteredPersonList().size()));
         }
         return null;
@@ -181,5 +185,11 @@ public class UndoCommand extends Command {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UndoCommand); // state check
     }
 }
