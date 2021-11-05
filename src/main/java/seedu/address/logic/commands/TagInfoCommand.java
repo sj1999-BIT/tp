@@ -13,7 +13,6 @@ import seedu.address.ui.ReportWindow;
 public class TagInfoCommand extends Command {
 
     public static final String COMMAND_WORD = "tagInfo";
-
     public static final String MESSAGE_NO_INPUT = "No valid tag value is inputted";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -29,6 +28,10 @@ public class TagInfoCommand extends Command {
 
     public TagInfoCommand(String all) {
         assert all == "list";
+    }
+
+    public HashSet<Tag> getListOfTags() {
+        return listOfTags;
     }
 
     /**
@@ -82,5 +85,18 @@ public class TagInfoCommand extends Command {
         window.show();
 
         return new CommandResult("Tag Information is generated in a report window.");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof TagInfoCommand) {
+            TagInfoCommand compareCommand = (TagInfoCommand) o;
+            for (Tag tag : compareCommand.getListOfTags()) {
+                if (!this.getListOfTags().contains(tag)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
