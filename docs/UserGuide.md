@@ -450,7 +450,7 @@ To return a unique list of tags with the number of contacts labelled with the ta
 </div>
 
 Example and expected outcome:<br>
-* `tagInfo t/male, colleagues` tag Info: males used by 3 people, colleagues used by 5 people
+* `tagInfo t/male colleagues` tag Info: males used by 3 people, colleagues used by 5 people
 * `tagInfo list` returns a list with all the tags labelled by the contacts.
 
 ### Calculating wedding cost : `price`

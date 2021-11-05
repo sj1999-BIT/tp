@@ -20,41 +20,52 @@ public class ShortcutCommand extends Command {
             + "Parameters: KEYPHRASE\n"
             + "Example: " + COMMAND_WORD + " a";
 
-    public static final String COMMAND_INVALID = "Command invalid form: ";
+    public static final String COMMAND_UNKNOWN = "Command invalid form: %s\n%s";
 
     public static final String COMMAND_NOT_FOUND = "Command not found";
 
-    public static final String COMMAND_EXECUTE_ERROR = "Command execute error: ";
+    public static final String COMMAND_EXECUTE_ERROR = "Command execute error: %s\n%s";
 
     private final String shortcut;
+    private UndoCommand commandToUndo;
 
+    /**
+     * Creates a shortcut command with the key of shortcut to be called
+     * @param shortcut key of the shortcut
+     */
     public ShortcutCommand(String shortcut) {
+        requireNonNull(shortcut);
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.shortcut = shortcut;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String commandString = model.getShortcutFromKey(shortcut);
         try {
             if (commandString == null) {
-                return new CommandResult(COMMAND_NOT_FOUND);
+                commandToUndo.setPrevCommand(null);
+                throw new CommandException(COMMAND_NOT_FOUND);
             }
             Command command = (new AddressBookParser()).parseCommand(commandString);
             try {
                 return command.execute(model);
             } catch (CommandException ce) {
-                return new CommandResult(COMMAND_EXECUTE_ERROR + commandString);
+                commandToUndo.setPrevCommand(null);
+                throw new CommandException(String.format(COMMAND_EXECUTE_ERROR, commandString, ce.getMessage()));
             }
         } catch (ParseException e) {
-            return new CommandResult(COMMAND_INVALID + commandString);
+            commandToUndo.setPrevCommand(null);
+            throw new CommandException(String.format(COMMAND_UNKNOWN, commandString, e.getMessage()));
         }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ShortcutCommand) // instanceof handles nulls
-                || (shortcut.equals(((ShortcutCommand) other).shortcut)); // state check
+                || ((other instanceof ShortcutCommand) // instanceof handles nulls
+                && (shortcut.equals(((ShortcutCommand) other).shortcut))); // state check
     }
 }

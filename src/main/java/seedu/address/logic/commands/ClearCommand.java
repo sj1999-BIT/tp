@@ -36,7 +36,6 @@ public class ClearCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) {
-        boolean isClear = false;
         requireNonNull(model);
         commandToUndo = new UndoCommand();
         commandToUndo.setPrevCommand(this);
