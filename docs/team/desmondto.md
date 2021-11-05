@@ -36,7 +36,7 @@ Given below are my contributions to the project.
   * Managed releases `v1.2.1` - `v1.3` (2 releases) on GitHub
 
 * **Enhancements to existing features**:
-  * Wrote additional tests for features implemented to increase coverage from 45.61% to 49.56% (Pull requests [\#187](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/187),
+  * Wrote additional tests for features implemented to increase coverage by 4.16% (Pull requests [\#187](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/187),
     [\#188](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/188), [\#189](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/189))
 
 * **Documentation**:
