@@ -108,8 +108,12 @@ public class ParserUtil {
     public static Price parsePrice(String price) throws ParseException {
         requireNonNull(price);
         String trimmedPrice = price.trim();
-        if (!Price.isValidPrice(trimmedPrice)) {
-            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        if (!trimmedPrice.equals("")) {
+            if (!Price.isValidPrice(trimmedPrice)) {
+                throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            trimmedPrice = "0.00";
         }
         return new Price(trimmedPrice);
     }
@@ -138,10 +142,21 @@ public class ParserUtil {
     public static Status parseStatus(String status) throws ParseException {
         requireNonNull(status);
         String trimmedStatus = status.trim();
-        if (!Status.isValidStatus(trimmedStatus)) {
-            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        if (!trimmedStatus.equals("")) {
+            if (!Status.isValidStatus(trimmedStatus)) {
+                throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            trimmedStatus = "Pending";
         }
-        return new Status(trimmedStatus);
+        if (trimmedStatus.matches("[Cc]onfirmed|[Cc]")) {
+            return new Status("Confirmed");
+        } else if (trimmedStatus.matches("[Pp]ending|[Pp]")) {
+            return new Status("Pending");
+        } else {
+            return new Status("Declined");
+        }
+
     }
 
     /**
