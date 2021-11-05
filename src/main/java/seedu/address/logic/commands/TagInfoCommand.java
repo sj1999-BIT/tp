@@ -8,6 +8,7 @@ import java.util.Hashtable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.ReportWindow;
 
 public class TagInfoCommand extends Command {
 
@@ -76,6 +77,10 @@ public class TagInfoCommand extends Command {
             resultMessage += "following tags cannot be found:\n" + errorTags;
         }
 
-        return new CommandResult(resultMessage);
+        ReportWindow.setReportMessage(resultMessage);
+        ReportWindow window = new ReportWindow();
+        window.show();
+
+        return new CommandResult("Tag Information is generated in a report window.");
     }
 }

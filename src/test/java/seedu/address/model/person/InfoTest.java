@@ -15,20 +15,19 @@ public class InfoTest {
 
     @Test
     public void constructor_invalidInfo_throwsIllegalArgumentException() {
-        String invalidInfo = "";
+        String invalidInfo = "&";
         assertThrows(IllegalArgumentException.class, () -> new Info(invalidInfo));
     }
 
     @Test
     public void isValidImportantInfo() {
-        // null price
+        // null info
         assertThrows(NullPointerException.class, () -> Info.isValidInfo(null));
 
-        // invalid price
-        assertFalse(Info.isValidInfo("")); // empty string
-        assertFalse(Info.isValidInfo(" ")); // spaces only
+        // invalid info
+        assertFalse(Info.isValidInfo("*")); // use of non-alphanumeric characters
 
-        // valid price
+        // valid info
         assertTrue(Info.isValidInfo("only contactable via whatsapp"));
         assertTrue(Info.isValidInfo("none")); // no important info
     }

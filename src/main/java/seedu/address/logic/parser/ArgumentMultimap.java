@@ -64,6 +64,14 @@ public class ArgumentMultimap {
     }
 
     /**
+     * Returns the last address value of {@code prefix}.
+     */
+    public Optional<String> getAddressValue(Prefix prefix) {
+        List<String> values = getAllValues(prefix);
+        return values.isEmpty() ? Optional.of("none") : Optional.of(values.get(values.size() - 1));
+    }
+
+    /**
      * Returns all values of {@code prefix}.
      * If the prefix does not exist or has no values, this will return an empty list.
      * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.

@@ -27,6 +27,7 @@ public class PriceEqualsNumberPredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PriceEqualsNumberPredicate); // state check
+                || (other instanceof PriceEqualsNumberPredicate
+                    && price.equals(((PriceEqualsNumberPredicate) other).price)); // state check
     }
 }

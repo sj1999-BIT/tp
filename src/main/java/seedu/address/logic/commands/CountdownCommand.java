@@ -30,11 +30,14 @@ public class CountdownCommand extends Command {
             + "Hope it is not too late to organize your wedding now and WedFast wish you all the best! \uD83D\uDE00";
 
     private final LocalDate dateSetByUser;
+    private UndoCommand commandToUndo;
 
     /**
      * Creates an CountdownCommand to track the day count until the wedding date set.
      */
     public CountdownCommand() {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.dateSetByUser = null;
     }
 
@@ -42,6 +45,8 @@ public class CountdownCommand extends Command {
      * Creates an CountdownCommand to set the wedding date.
      */
     public CountdownCommand(LocalDate dateSetByUser) {
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         this.dateSetByUser = dateSetByUser;
     }
 
