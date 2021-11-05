@@ -92,4 +92,11 @@ public class CountdownCommand extends Command {
 
         return executeSetWeddingDate(model);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CountdownCommand // instanceof handles nulls
+                && dateSetByUser.equals(((CountdownCommand) other).dateSetByUser)); // state check
+    }
 }
