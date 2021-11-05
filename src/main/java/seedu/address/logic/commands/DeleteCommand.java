@@ -115,7 +115,6 @@ public class DeleteCommand extends Command {
      */
     private CommandResult executeDeleteByTag(Model model) throws CommandException {
         assert targetTag != null : "targetTag should not be null";
-        requireNonNull(model);
         deletedList = new ArrayList<>();
         model.updateFilteredPersonList(targetTagPerson);
         List<Person> filteredList = model.getFilteredPersonList();
@@ -133,6 +132,7 @@ public class DeleteCommand extends Command {
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        System.out.println("after parsing " + targetTag);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag));
     }
 

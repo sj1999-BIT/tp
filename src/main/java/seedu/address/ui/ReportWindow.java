@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Model;
 
 /**
  * Controller for a report page
@@ -13,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 public class ReportWindow extends UiPart<Stage> {
 
     private static String message;
+    private static Model modelUsed;
 
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
@@ -48,5 +50,30 @@ public class ReportWindow extends UiPart<Stage> {
         logger.fine("Displaying the current report for the application.");
         getRoot().show();
         getRoot().centerOnScreen();
+
+    }
+
+    public void setModel(Model model) {
+        modelUsed = model;
+    }
+    /**
+     * Returns true if the help window is currently being shown.
+     */
+    public boolean isShowing() {
+        return getRoot().isShowing();
+    }
+
+    /**
+     * Hides the help window.
+     */
+    public void hide() {
+        getRoot().hide();
+    }
+
+    /**
+     * Focuses on the help window.
+     */
+    public void focus() {
+        getRoot().requestFocus();
     }
 }

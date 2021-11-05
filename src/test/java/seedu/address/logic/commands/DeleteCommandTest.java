@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -10,15 +11,20 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Shortcut;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -27,6 +33,8 @@ import seedu.address.model.person.Person;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalCountdown(),
+            new UserPrefs(), new Shortcut());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalCountdown(),
             new UserPrefs(), new Shortcut());
 
     @Test
@@ -82,6 +90,26 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_validTagsFound_success() throws CommandException {
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, "[friends]");
+        TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(
+                Arrays.asList("friends".split("\\s+"))
+        );
+        DeleteCommand command = new DeleteCommand(predicate, "friends");
+        assertEquals(expectedMessage, command.execute(model).getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_noTagsFound() throws CommandException {
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_UNKNOWN_PERSON_TAG, "[random]");
+        TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(
+                Arrays.asList("random".split("\\s+"))
+        );
+        DeleteCommand command = new DeleteCommand(predicate, "random");
+        assertCommandFailure(command, model, expectedMessage);
+    }
+
+    @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
@@ -103,6 +131,34 @@ public class DeleteCommandTest {
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
+    @Test
+    public void equalsTag() {
+        TagContainsKeywordsPredicate firstPredicate =
+                new TagContainsKeywordsPredicate(Collections.singletonList("first"));
+        TagContainsKeywordsPredicate secondPredicate =
+                new TagContainsKeywordsPredicate(Collections.singletonList("second"));
+
+        DeleteCommand firstDeleteCommand = new DeleteCommand(firstPredicate, "first");
+        DeleteCommand secondDeleteCommand = new DeleteCommand(secondPredicate, "second");
+
+
+        // same object -> returns true
+        assertTrue(firstDeleteCommand.equals(firstDeleteCommand));
+
+        // same values -> returns true
+        DeleteCommand findFirstCommandCopy = new DeleteCommand(firstPredicate, "first");
+        assertTrue(firstDeleteCommand.equals(findFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(firstDeleteCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(firstDeleteCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(firstDeleteCommand.equals(secondDeleteCommand));
+    }
+
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
@@ -111,4 +167,5 @@ public class DeleteCommandTest {
 
         assertTrue(model.getFilteredPersonList().isEmpty());
     }
+
 }
