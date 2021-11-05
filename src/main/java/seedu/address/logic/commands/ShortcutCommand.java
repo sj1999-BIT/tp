@@ -27,7 +27,6 @@ public class ShortcutCommand extends Command {
     public static final String COMMAND_EXECUTE_ERROR = "Command execute error: %s\n%s";
 
     private final String shortcut;
-  
     private UndoCommand commandToUndo;
 
     /**
