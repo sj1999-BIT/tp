@@ -54,8 +54,9 @@ public class GroupCommand extends Command {
     /**
      * Creates a string that indicates all the names that have been added with the tag.
      * It also indicates if all the name have been added or if some names have failed.
-     * @param model is the main ModelManager class used by the current user
-     * @param result is the string that contains the final message to be sent
+     *
+     * @param model      is the main ModelManager class used by the current user
+     * @param result     is the string that contains the final message to be sent
      * @param targetName is the string name that is used to identify the target person to be edited
      * @return the message string
      */
@@ -91,11 +92,13 @@ public class GroupCommand extends Command {
                 isTagAdded = true;
                 returnMessage = addTagToContact(model, returnMessage, name);
             } else if (isTagAdded) {
+                commandToUndo.setPrevCommand(null);
                 return new CommandResult(returnMessage
                         + nameStringLists
                         + "\n"
                         + MESSAGE_FAILURE);
             } else {
+                commandToUndo.setPrevCommand(null);
                 return new CommandResult(MESSAGE_FAILURE);
             }
         }

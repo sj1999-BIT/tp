@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -15,29 +16,38 @@ public class RemoveShortcutCommand extends Command {
             + "Parameters: KEYWORDS c/[Command to be executed]\n"
             + "Example: " + COMMAND_WORD + " a";
 
+    public static final String SHORTCUT_NOT_FOUND = "Command with keyword %s not found";
+    public static final String SHORTCUT_REMOVE_SUCCESS = "Removed %s: %s";
+
     private final String keyword;
+    private UndoCommand commandToUndo;
 
     /**
      * Creates new {@code RemoveShortcutCommand}
      * @param keyword Key to call the command
      */
     public RemoveShortcutCommand(String keyword) {
+        requireNonNull(keyword);
         this.keyword = keyword;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        commandToUndo = new UndoCommand();
+        commandToUndo.setPrevCommand(this);
         String commandString = model.removeShortcut(keyword);
         if (commandString == null) {
-            return new CommandResult("Command with keyword " + keyword + " not found");
+            commandToUndo.setPrevCommand(null);
+            throw new CommandException(String.format(SHORTCUT_NOT_FOUND, keyword));
         }
-        return new CommandResult("Removed " + keyword + ": " + commandString);
+        return new CommandResult(String.format(SHORTCUT_REMOVE_SUCCESS, keyword, commandString));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RemoveShortcutCommand); // instanceof handles nulls
+                || ((other instanceof RemoveShortcutCommand)
+                && keyword.equals(((RemoveShortcutCommand) other).keyword)); // stateCheck
     }
 }
