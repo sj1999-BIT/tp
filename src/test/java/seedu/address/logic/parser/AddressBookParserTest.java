@@ -103,7 +103,7 @@ public class AddressBookParserTest {
         String key = "k";
         String commandString = "list";
         AddShortcutCommand command = (AddShortcutCommand) parser.parseCommand(AddShortcutCommand.COMMAND_WORD
-                + " " + key + " c/" + commandString);
+            + " " + key + " c/" + commandString);
         assertEquals(new AddShortcutCommand(key, commandString), command);
     }
 
@@ -111,7 +111,7 @@ public class AddressBookParserTest {
     public void parseCommand_sc() throws Exception {
         String key = "k";
         ShortcutCommand command = (ShortcutCommand) parser.parseCommand(ShortcutCommand.COMMAND_WORD + " "
-                + key);
+            + key);
         assertEquals(new ShortcutCommand(key), command);
     }
 
