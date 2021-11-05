@@ -52,28 +52,4 @@ public class ReportWindow extends UiPart<Stage> {
         getRoot().centerOnScreen();
 
     }
-
-    public void setModel(Model model) {
-        modelUsed = model;
-    }
-    /**
-     * Returns true if the help window is currently being shown.
-     */
-    public boolean isShowing() {
-        return getRoot().isShowing();
-    }
-
-    /**
-     * Hides the help window.
-     */
-    public void hide() {
-        getRoot().hide();
-    }
-
-    /**
-     * Focuses on the help window.
-     */
-    public void focus() {
-        getRoot().requestFocus();
-    }
 }

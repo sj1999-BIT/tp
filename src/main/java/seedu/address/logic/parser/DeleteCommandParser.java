@@ -52,7 +52,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             }
             String tagUsed = tags[1];
             String[] tagKeywords = tagUsed.trim().split("\\s+");
-            System.out.println("before parsing " + tagUsed);
             return new DeleteCommand(new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)), tagUsed);
         } catch (ParseException pe) {
             throw new ParseException(

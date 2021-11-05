@@ -132,7 +132,6 @@ public class DeleteCommand extends Command {
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        System.out.println("after parsing " + targetTag);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag));
     }
 
