@@ -96,13 +96,14 @@ public class AddressBookParserTest {
     public void parseCommand_report() throws Exception {
         assertTrue(parser.parseCommand(ReportCommand.COMMAND_WORD) instanceof ReportCommand);
         assertTrue(parser.parseCommand(ReportCommand.COMMAND_WORD + " 3") instanceof ReportCommand);
+    }
 
     @Test
     public void parseCommand_addsc() throws Exception {
         String key = "k";
         String commandString = "list";
         AddShortcutCommand command = (AddShortcutCommand) parser.parseCommand(AddShortcutCommand.COMMAND_WORD
-            + " " + key + " c/" + commandString);
+                + " " + key + " c/" + commandString);
         assertEquals(new AddShortcutCommand(key, commandString), command);
     }
 
@@ -110,7 +111,7 @@ public class AddressBookParserTest {
     public void parseCommand_sc() throws Exception {
         String key = "k";
         ShortcutCommand command = (ShortcutCommand) parser.parseCommand(ShortcutCommand.COMMAND_WORD + " "
-            + key);
+                + key);
         assertEquals(new ShortcutCommand(key), command);
     }
 
@@ -131,11 +132,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
+    
 }
