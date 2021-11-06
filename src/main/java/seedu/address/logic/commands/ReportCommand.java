@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +24,13 @@ public class ReportCommand extends Command {
     private static int totalConfirmedCount;
     private static int totalPendingCount;
     private static int totalDeclinedCount;
+
+    /**
+     * Creates new {@code ReportCommand}
+     */
+    public ReportCommand() {
+
+    }
 
     /**
      * Checks for tag in the existing report arraylist. If it is present, the corresponding report element is
@@ -168,9 +177,16 @@ public class ReportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         ReportWindow.setReportMessage(createReport(model));
         ReportWindow window = new ReportWindow();
         window.show();
         return new CommandResult(SHOWING_REPORT_MESSAGE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReportCommand);
     }
 }

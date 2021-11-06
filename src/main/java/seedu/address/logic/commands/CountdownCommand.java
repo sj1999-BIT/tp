@@ -50,20 +50,9 @@ public class CountdownCommand extends Command {
         this.dateSetByUser = dateSetByUser;
     }
 
-    /**
-     * Returns the day count based on the wedding date set by user.
-     *
-     * @param model The app model used to retrieve the wedding date set by user.
-     * @return the day count based on the wedding date set by user.
-     */
-    public static int getCountdown(Model model) {
-        LocalDate weddingDate = model.getCountdown().getDate();
-        return (int) LocalDate.now().until(weddingDate, ChronoUnit.DAYS);
-    }
-
     /** Calculates and shows the day count before the wedding day. */
     private CommandResult executeShowCountDown(Model model) {
-        LocalDate weddingDate = model.getCountdown().getDate();
+        LocalDate weddingDate = model.getWeddingDate();
         int numDays = (int) LocalDate.now().until(weddingDate, ChronoUnit.DAYS);
 
         if (numDays < 0) {
@@ -102,5 +91,12 @@ public class CountdownCommand extends Command {
         }
 
         return executeSetWeddingDate(model);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CountdownCommand // instanceof handles nulls
+                && dateSetByUser.equals(((CountdownCommand) other).dateSetByUser)); // state check
     }
 }
