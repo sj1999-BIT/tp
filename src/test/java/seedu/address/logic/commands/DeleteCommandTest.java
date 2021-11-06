@@ -146,7 +146,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteTagcommand = new DeleteCommand(predicate, "random");
         assertCommandFailure(deleteTagcommand, model, expectedMessage);
     }
-  
+
     @Test
     public void execute_invalidNameFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
