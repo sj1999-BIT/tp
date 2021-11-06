@@ -214,7 +214,18 @@ Below is a simplified sequence diagram showing how a `ShortcutCommand` would int
 
 The following activity diagram summarizes what happens when a user executes a shortcut-keyword command:
 
-<img src="images/ShortcutActivityDiagram.png" width="380" />
+<img src="images/ShortcutActivityDiagram.png" width="400" />
+
+#### Design considerations:
+
+**Aspect: When to check if shortcut command is valid:**
+
+* **Alternative 1 (current choice):** Check when it is called by `sc`
+    * Pros: Less intensive on the system. User can still check if command is correct by eye using `listsc`
+    * Cons: User needs to make sure they add the correct command themselves
+* **Alternative 2:** Check when it is added by `addsc`
+    * Pros: User can avoid the case where they add an invalid command
+    * Cons: Bug Prone. Commands may have runtime errors depending on the state of the `AddressBook` (Unable to tell if command is invalid). 
 
 ### Delete by name feature
 #### Implementation
@@ -596,9 +607,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees:**
 * A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
 
+**MSS**
+
 1. When adding/editing contact, user also types in the price detail.
 2. User confirms.
-3. System updates the contact list and the target contact will now have price tag(s).
+3. System updates the contact list and the target contact will now have price tag(s).<br>
     Use case ends.
 
 **Extensions**
@@ -607,6 +620,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a2. User indicates the error message has been read.<br>
       Use case resumes at step 1.
 
+
+**Use case: Executes a shortcut**
+
+**Guarantees:**
+* Shortcut will only be executed if shortcut exists and command is valid.
+
+**MSS**
+
+1. User calls a shortcut
+2. Command String attached to the shortcut keyword is called
+3. System runs the command attached at the user story of that command will run <br>
+Use case ends.
+
+**Extensions**
+* 1a. Shortcut keyword used does not exist
+    * 1a1. System shows an error message.
+      Use case resumes at step 1.
+* 3a. Shortcut command string is an invalid command
+    * 3a1. System shows an error message.
+      Use case resumes at step 1.
+* 3b. Running the command result in error
+    * 3b1. System shows the error message of the command
+      Use case resumes at step 1.
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -630,6 +666,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Filter**: Add tags to contacts such as price, type of contact
 * **Actor**: a role played by a use case
+* **Keyword**: Keyword used to call a shortcut
+* **Command String**: Command attached to the keyword of the shortcut
+
 
 --------------------------------------------------------------------------------------------------------------------
 
