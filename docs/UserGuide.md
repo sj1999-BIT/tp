@@ -60,7 +60,7 @@ title: User Guide
 
 You can use _WedFast_ to **add, edit and delete contacts**. Contacts you include need not be limited to guests who are attending
 your wedding. They can also consist of people you are hiring such as your photographer and costume designer. On this basis, to better 
-facilitate the management of various contacts,_WedFast_ allows you to **add tags to contacts, calculate the cost, and even generate a detailed report for
+facilitate the management of various contacts, _WedFast_ allows you to **add tags to contacts, calculate the cost, and even generate a detailed report for
 your wedding plan!**
 
 Excited to try _WedFast_ out? This user guide **will walk you through all the latest features, troubleshoot your
