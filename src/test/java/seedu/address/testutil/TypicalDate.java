@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import seedu.address.model.Countdown;
 
 public class TypicalDate {
-    // Manually added - Person's details found in {@code CommandTestUtil}
     public static final LocalDate MY_WEDDING_DATE = VALID_DATE;
 
     private TypicalDate() {

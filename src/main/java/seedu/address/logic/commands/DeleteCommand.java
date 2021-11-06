@@ -175,9 +175,12 @@ public class DeleteCommand extends Command {
         boolean hasPerson = false;
         List<Person> originalList = model.getFilteredPersonList();
 
+        Person deletedPerson = null;
         for (int i = 0; i < originalList.size(); i++) {
             personToDelete = originalList.get(i);
-            if (personToDelete.getName().equals(targetName)) {
+            Name nameToDelete = personToDelete.getName();
+            if (nameToDelete.equals(targetName)) {
+                deletedPerson = personToDelete;
                 model.deletePerson(personToDelete);
                 nameIndex = Index.fromZeroBased(i);
                 hasPerson = true;
@@ -186,13 +189,11 @@ public class DeleteCommand extends Command {
         }
 
         if (!hasPerson) {
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             commandToUndo.setPrevCommand(null);
             throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_NAME, targetName));
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetName));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson));
     }
 
     public Person getPersonToDelete() {
