@@ -13,39 +13,39 @@ title: User Guide
 
 * [**Product Overview**](#product-overview)
 * [**About This User Guide**](#about-this-user-guide)
- * [How to navigate this guide?](#how-to-navigate-this-guide)
- * [What do these icons mean?](#what-do-these-icons-mean)
- * [What do these formats mean?](#what-do-these-formats-mean)
+  * [How to navigate this guide?](#how-to-navigate-this-guide)
+  * [What do these icons mean?](#what-do-these-icons-mean)
+  * [What do these formats mean?](#what-do-these-formats-mean)
 * [**Getting Started**](#getting-started)
- * [Installation](#installation)
- * [Using command-line interface(CLI)](#using-command-line-interface-cli)
+  * [Installation](#installation)
+  * [Using command-line interface(CLI)](#using-command-line-interface-cli)
 * [**Features**](#features)
- * [Viewing help : `help`](#viewing-help--help)
- * [Adding a person : `add`](#adding-a-person--add)
- * [Listing all persons : `list`](#listing-all-persons--list)
- * [Editing a person : `edit`](#editing-a-person--edit)
- * [Grouping persons : `group`](#grouping-persons--group)
- * [Locating persons : `find`](#locating-persons--find)
- * [Deleting a person : `delete`](#deleting-a-person--delete)
- * [Clearing all entries : `clear`](#clearing-all-entries--clear)
- * [Undoing last change : `undo`](#undoing-last-change--undo)
- * [Counting down to the wedding day : `countdown`](#counting-down-to-the-wedding-day--countdown)
- * [Counting head by tag : `tagInfo`](#counting-head-by-tag--taginfo)
- * [Calculating wedding cost : `price`](#calculating-wedding-cost--price)
- * [Getting your wedding plan report : `report`](#getting-your-wedding-plan-report--report)
- * [Adding customizable shortcuts : `addsc`](#adding-customizable-shortcuts--addsc)
- * [Using shortcuts : `sc`](#using--shortcuts--sc)
- * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
- * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
- * [Exiting the program : `exit`](#exiting-the-program--exit)
- * [Saving the data file](#saving-the-data-file)
- * [Editing the data file](#editing-the-data-file)
- * [Ungrouping persons: `ungroup`](#ungrouping-persons--ungroup-coming-soon) (Coming soon)
- * [Redoing last change : `redo`](#redoing-last-change--redo-coming-soon) (Coming soon)
- * [Reminding via email : `remind`](#reminding-via-email--remind-coming-soon) (Coming soon)
+  * [Viewing help : `help`](#viewing-help--help)
+  * [Adding a person : `add`](#adding-a-person--add)
+  * [Listing all persons : `list`](#listing-all-persons--list)
+  * [Editing a person : `edit`](#editing-a-person--edit)
+  * [Grouping persons : `group`](#grouping-persons--group)
+  * [Locating persons : `find`](#locating-persons--find)
+  * [Deleting a person : `delete`](#deleting-a-person--delete)
+  * [Clearing all entries : `clear`](#clearing-all-entries--clear)
+  * [Undoing last change : `undo`](#undoing-last-change--undo)
+  * [Counting down to the wedding day : `countdown`](#counting-down-to-the-wedding-day--countdown)
+  * [Counting head by tag : `tagInfo`](#counting-head-by-tag--taginfo)
+  * [Calculating wedding cost : `price`](#calculating-wedding-cost--price)
+  * [Getting your wedding plan report : `report`](#getting-your-wedding-plan-report--report)
+  * [Adding customizable shortcuts : `addsc`](#adding-customizable-shortcuts--addsc)
+  * [Using shortcuts : `sc`](#using--shortcuts--sc)
+  * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
+  * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
+  * [Exiting the program : `exit`](#exiting-the-program--exit)
+  * [Saving the data file](#saving-the-data-file)
+  * [Editing the data file](#editing-the-data-file)
+  * [Ungrouping persons: `ungroup`](#ungrouping-persons--ungroup-coming-soon) (Coming soon)
+  * [Redoing last change : `redo`](#redoing-last-change--redo-coming-soon) (Coming soon)
+  * [Reminding via email : `remind`](#reminding-via-email--remind-coming-soon) (Coming soon)
 * [**FAQ**](#faq)
- * [About the program](#about-the-program)
- * [About the command](#about-the-command)
+  * [About the program](#about-the-program)
+  * [About the command](#about-the-command)
 * [**Command Summary**](#command-summary)
 * [**Glossary**](#glossary)
 <div style="page-break-after: always;"></div>
@@ -78,15 +78,15 @@ In this section, you will learn how to use this guide.**
 
 ### How to navigate this guide?
 1. **Navigating up or down** this user guide via either of the following methods:
-  *Scroll up or down using your mouse wheel.
-  *Press ↑ or ↓ button on your keyboard.
+  * Scroll up or down using your mouse wheel.
+  * Press ↑ or ↓ button on your keyboard.
 
 2. **Jumping to a different section** of this user guide:
-  *Click on any content you want to read in the [Table of Contents](#table-of-contents).
+  * Click on any content you want to read in the [Table of Contents](#table-of-contents).
 
 3. **Finding keywords** in this user guide:
-  *Press CTRL + F and type in some keywords.
-  *Press Enter to navigate to each keyword found in this user guide.
+  * Press CTRL + F and type in some keywords.
+  * Press Enter to navigate to each keyword found in this user guide.
 
 ### What do these icons mean?
 
