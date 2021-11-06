@@ -179,6 +179,7 @@ public class ReportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         ReportWindow.setReportMessage(createReport(model));
+        System.out.println(createReport(model));
         ReportWindow window = new ReportWindow();
         window.show();
         return new CommandResult(SHOWING_REPORT_MESSAGE);
