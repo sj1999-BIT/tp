@@ -192,6 +192,29 @@ The following activity diagram summarizes what happens when a user executes a fi
     * Pros: Consistent with how multiple names work with the `find [NAMES]` function
     * Cons: Less likely to be used as additional parameters won't increase effectiveness of query.
 
+### Shortcut features
+#### Implementation
+The shortcut implementation is facilitated by a Shortcut module with four commands: `sc`, `addsc`, `removesc`, and `listsc`. Each responsible for the call shortcut, add shortcut, remove shortcut, and list shortcut functions respectively. 
+
+`Shortcut` mechanism is similar to `AddressBook` but instead stores a `HashMap<String, String>` of shortcuts corresponding to its `key` and `commandString`. To store it in JSON, `JsonShortcutStorage` use `JsonSerializableShortcut` to read and write from the JSON file. The storage architecture can be seen in the diagram above.
+
+Given below is an example usage scenario and how the shortcut mechanisms behaves at each step.
+
+Step 1. The user launches the applicatio nand has the following person list saved. `Shortcut` stores this in the shortcutMap.
+
+![Shortcuts0](images/Shortcuts0.png)
+
+Step 2. The user executes `sc f` to call the shortcut `f` leading to the command `find pr/>0.00` to be called. The `sc` command first calls `Model#getShortcutFromKey()` to obtain the command from the model.
+
+Step 3. The `sc` command takes this new command and parses it in the `AddressBookParser`. If this succeeds command in the `commandString` is executed on the same model.  
+
+Below is a simplified sequence diagram showing how a `ShortcutCommand` would interact with the logic component. The interactions of the `FindCommand` stored in the `commandString` is simpified as the main focus of this diagram is the shortcut functionality.
+
+![Interactions Inside the Logic Component for the `sc f` Command](images/ShortcutCommandSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a shortcut-keyword command:
+
+<img src="images/ShortcutActivityDiagram.png" width="380" />
 
 ### Delete by name feature
 #### Implementation
