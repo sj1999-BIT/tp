@@ -327,7 +327,7 @@ Furthermore, the price must be entered with 2 decimal points.
 ### Deleting a person : `delete`
 This feature allows you to remove a person's entry in your contact that you no longer wish to track in the future.
 
-To delete a person from the contact list via index/name/tag:
+To delete a person from the contact list via the index/name/tag:
 1. Type the command in the command box with either of the following formats:<br>
     * `delete INDEX` or <br>
     * `delete n/NAME` or <br>
