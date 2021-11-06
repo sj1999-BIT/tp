@@ -13,39 +13,39 @@ title: User Guide
 
 * [**Product Overview**](#product-overview)
 * [**About This User Guide**](#about-this-user-guide)
-    * [How to navigate this guide?](#how-to-navigate-this-guide)
-    * [What do these icons mean?](#what-do-these-icons-mean)
-    * [What do these formats mean?](#what-do-these-formats-mean)
+* [How to navigate this guide?](#how-to-navigate-this-guide)
+* [What do these icons mean?](#what-do-these-icons-mean)
+* [What do these formats mean?](#what-do-these-formats-mean)
 * [**Getting Started**](#getting-started)
-    * [Installation](#installation)
-    * [Using command-line interface(CLI)](#using-command-line-interface-cli)
+* [Installation](#installation)
+* [Using command-line interface(CLI)](#using-command-line-interface-cli)
 * [**Features**](#features)
-    * [Viewing help : `help`](#viewing-help--help)
-    * [Adding a person : `add`](#adding-a-person--add)
-    * [Listing all persons : `list`](#listing-all-persons--list)
-    * [Editing a person : `edit`](#editing-a-person--edit)
-    * [Grouping persons : `group`](#grouping-persons--group)
-    * [Locating persons : `find`](#locating-persons--find)
-    * [Deleting a person : `delete`](#deleting-a-person--delete)
-    * [Clearing all entries : `clear`](#clearing-all-entries--clear)
-    * [Undoing last change : `undo`](#undoing-last-change--undo)
-    * [Counting down to the wedding day : `countdown`](#counting-down-to-the-wedding-day--countdown)
-    * [Counting head by tag : `tagInfo`](#counting-head-by-tag--taginfo)
-    * [Calculating wedding cost : `price`](#calculating-wedding-cost--price)
-    * [Getting your wedding plan report : `report`](#getting-your-wedding-plan-report--report)
-    * [Adding customizable shortcuts : `addsc`](#adding-customizable-shortcuts--addsc)
-    * [Using shortcuts : `sc`](#using--shortcuts--sc)
-    * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
-    * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
-    * [Exiting the program : `exit`](#exiting-the-program--exit)
-    * [Saving the data file](#saving-the-data-file)
-    * [Editing the data file](#editing-the-data-file)
-    * [Ungrouping persons: `ungroup`](#ungrouping-persons--ungroup-coming-soon) (Coming soon)
-    * [Redoing last change : `redo`](#redoing-last-change--redo-coming-soon) (Coming soon)
-    * [Reminding via email : `remind`](#reminding-via-email--remind-coming-soon) (Coming soon)
+* [Viewing help : `help`](#viewing-help--help)
+* [Adding a person : `add`](#adding-a-person--add)
+* [Listing all persons : `list`](#listing-all-persons--list)
+* [Editing a person : `edit`](#editing-a-person--edit)
+* [Grouping persons : `group`](#grouping-persons--group)
+* [Locating persons : `find`](#locating-persons--find)
+* [Deleting a person : `delete`](#deleting-a-person--delete)
+* [Clearing all entries : `clear`](#clearing-all-entries--clear)
+* [Undoing last change : `undo`](#undoing-last-change--undo)
+* [Counting down to the wedding day : `countdown`](#counting-down-to-the-wedding-day--countdown)
+* [Counting head by tag : `tagInfo`](#counting-head-by-tag--taginfo)
+* [Calculating wedding cost : `price`](#calculating-wedding-cost--price)
+* [Getting your wedding plan report : `report`](#getting-your-wedding-plan-report--report)
+* [Adding customizable shortcuts : `addsc`](#adding-customizable-shortcuts--addsc)
+* [Using shortcuts : `sc`](#using--shortcuts--sc)
+* [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
+* [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
+* [Exiting the program : `exit`](#exiting-the-program--exit)
+* [Saving the data file](#saving-the-data-file)
+* [Editing the data file](#editing-the-data-file)
+* [Ungrouping persons: `ungroup`](#ungrouping-persons--ungroup-coming-soon) (Coming soon)
+* [Redoing last change : `redo`](#redoing-last-change--redo-coming-soon) (Coming soon)
+* [Reminding via email : `remind`](#reminding-via-email--remind-coming-soon) (Coming soon)
 * [**FAQ**](#faq)
-    * [About the program](#about-the-program)
-    * [About the command](#about-the-command)
+* [About the program](#about-the-program)
+* [About the command](#about-the-command)
 * [**Command Summary**](#command-summary)
 * [**Glossary**](#glossary)
 <div style="page-break-after: always;"></div>
@@ -58,13 +58,13 @@ title: User Guide
 [Command Line Interface](#command-line-interface-cli) (CLI) while still having the benefits of a
 [Graphical User Interface](#graphical-user-interface-gui) (GUI).**
 
-You can use _WedFast_ to **add, edit and delete the contacts**. These contacts are not just limited to those attending
-your wedding, it can also be those you are hiring such as your photographer and costume designer. On this basis,
-_WedFast_ allows you to **add tags to these contacts, calculate the cost, and even generate a detailed report for
+You can use _WedFast_ to **add, edit and delete contacts**. Contacts you include need not be limited to guests who are attending
+your wedding. They can also consist of people you are hiring such as your photographer and costume designer. On this basis, to better facilitate the management of various contacts,
+_WedFast_ allows you to **add tags to contacts, calculate the cost, and even generate a detailed report for
 your wedding plan!**
 
-Excited to try _WedFast_ out? This user guide **walks you through all the latest features, troubleshoots your
-problems and provides you with a command summary to boost your efficiency!**
+Excited to try _WedFast_ out? This user guide **will walk you through all the latest features, troubleshoot your
+problems and provide you with a command summary to boost your efficiency!**
 <div style="page-break-after: always;"></div>
 
 ---
@@ -78,15 +78,15 @@ In this section, you will learn how to use this guide.**
 
 ### How to navigate this guide?
 1. **Navigating up or down** this user guide via either of the following methods:
-* Scroll up or down using your mouse wheel.
-* Press ↑ or ↓ button on your keyboard.
+*   Scroll up or down using your mouse wheel.
+*   Press ↑ or ↓ button on your keyboard.
 
 2. **Jumping to a different section** of this user guide:
-* Click on any content you want to read in the [Table of Contents](#table-of-contents).
+*   Click on any content you want to read in the [Table of Contents](#table-of-contents).
 
 3. **Finding keywords** in this user guide:
-* Press CTRL + F and type in some keywords.
-* Press Enter to navigate to each keyword found in this user guide.
+*   Press CTRL + F and type in some keywords.
+*   Press Enter to navigate to each keyword found in this user guide.
 
 ### What do these icons mean?
 
@@ -139,15 +139,15 @@ _Italic text_        | The name of this product or a file path.
    e.g. typing `help` and pressing Enter will open the help window.<br>
 
 2. Some example commands you can try:
-    * `list` : Lists all contacts.
+   * `list` : Lists all contacts.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to the Address Book.
 
-    * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-    * `clear` : Deletes all contacts.
+   * `clear` : Deletes all contacts.
 
-    * `exit` : Exits the app.
+   * `exit` : Exits the app.
 
 3. Congratulations on finishing up the basics! You can refer to the [Features](#features) below for more details of
    each command.
@@ -196,7 +196,7 @@ future.
 
 To add a person to the contact list:
 1. Type the command in the command box with the following format:<br>
-   `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [s/STATUS] [t/TAG]…​`
+`add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [s/STATUS] [t/TAG]…​`
 2. Press Enter.
 
 <div markdown="block" class="alert alert-info">
@@ -235,7 +235,7 @@ To lists all the existing contacts.
 2. Press Enter.
 
 ### Editing a person : `edit`
-This feature allows you to update a person's detail at the specified index, so that you can replace the incorrect and
+This feature allows you to update a person's details at the specified index, so that you can replace the incorrect and
 outdated data with the correct and updated one.
 
 To edit an existing person in the contact list:
@@ -284,8 +284,8 @@ To group existing persons in the contact list together to an existing named tag 
 * You cannot add two or more same `TAG` to a contact (no duplicate `TAG`).
 * The developer team is now working on the feature where you can ungroup persons (remove a tag from multiple persons at
   once). To ungroup persons, you can still do either of the following:
-    * [Undo](#undoing-last-change--undo) soon after you group the contacts
-    * Remove tags from a contact by [editing his/her tag](#editing-a-person--edit)
+  * [Undo](#undoing-last-change--undo) soon after you group the contacts
+  * Remove tags from a contact by [editing his/her tag](#editing-a-person--edit)
 </div>
 
 Example:<br>
@@ -325,7 +325,7 @@ Find currently only supports name, tags and price range. Price range operators i
 Furthermore, the price must be entered with 2 decimal points.
 
 ### Deleting a person : `delete`
-This feature allows you to remove a person's entry in your contact that you no longer wish to track in the future.
+This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
 
 To delete a person from the contact list via the index/name/tag:
 1. Type the command in the command box with either of the following formats:<br>
@@ -337,7 +337,7 @@ To delete a person from the contact list via the index/name/tag:
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-It deletes a person's entry permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
+It deletes a person entry permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
 if you wish to.
 </div>
 
@@ -371,7 +371,7 @@ To clear all entries in the contact list:
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-It deletes all the existing persons' entries permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
+It deletes all the existing person entries permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
 if you wish to.
 </div>
 
@@ -406,7 +406,7 @@ Examples and expected outcomes for undoing 'group' command:
   ![group](images/UndoGroup2.png)
 
 Examples and expected outcomes for undoing 'clear' command:
-* Clear all persons' entries in the contact list with command `clear`:
+* Clear all person entries in the contact list with command `clear`:
   ![clear](images/UndoClear1.png)
 * Undo the clear with command `undo`:
   ![clear](images/UndoClear2.png)
@@ -440,8 +440,8 @@ This feature allows you to obtain a list of the number of contacts under each ta
 
 To return a unique list of tags with the number of contacts labeled with the tag.
 1. Type the command in the command box with either of the following formats:<br>
-    * `tagInfo [t/TAG]…​` or
-    * `tagInfo list`
+   * `tagInfo [t/TAG]…​` or
+   * `tagInfo list`
 2. Press Enter
 
 <div markdown="block" class="alert alert-success">
@@ -459,8 +459,8 @@ This feature helps you calculate your wedding expenses so that you can stick to 
 
 To calculate the expenses:
 1. Type the command in the command box with the following format:
-    * `price` (For over wedding cost)
-    * `price t/TAG [t/TAG]…​` (For the cost under 1 or more category, specified by `TAG`)
+   * `price` (For over wedding cost)
+   * `price t/TAG [t/TAG]…​` (For the cost under 1 or more category, specified by `TAG`)
 2. Press Enter
 
 <div markdown="block" class="alert alert-success">
@@ -508,7 +508,7 @@ This feature allows you to use any shortcut added.
 
 To call the command bound to the shortcut:
 1. Type the command in the command box with either of the following formats:<br>
-   `sc SHORTCUT`
+    `sc SHORTCUT`
 2. Press Enter
 
 <div markdown="block" class="alert alert-success">
@@ -531,7 +531,7 @@ To view all shortcuts available for the user:
 
 **:bulb: Tip:**<br>
 * An empty list of shortcuts means you have not added any shortcut yet. You can learn how to add a shortcut
-  [here](#adding-customizable-shortcuts--addsc)
+[here](#adding-customizable-shortcuts--addsc)
 </div>
 
 ### Deleting shortcuts : `removesc`
@@ -539,7 +539,7 @@ This feature allows you to remove the shortcut added.
 
 To remove a shortcut:
 1. Type the command in the command box with either of the following formats:<br>
-   `removesc SHORTCUT`
+    `removesc SHORTCUT`
 2. Press Enter
 
 <div markdown="block" class="alert alert-success">
@@ -605,7 +605,7 @@ _WedFast's_ developers are now working on it. Please wait patiently for the next
 ### About the program
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous _WedFast_ home folder.
+       the data of your previous _WedFast_ home folder.
 
 ### About the command
 **Q**: Where can I get the cheat sheet for the command syntax?<br>
