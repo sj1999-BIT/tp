@@ -13,39 +13,39 @@ title: User Guide
 
 * [**Product Overview**](#product-overview)
 * [**About This User Guide**](#about-this-user-guide)
-  * [How to navigate this guide?](#how-to-navigate-this-guide)
-  * [What do these icons mean?](#what-do-these-icons-mean)
-  * [What do these formatting mean?](#what-do-these-formatting-mean)
+    * [How to navigate this guide?](#how-to-navigate-this-guide)
+    * [What do these icons mean?](#what-do-these-icons-mean)
+    * [What do these formats mean?](#what-do-these-formats-mean)
 * [**Getting Started**](#getting-started)
-  * [Installation](#installation)
-  * [Using command-line interface(CLI)](#using-command-line-interface-cli)
+    * [Installation](#installation)
+    * [Using command-line interface(CLI)](#using-command-line-interface-cli)
 * [**Features**](#features)
-  * [Viewing help : `help`](#viewing-help--help)
-  * [Adding a person : `add`](#adding-a-person--add)
-  * [Listing all persons : `list`](#listing-all-persons--list)
-  * [Editing a person : `edit`](#editing-a-person--edit)
-  * [Grouping persons : `group`](#grouping-persons--group)
-  * [Locating persons : `find`](#locating-persons--find)
-  * [Deleting a person : `delete`](#deleting-a-person--delete)
-  * [Clearing all entries : `clear`](#clearing-all-entries--clear)
-  * [Undoing last change : `undo`](#undoing-last-change--undo)
-  * [Counting down to the wedding day : `countdown`](#counting-down-to-the-wedding-day--countdown)
-  * [Counting head by tag : `tagInfo`](#counting-head-by-tag--taginfo)
-  * [Calculating wedding cost : `price`](#calculating-wedding-cost--price)
-  * [Getting your wedding plan report : `report`](#getting-your-wedding-plan-report--report)
-  * [Adding customizable shortcuts : `addsc`](#adding-customizable-shortcuts--addsc)
-  * [Using shortcuts : `sc`](#using--shortcuts--sc)
-  * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
-  * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
-  * [Exiting the program : `exit`](#exiting-the-program--exit)
-  * [Saving the data file](#saving-the-data-file)
-  * [Editing the data file](#editing-the-data-file)
-  * [Ungrouping persons: `ungroup`](#ungrouping-persons--ungroup-coming-soon) (Coming soon)
-  * [Redoing last change : `redo`](#redoing-last-change--redo-coming-soon) (Coming soon)
-  * [Reminding via email : `remind`](#reminding-via-email--remind-coming-soon) (Coming soon)
+    * [Viewing help : `help`](#viewing-help--help)
+    * [Adding a person : `add`](#adding-a-person--add)
+    * [Listing all persons : `list`](#listing-all-persons--list)
+    * [Editing a person : `edit`](#editing-a-person--edit)
+    * [Grouping persons : `group`](#grouping-persons--group)
+    * [Locating persons : `find`](#locating-persons--find)
+    * [Deleting a person : `delete`](#deleting-a-person--delete)
+    * [Clearing all entries : `clear`](#clearing-all-entries--clear)
+    * [Undoing last change : `undo`](#undoing-last-change--undo)
+    * [Counting down to the wedding day : `countdown`](#counting-down-to-the-wedding-day--countdown)
+    * [Counting head by tag : `tagInfo`](#counting-head-by-tag--taginfo)
+    * [Calculating wedding cost : `price`](#calculating-wedding-cost--price)
+    * [Getting your wedding plan report : `report`](#getting-your-wedding-plan-report--report)
+    * [Adding customizable shortcuts : `addsc`](#adding-customizable-shortcuts--addsc)
+    * [Using shortcuts : `sc`](#using--shortcuts--sc)
+    * [Viewing shortcuts : `listsc`](#viewing-shortcuts--listsc)
+    * [Deleting shortcuts : `removesc`](#deleting-shortcuts--removesc)
+    * [Exiting the program : `exit`](#exiting-the-program--exit)
+    * [Saving the data file](#saving-the-data-file)
+    * [Editing the data file](#editing-the-data-file)
+    * [Ungrouping persons: `ungroup`](#ungrouping-persons--ungroup-coming-soon) (Coming soon)
+    * [Redoing last change : `redo`](#redoing-last-change--redo-coming-soon) (Coming soon)
+    * [Reminding via email : `remind`](#reminding-via-email--remind-coming-soon) (Coming soon)
 * [**FAQ**](#faq)
-  * [About the program](#about-the-program)
-  * [About the command](#about-the-command)
+    * [About the program](#about-the-program)
+    * [About the command](#about-the-command)
 * [**Command Summary**](#command-summary)
 * [**Glossary**](#glossary)
 <div style="page-break-after: always;"></div>
@@ -60,11 +60,11 @@ title: User Guide
 
 You can use _WedFast_ to **add, edit and delete the contacts**. These contacts are not just limited to those attending
 your wedding, it can also be those you are hiring such as your photographer and costume designer. On this basis,
-_WedFast_ allows you to **add tag to these contacts, calculating the cost, and even generating a detailed report for
+_WedFast_ allows you to **add tags to these contacts, calculate the cost, and even generate a detailed report for
 your wedding plan!**
 
-Excited to try _WedFast_ out? This user guide will **walk you through all the latest features, troubleshoots your
-problems and provides you a command summary to boost your efficiency!**
+Excited to try _WedFast_ out? This user guide **walks you through all the latest features, troubleshoots your
+problems and provides you with a command summary to boost your efficiency!**
 <div style="page-break-after: always;"></div>
 
 ---
@@ -78,35 +78,35 @@ In this section, you will learn how to use this guide.**
 
 ### How to navigate this guide?
 1. **Navigating up or down** this user guide via either of the following methods:
-  * Scroll up or down using your mouse wheel.
-  * Press ↑ or ↓ button on your keyboard.
+* Scroll up or down using your mouse wheel.
+* Press ↑ or ↓ button on your keyboard.
 
-2. **Jumping to different section** of this user guide:
-  * Click on any content you want to read in [Table of Contents](#table-of-contents).
+2. **Jumping to a different section** of this user guide:
+* Click on any content you want to read in the [Table of Contents](#table-of-contents).
 
 3. **Finding keywords** in this user guide:
-  * Press CTRL + F and type in some keywords.
-  * Press Enter to navigate to each keyword found in this user guide.
+* Press CTRL + F and type in some keywords.
+* Press Enter to navigate to each keyword found in this user guide.
 
 ### What do these icons mean?
 
 **Icon**              | **Meaning**
 :---------------------|:-----------------------------
 :information_source:  | Important info that you need to take note of
-:bulb:                | Useful tip that you might want to know
+:bulb:                | Useful tips that you might want to know
 :exclamation:         | Be cautious when attempting/Things that you should avoid
 🔝                    | Back to [Table of Content](#table-of-contents)
 
 <div style="page-break-after: always;"></div>
 
-### What do these formatting mean?
+### What do these formats mean?
 
 **Format**           | **Meaning**
 :--------------------|:-----------------------------
 _Italic text_        | The name of this product or a file path.
 **Bold text**        | The focus of a sentence or the table header.
 `Text in code block` | A command syntax or an item of interest.
-[Text in blue](#what-do-these-formatting-mean)    | A text that you can click to jump to different section of this guide or to a website.
+[Text in blue](#what-do-these-formats-mean)    | A text that you can click on to jump to a different section of this guide or to a website.
 <span style="color:#e46c0a; font-size: 2em; font-weight: bold;">Very large, bold text in Orange</span>  | Heading of a section in this guide.
 <span style="color:#e46c0a; font-size: 1.65em;">Large text in Orange</span> | Subheading of a section in this guide.
 
@@ -121,7 +121,7 @@ _Italic text_        | The name of this product or a file path.
 </div>
 
 ### Installation
-1. Ensure your device runs on **Windows / macOS / linux** because _WedFast_ only supports these three 
+1. Ensure your device runs on **Windows / macOS / Linux** because _WedFast_ only supports these three
    operating systems.
 
 2. Ensure you have `Java 11` or above installed in your device. Not sure how to install? [Click me](https://java.com/en/download/help/download_options.html).
@@ -139,17 +139,17 @@ _Italic text_        | The name of this product or a file path.
    e.g. typing `help` and pressing Enter will open the help window.<br>
 
 2. Some example commands you can try:
-   * `list` : Lists all contacts.
+    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to the Address Book.
+    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+    * `clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
-3. Congratulation for finishing up the basics! You can refer to the [Features](#features) below for more details of
+3. Congratulations on finishing up the basics! You can refer to the [Features](#features) below for more details of
    each command.
 
 [Back to top 🔝](#table-of-contents)
@@ -162,13 +162,13 @@ _Italic text_        | The name of this product or a file path.
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the command format:**<br>
-This section consists of important note for _WedFast_ command to function properly.<br>
-Rest assured that this guide will provide example to help you better understand each important note below.
+This section consists of important notes for _WedFast_ commands to function properly.<br>
+Rest assured that this guide will provide examples to help you better understand each important note below.
 </div>
 
 No.  | **Note**                                                                                                                                           | **Example**
 :---:| :------------------------------------------------------------------------------------------------------------------------------------------------- | :-----------------------------
-1    | Words in `UPPER_CASE` are the parameters you need to supplied                                                                                      | In `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+1    | Words in `UPPER_CASE` are the parameters you need to supply                                                                                      | In `add n/NAME`, `NAME` is a parameter that can be used as `add n/John Doe`.
 2    | Items in square brackets are optional.                                                                                                             | `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 3    | Items with `…`​ after them can be used multiple times including zero times.                                                                     | `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 4    | Parameters can be in any order.                                                                                                                    | If the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -179,7 +179,7 @@ No.  | **Note**                                                                 
 <div style="page-break-after: always;"></div>
 
 ### Viewing help : `help`
-This feature provides you with the help page link, so that you can access it to troubleshoot your problem with the info
+This feature provides you with the help page link so that you can access it to troubleshoot your problem with the info
 provided.
 
 To show a message on how to access the help page.
@@ -191,23 +191,24 @@ You will be able to see a pop-up window showing the help page link.
 ![help message](images/helpMessage.png)
 
 ### Adding a person : `add`
-This feature allows you to add a person to your contact by specifying the details, so that you can refer back in the
+This feature allows you to add a person to your contact by specifying the details so that you can refer back in the
 future.
 
 To add a person to the contact list:
 1. Type the command in the command box with the following format:<br>
-`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [s/STATUS] [t/TAG]…​`
+   `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [s/STATUS] [t/TAG]…​`
 2. Press Enter.
 
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Note on parameters used:**<br>
+* `ADDRESS` is made optional as it is not always required when contacting individuals.
 * `PRICE` is used to indicate the price you have to pay for a person who you are hiring to help with your wedding, e.g. a
-  chef. You may choose to not specifying it if the contact is your family/relative/friend.
+  chef. You may choose not to specify it if the contact is your family/relative/friend. In such a case, the price is set to $0.00 by default.
 * `IMPORTANT-INFORMATION` is used to indicate the important information that you need to take note of, e.g., if a
-  contact is practicing vegetarian diet or is only contactable through WhatsApp.
+  contact practices a vegetarian diet or is only contactable through WhatsApp.
 * `STATUS` is used to indicate if a person is confirmed to attend your wedding. It can also be used to indicate if you
-  have confirmed to hire a person to help with your wedding.
+  have confirmed to hire a person to help with your wedding. In the case you choose not to specify the status, it is set to `pending` by default.
 </div>
 
 <div markdown="block" class="alert alert-success">
@@ -219,11 +220,11 @@ To add a person to the contact list:
 </div>
 
 Example:<br>
-`add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, pr/500.00 i/none s/pending 
+`add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, pr/500.00 i/ s/pending
 t/caterer`
 
 Outcome:<br>
-You will see a contact named `Jane Doherty` with all the specified details appears in the contact list.
+You will see a contact named `Jane Doherty` with all the specified details appearing in the contact list.
 ![add contact](images/AddPerson.png)
 
 ### Listing all persons : `list`
@@ -234,7 +235,7 @@ To lists all the existing contacts.
 2. Press Enter.
 
 ### Editing a person : `edit`
-This feature allows you to update a person's detail at the specified index, so that you can replace the incorrect and 
+This feature allows you to update a person's detail at the specified index, so that you can replace the incorrect and
 outdated data with the correct and updated one.
 
 To edit an existing person in the contact list:
@@ -246,9 +247,9 @@ To edit an existing person in the contact list:
 
 **:information_source: Note on parameters used:**<br>
 * `PRICE` is used to indicate the price you have to pay for a person who you are hiring to help with your wedding, e.g. a
-  chef. You may choose to not specifying it if the contact is your family/relative/friend.
-* `IMPORTANT-INFORMATION` is used to indicate the important information that you need to take note of, e.g., if a 
-  contact is practicing vegetarian diet or is only contactable through WhatsApp.
+  chef. You may choose not to specify it if the contact is your family/relative/friend. In such a case, the default price is set to $0.00.
+* `IMPORTANT-INFORMATION` is used to indicate the important information that you need to take note of, e.g., if
+  a contact practices a vegetarian diet or is only contactable through WhatsApp.
 * `STATUS` is used to indicate if a person is confirmed to attend your wedding. It can also be used to indicate if you
   have confirmed that you are going to hire a person to help with your wedding.
 </div>
@@ -265,7 +266,7 @@ To edit an existing person in the contact list:
 </div>
 
 Examples and expected outcomes:
-* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be 91234567 
+* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be 91234567
   and johndoe@example.com respectively.
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
 
@@ -280,11 +281,11 @@ To group existing persons in the contact list together to an existing named tag 
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-* You cannot add two or more same `TAG` on a contact (no duplicate `TAG`).
-* The developer team is now working on the feature where you can ungroup persons (remove tag from multiple persons at 
-  once). To ungroup persons, you can still do either of the followings:
-  * [Undo](#undoing-last-change--undo) soon after you group the contacts
-  * Remove tags from a contact by [editing his/her tag](#editing-a-person--edit)
+* You cannot add two or more same `TAG` to a contact (no duplicate `TAG`).
+* The developer team is now working on the feature where you can ungroup persons (remove a tag from multiple persons at
+  once). To ungroup persons, you can still do either of the following:
+    * [Undo](#undoing-last-change--undo) soon after you group the contacts
+    * Remove tags from a contact by [editing his/her tag](#editing-a-person--edit)
 </div>
 
 Example:<br>
@@ -295,10 +296,10 @@ Both `Alex Yeoh` and `Bernice Yu` now has the tag `VIP`
 ![group contact](images/GroupContacts.png)
 
 ### Locating persons : `find`
-This feature allows you to filter the contact list based on the parameters specified, so that you can easily find the
-contacts you interested.
+This feature allows you to filter the contact list based on the parameters specified so that you can easily find the
+contacts you are interested in.
 
-To find persons whose names contain any of the given keywords, or labelled with same tag, or labelled within the price
+To find persons whose names contain any of the given keywords, or labeled with the same tag, or labeled within the price
 range:
 1. Type the command in the command box with either of the following formats:<br>
     * `find KEYWORD [MORE_KEYWORDS]…​` or
@@ -309,7 +310,7 @@ range:
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-* These parameters can all be use in conjunction to find a contact that fits any keyword and any tag and under a price range.
+* These parameters can all be used in conjunction to find a contact that fits any keyword and any tag and is under a price range.
 </div>
 
 Example:<br>
@@ -321,10 +322,10 @@ You will see only the contacts with `friends` and `colleagues` tag as well as ha
 
 **:exclamation:Caution:**<br>
 Find currently only supports name, tags and price range. Price range operators include =, >, <, >=, <=.
-Furthermore, price must be entered with 2 decimal points. 
+Furthermore, the price must be entered with 2 decimal points.
 
 ### Deleting a person : `delete`
-This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
+This feature allows you to remove a person's entry in your contact that you no longer wish to track in the future.
 
 To delete a person from the contact list via index/name/tag:
 1. Type the command in the command box with either of the following formats:<br>
@@ -336,7 +337,7 @@ To delete a person from the contact list via index/name/tag:
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-It deletes a person entry permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
+It deletes a person's entry permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
 if you wish to.
 </div>
 
@@ -370,7 +371,7 @@ To clear all entries in the contact list:
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation:Caution:**<br>
-It deletes all the existing person entries permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
+It deletes all the existing persons' entries permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
 if you wish to.
 </div>
 
@@ -387,32 +388,32 @@ To undo the last change that was made to the contact list:
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tip:**<br>
-* This feature currently only supports features such as [adding](#adding-a-person--add), 
-  [editing](#editing-a-person--edit), [delete](#deleting-a-person--delete), [grouping](#grouping-persons--group) and 
-  [clear](#clearing-all-entries--clear)
+* This feature currently only supports features such as [adding](#adding-a-person--add),
+  [editing](#editing-a-person--edit), [deleting](#deleting-a-person--delete), [grouping](#grouping-persons--group) and
+  [clearing](#clearing-all-entries--clear)
 </div>
 
 Examples and expected outcomes for undoing 'delete' command:
 * 2nd contact is deleted with command `delete 2`:
-   ![delete by index](images/UndoDelete1.png)
+  ![delete by index](images/UndoDelete1.png)
 * Undo the deletion with command `undo`:
-   ![undo delete by index](images/UndoDelete2.png)
+  ![undo delete by index](images/UndoDelete2.png)
 
 Examples and expected outcomes for undoing 'group' command:
 * Group `David Li` and `Irfan Ibrahim` under the tag `Bus` with command `group t/Bus n/David Li, Irfan Ibrahim`:<br>
-   ![group](images/UndoGroup1.png)
+  ![group](images/UndoGroup1.png)
 * Undo the grouping with command `undo`
-   ![group](images/UndoGroup2.png)
+  ![group](images/UndoGroup2.png)
 
 Examples and expected outcomes for undoing 'clear' command:
-* Clear all person entries in the contact with command `clear`:
-   ![clear](images/UndoClear1.png)
+* Clear all persons' entries in the contact list with command `clear`:
+  ![clear](images/UndoClear1.png)
 * Undo the clear with command `undo`:
-   ![clear](images/UndoClear2.png)
+  ![clear](images/UndoClear2.png)
 
 ### Counting down to the wedding day : `countdown`
-This feature helps you calculate how many day left before your wedding, so that you have an idea how much time can you
-prepare for your wedding.
+This feature helps you calculate how many days are left before your wedding so that you have an idea of how much time you
+have to prepare for your wedding.
 
 To check the countdown till your wedding day:
 1. Type the command in the command box with the following format:<br>
@@ -421,26 +422,26 @@ To check the countdown till your wedding day:
 3. Your wedding date has now been updated.
 4. Type `countdown` in the command box and press Enter to check the countdown based on the wedding date
    set.
-5. Repeat step (1) and step (2) again if you wish to reset the wedding date.
+5. Repeat steps (1) and (2) again if you wish to reset the wedding date.
 
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
-* If you have not set the wedding date before, then the default wedding date will be today. 
-* If you had set the wedding date before, then you can follow step (4) ONLY to check the countdown. 
+* If you have not set the wedding date before, then the default wedding date will be today.
+* If you had set the wedding date before, then you can follow step (4) ONLY to check the countdown.
 * You cannot set a past date as your wedding date.
 </div>
 
 Outcome:<br>
-A message that tells you how many days left before wedding will be displayed in the command feedback box.
+A message that tells you how many days are left before the wedding will be displayed in the command feedback box.
 
 ### Counting head by tag : `tagInfo`
-This feature allows you to obtain a list of number of contacts under each tag.
+This feature allows you to obtain a list of the number of contacts under each tag.
 
-To return a unique list of tags with the number of contacts labelled with the tag.
+To return a unique list of tags with the number of contacts labeled with the tag.
 1. Type the command in the command box with either of the following formats:<br>
-   * `tagInfo [t/TAG]…​` or
-   * `tagInfo list`
+    * `tagInfo [t/TAG]…​` or
+    * `tagInfo list`
 2. Press Enter
 
 <div markdown="block" class="alert alert-success">
@@ -451,15 +452,15 @@ To return a unique list of tags with the number of contacts labelled with the ta
 
 Example and expected outcome:<br>
 * `tagInfo t/male colleagues` tag Info: males used by 3 people, colleagues used by 5 people
-* `tagInfo list` returns a list with all the tags labelled by the contacts.
+* `tagInfo list` returns a list with all the tags labeled by the contacts.
 
 ### Calculating wedding cost : `price`
-This feature helps you calculate your wedding expenses, so that you can stick to the budget and prevent overspending.
+This feature helps you calculate your wedding expenses so that you can stick to the budget and prevent overspending.
 
 To calculate the expenses:
 1. Type the command in the command box with the following format:
-   * `price` (For over wedding cost)
-   * `price t/TAG [t/TAG]…​` (For the cost under 1 or more category, specified by `TAG`)
+    * `price` (For over wedding cost)
+    * `price t/TAG [t/TAG]…​` (For the cost under 1 or more category, specified by `TAG`)
 2. Press Enter
 
 <div markdown="block" class="alert alert-success">
@@ -477,6 +478,12 @@ This feature allows you to track the status of your wedding plan. It shows you t
 To view the report
 1. Type the command: `report` in the command box.
 2. Press Enter
+
+<div markdown="block" class="alert alert-success">
+
+**:bulb: Tips:**<br>
+* While keeping the report window open, if you edit contact information, you cannot expect to see your edits being updated concurrently within the same report window. To view the updated report, close the existing window and re-enter the report command.
+</div>
 
 Example and expected outcome:<br>
 * `report`:
@@ -501,7 +508,7 @@ This feature allows you to use any shortcut added.
 
 To call the command bound to the shortcut:
 1. Type the command in the command box with either of the following formats:<br>
-    `sc SHORTCUT`
+   `sc SHORTCUT`
 2. Press Enter
 
 <div markdown="block" class="alert alert-success">
@@ -523,8 +530,8 @@ To view all shortcuts available for the user:
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tip:**<br>
-* Empty list of shortcuts mean you have not added any shortcut yet. You can learn how to add a shortcut 
-[here](#adding-customizable-shortcuts--addsc)
+* An empty list of shortcuts means you have not added any shortcut yet. You can learn how to add a shortcut
+  [here](#adding-customizable-shortcuts--addsc)
 </div>
 
 ### Deleting shortcuts : `removesc`
@@ -532,7 +539,7 @@ This feature allows you to remove the shortcut added.
 
 To remove a shortcut:
 1. Type the command in the command box with either of the following formats:<br>
-    `removesc SHORTCUT`
+   `removesc SHORTCUT`
 2. Press Enter
 
 <div markdown="block" class="alert alert-success">
@@ -542,7 +549,7 @@ To remove a shortcut:
 </div>
 
 Example:<br>
-`removesc f` 
+`removesc f`
 
 Outcome:<br>
 Removes the attachment of the COMMAND to the shortcut `f`
@@ -557,7 +564,7 @@ To exit the app.
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tip:**<br>
-* All the data will be saved automatically after each command. For more info, you may refer to 
+* All the data will be saved automatically after each command. For more info, you may refer to
   [this](#saving-the-data-file)
 </div>
 
@@ -570,7 +577,7 @@ _WedFast_ data are saved as a JSON file `[JAR file location]/data/addressbook.js
 update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:warning: **Caution:**
-If your changes to the data file makes its format invalid, _WedFast_ will discard all data and start with an empty data
+If your changes to the data file make its format invalid, _WedFast_ will discard all data and start with an empty data
 file at the next run.
 </div>
 
@@ -597,11 +604,11 @@ _WedFast's_ developers are now working on it. Please wait patiently for the next
 ## **FAQ**
 ### About the program
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-       the data of your previous _WedFast_ home folder.
+**A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous _WedFast_ home folder.
 
 ### About the command
-**Q**: Where can I get the cheatsheet for the command syntax?<br>
+**Q**: Where can I get the cheat sheet for the command syntax?<br>
 **A**: You will be able to get [here](#command-summary).
 
 {More will be added in the future...}
@@ -616,23 +623,23 @@ _WedFast's_ developers are now working on it. Please wait patiently for the next
 **Actions**                           | **Format**                                                                                                         | **Example**
 --------------------------------------|--------------------------------------------------------------------------------------------------------------------|------------
 **Viewing help**                      | `help`                                                                                                             | `help`
-**Adding a person**                   | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [pr/PRICE] [i/IMPORTANT_INFORMATION] [s/STATUS] [t/TAG]…​`         | `add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, pr/500.00 i/none s/pending t/caterer`
+**Adding a person**                   | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [s/STATUS] [t/TAG]…​`         | `add n/Jane Doherty p/1847291074 e/janedoe123@gmail.com a/Coral Street, 5th Avenue, #02-04, pr/500.00 i/ s/pending t/caterer`
 **Listing all persons**               | `list`                                                                                                             | `list`
 **Editing a person**                  | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pr/PRICE] [i/IMPORTANT_INFORMATION] [s/STATUS] [t/TAG]…​` | `edit 1 p/91234567 e/johndoe@example.com` or<br> `edit 2 n/Betsy Crower t/`
 **Grouping persons**                  | `group t/GROUP_NAME n/NAME1, [NAME2]…​`                                                                         | `group t/VIP n/Alex Yeoh, Bernice Yu`
 **Locating persons**                  |  `find KEYWORD [MORE_KEYWORDS]…​` or<br>`find t/TAG [t/MORE_TAG]…​` or<br>`find pr/PRICE_RANGE`              | `find t/friends t/colleagues pr/>=0.00`
 **Deleting a person/persons**         | `delete INDEX` or<br>`delete n/NAME` or<br> `delete t/TAG`                                                         |`delete 3` or<br>`delete n/Alex Yeoh` or<br>`delete t/food_vendor`
 **Clearing all entries**              | `clear`                                                                                                            | `clear`
-**Undoing last change**               | `undo`                                                                                                             | `undo` 
+**Undoing last change**               | `undo`                                                                                                             | `undo`
 **Counting down to the wedding day**  | `countdown YYYY-MM-DD`<br>(To set your wedding date)<br>`countdown`<br>(To see the day count)                      |`countdown`<br><br>`countdown 2021-10-26`
 **Counting head by tag**              | `tagInfo list` or `tagInfo [t/TAG]…​`                                                                           | `tagInfo list` or<br> `tagInfo t/male, colleagues`
 **Calculating wedding cost**          | `price`  or<br>`price t/TAG1 [t/TAG2]…​`                                                                        | `price` or<br>`price t/Chef` or<br>`price t/Chef t/Photographer`
 **Getting your wedding plan report**  | `report`                                                                                                           | `report`
 **Adding customizable shortcuts**     | `addsc SHORTCUT c/COMMAND`                                                                                         | `addsc f c/find t/Food`
 **Using shortcut**                    | `sc SHORTCUT`                                                                                                      | `sc f`
-**Viewing shortcut**                  | `listsc`                                                                                                           | `listsc` 
+**Viewing shortcut**                  | `listsc`                                                                                                           | `listsc`
 **Deleting shortcuts**                | `removesc SHORTCUT`                                                                                                | `removesc f`
-**Exiting the program**               | `exit`                                                                                                             | `exit`  
+**Exiting the program**               | `exit`                                                                                                             | `exit`
 
 [Back to top 🔝](#table-of-contents)
 <div style="page-break-after: always;"></div>
