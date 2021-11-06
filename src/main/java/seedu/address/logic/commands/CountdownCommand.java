@@ -52,7 +52,7 @@ public class CountdownCommand extends Command {
 
     /** Calculates and shows the day count before the wedding day. */
     private CommandResult executeShowCountDown(Model model) {
-        LocalDate weddingDate = model.getCountdown().getDate();
+        LocalDate weddingDate = model.getWeddingDate();
         int numDays = (int) LocalDate.now().until(weddingDate, ChronoUnit.DAYS);
 
         if (numDays < 0) {

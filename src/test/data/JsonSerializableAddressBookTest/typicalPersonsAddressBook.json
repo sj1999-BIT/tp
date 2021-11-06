@@ -5,10 +5,10 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
-    "price": "0.00",
+    "price": "300.00",
     "info": "none",
-    "status": "Pending",
-    "tagged" : [ "friends" ]
+    "status": "Confirmed",
+    "tagged" : [ "Florist", "friends" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
@@ -32,10 +32,10 @@
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
-    "price": "0.00",
+    "price": "650.00",
     "info": "none",
-    "status": "Declined",
-    "tagged" : [ "friends" ]
+    "status": "Confirmed",
+    "tagged" : [ "caterer", "friends" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
@@ -44,7 +44,7 @@
     "price": "0.00",
     "info": "none",
     "status": "Declined",
-    "tagged" : [ ]
+    "tagged" : [ "Colleague" ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
@@ -59,9 +59,9 @@
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
-    "price": "0.00",
+    "price": "250.00",
     "info": "none",
     "status": "Confirmed",
-    "tagged" : [ ]
+    "tagged" : [ "Photographer" ]
   } ]
 }

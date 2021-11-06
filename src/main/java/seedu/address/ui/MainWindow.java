@@ -63,18 +63,19 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane userInfoPlaceHolder;
 
     private UserInfo userInfo;
-
+    private String stateInStartUp;
     private TagListPanel tagListPanel;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic, String stateInStartUp) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.stateInStartUp = stateInStartUp;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -140,7 +141,9 @@ public class MainWindow extends UiPart<Stage> {
                 new BackgroundFill(Color.WHITE, new CornerRadii(10), Insets.EMPTY)));
         tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay("All the command feedback/result will be displayed here");
+        resultDisplay = new ResultDisplay(
+                "All the command feedback/result will be displayed here\n"
+                        .concat(this.stateInStartUp));
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
