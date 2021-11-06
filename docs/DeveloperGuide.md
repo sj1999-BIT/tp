@@ -158,8 +158,40 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Find by Tag and Price feature
 #### Implementation
-Finding by Tag and Price is a combinatory feature implemented by `Predicates`. The predicate for tags is `TagContainsKeywordsPredicate`
+Finding by Tag and Price is a combinatory feature implemented by `Predicates`. The predicate for tags is `TagContainsKeywordsPredicate`.
+
+![PredicateClasses](images/PredicateClasses.png)
+
+Finding by price range uses three different predicates.
+
+1. `PriceEqualsNumberPredicate` for to find equal to price
+2. `PriceGreaterThanNumberPredicate` for to find greater than certain price
+3. `PriceLessThanNumberPredicate` for to find less than certain price
+
+The 5 operators =, <, >, >=, <= are implemented using the above predicates.
+
+| Operator | Predicate |
+| ------------- | ------------- |
+| =  | `PriceEqualsNumberPredicate`  |
+| >  | `PriceGreaterThanNumberPredicate`  |
+| <  | `PriceLessThanNumberPredicate`  |
+| >=  | `PriceEqualsNumberPredicate \|\| PriceGreaterThanNumberPredicate`  |
+| <=  | `PriceEqualsNumberPredicate \|\| PriceLessThanNumberPredicate`  |
+
+The following activity diagram summarizes what happens when a user executes a find command:
+
+<img src="images/FindByFilterActivityDiagram.png" width="250" />
+
 #### Design considerations:
+**Aspect: How each predicate is combined together:**
+
+* **Alternative 1 (current choice):** Queried list of contacts must fit all three criterias at once.
+    * Pros: It is likely user would use this feature more as it narrows the scope of the query
+    * Cons: Some users may misinterpret the functionality and be confused
+* **Alternative 2:** Queried list of contacts can fit any of the three criterias
+    * Pros: Consistent with how multiple names work with the `find [NAMES]` function
+    * Cons: Less likely to be used as additional parameters won't increase effectiveness of query.
+
 
 ### Delete by name feature
 #### Implementation
