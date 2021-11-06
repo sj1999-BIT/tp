@@ -37,6 +37,11 @@ public class ReportWindow extends UiPart<Stage> {
         this(new Stage());
     }
 
+    /**
+     * Sets the message used for creating the report.
+     *
+     *@param messageInput input used to set final message
+     */
     public static void setReportMessage(String messageInput) {
         message = messageInput;
     }

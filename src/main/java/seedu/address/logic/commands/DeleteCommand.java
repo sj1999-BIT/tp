@@ -143,7 +143,7 @@ public class DeleteCommand extends Command {
         if (!hasTag) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             commandToUndo.setPrevCommand(null);
-            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_NAME, targetTag));
+            throw new CommandException(String.format(MESSAGE_UNKNOWN_PERSON_TAG, targetTag));
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag));
