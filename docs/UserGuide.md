@@ -59,12 +59,12 @@ title: User Guide
 [Graphical User Interface](#graphical-user-interface-gui) (GUI).**
 
 You can use _WedFast_ to **add, edit and delete the contacts**. These contacts are not just limited to those attending
-your wedding, it can also be those you are hiring such as your photographer and costume designer. On this basis,
+your wedding, it can also be those you are hiring such as your photographer, caterer and costume designer. On this basis,
 _WedFast_ allows you to **add tag to these contacts, calculating the cost, and even generating a detailed report for
 your wedding plan!**
 
-Excited to try _WedFast_ out? This user guide will **walk you through all the latest features, troubleshoots your
-problems and provides you a command summary to boost your efficiency!**
+Excited to try _WedFast_ out? This user guide will **walk you through all the latest features, troubleshoot your
+problems and provide you with a command summary to boost your efficiency!**
 <div style="page-break-after: always;"></div>
 
 ---
@@ -149,7 +149,7 @@ _Italic text_        | The name of this product or a file path.
 
    * `exit` : Exits the app.
 
-3. Congratulation for finishing up the basics! You can refer to the [Features](#features) below for more details of
+3. Congratulations for finishing up the basics! You can refer to the [Features](#features) below for more details of
    each command.
 
 [Back to top 🔝](#table-of-contents)
@@ -214,7 +214,7 @@ To add a person to the contact list:
 
 **:bulb: Tip:**<br>
 * A person can have any number of tags (including 0)
-* Since a wedding can be big and two or more persons might come from the same family, all contact information(other than
+* Since a wedding can be big and two or more people might come from the same family, all contact information (other than
   the contact's name) can be duplicated.
 </div>
 
