@@ -48,7 +48,7 @@ public class UserInfo extends UiPart<Region> {
         userName.setFont(Font.font(30));
         userName.setFill(Color.color(1, 1, 1));
 
-        String date = "  ".concat(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        String date = "  ".concat(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         Text dateText = new Text(date);
         dateText.setFont(Font.font(15));
         dateText.setFill(Color.color(0.3, 1, 0.6));
@@ -62,13 +62,20 @@ public class UserInfo extends UiPart<Region> {
 
         // Assume dummy variables
         int contacts = logic.size();
-        int noOfdates = (int) LocalDate.now().until(logic.getCountdown().getDate(), ChronoUnit.DAYS);
+        int noOfdates = Integer.MIN_VALUE;
+        try {
+            noOfdates = (int) LocalDate.now().until(logic.getCountdown().getDate(), ChronoUnit.DAYS);
+        } catch (NullPointerException nu) {
+            nu.printStackTrace();
+        }
 
         ModelInfo totalContacts = new ModelInfo(contacts, "People in your contact");
         totalContactsContainer.getChildren().add(totalContacts.getRoot());
 
         ModelInfo datesToWedding;
-        if (noOfdates < 0) {
+        if (noOfdates == Integer.MIN_VALUE) {
+            datesToWedding = new ModelInfo(0, "JSON file has been corrupted!");
+        } else if (noOfdates < 0) {
             datesToWedding = new ModelInfo(0, "Oh no! Your Wedding day has passed!");
         } else {
             datesToWedding = new ModelInfo(noOfdates, "Days before Wedding day");
