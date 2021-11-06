@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalDate.getTypicalCountdown;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,8 +33,6 @@ import seedu.address.model.person.predicates.TagContainsKeywordsPredicate;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalCountdown(),
-            new UserPrefs(), new Shortcut());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalCountdown(),
             new UserPrefs(), new Shortcut());
 
     @Test
@@ -95,8 +93,13 @@ public class DeleteCommandTest {
         TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(
                 Arrays.asList("friends".split("\\s+"))
         );
-        DeleteCommand command = new DeleteCommand(predicate, "friends");
-        assertEquals(expectedMessage, command.execute(model).getFeedbackToUser());
+        DeleteCommand deleteTagCommand = new DeleteCommand(predicate, "friends");
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalCountdown(),
+                new UserPrefs(), new Shortcut());
+        expectedModel.deletePerson(ALICE);
+        expectedModel.deletePerson(BENSON);
+        expectedModel.deletePerson(DANIEL);
+        assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -105,8 +108,8 @@ public class DeleteCommandTest {
         TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(
                 Arrays.asList("random".split("\\s+"))
         );
-        DeleteCommand command = new DeleteCommand(predicate, "random");
-        assertCommandFailure(command, model, expectedMessage);
+        DeleteCommand deleteTagcommand = new DeleteCommand(predicate, "random");
+        assertCommandFailure(deleteTagcommand, model, expectedMessage);
     }
 
     @Test
@@ -140,7 +143,6 @@ public class DeleteCommandTest {
 
         DeleteCommand firstDeleteCommand = new DeleteCommand(firstPredicate, "first");
         DeleteCommand secondDeleteCommand = new DeleteCommand(secondPredicate, "second");
-
 
         // same object -> returns true
         assertTrue(firstDeleteCommand.equals(firstDeleteCommand));

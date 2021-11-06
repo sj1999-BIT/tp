@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.Model;
 
 /**
  * Controller for a report page
@@ -14,7 +13,6 @@ import seedu.address.model.Model;
 public class ReportWindow extends UiPart<Stage> {
 
     private static String message;
-    private static Model modelUsed;
 
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
@@ -39,6 +37,11 @@ public class ReportWindow extends UiPart<Stage> {
         this(new Stage());
     }
 
+    /**
+     * Sets the message used for creating the report.
+     *
+     *@param messageInput input used to set final message
+     */
     public static void setReportMessage(String messageInput) {
         message = messageInput;
     }
@@ -50,6 +53,5 @@ public class ReportWindow extends UiPart<Stage> {
         logger.fine("Displaying the current report for the application.");
         getRoot().show();
         getRoot().centerOnScreen();
-
     }
 }

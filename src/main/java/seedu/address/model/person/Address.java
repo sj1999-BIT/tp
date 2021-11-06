@@ -9,9 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses are limited to 100 characters and"
-            + " use alphanumeric characters apart from these selected special characters: "
-            + "\n" + ", . # - ;";
+    public static final String MESSAGE_CONSTRAINTS = "Addresses are limited to 100 characters and "
+            + "use alphanumeric characters apart from these selected special characters, "
+            + "excluding the parentheses,\n(,.#-;)";
 
     /*
      * Checks if information keyed in only contains alphanumeric
