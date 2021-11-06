@@ -18,14 +18,14 @@ public class TagInfoCommandParser implements Parser<TagInfoCommand> {
     @Override
     public TagInfoCommand parse(String userInput) throws ParseException {
         if (userInput.trim().equals("list")) {
-            return new TagInfoCommand(userInput);
+            return new TagInfoCommand(userInput, false);
         } else {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(userInput, PREFIX_TAG);
 
             if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
                 try {
-                    return new TagInfoCommand(argMultimap.getValue(PREFIX_TAG).get().split(" "));
+                    return new TagInfoCommand(argMultimap.getValue(PREFIX_TAG).get().split(" "), false);
                 } catch (CommandException e) {
                     throw new ParseException(e.getMessage());
                 }

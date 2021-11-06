@@ -25,23 +25,27 @@ public class TagInfoCommand extends Command {
             + "   existing tags will still be in the list";
 
     private HashSet<Tag> listOfTags = new HashSet<>();
+    private boolean isTesting = false;
 
-
-    public TagInfoCommand(String all) {
+    /**
+     * Returns a new TagInfoCommand Object that search all the tags
+     * @param all is string "list" that indicates all tags to be tested
+     * @param isTesting is a boolean value.
+     */
+    public TagInfoCommand(String all, boolean isTesting) {
         assert all == "list";
-    }
-
-    public HashSet<Tag> getListOfTags() {
-        return listOfTags;
+        this.isTesting = isTesting;
     }
 
     /**
      * Returns a new TagInfoCommand Object with the inputs converted into
      * a HashSet Object
      * @param tagListInput is an array of strings containing the tag names.
+     * @param isTesting is a boolean to check if the report window needs to be opened
      * @throws CommandException if invalid tag name is inputted
      */
-    public TagInfoCommand(String[] tagListInput) throws CommandException {
+    public TagInfoCommand(String[] tagListInput, boolean isTesting) throws CommandException {
+        this.isTesting = isTesting;
         for (String tagName : tagListInput) {
             if (tagName.equals("")) {
                 throw new CommandException("Empty tag is inputted!");
@@ -52,6 +56,10 @@ public class TagInfoCommand extends Command {
                 throw new CommandException(e.getMessage());
             }
         }
+    }
+
+    public HashSet<Tag> getListOfTags() {
+        return listOfTags;
     }
 
     @Override
@@ -81,9 +89,11 @@ public class TagInfoCommand extends Command {
             resultMessage += "following tags cannot be found:\n" + errorTags;
         }
 
-        ReportWindow.setReportMessage(resultMessage);
-        ReportWindow window = new ReportWindow();
-        window.show();
+        if (!this.isTesting) {
+            ReportWindow.setReportMessage(resultMessage);
+            ReportWindow window = new ReportWindow();
+            window.show();
+        }
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
