@@ -59,11 +59,11 @@ title: User Guide
 [Graphical User Interface](#graphical-user-interface-gui) (GUI).**
 
 You can use _WedFast_ to **add, edit and delete contacts**. Contacts you include need not be limited to guests who are attending
-your wedding. They can also consist of people you are hiring such as your photographer and costume designer. On this basis, to better 
+your wedding. They can also consist of people you are hiring such as your photographer, caterer and costume designer. On this basis, to better 
 facilitate the management of various contacts, _WedFast_ allows you to **add tags to contacts, calculate the cost, and even generate a detailed report for
 your wedding plan!**
 
-Excited to try _WedFast_ out? This user guide **will walk you through all the latest features, troubleshoot your
+Excited to try _WedFast_ out? This user guide will **walk you through all the latest features, troubleshoot your
 problems and provide you with a command summary to boost your efficiency!**
 <div style="page-break-after: always;"></div>
 
@@ -215,7 +215,7 @@ To add a person to the contact list:
 
 **:bulb: Tip:**<br>
 * A person can have any number of tags (including 0)
-* Since a wedding can be big and two or more persons might come from the same family, all contact information(other than
+* Since a wedding can be big and two or more people might come from the same family, all contact information (other than
   the contact's name) can be duplicated.
 </div>
 
@@ -289,10 +289,10 @@ To group existing persons in the contact list together to an existing named tag 
 </div>
 
 Example:<br>
-`group t/VIP n/Alex Yeoh, Bernice Yu`
+`group t/VIP n/Sonny Michelle, James Cotton`
 
 Outcome:<br>
-Both `Alex Yeoh` and `Bernice Yu` now has the tag `VIP`
+Both `Sonny Michelle` and `James Cotton` now has the tag `VIP`
 ![group contact](images/GroupContacts.png)
 
 ### Locating persons : `find`
@@ -314,10 +314,10 @@ range:
 </div>
 
 Example:<br>
-`find t/friends t/colleagues pr/>=0.00`
+`find t/florist t/caterer pr/>=100.00`
 
 Outcome:<br>
-You will see only the contacts with `friends` and `colleagues` tag as well as having the price of more than `$0.00`
+You will see only the contacts with `florist` and `caterer` tag as well as having the price of at least `100.00` dollars
 ![find contact](images/findContact.png)
 
 **:exclamation:Caution:**<br>
@@ -351,10 +351,10 @@ if you wish to.
 </div>
 
 Example:<br>
-`delete 7`
+`delete 2`
 
 Outcome:<br>
-The 7th contact, `John Doe` disappears from the contact list.
+The 2nd contact, `John Doe` disappears from the contact list.
 
 Before:<br>
 ![before delete contact](images/deleteContact1.png)
@@ -394,16 +394,16 @@ To undo the last change that was made to the contact list:
 </div>
 
 Examples and expected outcomes for undoing 'delete' command:
-* 2nd contact is deleted with command `delete 2`:
-  ![delete by index](images/UndoDelete1.png)
+* 3rd contact is deleted with command `delete 3`:
+   ![delete by index](images/UndoDelete1.png)
 * Undo the deletion with command `undo`:
-  ![undo delete by index](images/UndoDelete2.png)
+   ![undo delete by index](images/UndoDelete2.png)
 
 Examples and expected outcomes for undoing 'group' command:
-* Group `David Li` and `Irfan Ibrahim` under the tag `Bus` with command `group t/Bus n/David Li, Irfan Ibrahim`:<br>
-  ![group](images/UndoGroup1.png)
+* Group `Charlotte Oliveiro` and `Andy Robin` under the tag `Bus` with command `group t/Bus n/Charlotte Oliveiro, Andy Robin`:<br>
+   ![group](images/UndoGroup1.png)
 * Undo the grouping with command `undo`
-  ![group](images/UndoGroup2.png)
+   ![group](images/UndoGroup2.png)
 
 Examples and expected outcomes for undoing 'clear' command:
 * Clear all person entries in the contact list with command `clear`:
@@ -630,16 +630,16 @@ _WedFast's_ developers are now working on it. Please wait patiently for the next
 **Locating persons**                  |  `find KEYWORD [MORE_KEYWORDS]…​` or<br>`find t/TAG [t/MORE_TAG]…​` or<br>`find pr/PRICE_RANGE`              | `find t/friends t/colleagues pr/>=0.00`
 **Deleting a person/persons**         | `delete INDEX` or<br>`delete n/NAME` or<br> `delete t/TAG`                                                         |`delete 3` or<br>`delete n/Alex Yeoh` or<br>`delete t/food_vendor`
 **Clearing all entries**              | `clear`                                                                                                            | `clear`
-**Undoing last change**               | `undo`                                                                                                             | `undo`
+**Undoing last change**               | `undo`                                                                                                             | `undo` 
 **Counting down to the wedding day**  | `countdown YYYY-MM-DD`<br>(To set your wedding date)<br>`countdown`<br>(To see the day count)                      |`countdown`<br><br>`countdown 2021-10-26`
 **Counting head by tag**              | `tagInfo list` or `tagInfo [t/TAG]…​`                                                                           | `tagInfo list` or<br> `tagInfo t/male, colleagues`
 **Calculating wedding cost**          | `price`  or<br>`price t/TAG1 [t/TAG2]…​`                                                                        | `price` or<br>`price t/Chef` or<br>`price t/Chef t/Photographer`
 **Getting your wedding plan report**  | `report`                                                                                                           | `report`
 **Adding customizable shortcuts**     | `addsc SHORTCUT c/COMMAND`                                                                                         | `addsc f c/find t/Food`
 **Using shortcut**                    | `sc SHORTCUT`                                                                                                      | `sc f`
-**Viewing shortcut**                  | `listsc`                                                                                                           | `listsc`
+**Viewing shortcut**                  | `listsc`                                                                                                           | `listsc` 
 **Deleting shortcuts**                | `removesc SHORTCUT`                                                                                                | `removesc f`
-**Exiting the program**               | `exit`                                                                                                             | `exit`
+**Exiting the program**               | `exit`                                                                                                             | `exit`  
 
 [Back to top 🔝](#table-of-contents)
 <div style="page-break-after: always;"></div>
