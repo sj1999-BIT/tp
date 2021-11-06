@@ -14,6 +14,7 @@ public class TagInfoCommand extends Command {
 
     public static final String COMMAND_WORD = "tagInfo";
     public static final String MESSAGE_NO_INPUT = "No valid tag value is inputted";
+    public static final String MESSAGE_SUCCESS = "TagInfo report has been generated!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Provides the number of contacts with the respective tags"
@@ -84,7 +85,7 @@ public class TagInfoCommand extends Command {
         ReportWindow window = new ReportWindow();
         window.show();
 
-        return new CommandResult("Tag Information is generated in a report window.");
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

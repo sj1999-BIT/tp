@@ -27,6 +27,12 @@ public class TagInfoCommandTest {
     public void execute_empty_addressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        assertCommandSuccess(new TagInfoCommand("list"), model, "tags Info:\n", expectedModel);
+        assertCommandSuccess(new TagInfoCommand("list"), model, TagInfoCommand.MESSAGE_NO_INPUT, expectedModel);
+    }
+
+    @Test
+    public void execute_non_addressBook_success() {
+        Model model = expectedModel;
+        assertCommandSuccess(new TagInfoCommand("list"), model, TagInfoCommand.MESSAGE_SUCCESS, model);
     }
 }
