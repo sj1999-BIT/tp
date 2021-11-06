@@ -56,5 +56,5 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/desmondto)]
 [[portfolio](team/desmondto.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Developer + UI Designer
+* Responsibilities: Develop the features laid out in the plan + Translating requirements into attractive user interfaces.
