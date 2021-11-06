@@ -11,7 +11,6 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -255,18 +254,18 @@ public class FindCommandTest {
 
     @Test
     public void execute_priceEqual_multiplePersonsFound() {
-        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 7, "");
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 4, "");
         PriceEqualsNumberPredicate predicate = new PriceEqualsNumberPredicate(new Price("0.00"));
         FindCommand command = new FindCommand(predicate, "");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(BENSON, CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_priceGreaterThan_noPersonFound() {
         String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 0, "");
-        PriceGreaterThanNumberPredicate predicate = new PriceGreaterThanNumberPredicate(new Price("10.00"));
+        PriceGreaterThanNumberPredicate predicate = new PriceGreaterThanNumberPredicate(new Price("700.00"));
         FindCommand command = new FindCommand(predicate, "");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -285,12 +284,12 @@ public class FindCommandTest {
 
     @Test
     public void execute_priceLessThan_multiplePersonsFound() {
-        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 7, "");
+        String expectedMessage = String.format(FindCommand.SUCCESS_RESPONSE, 4, "");
         PriceLessThanNumberPredicate predicate = new PriceLessThanNumberPredicate(new Price("10.00"));
         FindCommand command = new FindCommand(predicate, "");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(BENSON, CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 
     /**
