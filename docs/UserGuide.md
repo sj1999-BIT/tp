@@ -487,7 +487,7 @@ To view the report
 
 Example and expected outcome:<br>
 * `report`:
-  ![report](images/Report.png)
+  ![report](images/ReportWindow.png)
 
 ### Adding customizable shortcuts : `addsc`
 This feature allows you to add a shortcut command to your liking.
