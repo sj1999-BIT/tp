@@ -2,11 +2,14 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Jackson-friendly version of {@link LocalDate}.
@@ -41,8 +44,12 @@ class JsonAdaptedDate {
     /**
      * Converts this Jackson-friendly adapted date object into the model's {@code LocalDate} object.
      */
-    public LocalDate toModelType() {
-        return LocalDate.of(year, month, day);
+    public LocalDate toModelType() throws IllegalValueException {
+        try {
+            return LocalDate.of(year, month, day);
+        } catch (DateTimeException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
     }
 
 }

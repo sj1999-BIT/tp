@@ -13,7 +13,9 @@ public class Countdown implements ReadOnlyCountdown {
     // Date fields
     private LocalDate weddingDate;
 
-    public Countdown() {}
+    public Countdown() {
+        this.weddingDate = LocalDate.now();
+    }
 
     /**
      * Creates a Countdown using the LocalDate in the {@code toBeCopied}

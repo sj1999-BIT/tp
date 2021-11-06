@@ -116,13 +116,14 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="600" />
 
 
 The `Model` component,
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the countdown data i.e., a `Countdown` object.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -137,11 +138,13 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+<img src="images/StorageClassDiagram.png" width="700" />
 
 The `Storage` component,
 * can save both address book data, user preference data, countdown data, and shortcut data in json format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage`, `UserPrefStorage`, `CountdownStorage`, and `ShortcutStorage` which means it can be treated as either of them (if only the functionality of only one is needed).
+* can save both address book data, countdown data, and user preference data in json format, and read them back into corresponding objects.
+* inherits from all `AddressBookStorage`, `CountdownStorage`, and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -170,28 +173,34 @@ The operation is exposed in the `Model` interface as `Model#deletePerson()`.
 Given below is an example usage scenario and how the delete-by-name mechanism behaves at each step.
 
 Step 1. The user launches the application and has the following person list saved. `AddressBook` stores these contacts as `persons`.
+
 ![DeleteByNamePersonList0](images/DeleteByNamePersonList0.png)
 
 Step 2. The user executes `delete n/John Doe` command to delete the person named *John Doe* in the list.
 The `delete` command first calls `Model#updateFilteredPersonList()` and `Model#getFilteredPersonList()` to get a list where all the persons in the list named *John Doe*.
+
 ![DeleteByNameFilteredPersonList0](images/DeleteByNameFilteredPersonList0.png)
 
 Step 3. With the access to the filtered list, it calls `Model#deletePerson()`, causing `AddressBook` to remove each person in the
 list by calling `AddressBook#removePerson()`. Finally, the user will see the updated person list with *John Doe* removed.
+
 ![DeleteByNamePersonList1](images/DeleteByNamePersonList1.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If a name is not found, it will not call `Model#deletePerson()`, so the `AddressBook` person list will not be modified.
 
 </div>
 
-The following sequence diagram shows how the price sum checking operation works:
+The following sequence diagram shows how the delete-by-name operation works:
+
 ![Interactions Inside the Logic Component for the `delete n/John Doe` Command](images/DeleteByNameSequenceDiagram.png)
-:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a
-limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The following activity diagram summarizes what happens when a user executes a delete-by-name command:
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-<img src="images/DeleteByName.png" width="250" />
+</div>
+
+The following activity diagram summarizes what happens when a user executes a set-wedding-countdown command:
+
+<img src="images/DeleteByNameActivityDiagram.png" width="380" />
 
 #### Design considerations:
 
@@ -203,6 +212,135 @@ The following activity diagram summarizes what happens when a user executes a de
 * **Alternative 2:** Deletes the person who names partially contains the specified name.
     * Pros: User does not have to remember the full name (e.g. `delete n/Alex` will delete both person named *Alex Tan* and *Alex Yeoh*).
     * Cons: Might delete the wrong person.
+
+_{more aspects and alternatives to be added}_
+
+### Countdown to the wedding day feature
+#### Implementation
+The countdown mechanism is facilitated by `Countdown`. It implements `ReadOnlyCountdown` with a wedding date, stored internally as `weddingDate`. Additionally, it implements the following operation:
+
+* `Countdown#setData()` — Replaces the existing wedding date with a new date.
+* `Countdown#getDate()` — Returns an unmodifiable view of the wedding date.
+
+The operation is exposed in the `Model` interface as `Model#setDate()` and `Model#getWeddingDate()`.
+
+Given below is an example usage scenario and how the countdown mechanism behaves at each step.
+
+Step 1. The user launches the application and never set wedding date before. `Countdown` automatically stores today's date as `weddingDate`. Say today is `4 November 2021`.
+
+![SetWeddingCountdown0](images/SetWeddingCountdown0.png)
+
+Step 2. The user executes `countdown 2022-05-20` command to set his/her wedding date to `20 May 2022`.
+The `countdown` command then calls `Model#setDate()` to set the wedding date to `20 May 2022`.
+
+![SetWeddingCountdown1](images/SetWeddingCountdown1.png)
+
+Step 3. With this updated wedding date, the user executes `countdown` (without argument) command to see the number of 
+days left until his/her wedding above the command box.
+
+![CountdownResult](images/CountdownResult.png)
+
+Step 4. The user can also view the countdown at the right top corner of the app immediately after updating the wedding
+date.
+
+![CountdownGUI](images/CountdownGUI.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the date specified has passed, it will 
+not call `Model#setDate()`, so the `Countdown` wedding date will not be modified.
+
+</div>
+
+The following sequence diagram shows how the set-wedding-date-for-countdown operation works:
+
+![Interactions Inside the Logic Component for the `countdown 2022-05-20` Command](images/SetWeddingCountdownSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `CountdownCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes what happens when a user executes a delete-by-name command:
+
+<img src="images/SetWeddingCountdownActivityDiagram.png" width="400" />
+
+#### Design considerations:
+
+**Aspect: How setting wedding date for countdown executes:**
+
+* **Alternative 1 (current choice):** Does not allow setting past date as wedding date.
+    * Pros: Fit for the purpose of the app: planning for future wedding.
+    * Cons: Cannot track how many days has passed since the wedding.
+* **Alternative 2:** Allow setting past date as wedding date.
+    * Pros: Can track how many days has passed since the wedding.
+    * Cons: Does not fit for the purpose of the app: planning for future wedding.
+
+_{more aspects and alternatives to be added}_
+
+### Cost sum checking feature
+#### Implementation
+The cost sum checking mechanism is facilitated by `Model`. It implements the following operation:
+
+* `Model#updateFilteredPersonList()` — Filters the person list with specified condition(s).
+
+Given below is an example usage scenario and how the cost sum checking mechanism behaves at each step.
+
+Step 1. The user launches the application and wants to check the total expenses for certain categories. Let say he/she
+has the following contacts stored.
+
+![PriceSum0](images/PriceSum0.png)
+
+<div markdown="span" class="alert alert-info">
+:information_source: **Note:**<br>
+A contact's `status` indicates whether the user has confirmed to hire this person/ the user is sure that this person will
+attend his/her wedding. Therefore, based on the diagram above, the user has **confirmed** to hire `Bernice Yu` as his/her
+**florist** with the cost of **300.00 dollars**.
+
+</div>
+
+Step 2. The user executes `price t/Florist Photographer` command to check the expenses under `Florist` and `Photographer`
+category. The `price` command first calls `Model#updateFilteredPersonList()` to get all the contacts with `confirmed`
+status.
+
+![PriceSum1](images/PriceSum1.png)
+
+Step 3. With this filtered list, `price` command then further filters out person(s) with either `Florist` or `Photographer` 
+tags. Then, it calculates the total sum of `price` for each contact(s) in this filtered list.
+
+![PriceSum2](images/PriceSum2.png)
+
+Step 4. Finally, the user can view the calculation result right above the command box.
+
+![PriceSumByTag](images/PriceSumByTag.png)
+
+Step 4. The user then checks the total cost of his/her wedding by executing `price` command (without any argument). Hence,
+`price` command will just sum up all the `price` for all the contacts with `confirmed` status. The only contacts with 
+`confirmed` status are `Alex Yeoh` and `Bernice Yu`, respectively hired by the user with the cost **650.00 dollars** and
+**300.00 dollars**. Hence, the total is **950.00** dollars.
+
+![PriceTotalSum](images/PriceTotalSum.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the category(tag) specified is not found,
+then the cost under that category is considered as **0.00 dollar** and will not be added to the sum.
+
+</div>
+
+The following sequence diagram shows how the cost-sum-checking operation works:
+
+![Interactions Inside the Logic Component for the `price t/Florist Photographer` Command](images/PriceSumSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `PriceCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design considerations:
+
+**Aspect: How cost-sum-checking operation executes:**
+
+* **Alternative 1 (current choice):** Does not calculate the cost for those who has not confirmed yet.
+    * Pros: Gives an exact number on those categories the user confirms to spend money on.
+    * Cons: The total sum does not include the potential expenses, i.e. cost for persons with `pending` status.
+* **Alternative 2:** Calculate the cost for those who has not confirmed yet.
+    * Pros: The total sum includes the potential expenses, i.e. cost for persons with `pending` status.
+    * Cons: Does not give an exact number on those categories the user confirms to spend money on.
 
 _{more aspects and alternatives to be added}_
 
