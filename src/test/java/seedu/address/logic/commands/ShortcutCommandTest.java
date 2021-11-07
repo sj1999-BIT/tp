@@ -40,7 +40,7 @@ public class ShortcutCommandTest {
 
     @Test
     public void execute_shortcutDoesNotExist_failure() {
-        assertCommandFailure(new ShortcutCommand("9"), model, ShortcutCommand.COMMAND_NOT_FOUND);
+        assertCommandFailure(new ShortcutCommand("9"), model, String.format(ShortcutCommand.SHORTCUT_NOT_FOUND, "9"));
     }
 
     @Test

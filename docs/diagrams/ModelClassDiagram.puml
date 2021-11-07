@@ -9,11 +9,14 @@ Package Model <<Rectangle>>{
 Interface ReadOnlyAddressBook <<Interface>>
 Interface ReadOnlyCountdown <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
+Interface ReadOnlyShortcut <<Interface>>
 Interface Model <<Interface>>
 Class AddressBook
 Class Countdown
+Class Shortcut
 Class ReadOnlyAddressBook
 Class ReadOnlyCountdown
+Class ReadOnlyShortcut
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -37,15 +40,18 @@ HiddenOutside ..> Model
 AddressBook .up.|> ReadOnlyAddressBook
 Countdown .up.|> ReadOnlyCountdown
 UserPrefs .up.|> ReadOnlyUserPrefs
+Shortcut .up.|> ReadOnlyShortcut
 
 ModelManager .up.|> Model
 Model .down.> ReadOnlyUserPrefs
 Model .down.> ReadOnlyAddressBook
 Model .down.> ReadOnlyCountdown
+Model .down.> ReadOnlyShortcut
 
 ModelManager -down-> "1" AddressBook
 ModelManager -down-> "1" Countdown
 ModelManager -down-> "1" UserPrefs
+ModelManager -down-> "1" Shortcut
 
 AddressBook *--> "1" UniquePersonList
 Countdown *--> "1" LocalDate

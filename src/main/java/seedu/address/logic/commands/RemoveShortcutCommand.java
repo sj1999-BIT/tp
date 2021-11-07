@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.ShortcutCommand.SHORTCUT_NOT_FOUND;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,7 +17,6 @@ public class RemoveShortcutCommand extends Command {
             + "Parameters: KEYWORDS c/[Command to be executed]\n"
             + "Example: " + COMMAND_WORD + " a";
 
-    public static final String SHORTCUT_NOT_FOUND = "Command with keyword %s not found";
     public static final String SHORTCUT_REMOVE_SUCCESS = "Removed %s: %s";
 
     private final String keyword;

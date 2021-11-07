@@ -141,8 +141,9 @@ The `Model` component,
 <img src="images/StorageClassDiagram.png" width="700" />
 
 The `Storage` component,
-* can save both address book data, countdown data, and user preference data in json format, and read them back into corresponding objects.
-* inherits from all `AddressBookStorage`, `CountdownStorage`, and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both address book data, user preference data, countdown data, and shortcut data in json format, and read them back into corresponding objects.
+* inherits from both `AddressBookStorage`, `UserPrefStorage`, `CountdownStorage`, and `ShortcutStorage` which means it can be treated as either of them (if only the functionality of only one is needed).
+* can save address book data, countdown data, shortcut data, and user preference data in json format, and read them back into corresponding objects.
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -154,6 +155,77 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Find by Tag and Price feature
+#### Implementation
+Finding by Tag and Price is a combinatory feature implemented by `Predicates`. The predicate for tags is `TagContainsKeywordsPredicate`.
+
+![PredicateClasses](images/PredicateClasses.png)
+
+Finding by price range uses three different predicates.
+
+1. `PriceEqualsNumberPredicate` for to find equal to price
+2. `PriceGreaterThanNumberPredicate` for to find greater than certain price
+3. `PriceLessThanNumberPredicate` for to find less than certain price
+
+The 5 operators =, <, >, >=, <= are implemented using the above predicates.
+
+| Operator | Predicate |
+| ------------- | ------------- |
+| =  | `PriceEqualsNumberPredicate`  |
+| >  | `PriceGreaterThanNumberPredicate`  |
+| <  | `PriceLessThanNumberPredicate`  |
+| >=  | `PriceEqualsNumberPredicate \|\| PriceGreaterThanNumberPredicate`  |
+| <=  | `PriceEqualsNumberPredicate \|\| PriceLessThanNumberPredicate`  |
+
+The following activity diagram summarizes what happens when a user executes a find command:
+
+<img src="images/FindByFilterActivityDiagram.png" width="250" />
+
+#### Design considerations:
+**Aspect: How each predicate is combined together:**
+
+* **Alternative 1 (current choice):** Queried list of contacts must fit all three criterias at once.
+    * Pros: It is likely user would use this feature more as it narrows the scope of the query
+    * Cons: Some users may misinterpret the functionality and be confused
+* **Alternative 2:** Queried list of contacts can fit any of the three criterias
+    * Pros: Consistent with how multiple names work with the `find [NAMES]` function
+    * Cons: Less likely to be used as additional parameters won't increase effectiveness of query.
+
+### Shortcut features
+#### Implementation
+The shortcut implementation is facilitated by a Shortcut module with four commands: `sc`, `addsc`, `removesc`, and `listsc`. Each responsible for the call shortcut, add shortcut, remove shortcut, and list shortcut functions respectively. 
+
+`Shortcut` mechanism is similar to `AddressBook` but instead stores a `HashMap<String, String>` of shortcuts corresponding to its `key` and `commandString`. To store it in JSON, `JsonShortcutStorage` use `JsonSerializableShortcut` to read and write from the JSON file. The storage architecture can be seen in the diagram above.
+
+Given below is an example usage scenario and how the shortcut mechanisms behaves at each step.
+
+Step 1. The user launches the applicatio nand has the following person list saved. `Shortcut` stores this in the shortcutMap.
+
+![Shortcuts0](images/Shortcuts0.png)
+
+Step 2. The user executes `sc f` to call the shortcut `f` leading to the command `find pr/>0.00` to be called. The `sc` command first calls `Model#getShortcutFromKey()` to obtain the command from the model.
+
+Step 3. The `sc` command takes this new command and parses it in the `AddressBookParser`. If this succeeds command in the `commandString` is executed on the same model.  
+
+Below is a simplified sequence diagram showing how a `ShortcutCommand` would interact with the logic component. The interactions of the `FindCommand` stored in the `commandString` is simpified as the main focus of this diagram is the shortcut functionality.
+
+![Interactions Inside the Logic Component for the `sc f` Command](images/ShortcutCommandSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a shortcut-keyword command:
+
+<img src="images/ShortcutActivityDiagram.png" width="400" />
+
+#### Design considerations:
+
+**Aspect: When to check if shortcut command is valid:**
+
+* **Alternative 1 (current choice):** Check when it is called by `sc`
+    * Pros: Less intensive on the system. User can still check if command is correct by eye using `listsc`
+    * Cons: User needs to make sure they add the correct command themselves
+* **Alternative 2:** Check when it is added by `addsc`
+    * Pros: User can avoid the case where they add an invalid command
+    * Cons: Bug Prone. Commands may have runtime errors depending on the state of the `AddressBook` (Unable to tell if command is invalid). 
 
 ### Delete by name feature
 #### Implementation
@@ -459,90 +531,110 @@ Step 4. After that, a command result indicating that the report window is opened
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Undo/redo feature
+### Undo feature
 
-#### Proposed Implementation
+The undo mechanism is facilitated by an Undo module and is prompted by the command `undo`. This command 
+is used for undoing the most recent change made to the program. 
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+It uses the `ReadOnlyAddressBook` interface to retrieve the list of people stored as contacts. 
+The undo mechanism invokes the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `AddressBook#removePerson()` — Removes the specific person from the list of people.
+* `AddressBook#setPerson()` — Adds the specific person to the list of people.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The above operations are represented by the Model interface in the UndoCommand class as `Model#deletePerson()` and
+`Model#setPerson()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+To undo a task, the undo class keeps track of what the previous command is through the method `Undo#setPreviousCommand`,
+and when the `undo` command is inputted, it checks what the previous command (static variable prevCommand)) was and 
+whether it can be undone.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+As of now, the `undo` command will revert the action of an `add`, `edit`, `delete`, `clear` or `group` command. Other
+commands cannot be undone (due to their nature) or have not been implemented.
 
-![UndoRedoState0](images/UndoRedoState0.png)
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 1. The user launches the application for the first time. The AddressBook person list is shown below.
 
-![UndoRedoState1](images/UndoRedoState1.png)
+![UndoState1](images/UndoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+The prevCommand variable is set to nothing, as no previous command has been made.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+![UndoState0](images/UndoState0.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Step 2. The user executes `edit 1 s/Confirmed` command to change the status of the first person in the book to confirmed.
+The `edit` command called will invoke `Model#setPerson()` to make the changes to the AddressBook person list.
 
+![UndoState2](images/UndoState2.png)
+
+The prevCommand variable will now be assigned to this EditCommand object.
+
+![UndoState3](images/UndoState3.png)
+
+Step 3. The user executes `delete 1` to delete the first person in the group.
+The `delete` command will call `Model#deletePerson()`, making a change to the AddressBook person list once again.
+
+![UndoState4](images/UndoState4.png)
+
+The prevCommand variable will now be assigned to this DeleteCommand object.
+
+![UndoState5](images/UndoState5.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+If a command is invalid, it will not call `Model#setPerson()` or 
+`Model#deletePerson()`, and the prevCommand value will be set to null.
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that deleting the person was a mistake, and decides to undo that action by executing the `undo` command. 
+The `undo` command will call `Model#setPerson()`, which will revert the AddressBook person list to the 
+previous state as a result of re-adding the contact at the exact same location.
 
-![UndoRedoState3](images/UndoRedoState3.png)
+![UndoState0](images/UndoState1.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+The prevCommand variable is also updated to equal the UndoCommand object.
 
-</div>
+![UndoState6](images/UndoState6.png)
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the undo operation works (for undoing a delete command):
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the AddressBook person list
+such as `list`, will just output a message stating that such a command cannot be undone.
 
+Step 6. The user wants to use undo on the `shortcut` command, in which case the program will output that undo
+has not been implemented for such a command.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+If a command is valid but cannot be undone, the prevCommand value will still be
+set to the command but upon evaluation the undo action will not be performed.
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The following activity diagram summarizes what happens when a user tries to undo a command:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
+![CommitActivityDiagram](images/CommitActivityDiagram.png)
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How undo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
+* **Alternative 1 (current implementation):** Having an undo class to execute the command.
+  * Pros: Easy to keep track of what the previous command is.
+  * Cons: as the number of commands increase, the harder it is to keep track
+     of undoing all commands in one place.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+  * Pros: No need to store several commands' undoing operations in one class,
+    can have one undo operation (method) for each command.
+  * Cons: May be harder to keep track of what the previous command is.
+* **Alternative 3:** Store various states of the AddressBook.
+  * Pros: Easy to retrieve.
+  * Cons: Memory issues, when to delete an old (no longer useful) state.
+    
 _{more aspects and alternatives to be added}_
 
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -628,15 +720,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees:**
 * A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
 
+**MSS**
+
 1. When adding/editing contact, user also types in the price detail.
 2. User confirms.
-3. System updates the contact list and the target contact will now have price tag(s).
+3. System updates the contact list and the target contact will now have price tag(s).<br>
     Use case ends.
 
 **Extensions**
 * 2a. Price is unspecified/blank(white spaces only)/written in invalid format.
     * 2a1. System shows an error message.<br>
       Use case resumes at step 1.
+
+
+**Use case: Executes a shortcut**
+
+**Guarantees:**
+* Shortcut will only be executed if shortcut exists and command is valid.
+
+**MSS**
+
+1. User calls a shortcut
+2. Command String attached to the shortcut keyword is called
+3. System runs the command attached at the user story of that command will run <br>
+Use case ends.
+
+**Extensions**
+* 1a. Shortcut keyword used does not exist
+    * 1a1. System shows an error message.
+      Use case resumes at step 1.
+* 3a. Shortcut command string is an invalid command
+    * 3a1. System shows an error message.
+      Use case resumes at step 1.
+* 3b. Running the command result in error
+    * 3b1. System shows the error message of the command
+      Use case resumes at step 1.
+*{More to be added}*
 
 ### Non-Functional Requirements
 
@@ -657,6 +776,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Filter**: Add tags to contacts such as price, type of contact
 * **Actor**: a role played by a use case
+* **Keyword**: Keyword used to call a shortcut
+* **Command String**: Command attached to the keyword of the shortcut
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -778,6 +900,117 @@ testers are expected to do more *exploratory* testing.
 
     1. Incorrect report command to try: `1 report`,`reports` <br>
        Expected: Since both the above commands are invalid, an error message stating unknown message is shown in the command box.
+
+### Undoing information
+
+1. **Undoing the previous command**    
+
+   1.1 Test case: `help` input followed by `undo`<br>
+       Expected: outputs to the display section of the program indicating that such a command cannot be undone because
+       it has not changed the contact list information.
+   
+   1.2 Test case: `addsc random c/delete 1` input followed by `undo`<br>
+       Expected: outputs a message stating that undo has not been implemented for this feature. Contact list
+       remains the same.
+   
+   1.3 Test case: passes in a null object to the previous command before inputting `undo` (this mimicks what happens when an invalid
+       input is used).<br>
+       Expected: prints in the program that the previous command was invalid, hence undo does not work. 
+   
+   1.4 Test case: `delete 1` input followed by `undo`<br>
+       Expected: deleting the first person in the list has been undone with a message indicating the task was successful. 
+       Surrounded by a try-catch for the case that the contact list is empty
+
+### Shortcut features
+
+1. **Add a new shortcut**
+
+   1.1. Test case: `addsc s c/list`<br>
+        Expected: `listsc` now shows `KEY s - COMMAND list`. Calling `sc s` will list out all the contacts 
+
+   1.2. Test case: `addsc c/list`<br>
+        Expected: Error message. Invalid command format. 
+
+   1.3. Other incorrect add-shortcut command to try: `addsc s`<br>
+        Expected: Same as 1.2
+
+2. **Using a shortcut**
+
+   2.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+      * Make sure the shortcut is shown in `listsc`
+
+   2.2. Test case: `sc s` <br>
+   Expected: Lists out all items the exact same as the `list` command. Otherwise, functions as specified by the command string.
+
+   2.3. Test case: `sc` <br>
+   Expected: Incorrect format. Invalid command format error shown.
+
+   2.4. Calling command that does not exist: `sc a` <br>
+   Expected: Command not found eror shown
+
+3. **Deleting a shortcut**
+
+    3.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+      * Make sure the shortcut is shown in `listsc`
+
+    3.2. Test case: `removesc s` <br>
+    Expected: Displays message that shortcut was removed successfully. `listsc` will no longer show that contact
+
+    3.3. Test case: `removesc` <br>
+    Expected: Incorrect format. Invalid command format error shown.
+
+    3.4. Calling command that does not exist: `removesc a` <br>
+    Expected: Command not found eror shown
+
+4. **Viewing shortcuts**
+
+    4.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+    
+    4.2. Test case: `listsc` <br>
+    Expected: Displays all correct shortcuts added by the user. 
+
+### Finding Contacts
+
+1. **Finding contacts from their names, tags, and price**
+
+   1.1. Prerequisites:
+      * List all persons using the `list` command. Multiple persons in the list.
+      * Add a person using the command: `add n/Bryan Tan p/99778866 e/bryantan@hmail.com a/Fake Street t/Tag pr/20.00`.
+      * Add a person using the command: `add n/Sam p/99887766 e/samn@hmail.com a/Fake Street t/Tag Tag2 pr/10.00`.
+      * Make sure there is **no** person named `DUMMY CONTACT FOR TESTING` in the list.
+
+   1.2. Test case: `find Bryan`<br>
+      Expected: Bryan Tan and other existing contacts named Bryan is shown. 
+
+   1.3. Test case: `find t/Tag`<br>
+      Expected: Both Bryan and Sam is shown as they both have the tag "Tag". 
+   
+   1.4. Test case: `find Bryan Sam`<br>
+      Expected: Both Bryan and Sam is shown by searching for their names
+   
+   1.5. Test case: `find pr/=10.00`<br>
+      Expected: Only Sam is shown as his price is 10.00.
+
+   1.6. Test case: `find pr/>10.00`<br>
+      Expected: Only Bryan is shown as his price is 20.00.
+
+   1.7. Test case: `find pr/<20.00`<br>
+      Expected: Only Sam is shown as his price is 10.00.
+   
+   1.8. Test case: `find pr/<=20.00`<br>
+      Expected: Both Bryan and Sam is shown as their prices are lower than or equal to 20.00.
+    
+   1.9. Test case: `find pr/>=10.00`<br>
+      Expected: Both Bryan and Sam is shown as their prices are higher than or equal to 10.00.
+   
+   1.10. Test case for invalid find: `find`, `find t/` <br>
+      Expected: Error message shown. Invalid command format. 
+    
+   1.11. Test case for invalid price: `find pr/1`, `find pr/=a` <br>
+      Expected: Error message shown. Invalid price format. 
 
 ### Saving data
 
