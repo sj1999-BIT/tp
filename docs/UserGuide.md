@@ -546,6 +546,8 @@ To view all shortcuts available for the user:
 1. Type the command: `listsc` in the command box.
 2. Press Enter
 
+![listsc](images/ListShortcut.png)
+
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tip:**<br>
