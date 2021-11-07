@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 <div style="page-break-after: always;">
-    <img src="images/WedFastUserGuideCoverPage.png" alt="CoverPage"/>
+    <img src="images/WedFastV1.4UserGuideCoverPage.png" alt="CoverPage"/>
 </div>
 
 ---
@@ -115,10 +115,6 @@ _Italic text_        | The name of this product or a file path.
 ---
 
 ## **Getting Started**
-<div markdown="block" class="alert alert-info">
-
-**:information_source: This section will teach you step-by-step how to install and use _WedFast_**
-</div>
 
 ### Installation
 1. Ensure your device runs on **Windows / macOS / linux** because _WedFast_ only supports these three 
@@ -233,6 +229,8 @@ To lists all the existing contacts.
 1. Type the command: `list` in the command box.
 2. Press Enter.
 
+<div style="page-break-after: always;"></div>
+
 ### Editing a person : `edit`
 This feature allows you to update a person's detail at the specified index, so that you can replace the incorrect and 
 outdated data with the correct and updated one.
@@ -264,6 +262,8 @@ To edit an existing person in the contact list:
   the contact's name) can be duplicated.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Examples and expected outcomes:
 * `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be 91234567 
   and johndoe@example.com respectively.
@@ -272,7 +272,7 @@ Examples and expected outcomes:
 ### Grouping persons : `group`
 This feature allows you to add a single tag to multiple contacts at once.
 
-To group existing persons in the contact list together to an existing named tag or create a new tag
+To group existing persons in the contact list together to an existing named tag or create a new tag:
 1. Type the command in the command box with the following format:<br>
    `group t/GROUP_NAME n/NAME1, [NAME2]…​`
 2. Press Enter.
@@ -306,11 +306,20 @@ range:
     * `find pr/PRICE_RANGE`
 2. Press Enter.
 
+<div markdown="block" class="alert alert-warning">
+**:exclamation:Caution:**<br>
+Find currently only supports name, tags and price range. Price range operators include =, >, <, >=, <=.
+Furthermore, price must be entered with 2 decimal points.
+
+</div>
+
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
 * These parameters can all be use in conjunction to find a contact that fits any keyword and any tag and under a price range.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 Example:<br>
 `find t/florist t/caterer pr/>=100.00`
@@ -318,10 +327,6 @@ Example:<br>
 Outcome:<br>
 You will see only the contacts with `florist` and `caterer` tag as well as having the price of at least `100.00` dollars
 ![find contact](images/findContact.png)
-
-**:exclamation:Caution:**<br>
-Find currently only supports name, tags and price range. Price range operators include =, >, <, >=, <=.
-Furthermore, price must be entered with 2 decimal points. 
 
 ### Deleting a person : `delete`
 This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
@@ -339,6 +344,8 @@ To delete a person from the contact list via index/name/tag:
 It deletes a person entry permanently from your contact, but you can [undo](#undoing-last-change--undo) the deletion
 if you wish to.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-success">
 
@@ -376,6 +383,8 @@ if you wish to.
 
 Outcome:<br>
 All the contacts disappear from the contact list.
+
+<div style="page-break-after: always;"></div>
 
 ### Undoing last change : `undo`
 This feature allows you to undo a change to the contact list if you think the change is a mistake.
@@ -462,6 +471,8 @@ To calculate the expenses:
    * `price t/TAG [t/TAG]…​` (For the cost under 1 or more category, specified by `TAG`)
 2. Press Enter
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tip:**<br>
@@ -481,6 +492,8 @@ To view the report
 Example and expected outcome:<br>
 * `report`:
   ![report](images/Report.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Adding customizable shortcuts : `addsc`
 This feature allows you to add a shortcut command to your liking.
@@ -512,6 +525,8 @@ To call the command bound to the shortcut:
 
 Example and expected outcome:<br>
 * `sc f` calls the COMMAND attached to the shortcut `f`
+
+<div style="page-break-after: always;"></div>
 
 ### Viewing shortcuts : `listsc`
 This feature allows you to list down the shortcut added.
@@ -547,6 +562,8 @@ Example:<br>
 Outcome:<br>
 Removes the attachment of the COMMAND to the shortcut `f`
 
+<div style="page-break-after: always;"></div>
+
 ### Exiting the program : `exit`
 This feature allows you to close the app.
 
@@ -578,6 +595,8 @@ file at the next run.
 This feature allows you to remove a particular tag from multiple persons at once.
 
 _WedFast's_ developers are now working on it. Please wait patiently for the next update …
+
+<div style="page-break-after: always;"></div>
 
 ### Redoing last change : `redo` (Coming soon)
 This feature allows you to redo the change that you had undone previously.
