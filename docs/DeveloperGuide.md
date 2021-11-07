@@ -409,21 +409,31 @@ The following sequence diagram shows how the cost-sum-checking operation works:
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Undo/redo feature
+### Undo feature
 
-#### Proposed Implementation
+The undo mechanism is facilitated by an Undo module and is prompted by the command `undo`. This command 
+is used for undoing the most recent change made to the program. 
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+It implements the `ReadOnlyAddressBook` interface
+to retrieve the list of people stored as contacts. 
+The undo mechanism invokes the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `AddressBook#removePerson()` — Removes the specific person from the list of people.
+* `AddressBook#setPerson()` — Adds the specific person to the list of people.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The above operations are represented by the Model interface in the UndoCommand class as `Model#deletePerson()` and
+`Model#setPerson()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+To undo a task, the undo class keeps track of what the previous command is through the method `Undo#setPreviousCommand`,
+and when the `undo` command is inputted, it checks what the previous command was and whether it can be undone.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+As of now, the `undo` command will revert the action of an `add`, `edit`, `delete`, `clear` or `group` command. Other
+commands cannot be undone (due to their nature) or have not been implemented.
+
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. 
+The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
