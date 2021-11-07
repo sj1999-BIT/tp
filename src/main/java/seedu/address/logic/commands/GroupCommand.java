@@ -25,7 +25,7 @@ public class GroupCommand extends Command {
             + PREFIX_NAME + "NAME1, NAME2, NAME3, NAME4 ... no limit to number";
     public static final String MESSAGE_ERROR_TAG = "Invalid tag inputted";
     public static final String MESSAGE_ERROR_NAMES = "Invalid names inputted";
-    private static final String MESSAGE_FAILURE = "Group command has failed";
+    public static final String MESSAGE_FAILURE = "Group command has failed";
 
     private boolean isFirstAdded = true;
     private String tag;
@@ -103,6 +103,18 @@ public class GroupCommand extends Command {
             }
         }
         return new CommandResult(returnMessage + nameStringLists);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof GroupCommand) {
+            GroupCommand testCommand = (GroupCommand) obj;
+            if (testCommand.getTagName().equals(tag)
+                    && testCommand.getNameList().equals(nameList)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
