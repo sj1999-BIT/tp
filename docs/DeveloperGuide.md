@@ -556,51 +556,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `WedFast` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a contact to a group**
+**Use case: Add multiple contacts to a group**
 
 **Guarantees**
-* Contact will be added to group only if both the contact and group exists.
+* Contacts will be added to a group only if both the contacts and group exist.
 
 **MSS**
 
-1. User types out name of contact with group name using specified format.
+1. User types out names of the contacts with group name using specified format.
 2. User confirms.
 3. System adds contact to said group.<br>
     Use case ends.
 
 **Extensions**
-* 2a. Either name/group name is unspecified/blank(white spaces only)/does not exist.
-    * 2a1. System shows an error message.
-    * 2a2. User indicates the error message has been read.<br>
+* 2a. Either one of the names/group name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.<br>
     Use case resumes at step 1.
-
-**Use case:  Filter contacts**
-
-**Guarantees:**
-* System successfully filter and display the contacts list only if the group/tag exists.
-
-**MSS**
-
-1. User types out group and/or tag in specified format.
-2. User confirms.
-3. System filters contacts that fall under that group and/or tag.<br>
-    Use case ends.
-
-**Extensions**
-* 2a. Either group/tag name is unspecified/blank(white spaces only)/does not exist.
-    * 2a1. System shows an error message.
-    * 2a2. User indicates the error message has been read.<br>
-      Use case resumes at step 1.
-
-**Use case:  Track important information**
-
-**MSS**
-
-1. User types in key details when creating new contacts.
-2. User types out the tracking command keyword.
-3. User confirms.
-4. System summarises all the important information typed by user across all contacts.<br>
-    Use case ends.
 
 **Use case: Add/Edit price tag**
 
@@ -616,8 +587,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 2a. Price is unspecified/blank(white spaces only)/written in invalid format.
-    * 2a1. System shows an error message.
-    * 2a2. User indicates the error message has been read.<br>
+    * 2a1. System shows an error message.<br>
       Use case resumes at step 1.
 
 
@@ -656,8 +626,6 @@ Use case ends.
 7.  Should be usable by anyone who understands english without any experience in planning weddings.
 
 
-*{More to be added}*
-
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
@@ -683,42 +651,131 @@ testers are expected to do more *exploratory* testing.
 
 ### Launch and shutdown
 
-1. Initial launch
+1. **Initial launch**
 
    1. Download the jar file and copy into an empty folder
 
    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+1. **Saving window preferences**
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. **Deleting a person while all persons are being shown**
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1.1. Prerequisites:
+      * List all persons using the `list` command. Multiple persons in the list.
+      * Add a person using the command: `add n/Bryan Tan p/99778866 e/bryantan@hmail.com a/Fake Street`.
+      * Make sure there is **no** person named `DUMMY CONTACT FOR TESTING` in the list.
 
-   1. Test case: `delete 1`<br>
+   1.2. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1.3. Test case: `delete 0`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   
+   1.4. Test case: `delete n/Bryan Tan`<br>
+      Expected: The contact `Bryan Tan` is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   
+   1.5. Test case: `delete n/DUMMY CONTACT FOR TESTING`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1.6. Other incorrect delete commands to try: `delete`, `delete n/`, `delete n/   `, `delete x` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Counting down to the wedding day
+
+1. **Set the date of the wedding**
+
+   1.1. Test case: `countdown 2025-04-29`<br>
+        Expected: The wedding date has been set to `2025-04-29`. The wedding date shown in the status message along with the countdown. Timestamp in the status bar is updated.
+
+   1.2. Test case: `countdown 29-04-2025`<br>
+        Expected: No wedding date is set. Error details shown in the status message. Status bar remains the same.
+
+   1.3. Other incorrect set-wedding-countdown command to try: `countdown 2025 April 29`, `countdown somedummytexthere`<br>
+        Expected: Similar to previous.
+
+### Checking expenses of the wedding
+
+1. **Checking total cost of the wedding**
+
+   1.1. Test case: `price`<br>
+        Expected: The total cost of the wedding shown in the status message. Timestamp in the status bar is updated.
+
+   1.2. Test case: `price somedummytexthere`<br>
+        Expected: Error details shown in the status message. Status bar remains the same.
+
+2. **Checking total cost for a particular group(tag)**
+
+   1.1. Prerequisites:<br>
+      * Learn how to use `edit` command to edit the contact, refer [here](https://ay2122s1-cs2103t-w10-4.github.io/tp/UserGuide.html#editing-a-person--edit).
+      * Modify the contact list using `edit` command such that the first and second contact has the following details:
+        * tags: `item1` 
+        * price: `$100.00`
+        * status: `Confirmed`
+      * Then, modify the rest of the contacts using `edit` command so that all of them have either `Pending` or `Declined`
+        status.
+      * Make sure the first and second contact in the list **do not** have the tag `SOMERANDOMTAGHERE`
+
+   1.2. Test case: `price t/item1`<br>
+       Expected: The total cost of for the group(tag) `item` shown in the status message. Timestamp in the status bar is updated.
+
+   1.3. Test case: `price t/SOMERANDOMTAGHERE`<br>
+        Expected:  Error details shown in the status message. Status bar remains the same.
+
+   1.4. Other incorrect cost-sum-checking command to try: `price t/`<br>
+        Expected: Similar to previous.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. **Dealing with missing/corrupted data files**
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Simulating a corrupted file:
+      * In the app's home folder, look for a folder named `data`, double click into it, then look for a file named `countdown.json`.
+      * If the file is not found, launches your app and type the command: `countdown`.
+      * Open the file and modify the `month` to `TEST` of the countdown as shown below, then save it:
+        ![ModifyCountdownJson](images/ModifyCountdownJSON.png)
+      * If your app is open now, close it.
+   
+   2. Expected behavior:<br>
+      * Relaunches the app and you will see the following displayed in the status message. It means the original corrupted `countdown.json` will be replaced 
+        with the new one the next time `countdown` command is used. Timestamp in the status bar is updated.
+        ![CorruptedCountdownBehavior](images/CorruptedCountdownBehavior.png)
+      * Use `countdown` command, then reopen the `countdown.json`. You will see the `month` has been changed to today's month.
 
-1. _{ more test cases …​ }_
+--------------------------------------------------------------------------------------------------------------------
+
+## **Effort**
+
+1. **Difficulty level:**<br>
+   * This project has the medium high level of difficulty as all of our developers has to handle this project in the time
+     of pandemic. It means that all of us have to work from home, thus making the communication harder and reduce the
+     productivity.
+   * Furthermore, all of us has no prior experience of handling brown field project, and has very little experience in 
+     using JavaFX. Most of the tools used are learnt on the spot and apply directly to the project.
+   * Last but not least, this project has a very tight time constraint.
+
+2. **Challenges faced:**<br>
+   * Difficulty in communication: All discussions are through Zoom(a software used for online meeting) comes with the risk of slow internet connection and issue in microphone.
+   * Responsibilities outside the project: Most of us has other responsibilities to deal with, limiting us from dedicating more time for this project.
+
+3. **Effort required:**<br>
+   * Coordinating with all the developers' schedule.
+   * Learn the convention of writing a proper documentation.
+   * Learn the tools such as JavaFX from scratch and apply directly.
+
+4. **Achievements of the project:**<br>
+   * All the deliverables for each milestone has been submitted on time.
+   * All the bug detected has been solved on time.
+
+5. Ultimately, this project has been quite challenging as our solution architecture involves the contacts with more entities type than the original AB3 project.
+   The additional entities involved includes `price`, `important info`, and `status`. These serves as the foundation for some features implemented and
+   requires extra time and effort to modify the existing feature to ensure the app functions as expected.
+
+

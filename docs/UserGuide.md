@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 <div style="page-break-after: always;">
-    <img src="images/WedFastUserGuideCoverPage.png" alt="CoverPage"/>
+    <img src="images/WedFastV1.4UserGuideCoverPage.png" alt="CoverPage"/>
 </div>
 
 ---
@@ -59,12 +59,12 @@ title: User Guide
 [Graphical User Interface](#graphical-user-interface-gui) (GUI).**
 
 You can use _WedFast_ to **add, edit and delete the contacts**. These contacts are not just limited to those attending
-your wedding, it can also be those you are hiring such as your photographer and costume designer. On this basis,
+your wedding, it can also be those you are hiring such as your photographer, caterer and costume designer. On this basis,
 _WedFast_ allows you to **add tag to these contacts, calculating the cost, and even generating a detailed report for
 your wedding plan!**
 
-Excited to try _WedFast_ out? This user guide will **walk you through all the latest features, troubleshoots your
-problems and provides you a command summary to boost your efficiency!**
+Excited to try _WedFast_ out? This user guide will **walk you through all the latest features, troubleshoot your
+problems and provide you with a command summary to boost your efficiency!**
 <div style="page-break-after: always;"></div>
 
 ---
@@ -115,10 +115,6 @@ _Italic text_        | The name of this product or a file path.
 ---
 
 ## **Getting Started**
-<div markdown="block" class="alert alert-info">
-
-**:information_source: This section will teach you step-by-step how to install and use _WedFast_**
-</div>
 
 ### Installation
 1. Ensure your device runs on **Windows / macOS / linux** because _WedFast_ only supports these three 
@@ -149,7 +145,7 @@ _Italic text_        | The name of this product or a file path.
 
    * `exit` : Exits the app.
 
-3. Congratulation for finishing up the basics! You can refer to the [Features](#features) below for more details of
+3. Congratulations for finishing up the basics! You can refer to the [Features](#features) below for more details of
    each command.
 
 [Back to top 🔝](#table-of-contents)
@@ -214,7 +210,7 @@ To add a person to the contact list:
 
 **:bulb: Tip:**<br>
 * A person can have any number of tags (including 0)
-* Since a wedding can be big and two or more persons might come from the same family, all contact information(other than
+* Since a wedding can be big and two or more people might come from the same family, all contact information (other than
   the contact's name) can be duplicated.
 </div>
 
@@ -232,6 +228,8 @@ This feature displays a list of all your contacts in a single column.
 To lists all the existing contacts.
 1. Type the command: `list` in the command box.
 2. Press Enter.
+
+<div style="page-break-after: always;"></div>
 
 ### Editing a person : `edit`
 This feature allows you to update a person's detail at the specified index, so that you can replace the incorrect and 
@@ -264,6 +262,8 @@ To edit an existing person in the contact list:
   the contact's name) can be duplicated.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Examples and expected outcomes:
 * `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be 91234567 
   and johndoe@example.com respectively.
@@ -272,7 +272,7 @@ Examples and expected outcomes:
 ### Grouping persons : `group`
 This feature allows you to add a single tag to multiple contacts at once.
 
-To group existing persons in the contact list together to an existing named tag or create a new tag
+To group existing persons in the contact list together to an existing named tag or create a new tag:
 1. Type the command in the command box with the following format:<br>
    `group t/GROUP_NAME n/NAME1, [NAME2]…​`
 2. Press Enter.
@@ -288,10 +288,10 @@ To group existing persons in the contact list together to an existing named tag 
 </div>
 
 Example:<br>
-`group t/VIP n/Alex Yeoh, Bernice Yu`
+`group t/VIP n/Sonny Michelle, James Cotton`
 
 Outcome:<br>
-Both `Alex Yeoh` and `Bernice Yu` now has the tag `VIP`
+Both `Sonny Michelle` and `James Cotton` now has the tag `VIP`
 ![group contact](images/GroupContacts.png)
 
 ### Locating persons : `find`
@@ -306,22 +306,27 @@ range:
     * `find pr/PRICE_RANGE`
 2. Press Enter.
 
+<div markdown="block" class="alert alert-warning">
+**:exclamation:Caution:**<br>
+Find currently only supports name, tags and price range. Price range operators include =, >, <, >=, <=.
+Furthermore, price must be entered with 2 decimal points.
+
+</div>
+
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
 * These parameters can all be use in conjunction to find a contact that fits any keyword and any tag and under a price range.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Example:<br>
-`find t/friends t/colleagues pr/>=0.00`
+`find t/florist t/caterer pr/>=100.00`
 
 Outcome:<br>
-You will see only the contacts with `friends` and `colleagues` tag as well as having the price of more than `$0.00`
+You will see only the contacts with `florist` and `caterer` tag as well as having the price of at least `100.00` dollars
 ![find contact](images/findContact.png)
-
-**:exclamation:Caution:**<br>
-Find currently only supports name, tags and price range. Price range operators include =, >, <, >=, <=.
-Furthermore, price must be entered with 2 decimal points. 
 
 ### Deleting a person : `delete`
 This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
@@ -340,6 +345,8 @@ It deletes a person entry permanently from your contact, but you can [undo](#und
 if you wish to.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tips:**<br>
@@ -350,10 +357,10 @@ if you wish to.
 </div>
 
 Example:<br>
-`delete 7`
+`delete 2`
 
 Outcome:<br>
-The 7th contact, `John Doe` disappears from the contact list.
+The 2nd contact, `John Doe` disappears from the contact list.
 
 Before:<br>
 ![before delete contact](images/deleteContact1.png)
@@ -377,6 +384,8 @@ if you wish to.
 Outcome:<br>
 All the contacts disappear from the contact list.
 
+<div style="page-break-after: always;"></div>
+
 ### Undoing last change : `undo`
 This feature allows you to undo a change to the contact list if you think the change is a mistake.
 
@@ -393,13 +402,13 @@ To undo the last change that was made to the contact list:
 </div>
 
 Examples and expected outcomes for undoing 'delete' command:
-* 2nd contact is deleted with command `delete 2`:
+* 3rd contact is deleted with command `delete 3`:
    ![delete by index](images/UndoDelete1.png)
 * Undo the deletion with command `undo`:
    ![undo delete by index](images/UndoDelete2.png)
 
 Examples and expected outcomes for undoing 'group' command:
-* Group `David Li` and `Irfan Ibrahim` under the tag `Bus` with command `group t/Bus n/David Li, Irfan Ibrahim`:<br>
+* Group `Charlotte Oliveiro` and `Andy Robin` under the tag `Bus` with command `group t/Bus n/Charlotte Oliveiro, Andy Robin`:<br>
    ![group](images/UndoGroup1.png)
 * Undo the grouping with command `undo`
    ![group](images/UndoGroup2.png)
@@ -462,6 +471,8 @@ To calculate the expenses:
    * `price t/TAG [t/TAG]…​` (For the cost under 1 or more category, specified by `TAG`)
 2. Press Enter
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-success">
 
 **:bulb: Tip:**<br>
@@ -481,6 +492,8 @@ To view the report
 Example and expected outcome:<br>
 * `report`:
   ![report](images/Report.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Adding customizable shortcuts : `addsc`
 This feature allows you to add a shortcut command to your liking.
@@ -512,6 +525,8 @@ To call the command bound to the shortcut:
 
 Example and expected outcome:<br>
 * `sc f` calls the COMMAND attached to the shortcut `f`
+
+<div style="page-break-after: always;"></div>
 
 ### Viewing shortcuts : `listsc`
 This feature allows you to list down the shortcut added.
@@ -547,6 +562,8 @@ Example:<br>
 Outcome:<br>
 Removes the attachment of the COMMAND to the shortcut `f`
 
+<div style="page-break-after: always;"></div>
+
 ### Exiting the program : `exit`
 This feature allows you to close the app.
 
@@ -578,6 +595,8 @@ file at the next run.
 This feature allows you to remove a particular tag from multiple persons at once.
 
 _WedFast's_ developers are now working on it. Please wait patiently for the next update …
+
+<div style="page-break-after: always;"></div>
 
 ### Redoing last change : `redo` (Coming soon)
 This feature allows you to redo the change that you had undone previously.
