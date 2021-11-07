@@ -409,6 +409,128 @@ The following sequence diagram shows how the cost-sum-checking operation works:
 
 _{more aspects and alternatives to be added}_
 
+### Delete By Tag feature
+
+#### Implementation
+
+The delete by tag mechanism is facilitated by `AddressBook`, which implements `ReadOnlyAddressBook`. 
+Additionally, it implements the following operation:
+
+* `AddressBook#removePerson()` — Removes specified person from `person` list in address book
+
+This operation is exposed in the `Model` interface as `Model#deletePerson()`.
+
+Given below is an example usage scenario and how the delete by tag mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the
+`person` list consisting of all contacts (image adapted from Delete-by-name section).
+
+![DeleteByTagState0](images/DeleteByNamePersonList0.png)
+
+Step 2. The user executes `delete t/friends` command to delete contacts consisting of the friends tag. The `delete` command first calls 
+`Model#getFilteredPersonList()` and then iterates through the given list to filter out `person` objects that have the friends tag. While doing so, relevant
+`person` objects are placed into a separate list known as `deletedlist`. Assuming that Alex Yeoh and Bernice Yu are the only contacts with the friends tag, 
+the deletedlist is updated as follows.
+
+![DeleteByTagState1](images/DeletedList.png)
+
+Step 3. The `delete` command then fully iterates through `deletedlist`, and calls `Model#deletePerson()` at each iteration to remove 
+every person identified as part of the `deletedlist` from the `AddressBook`.
+
+![DeleteByTagState2](images/DeleteByTagAfter.png)
+
+Step 4. Once the contacts have been successfully deleted, a command result indicating that contacts under friends tag has been removed is reproduced in the command box.
+
+![DeleteByTagState3](images/DeleteByTagCommandResult.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the tag is not present in the `AddressBook`, 
+then the `delete` command throws an error message that specifies that contacts with such a tag do not exist in the `AddressBook`.
+
+</div>
+
+The following sequence diagram shows how the delete by tag operation works:
+
+![DeleteByTagSequenceDiagram](images/DeleteByTagSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Delete by Tag` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes what happens when a user executes a new delete by tag command:
+
+<img src="images/DeleteByTagActivityDiagram.png" width="380" />
+
+#### Design considerations:
+
+**Aspect: How delete by tag executes:**
+
+* **Alternative 1 (current choice):** Deletes all contacts with tag.
+    * Pros: Easy to implement.
+    * Cons: May be inconvenient for users who wish to delete selected range of contacts (e.g. delete pending contacts under friends).
+
+* **Alternative 2:** Deletes selected contacts within tag.
+    * Pros: Increases ease of deleting multiple contacts with different statuses for user
+    * Cons: Difficult to implement, and could potentially add confusion with an increase in syntax required to 
+      differentiate various functions for delete.
+
+_{more aspects and alternatives to be added}_
+
+### Report feature (Status)
+
+#### Implementation
+<div markdown="span" class="alert alert-info">
+:information_source: **Note:**<br>
+The following details on implementation only cover the information on how the status count across different tags
+is computed within the report. Implementation details regarding expenditure calculations and overall contact status count are left out.
+</div>
+
+The report mechanism is facilitated by `Model`. Additionally, it implements the following operation:
+
+* `Model#getFilteredPersonList()` — Provides`person` list in address book based on the predicate provided
+
+Given below is an example usage scenario and how the report behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the
+`person` list consisting of all contacts (image adapted from Delete-by-name section).
+
+![Report0](images/DeleteByNamePersonList0.png)
+
+Step 2. The user executes `report` command to view the status (and expenditure) across all tags. The `report` command calls
+`Model#getFilteredPersonList()` and then iterates through the given list to filter out tags and check the respective status count for each tag (i.e. number of confirmed, pending and declined contacts associated with each tag).
+While doing so, each tag and the status count associated with it is stored within a `reportElement` which is placed and regularly updated in a separate arraylist known as `reportArray`. 
+Assuming that the following is the details for the contacts stored,
+
+* Alex Yeoh: Tag is friends and status is pending
+* Bernice Yu: Tag is friends and status is confirmed
+* John Doe: Tag is caterer and status is declined
+
+the diagram below would be expected.
+
+![Report1](images/ReportArray.png)
+
+Step 3. The `report` command then fully iterates through the `reportArray`, and produces a text report of the different tags identified
+as well as their respective status counts (in the form of a popup window).
+
+![Report2](images/ReportWindowStatus.png)
+
+Step 4. After that, a command result indicating that the report window is opened is reproduced in the command box.
+
+![Report3](images/ReportResponse.png)
+
+#### Design considerations:
+
+**Aspect: How report executes:**
+
+* **Alternative 1 (current choice):** Produces status for tags and expenditure in a text form.
+    * Pros: Easy to understand and implement the report.
+    * Cons: May be inconvenient for users to read through the entire report when the number of tags and contacts is very high.
+
+* **Alternative 2:** Produces graphical representation of report
+    * Pros: Enables user to better visualise status of different tags
+    * Cons: Could be difficult to interpret graph if user uses a large range of tags with various statuses.
+
+_{more aspects and alternatives to be added}_
+
 ### Undo feature
 
 The undo mechanism is facilitated by an Undo module and is prompted by the command `undo`. This command 
@@ -640,7 +762,7 @@ Use case ends.
 1.  Should work on any pc as long as it has Java `11` or above installed.
 2.  Should be able to store and manage at least 100 contacts.
 3.  Should be able to guarantee data security to protect privacy of user.
-4.  Should not store more than 20MB of infomation.
+4.  Should not store more than 20 MB of information.
 5.  Program should respond within 2 seconds of each command.
 6.  Product is not handling more than 1 user planning a wedding at once.
 7.  Should be usable by anyone who understands english without any experience in planning weddings.
@@ -751,6 +873,33 @@ testers are expected to do more *exploratory* testing.
 
    1.4. Other incorrect cost-sum-checking command to try: `price t/`<br>
         Expected: Similar to previous.
+
+### Deleting a tag
+
+1. Deleting persons with a specific tag
+
+    1. Test case: `delete t/testTag`<br>
+       Expected: All contacts with tag, "testTag" are deleted from the list. A success command message stating that contacts under said tag has been removed is shown in the command box.
+
+    1. Test case: `delete t/unknownTag`<br>
+       Expected: Assuming that person with, "unknownTag" does not exist in the list. Error message stating contacts with such a tag cannot be found is shown in the command box. 
+
+    1. Incorrect delete by tag commands to try: `delete t/` <br>
+       Expected: Error message stating that tag specified must be a non-empty and non-blank string is provided in the command box.
+
+### Report
+
+1. Showing report consisting of a summary of the statuses and expenses across different tags.
+
+    1. Test case: `report`<br>
+       Expected: Report is generated in a pop up window. A success command message indicating report window is opened is provided.
+
+    1. Test case: `report now`<br>
+       Expected: As long as the first word in the command starts with,"report", additional words and spaces after the command are ignored.
+       The report is generated in a pop up window. A success command message indicating report window is opened is provided.
+
+    1. Incorrect report command to try: `1 report`,`reports` <br>
+       Expected: Since both the above commands are invalid, an error message stating unknown message is shown in the command box.
 
 ### Undoing information
 
