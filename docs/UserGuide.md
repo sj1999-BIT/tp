@@ -405,21 +405,21 @@ To undo the last change that was made to the contact list:
 
 Examples and expected outcomes for undoing 'delete' command:
 * 3rd contact is deleted with command `delete 3`:
-   ![delete by index](images/UndoDelete1.png)
+   ![delete by index](images/undoDelete1.png)
 * Undo the deletion with command `undo`:
-   ![undo delete by index](images/UndoDelete2.png)
+   ![undo delete by index](images/undoDelete2.png)
 
 Examples and expected outcomes for undoing 'group' command:
 * Group `Charlotte Oliveiro` and `Andy Robin` under the tag `Bus` with command `group t/Bus n/Charlotte Oliveiro, Andy Robin`:<br>
-   ![group](images/UndoGroup1.png)
+   ![group](images/undoGroup1.png)
 * Undo the grouping with command `undo`
-   ![group](images/UndoGroup2.png)
+   ![group](images/undoGroup2.png)
 
 Examples and expected outcomes for undoing 'clear' command:
 * Clear all person entries in the contact list with command `clear`:
-  ![clear](images/UndoClear1.png)
+  ![clear](images/undoClear1.png)
 * Undo the clear with command `undo`:
-  ![clear](images/UndoClear2.png)
+  ![clear](images/undoClear2.png)
 
 ### Counting down to the wedding day : `countdown`
 This feature helps you calculate how many days are left before your wedding so that you have an idea of how much time you
