@@ -128,6 +128,10 @@ _Italic text_        | The name of this product or a file path.
 
 5. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
    Note how the app contains some sample data.
+   
+
+   ![Sample](images/Sample.png)
+
    <img src="images/Ui.png" alt="CoverPage" height="500"/>
 
 ### Using command-line interface (CLI)
@@ -329,10 +333,6 @@ Outcome:<br>
 You will see only the contacts with `florist` and `caterer` tag as well as having the price of at least `100.00` dollars
 ![find contact](images/findContact.png)
 
-**:exclamation:Caution:**<br>
-Find currently only supports name, tags and price range. Price range operators include =, >, <, >=, <=.
-Furthermore, the price must be entered with 2 decimal points.
-
 ### Deleting a person : `delete`
 This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
 
@@ -503,6 +503,7 @@ To view the report
 Example and expected outcome:<br>
 * `report`:
   ![report](images/ReportWindow.png)
+
 
 <div style="page-break-after: always;"></div>
 
