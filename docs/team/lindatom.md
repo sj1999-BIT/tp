@@ -52,8 +52,8 @@ Given below are my contributions to the project.
     user guide, and glossary
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#175](hhttps://github.com/AY2122S1-CS2103T-W10-4/tp/pull/175),
+  * PRs reviewed (with non-trivial review comments): [\#175](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/175),
   * Reported bugs and suggestions for other teams in the class (examples:
     [2](https://github.com/Linda124/ped/issues/2), [3](https://github.com/Linda124/ped/issues/3), [4](https://github.com/Linda124/ped/issues/4),
     [5](https://github.com/Linda124/ped/issues/5), [6](https://github.com/Linda124/ped/issues/6), [7](https://github.com/Linda124/ped/issues/7),
-    [8](https://github.com/Linda124/ped/issues/8)
+    [8](https://github.com/Linda124/ped/issues/8))
