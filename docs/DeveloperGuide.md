@@ -732,6 +732,19 @@ testers are expected to do more *exploratory* testing.
    1.4. Other incorrect cost-sum-checking command to try: `price t/`<br>
         Expected: Similar to previous.
 
+### Adding shortcut
+
+1. **Add a new shortcut**
+
+   1.1. Test case: `addsc s c/list`<br>
+        Expected: `listsc` now shows `KEY s - COMMAND list`. Calling `sc s` will list out all the contacts 
+
+   1.2. Test case: `addsc c/list`<br>
+        Expected: Error message. Invalid command format. 
+
+   1.3. Test case: `addsc s`<br>
+        Expected: Same as 1.2
+
 ### Saving data
 
 1. **Dealing with missing/corrupted data files**
