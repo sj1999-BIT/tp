@@ -409,90 +409,110 @@ The following sequence diagram shows how the cost-sum-checking operation works:
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Undo/redo feature
+### Undo feature
 
-#### Proposed Implementation
+The undo mechanism is facilitated by an Undo module and is prompted by the command `undo`. This command 
+is used for undoing the most recent change made to the program. 
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+It uses the `ReadOnlyAddressBook` interface to retrieve the list of people stored as contacts. 
+The undo mechanism invokes the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `AddressBook#removePerson()` — Removes the specific person from the list of people.
+* `AddressBook#setPerson()` — Adds the specific person to the list of people.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The above operations are represented by the Model interface in the UndoCommand class as `Model#deletePerson()` and
+`Model#setPerson()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+To undo a task, the undo class keeps track of what the previous command is through the method `Undo#setPreviousCommand`,
+and when the `undo` command is inputted, it checks what the previous command (static variable prevCommand)) was and 
+whether it can be undone.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+As of now, the `undo` command will revert the action of an `add`, `edit`, `delete`, `clear` or `group` command. Other
+commands cannot be undone (due to their nature) or have not been implemented.
 
-![UndoRedoState0](images/UndoRedoState0.png)
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 1. The user launches the application for the first time. The AddressBook person list is shown below.
 
-![UndoRedoState1](images/UndoRedoState1.png)
+![UndoState1](images/UndoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+The prevCommand variable is set to nothing, as no previous command has been made.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+![UndoState0](images/UndoState0.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Step 2. The user executes `edit 1 s/Confirmed` command to change the status of the first person in the book to confirmed.
+The `edit` command called will invoke `Model#setPerson()` to make the changes to the AddressBook person list.
 
+![UndoState2](images/UndoState2.png)
+
+The prevCommand variable will now be assigned to this EditCommand object.
+
+![UndoState3](images/UndoState3.png)
+
+Step 3. The user executes `delete 1` to delete the first person in the group.
+The `delete` command will call `Model#deletePerson()`, making a change to the AddressBook person list once again.
+
+![UndoState4](images/UndoState4.png)
+
+The prevCommand variable will now be assigned to this DeleteCommand object.
+
+![UndoState5](images/UndoState5.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+If a command is invalid, it will not call `Model#setPerson()` or 
+`Model#deletePerson()`, and the prevCommand value will be set to null.
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that deleting the person was a mistake, and decides to undo that action by executing the `undo` command. 
+The `undo` command will call `Model#setPerson()`, which will revert the AddressBook person list to the 
+previous state as a result of re-adding the contact at the exact same location.
 
-![UndoRedoState3](images/UndoRedoState3.png)
+![UndoState0](images/UndoState1.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+The prevCommand variable is also updated to equal the UndoCommand object.
 
-</div>
+![UndoState6](images/UndoState6.png)
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the undo operation works (for undoing a delete command):
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the AddressBook person list
+such as `list`, will just output a message stating that such a command cannot be undone.
 
+Step 6. The user wants to use undo on the `shortcut` command, in which case the program will output that undo
+has not been implemented for such a command.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+If a command is valid but cannot be undone, the prevCommand value will still be
+set to the command but upon evaluation the undo action will not be performed.
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The following activity diagram summarizes what happens when a user tries to undo a command:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
+![CommitActivityDiagram](images/CommitActivityDiagram.png)
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How undo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
+* **Alternative 1 (current implementation):** Having an undo class to execute the command.
+  * Pros: Easy to keep track of what the previous command is.
+  * Cons: as the number of commands increase, the harder it is to keep track
+     of undoing all commands in one place.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+  * Pros: No need to store several commands' undoing operations in one class,
+    can have one undo operation (method) for each command.
+  * Cons: May be harder to keep track of what the previous command is.
+* **Alternative 3:** Store various states of the AddressBook.
+  * Pros: Easy to retrieve.
+  * Cons: Memory issues, when to delete an old (no longer useful) state.
+    
 _{more aspects and alternatives to be added}_
 
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -731,6 +751,26 @@ testers are expected to do more *exploratory* testing.
 
    1.4. Other incorrect cost-sum-checking command to try: `price t/`<br>
         Expected: Similar to previous.
+
+### Undoing information
+
+1. **Undoing the previous command**    
+
+   1.1 Test case: `help` input followed by `undo`<br>
+       Expected: outputs to the display section of the program indicating that such a command cannot be undone because
+       it has not changed the contact list information.
+   
+   1.2 Test case: `addsc random c/delete 1` input followed by `undo`<br>
+       Expected: outputs a message stating that undo has not been implemented for this feature. Contact list
+       remains the same.
+   
+   1.3 Test case: passes in a null object to the previous command before inputting `undo` (this mimicks what happens when an invalid
+       input is used).<br>
+       Expected: prints in the program that the previous command was invalid, hence undo does not work. 
+   
+   1.4 Test case: `delete 1` input followed by `undo`<br>
+       Expected: deleting the first person in the list has been undone with a message indicating the task was successful. 
+       Surrounded by a try-catch for the case that the contact list is empty
 
 ### Shortcut features
 
