@@ -37,7 +37,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/yin72257)] [[portfolio](team/ruohang.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Feature development
 
 ### Linda Tom
 
