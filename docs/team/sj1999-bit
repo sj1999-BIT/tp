@@ -51,17 +51,17 @@ Given below are my contributions to the project.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [\#29](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/29), 
-    [\#35](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/35), [\#43](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/43),
-    [\#49](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/49), [\#64](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/64)
-    [\#65](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/65), [\#67](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/67),
-    [\#82](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/82), [\#87](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/87),
-    [\#93](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/93), [\#95](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/95),
-    [\#107](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/107)
+    [\#17](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/17), [\#23](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/23),
+    [\#35](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/35), [\#49](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/49),
+    [\#75](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/75), [\#84](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/84),
+    [\#85](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/85), [\#87](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/87),
+    [\#96](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/96), [\#101](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/101),
+    [\#180](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/180), [\#181](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/181),
+    [\#182](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/182), [\#191](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/191),
+    [\#203](https://github.com/AY2122S1-CS2103T-W10-4/tp/pull/203),
+    
   * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/DesmondTo/ped/issues/1),
-    [2](https://github.com/DesmondTo/ped/issues/2), [3](https://github.com/DesmondTo/ped/issues/3), [4](https://github.com/DesmondTo/ped/issues/4),
-    [5](https://github.com/DesmondTo/ped/issues/5), [6](https://github.com/DesmondTo/ped/issues/6), [7](https://github.com/DesmondTo/ped/issues/7),
-    [8](https://github.com/DesmondTo/ped/issues/8), [9](https://github.com/DesmondTo/ped/issues/9), [10](https://github.com/DesmondTo/ped/issues/10),
-    [11](https://github.com/DesmondTo/ped/issues/11), [12](https://github.com/DesmondTo/ped/issues/12), [13](https://github.com/DesmondTo/ped/issues/13))
+    [2](https://github.com/sj1999-BIT/ped/issues/2),[2](https://github.com/sj1999-BIT/ped/issues/2), [3](https://github.com/sj1999-BIT/ped/issues/3), [4](https://github.com/sj1999-BIT/ped/issues/4),
 
 * **Tools**:
   * Integrated a new Github plugin (CircleCI) to the team repo
