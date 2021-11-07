@@ -24,19 +24,19 @@ public class TagInfoCommandTest {
 
 
     @Test
-    public void executeEmptyAddressBookSuccess() {
+    public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         assertCommandSuccess(new TagInfoCommand("list", true), model, TagInfoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void executeNonAddressBookSuccess() {
+    public void execute_nonemptyAddressBook_success() {
         assertCommandSuccess(new TagInfoCommand("list", true), model, TagInfoCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void executeRandomValidTagSuccess() throws CommandException {
+    public void execute_randomValidTag_success() throws CommandException {
         assertCommandSuccess(new TagInfoCommand("Ben Tan Test".split(" "), true),
                 model,
                 TagInfoCommand.MESSAGE_SUCCESS,
