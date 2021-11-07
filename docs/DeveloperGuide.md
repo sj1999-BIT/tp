@@ -141,8 +141,9 @@ The `Model` component,
 <img src="images/StorageClassDiagram.png" width="700" />
 
 The `Storage` component,
-* can save both address book data, countdown data, and user preference data in json format, and read them back into corresponding objects.
-* inherits from all `AddressBookStorage`, `CountdownStorage`, and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both address book data, user preference data, countdown data, and shortcut data in json format, and read them back into corresponding objects.
+* inherits from both `AddressBookStorage`, `UserPrefStorage`, `CountdownStorage`, and `ShortcutStorage` which means it can be treated as either of them (if only the functionality of only one is needed).
+* can save address book data, countdown data, shortcut data, and user preference data in json format, and read them back into corresponding objects.
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -154,6 +155,77 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Find by Tag and Price feature
+#### Implementation
+Finding by Tag and Price is a combinatory feature implemented by `Predicates`. The predicate for tags is `TagContainsKeywordsPredicate`.
+
+![PredicateClasses](images/PredicateClasses.png)
+
+Finding by price range uses three different predicates.
+
+1. `PriceEqualsNumberPredicate` for to find equal to price
+2. `PriceGreaterThanNumberPredicate` for to find greater than certain price
+3. `PriceLessThanNumberPredicate` for to find less than certain price
+
+The 5 operators =, <, >, >=, <= are implemented using the above predicates.
+
+| Operator | Predicate |
+| ------------- | ------------- |
+| =  | `PriceEqualsNumberPredicate`  |
+| >  | `PriceGreaterThanNumberPredicate`  |
+| <  | `PriceLessThanNumberPredicate`  |
+| >=  | `PriceEqualsNumberPredicate \|\| PriceGreaterThanNumberPredicate`  |
+| <=  | `PriceEqualsNumberPredicate \|\| PriceLessThanNumberPredicate`  |
+
+The following activity diagram summarizes what happens when a user executes a find command:
+
+<img src="images/FindByFilterActivityDiagram.png" width="250" />
+
+#### Design considerations:
+**Aspect: How each predicate is combined together:**
+
+* **Alternative 1 (current choice):** Queried list of contacts must fit all three criterias at once.
+    * Pros: It is likely user would use this feature more as it narrows the scope of the query
+    * Cons: Some users may misinterpret the functionality and be confused
+* **Alternative 2:** Queried list of contacts can fit any of the three criterias
+    * Pros: Consistent with how multiple names work with the `find [NAMES]` function
+    * Cons: Less likely to be used as additional parameters won't increase effectiveness of query.
+
+### Shortcut features
+#### Implementation
+The shortcut implementation is facilitated by a Shortcut module with four commands: `sc`, `addsc`, `removesc`, and `listsc`. Each responsible for the call shortcut, add shortcut, remove shortcut, and list shortcut functions respectively. 
+
+`Shortcut` mechanism is similar to `AddressBook` but instead stores a `HashMap<String, String>` of shortcuts corresponding to its `key` and `commandString`. To store it in JSON, `JsonShortcutStorage` use `JsonSerializableShortcut` to read and write from the JSON file. The storage architecture can be seen in the diagram above.
+
+Given below is an example usage scenario and how the shortcut mechanisms behaves at each step.
+
+Step 1. The user launches the applicatio nand has the following person list saved. `Shortcut` stores this in the shortcutMap.
+
+![Shortcuts0](images/Shortcuts0.png)
+
+Step 2. The user executes `sc f` to call the shortcut `f` leading to the command `find pr/>0.00` to be called. The `sc` command first calls `Model#getShortcutFromKey()` to obtain the command from the model.
+
+Step 3. The `sc` command takes this new command and parses it in the `AddressBookParser`. If this succeeds command in the `commandString` is executed on the same model.  
+
+Below is a simplified sequence diagram showing how a `ShortcutCommand` would interact with the logic component. The interactions of the `FindCommand` stored in the `commandString` is simpified as the main focus of this diagram is the shortcut functionality.
+
+![Interactions Inside the Logic Component for the `sc f` Command](images/ShortcutCommandSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a shortcut-keyword command:
+
+<img src="images/ShortcutActivityDiagram.png" width="400" />
+
+#### Design considerations:
+
+**Aspect: When to check if shortcut command is valid:**
+
+* **Alternative 1 (current choice):** Check when it is called by `sc`
+    * Pros: Less intensive on the system. User can still check if command is correct by eye using `listsc`
+    * Cons: User needs to make sure they add the correct command themselves
+* **Alternative 2:** Check when it is added by `addsc`
+    * Pros: User can avoid the case where they add an invalid command
+    * Cons: Bug Prone. Commands may have runtime errors depending on the state of the `AddressBook` (Unable to tell if command is invalid). 
 
 ### Delete by name feature
 #### Implementation
@@ -506,15 +578,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees:**
 * A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
 
+**MSS**
+
 1. When adding/editing contact, user also types in the price detail.
 2. User confirms.
-3. System updates the contact list and the target contact will now have price tag(s).
+3. System updates the contact list and the target contact will now have price tag(s).<br>
     Use case ends.
 
 **Extensions**
 * 2a. Price is unspecified/blank(white spaces only)/written in invalid format.
     * 2a1. System shows an error message.<br>
       Use case resumes at step 1.
+
+
+**Use case: Executes a shortcut**
+
+**Guarantees:**
+* Shortcut will only be executed if shortcut exists and command is valid.
+
+**MSS**
+
+1. User calls a shortcut
+2. Command String attached to the shortcut keyword is called
+3. System runs the command attached at the user story of that command will run <br>
+Use case ends.
+
+**Extensions**
+* 1a. Shortcut keyword used does not exist
+    * 1a1. System shows an error message.
+      Use case resumes at step 1.
+* 3a. Shortcut command string is an invalid command
+    * 3a1. System shows an error message.
+      Use case resumes at step 1.
+* 3b. Running the command result in error
+    * 3b1. System shows the error message of the command
+      Use case resumes at step 1.
+*{More to be added}*
 
 ### Non-Functional Requirements
 
@@ -535,6 +634,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Filter**: Add tags to contacts such as price, type of contact
 * **Actor**: a role played by a use case
+* **Keyword**: Keyword used to call a shortcut
+* **Command String**: Command attached to the keyword of the shortcut
+
 
 --------------------------------------------------------------------------------------------------------------------
 
