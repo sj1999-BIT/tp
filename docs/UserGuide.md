@@ -499,7 +499,7 @@ To view the report
 
 Example and expected outcome:<br>
 * `report`:
-  ![report](images/ReportWindow.png)
+  ![report](images/reportWindow.png)
 
 
 <div style="page-break-after: always;"></div>
