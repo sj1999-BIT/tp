@@ -752,6 +752,26 @@ testers are expected to do more *exploratory* testing.
    1.4. Other incorrect cost-sum-checking command to try: `price t/`<br>
         Expected: Similar to previous.
 
+### Undoing information
+
+1. **Undoing the previous command**    
+
+   1.1 Test case: `help` input followed by `undo`<br>
+       Expected: outputs to the display section of the program indicating that such a command cannot be undone because
+       it has not changed the contact list information.
+   
+   1.2 Test case: `addsc random c/delete 1` input followed by `undo`<br>
+       Expected: outputs a message stating that undo has not been implemented for this feature. Contact list
+       remains the same.
+   
+   1.3 Test case: passes in a null object to the previous command before inputting `undo` (this mimicks what happens when an invalid
+       input is used).<br>
+       Expected: prints in the program that the previous command was invalid, hence undo does not work. 
+   
+   1.4 Test case: `delete 1` input followed by `undo`<br>
+       Expected: deleting the first person in the list has been undone with a message indicating the task was successful. 
+       Surrounded by a try-catch for the case that the contact list is empty
+
 ### Saving data
 
 1. **Dealing with missing/corrupted data files**
