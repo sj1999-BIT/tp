@@ -122,12 +122,16 @@ _Italic text_        | The name of this product or a file path.
 
 2. Ensure you have `Java 11` or above installed in your device. Not sure how to install? [Click me](https://java.com/en/download/help/download_options.html).
 
-3. Download the latest `wedfast.jar` from [here](https://github.com/AY2122S1-CS2103T-W10-4/tp/releases/download/v1.2.1/WedFast.jar).
+3. Download the latest `wedfast.jar` from [here](https://github.com/AY2122S1-CS2103T-W10-4/tp/releases/download/v1.4/WedFast.jar).
 
 4. Copy the file to the folder you want to use as the _home folder_ for your _WedFast_.
 
 5. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
    Note how the app contains some sample data.
+   
+
+   ![Sample](images/Sample.png)
+
    <img src="images/Ui.png" alt="CoverPage" height="500"/>
 
 ### Using command-line interface (CLI)
@@ -329,10 +333,6 @@ Outcome:<br>
 You will see only the contacts with `florist` and `caterer` tag as well as having the price of at least `100.00` dollars
 ![find contact](images/findContact.png)
 
-**:exclamation:Caution:**<br>
-Find currently only supports name, tags and price range. Price range operators include =, >, <, >=, <=.
-Furthermore, the price must be entered with 2 decimal points.
-
 ### Deleting a person : `delete`
 This feature allows you to remove a person entry in your contact that you no longer wish to track in the future.
 
@@ -504,6 +504,7 @@ Example and expected outcome:<br>
 * `report`:
   ![report](images/ReportWindow.png)
 
+
 <div style="page-break-after: always;"></div>
 
 ### Adding customizable shortcuts : `addsc`
@@ -545,6 +546,8 @@ This feature allows you to list down the shortcut added.
 To view all shortcuts available for the user:
 1. Type the command: `listsc` in the command box.
 2. Press Enter
+
+![listsc](images/ListShortcut.png)
 
 <div markdown="block" class="alert alert-success">
 
