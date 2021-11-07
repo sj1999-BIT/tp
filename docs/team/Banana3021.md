@@ -74,6 +74,7 @@ Given below are my contributions to the project.
        and editing diagrams and content in the developer guide.
      * Helped come up with the type, priority and severity labels for issues and PRs.
      * Maintaining the issue tracker
+     * Setting up milestone
 
 * **Community**:
      * Reported several bugs for other teams in the class (Examples: 
