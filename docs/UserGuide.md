@@ -122,7 +122,7 @@ _Italic text_        | The name of this product or a file path.
 
 2. Ensure you have `Java 11` or above installed in your device. Not sure how to install? [Click me](https://java.com/en/download/help/download_options.html).
 
-3. Download the latest `wedfast.jar` from [here](https://github.com/AY2122S1-CS2103T-W10-4/tp/releases/download/v1.2.1/WedFast.jar).
+3. Download the latest `wedfast.jar` from [here](https://github.com/AY2122S1-CS2103T-W10-4/tp/releases/download/v1.4/WedFast.jar).
 
 4. Copy the file to the folder you want to use as the _home folder_ for your _WedFast_.
 
