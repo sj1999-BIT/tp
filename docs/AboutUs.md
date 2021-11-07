@@ -43,8 +43,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/linda124.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/desmondto.md)]
+[[github](http://github.com/linda124)]
+[[portfolio](team/linda124.md)]
 
 * Role: Developer
 * Responsibilities: Feature development
