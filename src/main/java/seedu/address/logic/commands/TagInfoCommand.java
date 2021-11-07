@@ -103,7 +103,7 @@ public class TagInfoCommand extends Command {
         if (o instanceof TagInfoCommand) {
             TagInfoCommand compareCommand = (TagInfoCommand) o;
             for (Tag tag : compareCommand.getListOfTags()) {
-                if (!this.getListOfTags().contains(tag)) {
+                if (!getListOfTags().contains(tag)) {
                     return false;
                 }
             }
