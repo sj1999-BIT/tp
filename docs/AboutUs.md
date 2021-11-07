@@ -13,9 +13,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/banana3021.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/Banana3021.md)]
 
 * Role: Project Advisor
 
@@ -34,7 +33,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/yin72257.png" width="200px">
 
-[[github](http://github.com/yin72257)] [[portfolio](team/ruohang.md)]
+[[github](http://github.com/yin72257)] [[portfolio](team/yin72257.md)]
 
 * Role: Developer
 * Responsibilities: Feature development
@@ -43,8 +42,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/linda124.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/desmondto.md)]
+[[github](http://github.com/Linda124)]
+[[portfolio](team/lindatom.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
