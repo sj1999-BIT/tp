@@ -109,8 +109,8 @@ public class GroupCommand extends Command {
     public boolean equals(Object obj) {
         if (obj instanceof GroupCommand) {
             GroupCommand testCommand = (GroupCommand) obj;
-            if (testCommand.getTagName().equals(this.tag)
-                    && testCommand.getNameList().equals(this.nameList)) {
+            if (testCommand.getTagName().equals(tag)
+                    && testCommand.getNameList().equals(nameList)) {
                 return true;
             }
         }

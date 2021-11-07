@@ -12,7 +12,7 @@ public class GroupCommandTest {
     private Model model = new ModelManager();
 
     @Test
-    public void testNonRecordedName() throws CommandException {
+    public void group_nonRecordedName_messageFail() throws CommandException {
         assertEquals(new GroupCommand("test", "shui jie, test1").execute(model),
                 new CommandResult(GroupCommand.MESSAGE_FAILURE));
     }
