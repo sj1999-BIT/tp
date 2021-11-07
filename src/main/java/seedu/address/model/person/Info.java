@@ -6,14 +6,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Info {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Important information should only contain alphanumeric "
+            "Important information is limited to 100 characters "
+                    + "and should only contain alphanumeric "
                     + "characters with spaces";
 
     /*
      * Checks if information keyed in only contains alphanumeric
      * characters with spaces
      */
-    public static final String VALIDATION_REGEX = "^[-.@_a-zA-Z0-9 ]*$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9 ]{0,100}$";
 
     public final String value;
 
