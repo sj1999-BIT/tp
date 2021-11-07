@@ -36,7 +36,7 @@ public class RemoveShortcutCommandTest {
 
     @Test
     public void execute_shortcutDoesNotExist_failure() {
-        String expectedError = String.format(RemoveShortcutCommand.SHORTCUT_NOT_FOUND, "9");
+        String expectedError = String.format(ShortcutCommand.SHORTCUT_NOT_FOUND, "9");
         assertCommandFailure(new RemoveShortcutCommand("9"), model, expectedError);
     }
 

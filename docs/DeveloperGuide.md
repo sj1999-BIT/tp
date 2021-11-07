@@ -772,6 +772,97 @@ testers are expected to do more *exploratory* testing.
        Expected: deleting the first person in the list has been undone with a message indicating the task was successful. 
        Surrounded by a try-catch for the case that the contact list is empty
 
+### Shortcut features
+
+1. **Add a new shortcut**
+
+   1.1. Test case: `addsc s c/list`<br>
+        Expected: `listsc` now shows `KEY s - COMMAND list`. Calling `sc s` will list out all the contacts 
+
+   1.2. Test case: `addsc c/list`<br>
+        Expected: Error message. Invalid command format. 
+
+   1.3. Other incorrect add-shortcut command to try: `addsc s`<br>
+        Expected: Same as 1.2
+
+2. **Using a shortcut**
+
+   2.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+      * Make sure the shortcut is shown in `listsc`
+
+   2.2. Test case: `sc s` <br>
+   Expected: Lists out all items the exact same as the `list` command. Otherwise, functions as specified by the command string.
+
+   2.3. Test case: `sc` <br>
+   Expected: Incorrect format. Invalid command format error shown.
+
+   2.4. Calling command that does not exist: `sc a` <br>
+   Expected: Command not found eror shown
+
+3. **Deleting a shortcut**
+
+    3.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+      * Make sure the shortcut is shown in `listsc`
+
+    3.2. Test case: `removesc s` <br>
+    Expected: Displays message that shortcut was removed successfully. `listsc` will no longer show that contact
+
+    3.3. Test case: `removesc` <br>
+    Expected: Incorrect format. Invalid command format error shown.
+
+    3.4. Calling command that does not exist: `removesc a` <br>
+    Expected: Command not found eror shown
+
+4. **Viewing shortcuts**
+
+    4.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+    
+    4.2. Test case: `listsc` <br>
+    Expected: Displays all correct shortcuts added by the user. 
+
+### Finding Contacts
+
+1. **Finding contacts from their names, tags, and price**
+
+   1.1. Prerequisites:
+      * List all persons using the `list` command. Multiple persons in the list.
+      * Add a person using the command: `add n/Bryan Tan p/99778866 e/bryantan@hmail.com a/Fake Street t/Tag pr/20.00`.
+      * Add a person using the command: `add n/Sam p/99887766 e/samn@hmail.com a/Fake Street t/Tag Tag2 pr/10.00`.
+      * Make sure there is **no** person named `DUMMY CONTACT FOR TESTING` in the list.
+
+   1.2. Test case: `find Bryan`<br>
+      Expected: Bryan Tan and other existing contacts named Bryan is shown. 
+
+   1.3. Test case: `find t/Tag`<br>
+      Expected: Both Bryan and Sam is shown as they both have the tag "Tag". 
+   
+   1.4. Test case: `find Bryan Sam`<br>
+      Expected: Both Bryan and Sam is shown by searching for their names
+   
+   1.5. Test case: `find pr/=10.00`<br>
+      Expected: Only Sam is shown as his price is 10.00.
+
+   1.6. Test case: `find pr/>10.00`<br>
+      Expected: Only Bryan is shown as his price is 20.00.
+
+   1.7. Test case: `find pr/<20.00`<br>
+      Expected: Only Sam is shown as his price is 10.00.
+   
+   1.8. Test case: `find pr/<=20.00`<br>
+      Expected: Both Bryan and Sam is shown as their prices are lower than or equal to 20.00.
+    
+   1.9. Test case: `find pr/>=10.00`<br>
+      Expected: Both Bryan and Sam is shown as their prices are higher than or equal to 10.00.
+   
+   1.10. Test case for invalid find: `find`, `find t/` <br>
+      Expected: Error message shown. Invalid command format. 
+    
+   1.11. Test case for invalid price: `find pr/1`, `find pr/=a` <br>
+      Expected: Error message shown. Invalid price format. 
+
 ### Saving data
 
 1. **Dealing with missing/corrupted data files**
