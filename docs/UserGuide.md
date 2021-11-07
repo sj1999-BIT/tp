@@ -129,10 +129,7 @@ _Italic text_        | The name of this product or a file path.
 5. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
    Note how the app contains some sample data.
    
-
    ![Sample](images/Sample.png)
-
-   <img src="images/Ui.png" alt="CoverPage" height="500"/>
 
 ### Using command-line interface (CLI)
 1. Type the command in the command box and press Enter to execute it.<br>
@@ -502,7 +499,7 @@ To view the report
 
 Example and expected outcome:<br>
 * `report`:
-  ![report](images/ReportWindow.png)
+  ![report](images/reportWindow.png)
 
 
 <div style="page-break-after: always;"></div>
