@@ -22,7 +22,7 @@ public class ShortcutCommand extends Command {
 
     public static final String COMMAND_UNKNOWN = "Command invalid form: %s\n%s";
 
-    public static final String COMMAND_NOT_FOUND = "Command not found";
+    public static final String SHORTCUT_NOT_FOUND = "Command with keyword %s not found";
 
     public static final String COMMAND_EXECUTE_ERROR = "Command execute error: %s\n%s";
 
@@ -47,7 +47,7 @@ public class ShortcutCommand extends Command {
         try {
             if (commandString == null) {
                 commandToUndo.setPrevCommand(null);
-                throw new CommandException(COMMAND_NOT_FOUND);
+                throw new CommandException(String.format(SHORTCUT_NOT_FOUND, shortcut));
             }
             Command command = (new AddressBookParser()).parseCommand(commandString);
             try {

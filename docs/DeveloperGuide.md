@@ -141,8 +141,9 @@ The `Model` component,
 <img src="images/StorageClassDiagram.png" width="700" />
 
 The `Storage` component,
-* can save both address book data, countdown data, and user preference data in json format, and read them back into corresponding objects.
-* inherits from all `AddressBookStorage`, `CountdownStorage`, and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both address book data, user preference data, countdown data, and shortcut data in json format, and read them back into corresponding objects.
+* inherits from both `AddressBookStorage`, `UserPrefStorage`, `CountdownStorage`, and `ShortcutStorage` which means it can be treated as either of them (if only the functionality of only one is needed).
+* can save address book data, countdown data, shortcut data, and user preference data in json format, and read them back into corresponding objects.
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -154,6 +155,77 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Find by Tag and Price feature
+#### Implementation
+Finding by Tag and Price is a combinatory feature implemented by `Predicates`. The predicate for tags is `TagContainsKeywordsPredicate`.
+
+![PredicateClasses](images/PredicateClasses.png)
+
+Finding by price range uses three different predicates.
+
+1. `PriceEqualsNumberPredicate` for to find equal to price
+2. `PriceGreaterThanNumberPredicate` for to find greater than certain price
+3. `PriceLessThanNumberPredicate` for to find less than certain price
+
+The 5 operators =, <, >, >=, <= are implemented using the above predicates.
+
+| Operator | Predicate |
+| ------------- | ------------- |
+| =  | `PriceEqualsNumberPredicate`  |
+| >  | `PriceGreaterThanNumberPredicate`  |
+| <  | `PriceLessThanNumberPredicate`  |
+| >=  | `PriceEqualsNumberPredicate \|\| PriceGreaterThanNumberPredicate`  |
+| <=  | `PriceEqualsNumberPredicate \|\| PriceLessThanNumberPredicate`  |
+
+The following activity diagram summarizes what happens when a user executes a find command:
+
+<img src="images/FindByFilterActivityDiagram.png" width="250" />
+
+#### Design considerations:
+**Aspect: How each predicate is combined together:**
+
+* **Alternative 1 (current choice):** Queried list of contacts must fit all three criterias at once.
+    * Pros: It is likely user would use this feature more as it narrows the scope of the query
+    * Cons: Some users may misinterpret the functionality and be confused
+* **Alternative 2:** Queried list of contacts can fit any of the three criterias
+    * Pros: Consistent with how multiple names work with the `find [NAMES]` function
+    * Cons: Less likely to be used as additional parameters won't increase effectiveness of query.
+
+### Shortcut features
+#### Implementation
+The shortcut implementation is facilitated by a Shortcut module with four commands: `sc`, `addsc`, `removesc`, and `listsc`. Each responsible for the call shortcut, add shortcut, remove shortcut, and list shortcut functions respectively. 
+
+`Shortcut` mechanism is similar to `AddressBook` but instead stores a `HashMap<String, String>` of shortcuts corresponding to its `key` and `commandString`. To store it in JSON, `JsonShortcutStorage` use `JsonSerializableShortcut` to read and write from the JSON file. The storage architecture can be seen in the diagram above.
+
+Given below is an example usage scenario and how the shortcut mechanisms behaves at each step.
+
+Step 1. The user launches the applicatio nand has the following person list saved. `Shortcut` stores this in the shortcutMap.
+
+![Shortcuts0](images/Shortcuts0.png)
+
+Step 2. The user executes `sc f` to call the shortcut `f` leading to the command `find pr/>0.00` to be called. The `sc` command first calls `Model#getShortcutFromKey()` to obtain the command from the model.
+
+Step 3. The `sc` command takes this new command and parses it in the `AddressBookParser`. If this succeeds command in the `commandString` is executed on the same model.  
+
+Below is a simplified sequence diagram showing how a `ShortcutCommand` would interact with the logic component. The interactions of the `FindCommand` stored in the `commandString` is simpified as the main focus of this diagram is the shortcut functionality.
+
+![Interactions Inside the Logic Component for the `sc f` Command](images/ShortcutCommandSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a shortcut-keyword command:
+
+<img src="images/ShortcutActivityDiagram.png" width="400" />
+
+#### Design considerations:
+
+**Aspect: When to check if shortcut command is valid:**
+
+* **Alternative 1 (current choice):** Check when it is called by `sc`
+    * Pros: Less intensive on the system. User can still check if command is correct by eye using `listsc`
+    * Cons: User needs to make sure they add the correct command themselves
+* **Alternative 2:** Check when it is added by `addsc`
+    * Pros: User can avoid the case where they add an invalid command
+    * Cons: Bug Prone. Commands may have runtime errors depending on the state of the `AddressBook` (Unable to tell if command is invalid). 
 
 ### Delete by name feature
 #### Implementation
@@ -337,90 +409,232 @@ The following sequence diagram shows how the cost-sum-checking operation works:
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Undo/redo feature
+### Delete By Tag feature
 
-#### Proposed Implementation
+#### Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The delete by tag mechanism is facilitated by `AddressBook`, which implements `ReadOnlyAddressBook`. 
+Additionally, it implements the following operation:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `AddressBook#removePerson()` — Removes specified person from `person` list in address book
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+This operation is exposed in the `Model` interface as `Model#deletePerson()`.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the delete by tag mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the
+`person` list consisting of all contacts (image adapted from Delete-by-name section).
 
-![UndoRedoState0](images/UndoRedoState0.png)
+![DeleteByTagState0](images/DeleteByNamePersonList0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete t/friends` command to delete contacts consisting of the friends tag. The `delete` command first calls 
+`Model#getFilteredPersonList()` and then iterates through the given list to filter out `person` objects that have the friends tag. While doing so, relevant
+`person` objects are placed into a separate list known as `deletedlist`. Assuming that Alex Yeoh and Bernice Yu are the only contacts with the friends tag, 
+the deletedlist is updated as follows.
 
-![UndoRedoState1](images/UndoRedoState1.png)
+![DeleteByTagState1](images/DeletedList.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The `delete` command then fully iterates through `deletedlist`, and calls `Model#deletePerson()` at each iteration to remove 
+every person identified as part of the `deletedlist` from the `AddressBook`.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+![DeleteByTagState2](images/DeleteByTagAfter.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Step 4. Once the contacts have been successfully deleted, a command result indicating that contacts under friends tag has been removed is reproduced in the command box.
 
-</div>
+![DeleteByTagState3](images/DeleteByTagCommandResult.png)
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the tag is not present in the `AddressBook`, 
+then the `delete` command throws an error message that specifies that contacts with such a tag do not exist in the `AddressBook`.
 
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The following sequence diagram shows how the delete by tag operation works:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+![DeleteByTagSequenceDiagram](images/DeleteByTagSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Delete by Tag` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+The following activity diagram summarizes what happens when a user executes a new delete by tag command:
 
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
+<img src="images/DeleteByTagActivityDiagram.png" width="380" />
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How delete by tag executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+* **Alternative 1 (current choice):** Deletes all contacts with tag.
+    * Pros: Easy to implement.
+    * Cons: May be inconvenient for users who wish to delete selected range of contacts (e.g. delete pending contacts under friends).
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2:** Deletes selected contacts within tag.
+    * Pros: Increases ease of deleting multiple contacts with different statuses for user
+    * Cons: Difficult to implement, and could potentially add confusion with an increase in syntax required to 
+      differentiate various functions for delete.
 
+_{more aspects and alternatives to be added}_
+
+### Report feature (Status)
+
+#### Implementation
+<div markdown="span" class="alert alert-info">
+:information_source: **Note:**<br>
+The following details on implementation only cover the information on how the status count across different tags
+is computed within the report. Implementation details regarding expenditure calculations and overall contact status count are left out.
+</div>
+
+The report mechanism is facilitated by `Model`. Additionally, it implements the following operation:
+
+* `Model#getFilteredPersonList()` — Provides`person` list in address book based on the predicate provided
+
+Given below is an example usage scenario and how the report behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the
+`person` list consisting of all contacts (image adapted from Delete-by-name section).
+
+![Report0](images/DeleteByNamePersonList0.png)
+
+Step 2. The user executes `report` command to view the status (and expenditure) across all tags. The `report` command calls
+`Model#getFilteredPersonList()` and then iterates through the given list to filter out tags and check the respective status count for each tag (i.e. number of confirmed, pending and declined contacts associated with each tag).
+While doing so, each tag and the status count associated with it is stored within a `reportElement` which is placed and regularly updated in a separate arraylist known as `reportArray`. 
+Assuming that the following is the details for the contacts stored,
+
+* Alex Yeoh: Tag is friends and status is pending
+* Bernice Yu: Tag is friends and status is confirmed
+* John Doe: Tag is caterer and status is declined
+
+the diagram below would be expected.
+
+![Report1](images/ReportArray.png)
+
+Step 3. The `report` command then fully iterates through the `reportArray`, and produces a text report of the different tags identified
+as well as their respective status counts (in the form of a popup window).
+
+![Report2](images/ReportWindowStatus.png)
+
+Step 4. After that, a command result indicating that the report window is opened is reproduced in the command box.
+
+![Report3](images/ReportResponse.png)
+
+#### Design considerations:
+
+**Aspect: How report executes:**
+
+* **Alternative 1 (current choice):** Produces status for tags and expenditure in a text form.
+    * Pros: Easy to understand and implement the report.
+    * Cons: May be inconvenient for users to read through the entire report when the number of tags and contacts is very high.
+
+* **Alternative 2:** Produces graphical representation of report
+    * Pros: Enables user to better visualise status of different tags
+    * Cons: Could be difficult to interpret graph if user uses a large range of tags with various statuses.
+
+_{more aspects and alternatives to be added}_
+
+### Undo feature
+
+The undo mechanism is facilitated by an Undo module and is prompted by the command `undo`. This command 
+is used for undoing the most recent change made to the program. 
+
+It uses the `ReadOnlyAddressBook` interface to retrieve the list of people stored as contacts. 
+The undo mechanism invokes the following operations:
+
+* `AddressBook#removePerson()` — Removes the specific person from the list of people.
+* `AddressBook#setPerson()` — Adds the specific person to the list of people.
+
+The above operations are represented by the Model interface in the UndoCommand class as `Model#deletePerson()` and
+`Model#setPerson()` respectively.
+
+To undo a task, the undo class keeps track of what the previous command is through the method `Undo#setPreviousCommand`,
+and when the `undo` command is inputted, it checks what the previous command (static variable prevCommand)) was and 
+whether it can be undone.
+
+As of now, the `undo` command will revert the action of an `add`, `edit`, `delete`, `clear` or `group` command. Other
+commands cannot be undone (due to their nature) or have not been implemented.
+
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The AddressBook person list is shown below.
+
+![UndoState1](images/UndoState1.png)
+
+The prevCommand variable is set to nothing, as no previous command has been made.
+
+![UndoState0](images/UndoState0.png)
+
+Step 2. The user executes `edit 1 s/Confirmed` command to change the status of the first person in the book to confirmed.
+The `edit` command called will invoke `Model#setPerson()` to make the changes to the AddressBook person list.
+
+![UndoState2](images/UndoState2.png)
+
+The prevCommand variable will now be assigned to this EditCommand object.
+
+![UndoState3](images/UndoState3.png)
+
+Step 3. The user executes `delete 1` to delete the first person in the group.
+The `delete` command will call `Model#deletePerson()`, making a change to the AddressBook person list once again.
+
+![UndoState4](images/UndoState4.png)
+
+The prevCommand variable will now be assigned to this DeleteCommand object.
+
+![UndoState5](images/UndoState5.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+If a command is invalid, it will not call `Model#setPerson()` or 
+`Model#deletePerson()`, and the prevCommand value will be set to null.
+</div>
+
+Step 4. The user now decides that deleting the person was a mistake, and decides to undo that action by executing the `undo` command. 
+The `undo` command will call `Model#setPerson()`, which will revert the AddressBook person list to the 
+previous state as a result of re-adding the contact at the exact same location.
+
+![UndoState0](images/UndoState1.png)
+
+The prevCommand variable is also updated to equal the UndoCommand object.
+
+![UndoState6](images/UndoState6.png)
+
+The following sequence diagram shows how the undo operation works (for undoing a delete command):
+
+![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the AddressBook person list
+such as `list`, will just output a message stating that such a command cannot be undone.
+
+Step 6. The user wants to use undo on the `shortcut` command, in which case the program will output that undo
+has not been implemented for such a command.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+If a command is valid but cannot be undone, the prevCommand value will still be
+set to the command but upon evaluation the undo action will not be performed.
+</div>
+
+The following activity diagram summarizes what happens when a user tries to undo a command:
+
+![CommitActivityDiagram](images/CommitActivityDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How undo executes:**
+
+* **Alternative 1 (current implementation):** Having an undo class to execute the command.
+  * Pros: Easy to keep track of what the previous command is.
+  * Cons: as the number of commands increase, the harder it is to keep track
+     of undoing all commands in one place.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+  * Pros: No need to store several commands' undoing operations in one class,
+    can have one undo operation (method) for each command.
+  * Cons: May be harder to keep track of what the previous command is.
+* **Alternative 3:** Store various states of the AddressBook.
+  * Pros: Easy to retrieve.
+  * Cons: Memory issues, when to delete an old (no longer useful) state.
+    
 _{more aspects and alternatives to be added}_
 
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -484,68 +698,63 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `WedFast` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a contact to a group**
+**Use case: Add multiple contacts to a group**
 
 **Guarantees**
-* Contact will be added to group only if both the contact and group exists.
+* Contacts will be added to a group only if both the contacts and group exist.
 
 **MSS**
 
-1. User types out name of contact with group name using specified format.
+1. User types out names of the contacts with group name using specified format.
 2. User confirms.
 3. System adds contact to said group.<br>
     Use case ends.
 
 **Extensions**
-* 2a. Either name/group name is unspecified/blank(white spaces only)/does not exist.
-    * 2a1. System shows an error message.
-    * 2a2. User indicates the error message has been read.<br>
+* 2a. Either one of the names/group name is unspecified/blank(white spaces only)/does not exist.
+    * 2a1. System shows an error message.<br>
     Use case resumes at step 1.
-
-**Use case:  Filter contacts**
-
-**Guarantees:**
-* System successfully filter and display the contacts list only if the group/tag exists.
-
-**MSS**
-
-1. User types out group and/or tag in specified format.
-2. User confirms.
-3. System filters contacts that fall under that group and/or tag.<br>
-    Use case ends.
-
-**Extensions**
-* 2a. Either group/tag name is unspecified/blank(white spaces only)/does not exist.
-    * 2a1. System shows an error message.
-    * 2a2. User indicates the error message has been read.<br>
-      Use case resumes at step 1.
-
-**Use case:  Track important information**
-
-**MSS**
-
-1. User types in key details when creating new contacts.
-2. User types out the tracking command keyword.
-3. User confirms.
-4. System summarises all the important information typed by user across all contacts.<br>
-    Use case ends.
 
 **Use case: Add/Edit price tag**
 
 **Guarantees:**
 * A price tag will be added to the contact only if the contact exists and price is specified in the correct format.
 
+**MSS**
+
 1. When adding/editing contact, user also types in the price detail.
 2. User confirms.
-3. System updates the contact list and the target contact will now have price tag(s).
+3. System updates the contact list and the target contact will now have price tag(s).<br>
     Use case ends.
 
 **Extensions**
 * 2a. Price is unspecified/blank(white spaces only)/written in invalid format.
-    * 2a1. System shows an error message.
-    * 2a2. User indicates the error message has been read.<br>
+    * 2a1. System shows an error message.<br>
       Use case resumes at step 1.
 
+
+**Use case: Executes a shortcut**
+
+**Guarantees:**
+* Shortcut will only be executed if shortcut exists and command is valid.
+
+**MSS**
+
+1. User calls a shortcut
+2. Command String attached to the shortcut keyword is called
+3. System runs the command attached at the user story of that command will run <br>
+Use case ends.
+
+**Extensions**
+* 1a. Shortcut keyword used does not exist
+    * 1a1. System shows an error message.
+      Use case resumes at step 1.
+* 3a. Shortcut command string is an invalid command
+    * 3a1. System shows an error message.
+      Use case resumes at step 1.
+* 3b. Running the command result in error
+    * 3b1. System shows the error message of the command
+      Use case resumes at step 1.
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -553,13 +762,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any pc as long as it has Java `11` or above installed.
 2.  Should be able to store and manage at least 100 contacts.
 3.  Should be able to guarantee data security to protect privacy of user.
-4.  Should not store more than 20MB of infomation.
+4.  Should not store more than 20 MB of information.
 5.  Program should respond within 2 seconds of each command.
 6.  Product is not handling more than 1 user planning a wedding at once.
 7.  Should be usable by anyone who understands english without any experience in planning weddings.
 
-
-*{More to be added}*
 
 ### Glossary
 
@@ -569,6 +776,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Filter**: Add tags to contacts such as price, type of contact
 * **Actor**: a role played by a use case
+* **Keyword**: Keyword used to call a shortcut
+* **Command String**: Command attached to the keyword of the shortcut
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -583,42 +793,269 @@ testers are expected to do more *exploratory* testing.
 
 ### Launch and shutdown
 
-1. Initial launch
+1. **Initial launch**
 
    1. Download the jar file and copy into an empty folder
 
    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+1. **Saving window preferences**
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. **Deleting a person while all persons are being shown**
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1.1. Prerequisites:
+      * List all persons using the `list` command. Multiple persons in the list.
+      * Add a person using the command: `add n/Bryan Tan p/99778866 e/bryantan@hmail.com a/Fake Street`.
+      * Make sure there is **no** person named `DUMMY CONTACT FOR TESTING` in the list.
 
-   1. Test case: `delete 1`<br>
+   1.2. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1.3. Test case: `delete 0`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   
+   1.4. Test case: `delete n/Bryan Tan`<br>
+      Expected: The contact `Bryan Tan` is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   
+   1.5. Test case: `delete n/DUMMY CONTACT FOR TESTING`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1.6. Other incorrect delete commands to try: `delete`, `delete n/`, `delete n/   `, `delete x` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Counting down to the wedding day
+
+1. **Set the date of the wedding**
+
+   1.1. Test case: `countdown 2025-04-29`<br>
+        Expected: The wedding date has been set to `2025-04-29`. The wedding date shown in the status message along with the countdown. Timestamp in the status bar is updated.
+
+   1.2. Test case: `countdown 29-04-2025`<br>
+        Expected: No wedding date is set. Error details shown in the status message. Status bar remains the same.
+
+   1.3. Other incorrect set-wedding-countdown command to try: `countdown 2025 April 29`, `countdown somedummytexthere`<br>
+        Expected: Similar to previous.
+
+### Checking expenses of the wedding
+
+1. **Checking total cost of the wedding**
+
+   1.1. Test case: `price`<br>
+        Expected: The total cost of the wedding shown in the status message. Timestamp in the status bar is updated.
+
+   1.2. Test case: `price somedummytexthere`<br>
+        Expected: Error details shown in the status message. Status bar remains the same.
+
+2. **Checking total cost for a particular group(tag)**
+
+   1.1. Prerequisites:<br>
+      * Learn how to use `edit` command to edit the contact, refer [here](https://ay2122s1-cs2103t-w10-4.github.io/tp/UserGuide.html#editing-a-person--edit).
+      * Modify the contact list using `edit` command such that the first and second contact has the following details:
+        * tags: `item1` 
+        * price: `$100.00`
+        * status: `Confirmed`
+      * Then, modify the rest of the contacts using `edit` command so that all of them have either `Pending` or `Declined`
+        status.
+      * Make sure the first and second contact in the list **do not** have the tag `SOMERANDOMTAGHERE`
+
+   1.2. Test case: `price t/item1`<br>
+       Expected: The total cost of for the group(tag) `item` shown in the status message. Timestamp in the status bar is updated.
+
+   1.3. Test case: `price t/SOMERANDOMTAGHERE`<br>
+        Expected:  Error details shown in the status message. Status bar remains the same.
+
+   1.4. Other incorrect cost-sum-checking command to try: `price t/`<br>
+        Expected: Similar to previous.
+
+### Deleting a tag
+
+1. Deleting persons with a specific tag
+
+    1. Test case: `delete t/testTag`<br>
+       Expected: All contacts with tag, "testTag" are deleted from the list. A success command message stating that contacts under said tag has been removed is shown in the command box.
+
+    1. Test case: `delete t/unknownTag`<br>
+       Expected: Assuming that person with, "unknownTag" does not exist in the list. Error message stating contacts with such a tag cannot be found is shown in the command box. 
+
+    1. Incorrect delete by tag commands to try: `delete t/` <br>
+       Expected: Error message stating that tag specified must be a non-empty and non-blank string is provided in the command box.
+
+### Report
+
+1. Showing report consisting of a summary of the statuses and expenses across different tags.
+
+    1. Test case: `report`<br>
+       Expected: Report is generated in a pop up window. A success command message indicating report window is opened is provided.
+
+    1. Test case: `report now`<br>
+       Expected: As long as the first word in the command starts with,"report", additional words and spaces after the command are ignored.
+       The report is generated in a pop up window. A success command message indicating report window is opened is provided.
+
+    1. Incorrect report command to try: `1 report`,`reports` <br>
+       Expected: Since both the above commands are invalid, an error message stating unknown message is shown in the command box.
+
+### Undoing information
+
+1. **Undoing the previous command**    
+
+   1.1 Test case: `help` input followed by `undo`<br>
+       Expected: outputs to the display section of the program indicating that such a command cannot be undone because
+       it has not changed the contact list information.
+   
+   1.2 Test case: `addsc random c/delete 1` input followed by `undo`<br>
+       Expected: outputs a message stating that undo has not been implemented for this feature. Contact list
+       remains the same.
+   
+   1.3 Test case: passes in a null object to the previous command before inputting `undo` (this mimicks what happens when an invalid
+       input is used).<br>
+       Expected: prints in the program that the previous command was invalid, hence undo does not work. 
+   
+   1.4 Test case: `delete 1` input followed by `undo`<br>
+       Expected: deleting the first person in the list has been undone with a message indicating the task was successful. 
+       Surrounded by a try-catch for the case that the contact list is empty
+
+### Shortcut features
+
+1. **Add a new shortcut**
+
+   1.1. Test case: `addsc s c/list`<br>
+        Expected: `listsc` now shows `KEY s - COMMAND list`. Calling `sc s` will list out all the contacts 
+
+   1.2. Test case: `addsc c/list`<br>
+        Expected: Error message. Invalid command format. 
+
+   1.3. Other incorrect add-shortcut command to try: `addsc s`<br>
+        Expected: Same as 1.2
+
+2. **Using a shortcut**
+
+   2.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+      * Make sure the shortcut is shown in `listsc`
+
+   2.2. Test case: `sc s` <br>
+   Expected: Lists out all items the exact same as the `list` command. Otherwise, functions as specified by the command string.
+
+   2.3. Test case: `sc` <br>
+   Expected: Incorrect format. Invalid command format error shown.
+
+   2.4. Calling command that does not exist: `sc a` <br>
+   Expected: Command not found eror shown
+
+3. **Deleting a shortcut**
+
+    3.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+      * Make sure the shortcut is shown in `listsc`
+
+    3.2. Test case: `removesc s` <br>
+    Expected: Displays message that shortcut was removed successfully. `listsc` will no longer show that contact
+
+    3.3. Test case: `removesc` <br>
+    Expected: Incorrect format. Invalid command format error shown.
+
+    3.4. Calling command that does not exist: `removesc a` <br>
+    Expected: Command not found eror shown
+
+4. **Viewing shortcuts**
+
+    4.1. Prerequisites:<br>
+      * Add a shortcut using `addsc` command such as the one above (keyword: `s`, command: `list`)
+    
+    4.2. Test case: `listsc` <br>
+    Expected: Displays all correct shortcuts added by the user. 
+
+### Finding Contacts
+
+1. **Finding contacts from their names, tags, and price**
+
+   1.1. Prerequisites:
+      * List all persons using the `list` command. Multiple persons in the list.
+      * Add a person using the command: `add n/Bryan Tan p/99778866 e/bryantan@hmail.com a/Fake Street t/Tag pr/20.00`.
+      * Add a person using the command: `add n/Sam p/99887766 e/samn@hmail.com a/Fake Street t/Tag Tag2 pr/10.00`.
+      * Make sure there is **no** person named `DUMMY CONTACT FOR TESTING` in the list.
+
+   1.2. Test case: `find Bryan`<br>
+      Expected: Bryan Tan and other existing contacts named Bryan is shown. 
+
+   1.3. Test case: `find t/Tag`<br>
+      Expected: Both Bryan and Sam is shown as they both have the tag "Tag". 
+   
+   1.4. Test case: `find Bryan Sam`<br>
+      Expected: Both Bryan and Sam is shown by searching for their names
+   
+   1.5. Test case: `find pr/=10.00`<br>
+      Expected: Only Sam is shown as his price is 10.00.
+
+   1.6. Test case: `find pr/>10.00`<br>
+      Expected: Only Bryan is shown as his price is 20.00.
+
+   1.7. Test case: `find pr/<20.00`<br>
+      Expected: Only Sam is shown as his price is 10.00.
+   
+   1.8. Test case: `find pr/<=20.00`<br>
+      Expected: Both Bryan and Sam is shown as their prices are lower than or equal to 20.00.
+    
+   1.9. Test case: `find pr/>=10.00`<br>
+      Expected: Both Bryan and Sam is shown as their prices are higher than or equal to 10.00.
+   
+   1.10. Test case for invalid find: `find`, `find t/` <br>
+      Expected: Error message shown. Invalid command format. 
+    
+   1.11. Test case for invalid price: `find pr/1`, `find pr/=a` <br>
+      Expected: Error message shown. Invalid price format. 
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. **Dealing with missing/corrupted data files**
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Simulating a corrupted file:
+      * In the app's home folder, look for a folder named `data`, double click into it, then look for a file named `countdown.json`.
+      * If the file is not found, launches your app and type the command: `countdown`.
+      * Open the file and modify the `month` to `TEST` of the countdown as shown below, then save it:
+        ![ModifyCountdownJson](images/ModifyCountdownJSON.png)
+      * If your app is open now, close it.
+   
+   2. Expected behavior:<br>
+      * Relaunches the app and you will see the following displayed in the status message. It means the original corrupted `countdown.json` will be replaced 
+        with the new one the next time `countdown` command is used. Timestamp in the status bar is updated.
+        ![CorruptedCountdownBehavior](images/CorruptedCountdownBehavior.png)
+      * Use `countdown` command, then reopen the `countdown.json`. You will see the `month` has been changed to today's month.
 
-1. _{ more test cases …​ }_
+--------------------------------------------------------------------------------------------------------------------
+
+## **Effort**
+
+1. **Difficulty level:**<br>
+   * This project has the medium high level of difficulty as all of our developers has to handle this project in the time
+     of pandemic. It means that all of us have to work from home, thus making the communication harder and reduce the
+     productivity.
+   * Furthermore, all of us has no prior experience of handling brown field project, and has very little experience in 
+     using JavaFX. Most of the tools used are learnt on the spot and apply directly to the project.
+   * Last but not least, this project has a very tight time constraint.
+
+2. **Challenges faced:**<br>
+   * Difficulty in communication: All discussions are through Zoom(a software used for online meeting) comes with the risk of slow internet connection and issue in microphone.
+   * Responsibilities outside the project: Most of us has other responsibilities to deal with, limiting us from dedicating more time for this project.
+
+3. **Effort required:**<br>
+   * Coordinating with all the developers' schedule.
+   * Learn the convention of writing a proper documentation.
+   * Learn the tools such as JavaFX from scratch and apply directly.
+
+4. **Achievements of the project:**<br>
+   * All the deliverables for each milestone has been submitted on time.
+   * All the bug detected has been solved on time.
+
+5. Ultimately, this project has been quite challenging as our solution architecture involves the contacts with more entities type than the original AB3 project.
+   The additional entities involved includes `price`, `important info`, and `status`. These serves as the foundation for some features implemented and
+   requires extra time and effort to modify the existing feature to ensure the app functions as expected.
+
+

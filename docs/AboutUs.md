@@ -5,20 +5,17 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
-
 ## Project team
 
 ### Ravi Ananya
 
 <img src="images/banana3021.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/Banana3021.md)]
+[[portfolio](team/Banana3021.md)]
 
-* Role: Project Advisor
-
+* Role: Developer
+* Responsibilities: Feature Development + Data
 
 ### Shui Jie
 
@@ -34,20 +31,20 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/yin72257.png" width="200px">
 
-[[github](http://github.com/yin72257)] [[portfolio](team/ruohang.md)]
+[[github](http://github.com/yin72257)] [[portfolio](team/yin72257.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Feature development
 
 ### Linda Tom
 
 <img src="images/linda124.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/desmondto.md)]
+[[github](http://github.com/Linda124)]
+[[portfolio](team/Linda124.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Feature development
 
 ### Desmond To Cie Hong
 
@@ -56,5 +53,5 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/desmondto)]
 [[portfolio](team/desmondto.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Developer + UI Designer
+* Responsibilities: Develop the features laid out in the plan + Translating requirements into attractive user interfaces.
